@@ -1,3 +1,8 @@
+final onlyLettersRegEx = RegExp(r'^[a-zA-Z]+$');
+final onlyDigitsRegEx = RegExp(r'^[0-9]+$');
+final emailRegEx = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+final alphanumericRegEx = RegExp(r'^[a-zA-Z0-9]+$');
+
 bool isStringEmptyOrNull(String? value) {
   if (value == null || value.trim().isEmpty) {
     return true;
@@ -6,21 +11,21 @@ bool isStringEmptyOrNull(String? value) {
 }
 
 bool isStringAllDigits(String value) {
-  var isAllDigits = RegExp(r'^[0-9]+$').hasMatch(value);
+  var isAllDigits = onlyDigitsRegEx.hasMatch(value);
   return isAllDigits;
 }
 
-String? formIntAmountValidator(String? val) {
+String? formIntValidator(String? val) {
   if (isStringEmptyOrNull(val)) {
-    return "Amount is required";
+    return "Field is required";
   }
   val = val!.trim();
   if (!isStringAllDigits(val)) {
-    return 'Amount must contain only digits.';
+    return 'Value must contain only digits.';
   }
 
   if (int.tryParse(val) == null) {
-    return 'Invalid amount';
+    return 'Invalid value';
   }
 
   return null;
@@ -41,10 +46,39 @@ String? formPhoneNoValidator(String? val) {
   return null;
 }
 
-String? formValueValidator(String? val) {
+String? formStrValueValidator(String? val) {
   if (isStringEmptyOrNull(val)) {
     return "Field is required";
   }
+
+  if (!onlyLettersRegEx.hasMatch(val!)) {
+    return "Value must contain only letters";
+  }
+
+  return null;
+}
+
+String? formEmailValidator(String? val) {
+  if (isStringEmptyOrNull(val)) {
+    return "Email is required";
+  }
+
+  if (!emailRegEx.hasMatch(val!)) {
+    return "Enter a valid email address";
+  }
+
+  return null;
+}
+
+String? formAlphanumericValidator(String? val) {
+  if (isStringEmptyOrNull(val)) {
+    return "Field is required";
+  }
+
+  if (!alphanumericRegEx.hasMatch(val!)) {
+    return "Only letters and numbers are allowed";
+  }
+
   return null;
 }
 
@@ -58,12 +92,12 @@ String? formPasswordValidator(String? val) {
   return null;
 }
 
-String? formConfirmPasswordValidator(String? val, String? password) {
-  String? passCheck = formPasswordValidator(val);
+String? formConfirmPasswordValidator(String? password, String? conformPass) {
+  String? passCheck = formPasswordValidator(password);
   if (!isStringEmptyOrNull(passCheck)) {
     return passCheck;
   }
-  if (val != password) {
+  if (password != conformPass) {
     return "Passwords do not match";
   }
   return null;
