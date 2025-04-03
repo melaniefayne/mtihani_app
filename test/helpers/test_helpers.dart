@@ -2,6 +2,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -10,13 +11,16 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  // @stacked-mock-spec
+  MockSpec<TeacherOnboardingService>(
+      onMissingStub: OnMissingStub.returnDefault),
+// @stacked-mock-spec
 ])
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
-  // @stacked-mock-register
+  getAndRegisterTeacherOnboardingService();
+// @stacked-mock-register
 }
 
 MockNavigationService getAndRegisterNavigationService() {
@@ -69,6 +73,12 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
+MockTeacherOnboardingService getAndRegisterTeacherOnboardingService() {
+  _removeRegistrationIfExists<TeacherOnboardingService>();
+  final service = MockTeacherOnboardingService();
+  locator.registerSingleton<TeacherOnboardingService>(service);
+  return service;
+}
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {

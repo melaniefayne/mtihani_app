@@ -19,7 +19,7 @@ class LoginViewModel extends BaseViewModel with FormStateHelper {
     rebuildUi();
   }
 
-  onUserLogin() async {
+  onApiUserLogin() async {
     validateForm();
     if (!isFormValid) {
       rebuildUi();
@@ -44,7 +44,7 @@ class LoginViewModel extends BaseViewModel with FormStateHelper {
     if (selectedRole != null) {
       switch (selectedRole) {
         case appTeacherRoleKw:
-          _navigationService.navigateToTeacherSignupView();
+          _navigationService.navigateToTeacherOnboardingView();
           break;
         case appStudentRoleKw:
           _navigationService.navigateToStudentSignupView();

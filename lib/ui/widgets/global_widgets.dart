@@ -154,3 +154,45 @@ buildPriBtn({
     ),
   );
 }
+
+Widget buildPageTitle({
+  required ThemeData theme,
+  required String pageTitle,
+  Function()? action,
+  String? actionTxt,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          Center(
+            child: Text(
+              pageTitle,
+              style: theme.textTheme.headlineMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+          ),
+          // Positioned Skip button
+          if (action != null)
+            Positioned(
+              right: 0,
+              child: TextButton(
+                onPressed: action,
+                child: Text(
+                  actionTxt ?? "Skip",
+                  style: theme.textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+            ),
+        ],
+      ),
+      const SizedBox(height: 5),
+      const Divider(thickness: 1),
+      const SizedBox(height: 5),
+    ],
+  );
+}

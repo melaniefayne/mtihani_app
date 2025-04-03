@@ -10,8 +10,12 @@ import 'package:mtihani_app/ui/views/login/login_view.dart';
 import 'package:mtihani_app/ui/views/student_home/student_home_view.dart';
 import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
 import 'package:mtihani_app/ui/dialogs/role_signup/role_signup_dialog.dart';
-import 'package:mtihani_app/ui/views/teacher_signup/teacher_signup_view.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/pages/teacher_signup/teacher_signup_view.dart';
 import 'package:mtihani_app/ui/views/student_signup/student_signup_view.dart';
+import 'package:mtihani_app/services/teacher_onboarding_service.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/teacher_onboarding_view.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/pages/class_form/class_form_view.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/pages/exam_setup/exam_setup_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -23,6 +27,9 @@ import 'package:mtihani_app/ui/views/student_signup/student_signup_view.dart';
     MaterialRoute(page: TeacherHomeView),
     MaterialRoute(page: TeacherSignupView),
     MaterialRoute(page: StudentSignupView),
+    MaterialRoute(page: TeacherOnboardingView),
+    MaterialRoute(page: ClassFormView),
+    MaterialRoute(page: ExamSetupView),
 // @stacked-route
   ],
   dependencies: [
@@ -31,7 +38,8 @@ import 'package:mtihani_app/ui/views/student_signup/student_signup_view.dart';
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: SharedPrefsService),
     LazySingleton(classType: AuthService),
-    // @stacked-service
+    LazySingleton(classType: TeacherOnboardingService),
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),

@@ -34,11 +34,13 @@ class RoleSignupDialog extends StackedView<RoleSignupDialogModel> {
             astImagesDarkLogo,
             height: 60,
           ),
-          Text(
-            "Welcome to Mtihani",
-            style: theme.textTheme.headlineSmall!.copyWith(
-              color: theme.primaryColor,
-              fontWeight: FontWeight.bold,
+          SizedBox(
+            width: pageSize.width * 0.4,
+            child: buildPageTitle(
+              theme: theme,
+              pageTitle: "Welcome to Mtihani",
+              actionTxt: "Back",
+              action: viewModel.getBack,
             ),
           ),
           const Text("What best describes you?"),

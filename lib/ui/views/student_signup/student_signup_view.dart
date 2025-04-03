@@ -138,7 +138,7 @@ class StudentSignupView extends StackedView<StudentSignupViewModel>
               SizedBox(height: pageSize.height * 0.02),
               buildPriBtn(
                 theme: theme,
-                onAction: viewModel.onStudentSignup,
+                onAction: viewModel.onApiStudentSignup,
                 iconPath: FontAwesomeIcons.usersRectangle,
                 btnTxt: 'Join Class',
                 isLoading: viewModel.isLoading,

@@ -71,7 +71,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 theme: theme,
                 btnTxt: 'Log In',
                 iconPath: Icons.login,
-                onAction: viewModel.onUserLogin,
+                onAction: viewModel.onApiUserLogin,
                 isLoading: viewModel.isLoading,
               ),
 

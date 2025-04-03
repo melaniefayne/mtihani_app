@@ -15,19 +15,19 @@ class StartupViewModel extends BaseViewModel {
     UserModel? userProfile = authCheckRes.$2;
 
     if (!authCheckRes.$1 || userProfile == null) {
-      _navigationService.replaceWithLoginView();
+      _navigationService.clearStackAndShow(Routes.loginView);
       return;
     }
 
     switch (userProfile.role) {
       case appTeacherRoleKw:
-        _navigationService.replaceWithTeacherHomeView();
+        _navigationService.clearStackAndShow(Routes.teacherHomeView);
         break;
       case appStudentRoleKw:
-        _navigationService.replaceWithStudentHomeView();
+        _navigationService.clearStackAndShow(Routes.studentHomeView);
         break;
       default:
-        _navigationService.replaceWithLoginView();
+        _navigationService.clearStackAndShow(Routes.loginView);
     }
   }
 }

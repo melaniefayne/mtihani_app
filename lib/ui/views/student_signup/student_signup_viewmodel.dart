@@ -23,7 +23,7 @@ class StudentSignupViewModel extends BaseViewModel with FormStateHelper {
         studentPasswordValue, studentConfirmPasswordValue);
   }
 
-  onStudentSignup() async {
+  onApiStudentSignup() async {
     validateForm();
     if (!isFormValid) {
       rebuildUi();

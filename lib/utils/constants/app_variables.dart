@@ -11,8 +11,12 @@ const String appStudentRoleKw = "student";
 
 // ASSETS
 // -----------------------
-const String astImagesLightLogo = "assets/images/mtihani_white.png";
+const String astImagesLightLogo = "assets/images/mtihani_light.png";
 const String astImagesDarkLogo = "assets/images/mtihani_dark.png";
 const String astImagesTeacher = "assets/images/teacher.png";
 const String astImagesStudent = "assets/images/student.png";
 const String astLottieAppLoader = "assets/lottie/app_loader.json";
+
+// VIEW_MODELS
+// -----------------------
+final DateTime today = DateTime.now();
