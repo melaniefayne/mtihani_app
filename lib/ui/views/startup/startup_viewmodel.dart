@@ -20,10 +20,10 @@ class StartupViewModel extends BaseViewModel {
     }
 
     switch (userProfile.role) {
-      case teacherRole:
+      case appTeacherRoleKw:
         _navigationService.replaceWithTeacherHomeView();
         break;
-      case studentRole:
+      case appStudentRoleKw:
         _navigationService.replaceWithStudentHomeView();
         break;
       default:

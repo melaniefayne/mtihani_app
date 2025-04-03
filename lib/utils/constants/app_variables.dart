@@ -6,12 +6,13 @@ const String strDefLoggedInUserData = "loggedInUserData";
 
 // ROLES
 //
-const String teacherRole = "teacher";
-const String studentRole = "student";
+const String appTeacherRoleKw = "teacher";
+const String appStudentRoleKw = "student";
 
 // ASSETS
 // -----------------------
-const String astImagesWhiteLogo = "assets/images/mtihani_white.png";
-const String astImagesBlackLogo = "assets/images/mtihani_black.png";
-const String astImagesGoogleLogo = "assets/images/google_logo.png";
+const String astImagesLightLogo = "assets/images/mtihani_white.png";
+const String astImagesDarkLogo = "assets/images/mtihani_dark.png";
+const String astImagesTeacher = "assets/images/teacher.png";
+const String astImagesStudent = "assets/images/student.png";
 const String astLottieAppLoader = "assets/lottie/app_loader.json";

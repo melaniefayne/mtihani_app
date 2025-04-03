@@ -1,0 +1,156 @@
+import 'package:flutter/material.dart';
+import 'package:mtihani_app/app/app.locator.dart';
+import 'package:stacked_services/stacked_services.dart';
+
+Widget formEyePassIcon({
+  required bool isVisible,
+  required Function onObscurePass,
+  required ThemeData theme,
+}) {
+  return GestureDetector(
+    onTap: () => onObscurePass(),
+    child: Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Icon(
+        isVisible ? Icons.visibility_off : Icons.visibility,
+        size: 30,
+        color: theme.primaryColor,
+      ),
+    ),
+  );
+}
+
+Widget buildPopupHeader(
+    {required ThemeData theme,
+    required IconData iconPath,
+    bool hideClose = false,
+    Widget? trailingWidget,
+    required String title}) {
+  double? iconSize = theme.textTheme.headlineMedium!.fontSize;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(
+                iconPath,
+                size: iconSize,
+                color: theme.primaryColor,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                title,
+                style: theme.textTheme.titleMedium!.copyWith(
+                  color: theme.primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          trailingWidget ??
+              (!hideClose
+                  ? IconButton(
+                      onPressed: () {
+                        final navigationService = locator<NavigationService>();
+                        navigationService.back();
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: iconSize,
+                        color: theme.primaryColor,
+                      ),
+                    )
+                  : const SizedBox())
+        ],
+      ),
+      const Divider(),
+      const SizedBox(height: 5),
+    ],
+  );
+}
+
+Widget buildBottomSheetScaffold({
+  required ThemeData theme,
+  required List<Widget> children,
+  required IconData iconPath,
+  required String title,
+  required double pageHeight,
+}) {
+  return Container(
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      ),
+    ),
+    padding: const EdgeInsets.all(10),
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        children: [
+          buildPopupHeader(
+            theme: theme,
+            iconPath: iconPath,
+            title: title,
+          ),
+          SizedBox(
+            height: pageHeight * 0.43,
+            child: SingleChildScrollView(
+              child: Column(
+                children: children,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+buildPriBtn({
+  required ThemeData theme,
+  required String btnTxt,
+  required Function() onAction,
+  bool isEnabled = true,
+  bool isLoading = false,
+  IconData? iconPath,
+  bool isFullWidth = true,
+}) {
+  return SizedBox(
+    width: isFullWidth ? double.infinity : null,
+    child: ElevatedButton.icon(
+      onPressed: (isEnabled && !isLoading) ? onAction : null,
+      label: isLoading
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: CircularProgressIndicator(
+                strokeWidth: 2.0,
+                color: theme.colorScheme.onPrimary,
+              ),
+            )
+          : Text(btnTxt),
+      icon: (iconPath == null || isLoading)
+          ? null
+          : Icon(
+              iconPath,
+              size: theme.textTheme.bodyMedium!.fontSize,
+            ),
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(
+          isEnabled ? theme.primaryColor : Colors.grey,
+        ),
+        foregroundColor: WidgetStatePropertyAll(theme.colorScheme.onPrimary),
+        shape: const WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero,
+          ),
+        ),
+      ),
+    ),
+  );
+}

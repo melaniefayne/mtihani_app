@@ -9,6 +9,9 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:mtihani_app/ui/views/login/login_view.dart';
 import 'package:mtihani_app/ui/views/student_home/student_home_view.dart';
 import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
+import 'package:mtihani_app/ui/dialogs/role_signup/role_signup_dialog.dart';
+import 'package:mtihani_app/ui/views/teacher_signup/teacher_signup_view.dart';
+import 'package:mtihani_app/ui/views/student_signup/student_signup_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -18,6 +21,8 @@ import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
     MaterialRoute(page: LoginView),
     MaterialRoute(page: StudentHomeView),
     MaterialRoute(page: TeacherHomeView),
+    MaterialRoute(page: TeacherSignupView),
+    MaterialRoute(page: StudentSignupView),
 // @stacked-route
   ],
   dependencies: [
@@ -30,11 +35,12 @@ import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
+// @stacked-bottom-sheet
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: RoleSignupDialog),
+// @stacked-dialog
   ],
 )
 class App {}

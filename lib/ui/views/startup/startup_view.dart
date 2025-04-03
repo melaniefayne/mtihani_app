@@ -15,11 +15,12 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
+    final pageSize = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Center(
         child: SizedBox(
-          width: 200,
-          height: 200,
+          width: pageSize.width * 0.4,
+          height: pageSize.width * 0.4,
           child: Lottie.asset(astLottieAppLoader),
         ),
       ),

@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
-```bash
-flutter run -d chrome
-```
+## For Later
+- Sign in with google
+- Rename routes
+
+## Notes
+- set autoValidateMode to false always
