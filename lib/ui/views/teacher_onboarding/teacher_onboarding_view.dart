@@ -68,6 +68,7 @@ class TeacherOnboardingView extends StackedView<TeacherOnboardingViewModel> {
             width: pageSize.width * (1 - progressSize),
             child: PageView(
               controller: viewModel.pageCtrl,
+              physics: const NeverScrollableScrollPhysics(),
               children: onboardingWidgets.map((e) => e.mainWidget).toList(),
             ),
           ),

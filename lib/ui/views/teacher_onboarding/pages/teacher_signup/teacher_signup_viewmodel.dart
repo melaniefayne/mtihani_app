@@ -12,7 +12,6 @@ class TeacherSignupViewModel extends BaseViewModel with FormStateHelper {
   bool isPasswordVisible = false;
   bool isLoading = false;
   String? confirmPassValidationMessage;
-  List<String> selectedSubjects = ['Integrated Science'];
 
   togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
@@ -24,38 +23,35 @@ class TeacherSignupViewModel extends BaseViewModel with FormStateHelper {
         teacherPasswordValue, teacherConfirmPasswordValue);
   }
 
-  onSubjectSelected(String subject) {}
-  onSubjectRemoved(String subject) {}
-
   onApiTeacherSignup() async {
-    validateForm();
-    if (!isFormValid) {
-      rebuildUi();
-      return;
-    }
+    // validateForm();
+    // if (!isFormValid) {
+    //   rebuildUi();
+    //   return;
+    // }
 
-    validatePassword();
-    if (confirmPassValidationMessage != null) {
-      rebuildUi();
-      return;
-    }
+    // validatePassword();
+    // if (confirmPassValidationMessage != null) {
+    //   rebuildUi();
+    //   return;
+    // }
 
-    isLoading = true;
-    rebuildUi();
-    Map<String, dynamic> teacherBody = {
-      "first_name": firstNameValue,
-      "last_name": lastNameValue,
-      "email": teacherEmailValue,
-      "phone_no": phoneNoValue,
-      "password": teacherPasswordValue,
-      "role": appTeacherRoleKw,
-    };
+    // isLoading = true;
+    // rebuildUi();
+    // Map<String, dynamic> teacherBody = {
+    //   "first_name": firstNameValue,
+    //   "last_name": lastNameValue,
+    //   "email": teacherEmailValue,
+    //   "phone_no": phoneNoValue,
+    //   "password": teacherPasswordValue,
+    //   "role": appTeacherRoleKw,
+    // };
 
-    log('Signing up with $teacherBody');
-    await Future.delayed(const Duration(seconds: 2));
+    // log('Signing up with $teacherBody');
+    // await Future.delayed(const Duration(seconds: 2));
 
-    isLoading = false;
-    rebuildUi();
+    // isLoading = false;
+    // rebuildUi();
 
     onGoToNext();
   }

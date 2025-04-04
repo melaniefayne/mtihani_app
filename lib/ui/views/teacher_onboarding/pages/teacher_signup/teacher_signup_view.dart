@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/ui/views/teacher_onboarding/pages/teacher_signup/teacher_signup_view.form.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/utils.dart';
 import 'package:mtihani_app/ui/widgets/app_choice_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
@@ -118,10 +119,10 @@ class TeacherSignupView extends StackedView<TeacherSignupViewModel>
             ),
             AppChoicesFormField(
               label: 'Subjects',
-              items: viewModel.selectedSubjects,
-              selectedValues: viewModel.selectedSubjects,
-              onSelected: viewModel.onSubjectSelected,
-              onRemoved: viewModel.onSubjectRemoved,
+              items: appSubjectList,
+              selectedValues: appSubjectList,
+              onSelected: (val) {},
+              onRemoved: (val) {},
             ),
             SizedBox(height: pageSize.height * 0.02),
             buildPriBtn(

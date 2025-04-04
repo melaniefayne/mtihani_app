@@ -6,6 +6,7 @@ class AppChoicesFormField<T> extends StatefulWidget {
   final List<T> items;
   final ValueChanged<T> onSelected;
   final ValueChanged<T> onRemoved;
+  final bool isDateTimeField;
 
   const AppChoicesFormField({
     super.key,
@@ -14,6 +15,7 @@ class AppChoicesFormField<T> extends StatefulWidget {
     required this.selectedValues,
     required this.onSelected,
     required this.onRemoved,
+    this.isDateTimeField = false,
   });
 
   @override

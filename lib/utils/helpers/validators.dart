@@ -1,4 +1,4 @@
-final onlyLettersRegEx = RegExp(r'^[a-zA-Z]+$');
+final onlyLettersRegEx = RegExp(r'^[a-zA-Z\s]+$');
 final onlyDigitsRegEx = RegExp(r'^[0-9]+$');
 final emailRegEx = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 final alphanumericRegEx = RegExp(r'^[a-zA-Z0-9]+$');

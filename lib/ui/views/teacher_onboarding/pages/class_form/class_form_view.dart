@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/pages/class_form/class_form_view.form.dart';
+import 'package:mtihani_app/ui/views/teacher_onboarding/utils.dart';
+import 'package:mtihani_app/ui/widgets/app_class_upload_field.dart';
+import 'package:mtihani_app/ui/widgets/app_dates_form_field.dart';
+import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 
 import 'class_form_viewmodel.dart';
 
-class ClassFormView extends StackedView<ClassFormViewModel> {
+@FormView(fields: [
+  FormTextField(name: 'className', validator: formStrValueValidator),
+  FormTextField(name: 'schoolName', validator: formStrValueValidator),
+  FormTextField(name: 'schoolAddress', validator: formStrValueValidator),
+])
+class ClassFormView extends StackedView<ClassFormViewModel>
+    with $ClassFormView {
   const ClassFormView({Key? key}) : super(key: key);
 
   @override
@@ -15,6 +28,7 @@ class ClassFormView extends StackedView<ClassFormViewModel> {
   ) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
+    double rowFieldFactor = 0.33;
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.all(pageSize.width * 0.04),
@@ -25,12 +39,70 @@ class ClassFormView extends StackedView<ClassFormViewModel> {
               pageTitle: "Create A Class",
               action: viewModel.onGoToHome,
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: pageSize.height * 0.02),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: pageSize.width * rowFieldFactor,
+                  child: AppTextFormField(
+                    label: "School Name",
+                    inputType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
+                    controller: schoolNameController,
+                    errorText: viewModel.schoolNameValidationMessage,
+                  ),
+                ),
+                SizedBox(
+                  width: pageSize.width * rowFieldFactor,
+                  child: AppTextFormField(
+                    label: "School Address",
+                    inputType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    controller: schoolAddressController,
+                    errorText: viewModel.schoolAddressValidationMessage,
+                  ),
+                ),
+              ],
+            ),
+            AppTextFormField(
+              label: "Class Name",
+              inputType: TextInputType.name,
+              textInputAction: TextInputAction.next,
+              controller: classNameController,
+              errorText: viewModel.classNameValidationMessage,
+            ),
+            buildDropDownFormField(
+              theme: theme,
+              label: "Grade",
+              selectedValue: viewModel.selectedGrade,
+              errorText: viewModel.gradeErrorMsg,
+              items: appGradeLevels.map<DropdownMenuItem<int>>((int value) {
+                return DropdownMenuItem<int>(
+                  value: value,
+                  child: Text("Grade $value"),
+                );
+              }).toList(),
+              onChanged: (val) => viewModel.onGradeChanged(val),
+            ),
+            AppDatesFormField(
+              label: 'Lesson Times',
+              selectedValues: viewModel.selectedLessonTimes,
+              onSelected: viewModel.onSelectedLessonTime,
+              onRemoved: viewModel.onRemovedLessonTime,
+              errorText: viewModel.lessonTimesErrorMsg,
+            ),
+            ClassDetailsUploader(
+              onParsed: viewModel.onClassCsvUploaded,
+              errorText: viewModel.uploadStudentsErrorMsg,
+            ),
+            SizedBox(height: pageSize.height * 0.02),
             buildPriBtn(
               theme: theme,
               btnTxt: 'Create a Class',
+              isLoading: viewModel.isLoading,
               onAction: viewModel.onApiClassCreate,
-            )
+            ),
           ],
         ),
       ),
@@ -42,4 +114,9 @@ class ClassFormView extends StackedView<ClassFormViewModel> {
     BuildContext context,
   ) =>
       ClassFormViewModel();
+
+  @override
+  void onViewModelReady(ClassFormViewModel viewModel) {
+    syncFormWithViewModel(viewModel);
+  }
 }

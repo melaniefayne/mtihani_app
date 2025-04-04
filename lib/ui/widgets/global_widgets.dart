@@ -199,3 +199,46 @@ Widget buildPageTitle({
     ],
   );
 }
+
+Widget buildDropDownFormField({
+  required ThemeData theme,
+  required String label,
+  double? width,
+  required dynamic selectedValue,
+  required List<DropdownMenuItem<dynamic>> items,
+  required Function(dynamic) onChanged,
+  String? hint,
+  String? errorText,
+}) {
+  return Container(
+    width: width,
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    child: DropdownButtonHideUnderline(
+      child: ButtonTheme(
+        alignedDropdown: true,
+        child: DropdownButtonFormField<dynamic>(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.zero,
+            label: Text(
+              label,
+              style: theme.textTheme.bodyLarge!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            errorText: errorText,
+            errorStyle: theme.textTheme.bodySmall!
+                .copyWith(color: theme.colorScheme.error),
+          ),
+          value: selectedValue,
+          icon: const Icon(Icons.arrow_drop_down),
+          onChanged: (dynamic value) {
+            onChanged(value);
+          },
+          items: items,
+          validator: (value) {
+            return null;
+          },
+        ),
+      ),
+    ),
+  );
+}
