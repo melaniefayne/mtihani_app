@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/utils.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
 
 class AppDatesFormField<T> extends StatefulWidget {
   final String label;

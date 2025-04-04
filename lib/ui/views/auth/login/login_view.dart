@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/ui/views/login/login_view.form.dart';
+import 'package:mtihani_app/ui/views/auth/login/login_view.form.dart';
 import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';

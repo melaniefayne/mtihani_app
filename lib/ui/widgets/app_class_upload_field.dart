@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/utils.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
 import 'dart:convert';
 import 'package:universal_html/html.dart' as html;
 import 'package:csv/csv.dart';

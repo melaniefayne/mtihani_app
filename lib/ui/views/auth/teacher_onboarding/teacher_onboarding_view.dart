@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/class_form/class_form_view.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/exam_setup/exam_setup_view.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/teacher_signup/teacher_signup_view.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 
@@ -86,7 +86,7 @@ class TeacherOnboardingView extends StackedView<TeacherOnboardingViewModel> {
     required bool isCurrent,
     required bool isLastStep,
   }) {
-    double radius = 40.0;
+    double radius = 35.0;
     Color txtColor =
         (isComplete || isCurrent) ? fgColor : theme.colorScheme.outlineVariant;
     return Row(
@@ -99,7 +99,7 @@ class TeacherOnboardingView extends StackedView<TeacherOnboardingViewModel> {
               width: radius,
               height: radius,
               decoration: BoxDecoration(
-                border: Border.all(color: txtColor, width: 2.0),
+                border: Border.all(color: txtColor, width: 1.0),
                 shape: BoxShape.circle,
                 color: isComplete ? fgColor : Colors.transparent,
               ),
@@ -124,13 +124,13 @@ class TeacherOnboardingView extends StackedView<TeacherOnboardingViewModel> {
             children: [
               Text(
                 item.title,
-                style: theme.textTheme.titleMedium!
+                style: theme.textTheme.bodyMedium!
                     .copyWith(fontWeight: FontWeight.bold, color: txtColor),
                 overflow: TextOverflow.clip,
               ),
               Text(
                 item.subtitle,
-                style: theme.textTheme.bodyMedium!.copyWith(color: txtColor),
+                style: theme.textTheme.bodySmall!.copyWith(color: txtColor),
                 overflow: TextOverflow.clip,
               ),
             ],

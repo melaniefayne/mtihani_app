@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Widget formEyePassIcon({
@@ -240,5 +241,18 @@ Widget buildDropDownFormField({
         ),
       ),
     ),
+  );
+}
+
+Widget buildLocalImage({
+  String? imagePath,
+  double radius = 45.0,
+  String placeholderImgPath = astImagesLightLogo,
+  Color? borderColor,
+}) {
+  return Image.asset(
+    imagePath ?? placeholderImgPath,
+    width: radius,
+    height: radius,
   );
 }

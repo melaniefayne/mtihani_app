@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/class_form/class_form_view.form.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/utils.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.form.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
 import 'package:mtihani_app/ui/widgets/app_class_upload_field.dart';
 import 'package:mtihani_app/ui/widgets/app_dates_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';

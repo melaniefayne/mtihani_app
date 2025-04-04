@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:mtihani_app/app/app.locator.dart';
-import 'package:mtihani_app/ui/views/student_signup/student_signup_view.form.dart';
+import 'package:mtihani_app/ui/views/auth/student_signup/student_signup_view.form.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';

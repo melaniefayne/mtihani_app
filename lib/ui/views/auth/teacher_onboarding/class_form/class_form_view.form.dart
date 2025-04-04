@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 
-const bool _autoTextFieldValidation = false;
+const bool _autoTextFieldValidation = true;
 
 const String ClassNameValueKey = 'className';
 const String SchoolNameValueKey = 'schoolName';

@@ -7,23 +7,23 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i12;
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/ui/views/auth/login/login_view.dart' as _i4;
+import 'package:mtihani_app/ui/views/auth/startup/startup_view.dart' as _i3;
+import 'package:mtihani_app/ui/views/auth/student_signup/student_signup_view.dart'
+    as _i8;
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart'
+    as _i10;
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart'
+    as _i11;
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_onboarding_view.dart'
+    as _i9;
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart'
+    as _i7;
 import 'package:mtihani_app/ui/views/home/home_view.dart' as _i2;
-import 'package:mtihani_app/ui/views/login/login_view.dart' as _i4;
-import 'package:mtihani_app/ui/views/startup/startup_view.dart' as _i3;
 import 'package:mtihani_app/ui/views/student_home/student_home_view.dart'
     as _i5;
-import 'package:mtihani_app/ui/views/student_signup/student_signup_view.dart'
-    as _i8;
 import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart'
     as _i6;
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/class_form/class_form_view.dart'
-    as _i10;
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/exam_setup/exam_setup_view.dart'
-    as _i11;
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/teacher_signup/teacher_signup_view.dart'
-    as _i7;
-import 'package:mtihani_app/ui/views/teacher_onboarding/teacher_onboarding_view.dart'
-    as _i9;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i13;
 

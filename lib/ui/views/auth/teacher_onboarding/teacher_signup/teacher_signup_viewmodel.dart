@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
-import 'package:mtihani_app/ui/views/teacher_onboarding/pages/teacher_signup/teacher_signup_view.form.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.form.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
