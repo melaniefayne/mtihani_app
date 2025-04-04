@@ -712,13 +712,4 @@ class MockTeacherOnboardingService extends _i1.Mock
           Invocation.getter(#pageController),
         ),
       ) as _i2.PageController);
-
-  @override
-  void goToNextPage() => super.noSuchMethod(
-        Invocation.method(
-          #goToNextPage,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
 }

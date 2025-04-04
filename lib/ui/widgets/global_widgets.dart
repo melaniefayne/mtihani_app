@@ -136,9 +136,12 @@ buildPriBtn({
           : Text(btnTxt),
       icon: (iconPath == null || isLoading)
           ? null
-          : Icon(
-              iconPath,
-              size: theme.textTheme.bodyMedium!.fontSize,
+          : Padding(
+              padding: const EdgeInsets.only(right: 3),
+              child: Icon(
+                iconPath,
+                size: theme.textTheme.bodyLarge!.fontSize,
+              ),
             ),
       style: ButtonStyle(
         backgroundColor: WidgetStatePropertyAll(
