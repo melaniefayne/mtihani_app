@@ -4,8 +4,6 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
 import 'dart:convert';
 import 'package:universal_html/html.dart' as html;
 import 'package:csv/csv.dart';
-import 'package:mtihani_app/app/app.locator.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class ClassDetailsUploader extends StatefulWidget {
   final String? errorText;
@@ -21,8 +19,13 @@ class ClassDetailsUploader extends StatefulWidget {
 class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
   List<StudentScores> data = [];
   List<List<dynamic>> rows = [];
+  String? _classUploadError;
 
-  void pickCSV(BuildContext context) async {
+  pickCSV() async {
+    setState(() {
+      _classUploadError = null;
+    });
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['csv'],
@@ -39,13 +42,10 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
           .toList();
 
       if (values.isEmpty || values[0].length != classCsvHeaders.length) {
-        final snackbarService = locator<SnackbarService>();
-        snackbarService.showSnackbar(
-          title: "Failed to upload",
-          message:
-              "Invalid file format or empty data. Please use the template.",
-          duration: const Duration(seconds: 3),
-        );
+        setState(() {
+          _classUploadError =
+              "Invalid file format or empty data. Please use the template.";
+        });
       } else {
         setState(() {
           rows = [...values];
@@ -192,8 +192,14 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
           ],
         ),
         const SizedBox(height: 15),
+        if (_classUploadError != null)
+          Text(
+            _classUploadError!,
+            style: theme.textTheme.bodyMedium!
+                .copyWith(color: theme.colorScheme.error),
+          ),
         ElevatedButton.icon(
-          onPressed: () => pickCSV(context),
+          onPressed: () => pickCSV(),
           icon: const Icon(Icons.upload_file),
           label: const Text("Upload CSV"),
         ),
@@ -223,7 +229,7 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
               label: const Text("Download Template"),
             ),
             ElevatedButton.icon(
-              onPressed: () => pickCSV(context),
+              onPressed: () => pickCSV(),
               icon: const Icon(Icons.upload_file),
               label: const Text("Re-upload CSV"),
             ),

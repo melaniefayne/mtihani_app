@@ -28,26 +28,20 @@ class StrandSelectionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            textBaseline: TextBaseline.alphabetic,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Text(
-                    'Grade ${gradeCbc.grade ?? '--'}',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Divider(
-                    color: theme.colorScheme.primary,
-                    thickness: 2,
-                  ),
-                ],
+              Text(
+                'Grade ${gradeCbc.grade ?? '--'}',
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              buildScoreCard(theme: theme, score: 64),
+              Divider(
+                color: theme.colorScheme.primary,
+                thickness: 2,
+              ),
             ],
           ),
           Divider(

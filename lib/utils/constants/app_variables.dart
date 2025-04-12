@@ -20,3 +20,4 @@ const String astLottieAppLoader = "assets/lottie/app_loader.json";
 // VIEW_MODELS
 // -----------------------
 final DateTime today = DateTime.now();
+final DateTime tomorrow = today.add(const Duration(days: 1));
