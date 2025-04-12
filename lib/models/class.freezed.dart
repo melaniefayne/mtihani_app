@@ -27,6 +27,8 @@ mixin _$ClassModel {
   int? get grade => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
   int? get teacher_id => throw _privateConstructorUsedError;
+  int? get student_count => throw _privateConstructorUsedError;
+  double? get avg_term_score => throw _privateConstructorUsedError;
 
   /// Serializes this ClassModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +53,9 @@ abstract class $ClassModelCopyWith<$Res> {
       String? school_address,
       int? grade,
       String? code,
-      int? teacher_id});
+      int? teacher_id,
+      int? student_count,
+      double? avg_term_score});
 }
 
 /// @nodoc
@@ -76,6 +80,8 @@ class _$ClassModelCopyWithImpl<$Res, $Val extends ClassModel>
     Object? grade = freezed,
     Object? code = freezed,
     Object? teacher_id = freezed,
+    Object? student_count = freezed,
+    Object? avg_term_score = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -106,6 +112,14 @@ class _$ClassModelCopyWithImpl<$Res, $Val extends ClassModel>
           ? _value.teacher_id
           : teacher_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      student_count: freezed == student_count
+          ? _value.student_count
+          : student_count // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_term_score: freezed == avg_term_score
+          ? _value.avg_term_score
+          : avg_term_score // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -125,7 +139,9 @@ abstract class _$$ClassModelImplCopyWith<$Res>
       String? school_address,
       int? grade,
       String? code,
-      int? teacher_id});
+      int? teacher_id,
+      int? student_count,
+      double? avg_term_score});
 }
 
 /// @nodoc
@@ -148,6 +164,8 @@ class __$$ClassModelImplCopyWithImpl<$Res>
     Object? grade = freezed,
     Object? code = freezed,
     Object? teacher_id = freezed,
+    Object? student_count = freezed,
+    Object? avg_term_score = freezed,
   }) {
     return _then(_$ClassModelImpl(
       id: freezed == id
@@ -178,6 +196,14 @@ class __$$ClassModelImplCopyWithImpl<$Res>
           ? _value.teacher_id
           : teacher_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      student_count: freezed == student_count
+          ? _value.student_count
+          : student_count // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_term_score: freezed == avg_term_score
+          ? _value.avg_term_score
+          : avg_term_score // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -192,7 +218,9 @@ class _$ClassModelImpl implements _ClassModel {
       this.school_address,
       this.grade,
       this.code,
-      this.teacher_id});
+      this.teacher_id,
+      this.student_count,
+      this.avg_term_score});
 
   factory _$ClassModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassModelImplFromJson(json);
@@ -211,10 +239,14 @@ class _$ClassModelImpl implements _ClassModel {
   final String? code;
   @override
   final int? teacher_id;
+  @override
+  final int? student_count;
+  @override
+  final double? avg_term_score;
 
   @override
   String toString() {
-    return 'ClassModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, grade: $grade, code: $code, teacher_id: $teacher_id)';
+    return 'ClassModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, grade: $grade, code: $code, teacher_id: $teacher_id, student_count: $student_count, avg_term_score: $avg_term_score)';
   }
 
   @override
@@ -231,13 +263,17 @@ class _$ClassModelImpl implements _ClassModel {
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.teacher_id, teacher_id) ||
-                other.teacher_id == teacher_id));
+                other.teacher_id == teacher_id) &&
+            (identical(other.student_count, student_count) ||
+                other.student_count == student_count) &&
+            (identical(other.avg_term_score, avg_term_score) ||
+                other.avg_term_score == avg_term_score));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, school_name,
-      school_address, grade, code, teacher_id);
+      school_address, grade, code, teacher_id, student_count, avg_term_score);
 
   /// Create a copy of ClassModel
   /// with the given fields replaced by the non-null parameter values.
@@ -263,7 +299,9 @@ abstract class _ClassModel implements ClassModel {
       final String? school_address,
       final int? grade,
       final String? code,
-      final int? teacher_id}) = _$ClassModelImpl;
+      final int? teacher_id,
+      final int? student_count,
+      final double? avg_term_score}) = _$ClassModelImpl;
 
   factory _ClassModel.fromJson(Map<String, dynamic> json) =
       _$ClassModelImpl.fromJson;
@@ -282,6 +320,10 @@ abstract class _ClassModel implements ClassModel {
   String? get code;
   @override
   int? get teacher_id;
+  @override
+  int? get student_count;
+  @override
+  double? get avg_term_score;
 
   /// Create a copy of ClassModel
   /// with the given fields replaced by the non-null parameter values.

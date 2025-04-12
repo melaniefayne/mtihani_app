@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/models/cbc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
+import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
-import 'package:mtihani_app/ui/widgets/cbc/strand_selection_card.dart';
+import 'package:mtihani_app/ui/widgets/model/strand_selection_card.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -35,21 +37,23 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
               tabs: [
                 TabViewItem(
                   label: "Strands",
-                  icon: Icons.check_box,
+                  icon: Icons.category,
                   widget: viewModel.busy(cbcFetchKey)
                       ? const Center(child: CircularProgressIndicator())
                       : buildStrandSection(
-                          currentClass: viewModel.currentClass!,
-                          gradeContent: viewModel.fetchedCbc,
-                          selectedStrands: viewModel.selectedStrands,
-                          onStrandSelected: viewModel.onStrandSelected,
+                          theme: theme,
                           pageSize: pageSize,
+                          viewModel: viewModel,
                         ),
                 ),
                 TabViewItem(
                   label: "Custom Content",
                   icon: Icons.file_upload,
-                  widget: const Center(child: Text("Content")),
+                  widget: buildCustomFilesSection(
+                    theme: theme,
+                    pageSize: pageSize,
+                    viewModel: viewModel,
+                  ),
                 ),
                 TabViewItem(
                   label: "Duration",
@@ -69,38 +73,92 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
   }
 
   buildStrandSection({
-    required ClassModel currentClass,
-    required List<GradeModel> gradeContent,
-    required List<int> selectedStrands,
-    required Function(int) onStrandSelected,
+    required ThemeData theme,
     required Size pageSize,
+    required ExamSetupViewModel viewModel,
   }) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: pageSize.width * 0.1,
-            vertical: pageSize.height * 0.02,
+    ClassModel currentClass = viewModel.currentClass!;
+    return buildSectionScaffold(
+      theme: theme,
+      pageSize: pageSize,
+      sectionTitle:
+          "You’re setting up an exam for Grade ${currentClass.grade} – ${currentClass.name}. Choose the strands you want to include, or leave it as is to test all strands up to this grade.",
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                children: [
+                  Checkbox(
+                    value: viewModel.hasSelectedAllStrands,
+                    onChanged: (val) {
+                      viewModel.onSelectAllStrands();
+                    },
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    "Select All",
+                    style: theme.textTheme.titleMedium!.copyWith(
+                      color: theme.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          child: Text(
-            "You are now creating an exam for a Grade ${currentClass.grade} class (${currentClass.name}). In this section, you can select which specific strands you want to test for. The default is all strands up to the current grade.",
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.clip,
+          if (viewModel.strandSelectError != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(
+                viewModel.strandSelectError!,
+                style: theme.textTheme.bodyMedium!.copyWith(
+                  color: theme.colorScheme.error,
+                ),
+              ),
+            ),
+          Wrap(
+            spacing: 15,
+            runSpacing: 15,
+            children: viewModel.fetchedCbc
+                .map((e) => StrandSelectionCard(
+                      gradeCbc: e,
+                      selectedStrands: viewModel.selectedStrandsIds,
+                      onStrandSelected: viewModel.onStrandSelected,
+                      cardWidth: pageSize.width * 0.21,
+                    ))
+                .toList(),
           ),
-        ),
-        Wrap(
-          spacing: 15,
-          runSpacing: 15,
-          children: gradeContent
-              .map((e) => StrandSelectionCard(
-                    gradeCbc: e,
-                    selectedStrands: selectedStrands,
-                    onStrandSelected: onStrandSelected,
-                    cardWidth: pageSize.width * 0.21,
-                  ))
-              .toList(),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+
+  buildCustomFilesSection({
+    required ThemeData theme,
+    required Size pageSize,
+    required ExamSetupViewModel viewModel,
+  }) {
+    const int maxFiles = 3;
+    const List<String> extensions = [
+      'pdf',
+      'txt',
+      'doc',
+      'docx',
+    ];
+    return buildSectionScaffold(
+      theme: theme,
+      pageSize: pageSize,
+      sectionTitle:
+          "Uploading files here is completely optional. If you'd like, you can add up to $maxFiles custom files to guide exam generation. We accept: ${extensions.join(', ')}.",
+      child: AppMultiFileFormField(
+        allowedExtensions: extensions,
+        selectedFiles: viewModel.selectedFiles,
+        onFileSelected: viewModel.onCustomFileSelected,
+        onFileRemoved: viewModel.onCustomFilesRemoved,
+        maxFiles: maxFiles,
+      ),
     );
   }
 
@@ -109,16 +167,63 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
     required Size pageSize,
     required ExamSetupViewModel viewModel,
   }) {
-    return Column(
-      children: [
-        SizedBox(height: pageSize.height * 0.02),
-        buildPriBtn(
-          theme: theme,
-          btnTxt: 'Set Exam',
-          isLoading: viewModel.isLoading,
-          onAction: viewModel.onApiExamSetup,
-        ),
-      ],
+    const int minDurationInMin = 75;
+    return buildSectionScaffold(
+      theme: theme,
+      pageSize: pageSize,
+      sectionTitle:
+          "Here’s where you schedule the exam date and time. For comprehensive coverage of the selected strands, we recommend a minimum duration of 1 hour 15 minutes.",
+      child: Column(
+        children: [
+          AppStartEndDateForm(
+            minDurationInMin: minDurationInMin,
+            onDateTimesSelected: viewModel.onDateTimesSelected,
+          ),
+          SizedBox(height: pageSize.height * 0.02),
+          const Divider(),
+          if (viewModel.examSetupError != null)
+            Text(
+              viewModel.examSetupError!,
+              style: theme.textTheme.bodyMedium!
+                  .copyWith(color: theme.colorScheme.error),
+            ),
+          SizedBox(height: pageSize.height * 0.01),
+          buildPriBtn(
+            theme: theme,
+            btnTxt: "Generate Exam",
+            iconPath: FontAwesomeIcons.scroll,
+            isLoading: viewModel.isLoading,
+            onAction: viewModel.onConfirmExamConfig,
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildSectionScaffold({
+    required ThemeData theme,
+    required Size pageSize,
+    required Widget child,
+    required String sectionTitle,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: pageSize.width * 0.1,
+              vertical: pageSize.height * 0.02,
+            ),
+            child: Text(
+              sectionTitle,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.clip,
+            ),
+          ),
+          child,
+        ],
+      ),
     );
   }
 

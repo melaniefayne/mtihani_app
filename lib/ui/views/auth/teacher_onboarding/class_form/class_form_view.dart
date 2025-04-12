@@ -70,6 +70,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
               inputType: TextInputType.name,
               textInputAction: TextInputAction.next,
               controller: classNameController,
+              hintText: "Example: 8 Blue, 7 North, 9A",
               errorText: viewModel.classNameValidationMessage,
             ),
             buildDropDownFormField(

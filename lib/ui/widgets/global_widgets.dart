@@ -256,3 +256,59 @@ Widget buildLocalImage({
     height: radius,
   );
 }
+
+Widget buildHeaderWidget({
+  required ThemeData theme,
+  required String title,
+  TextStyle? style,
+  Widget? leadingWidget,
+  Widget? trailingWidget,
+}) {
+  return Row(
+    children: [
+      if (leadingWidget != null)
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: leadingWidget,
+        ),
+      Text(
+        title,
+        style: style ?? theme.textTheme.titleSmall,
+      ),
+      Expanded(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Divider(
+            color: theme.colorScheme.outline,
+          ),
+        ),
+      ),
+      if (trailingWidget != null) trailingWidget,
+    ],
+  );
+}
+
+Widget buildDetailWidget({
+  required ThemeData theme,
+  required String label,
+  required String value,
+  TextStyle? valueStyle,
+}) {
+  return Text.rich(
+    TextSpan(
+      children: [
+        TextSpan(
+          text: "$label: ",
+        ),
+        TextSpan(
+          text: value,
+          style: valueStyle ??
+              theme.textTheme.titleMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.primary,
+              ),
+        )
+      ],
+    ),
+  );
+}

@@ -92,6 +92,8 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
         grade: 8,
         code: "FG67HG",
         teacher_id: 1,
+        student_count: 25,
+        avg_term_score: 68.2,
       ),
     );
     // If class is null, skip to Home, else go on to set exam

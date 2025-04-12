@@ -15,6 +15,8 @@ _$ClassModelImpl _$$ClassModelImplFromJson(Map<String, dynamic> json) =>
       grade: (json['grade'] as num?)?.toInt(),
       code: json['code'] as String?,
       teacher_id: (json['teacher_id'] as num?)?.toInt(),
+      student_count: (json['student_count'] as num?)?.toInt(),
+      avg_term_score: (json['avg_term_score'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$ClassModelImplToJson(_$ClassModelImpl instance) =>
@@ -26,4 +28,6 @@ Map<String, dynamic> _$$ClassModelImplToJson(_$ClassModelImpl instance) =>
       'grade': instance.grade,
       'code': instance.code,
       'teacher_id': instance.teacher_id,
+      'student_count': instance.student_count,
+      'avg_term_score': instance.avg_term_score,
     };
