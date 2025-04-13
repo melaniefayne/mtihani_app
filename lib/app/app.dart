@@ -2,7 +2,6 @@ import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:mtihani_app/ui/dialogs/info_alert/info_alert_dialog.dart';
-import 'package:mtihani_app/ui/views/home/home_view.dart';
 import 'package:mtihani_app/ui/views/auth/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -16,11 +15,17 @@ import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_onboarding_view.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
+import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart';
+import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
+import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/views/single_exam/single_exam_view.dart';
+import 'package:mtihani_app/ui/views/single_class/single_class_view.dart';
+import 'package:mtihani_app/ui/dialogs/app_action/app_action_dialog.dart';
+import 'package:mtihani_app/ui/dialogs/class_selector/class_selector_dialog.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
     MaterialRoute(page: StudentHomeView),
@@ -30,6 +35,11 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_set
     MaterialRoute(page: TeacherOnboardingView),
     MaterialRoute(page: ClassFormView),
     MaterialRoute(page: ExamSetupView),
+    MaterialRoute(page: DashboardView),
+    MaterialRoute(page: ProfileView),
+    MaterialRoute(page: ExamListView),
+    MaterialRoute(page: SingleExamView),
+    MaterialRoute(page: SingleClassView),
 // @stacked-route
   ],
   dependencies: [
@@ -48,6 +58,8 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_set
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
     StackedDialog(classType: RoleSignupDialog),
+    StackedDialog(classType: AppActionDialog),
+    StackedDialog(classType: ClassSelectorDialog),
 // @stacked-dialog
   ],
 )

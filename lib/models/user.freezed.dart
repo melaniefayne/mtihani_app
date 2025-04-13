@@ -28,7 +28,7 @@ mixin _$UserModel {
   int? get student_id => throw _privateConstructorUsedError;
   String? get phone_no => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
-  int? get classroom_id => throw _privateConstructorUsedError;
+  List<ClassModel>? get user_classes => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
 
@@ -56,7 +56,7 @@ abstract class $UserModelCopyWith<$Res> {
       int? student_id,
       String? phone_no,
       String? code,
-      int? classroom_id,
+      List<ClassModel>? user_classes,
       DateTime? created_at,
       DateTime? updated_at});
 }
@@ -84,7 +84,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? student_id = freezed,
     Object? phone_no = freezed,
     Object? code = freezed,
-    Object? classroom_id = freezed,
+    Object? user_classes = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
   }) {
@@ -121,10 +121,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      classroom_id: freezed == classroom_id
-          ? _value.classroom_id
-          : classroom_id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      user_classes: freezed == user_classes
+          ? _value.user_classes
+          : user_classes // ignore: cast_nullable_to_non_nullable
+              as List<ClassModel>?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -154,7 +154,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       int? student_id,
       String? phone_no,
       String? code,
-      int? classroom_id,
+      List<ClassModel>? user_classes,
       DateTime? created_at,
       DateTime? updated_at});
 }
@@ -180,52 +180,52 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? student_id = freezed,
     Object? phone_no = freezed,
     Object? code = freezed,
-    Object? classroom_id = freezed,
+    Object? user_classes = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
   }) {
     return _then(_$UserModelImpl(
-      freezed == user_id
+      user_id: freezed == user_id
           ? _value.user_id
           : user_id // ignore: cast_nullable_to_non_nullable
               as int?,
-      freezed == email
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      freezed == name
+      name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      freezed == role
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as String?,
-      freezed == teacher_id
+      teacher_id: freezed == teacher_id
           ? _value.teacher_id
           : teacher_id // ignore: cast_nullable_to_non_nullable
               as int?,
-      freezed == student_id
+      student_id: freezed == student_id
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
-      freezed == phone_no
+      phone_no: freezed == phone_no
           ? _value.phone_no
           : phone_no // ignore: cast_nullable_to_non_nullable
               as String?,
-      freezed == code
+      code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String?,
-      freezed == classroom_id
-          ? _value.classroom_id
-          : classroom_id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      freezed == created_at
+      user_classes: freezed == user_classes
+          ? _value._user_classes
+          : user_classes // ignore: cast_nullable_to_non_nullable
+              as List<ClassModel>?,
+      created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      freezed == updated_at
+      updated_at: freezed == updated_at
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
@@ -237,7 +237,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
   _$UserModelImpl(
-      this.user_id,
+      {this.user_id,
       this.email,
       this.name,
       this.role,
@@ -245,9 +245,10 @@ class _$UserModelImpl implements _UserModel {
       this.student_id,
       this.phone_no,
       this.code,
-      this.classroom_id,
+      final List<ClassModel>? user_classes,
       this.created_at,
-      this.updated_at);
+      this.updated_at})
+      : _user_classes = user_classes;
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -268,8 +269,16 @@ class _$UserModelImpl implements _UserModel {
   final String? phone_no;
   @override
   final String? code;
+  final List<ClassModel>? _user_classes;
   @override
-  final int? classroom_id;
+  List<ClassModel>? get user_classes {
+    final value = _user_classes;
+    if (value == null) return null;
+    if (_user_classes is EqualUnmodifiableListView) return _user_classes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final DateTime? created_at;
   @override
@@ -277,7 +286,7 @@ class _$UserModelImpl implements _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(user_id: $user_id, email: $email, name: $name, role: $role, teacher_id: $teacher_id, student_id: $student_id, phone_no: $phone_no, code: $code, classroom_id: $classroom_id, created_at: $created_at, updated_at: $updated_at)';
+    return 'UserModel(user_id: $user_id, email: $email, name: $name, role: $role, teacher_id: $teacher_id, student_id: $student_id, phone_no: $phone_no, code: $code, user_classes: $user_classes, created_at: $created_at, updated_at: $updated_at)';
   }
 
   @override
@@ -296,8 +305,8 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.phone_no, phone_no) ||
                 other.phone_no == phone_no) &&
             (identical(other.code, code) || other.code == code) &&
-            (identical(other.classroom_id, classroom_id) ||
-                other.classroom_id == classroom_id) &&
+            const DeepCollectionEquality()
+                .equals(other._user_classes, _user_classes) &&
             (identical(other.created_at, created_at) ||
                 other.created_at == created_at) &&
             (identical(other.updated_at, updated_at) ||
@@ -316,7 +325,7 @@ class _$UserModelImpl implements _UserModel {
       student_id,
       phone_no,
       code,
-      classroom_id,
+      const DeepCollectionEquality().hash(_user_classes),
       created_at,
       updated_at);
 
@@ -338,7 +347,7 @@ class _$UserModelImpl implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   factory _UserModel(
-      final int? user_id,
+      {final int? user_id,
       final String? email,
       final String? name,
       final String? role,
@@ -346,9 +355,9 @@ abstract class _UserModel implements UserModel {
       final int? student_id,
       final String? phone_no,
       final String? code,
-      final int? classroom_id,
+      final List<ClassModel>? user_classes,
       final DateTime? created_at,
-      final DateTime? updated_at) = _$UserModelImpl;
+      final DateTime? updated_at}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -370,7 +379,7 @@ abstract class _UserModel implements UserModel {
   @override
   String? get code;
   @override
-  int? get classroom_id;
+  List<ClassModel>? get user_classes;
   @override
   DateTime? get created_at;
   @override

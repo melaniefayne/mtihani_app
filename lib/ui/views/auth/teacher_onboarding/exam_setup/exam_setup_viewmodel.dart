@@ -2,42 +2,74 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/class_strand_score.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/cbc_data.dart';
+import 'package:mtihani_app/utils/api/api_calls.dart';
+import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:universal_html/html.dart' as html;
 
 const String cbcFetchKey = 'cbcFetchKey';
-const String classScoresKey = 'classScoresKey';
+const String classStrandScoresFetchKey = 'classStrandScoresFetchKey';
 
 class ExamSetupViewModel extends MultipleFutureViewModel {
+  final _navigationService = locator<NavigationService>();
   final _trOnboardingService = locator<TeacherOnboardingService>();
-  ClassModel? get currentClass => _trOnboardingService.currentClass;
   bool isLoading = false;
   String? examSetupError;
+  late ClassModel currentClass;
+
+  ExamSetupViewModel() {
+    onExamSetupViewReady();
+  }
+
+  onExamSetupViewReady() async {
+    if (_trOnboardingService.currentClass == null) {
+      _navigationService.clearStackAndShow(Routes.teacherHomeView);
+      return;
+    }
+    await refreshView();
+    currentClass = _trOnboardingService.currentClass!;
+  }
 
   // ==== STRANDS
+  List<GradeModel> _fetchedCbc = [];
   List<GradeModel> get fetchedCbc => _fetchedCbc;
-  List<double> get fetchedClassScores => dataMap?[classScoresKey] ?? [];
-  bool get fetchingCbc => busy(cbcFetchKey);
-  bool get fetchingClassScores => busy(classScoresKey);
+  List<ClassStrandScore> get fetchedClassScores =>
+      dataMap?[classStrandScoresFetchKey] ?? [];
+  bool get isFetchingCbc => busy(cbcFetchKey);
+  bool get isFetchingClassStrandScores => busy(classStrandScoresFetchKey);
   @override
   Map<String, Future Function()> get futuresMap => {
         cbcFetchKey: fetchCbcCurriculum,
-        classScoresKey: fetchClassScores,
+        classStrandScoresFetchKey: fetchStrandClassScores,
       };
-  List<GradeModel> _fetchedCbc = [];
+
   List<int> allStrandIds = [];
   List<int> selectedStrandsIds = [];
   String? strandSelectError;
+
   Future<List<GradeModel>> fetchCbcCurriculum() async {
+    var cbcApiRes = await onApiGetCall<GradeModel>(
+      getEndpoint: endPointGetClassCurriculum,
+      queryParams: {"class_id": currentClass.id},
+    );
+
+    if (apiCallChecks(cbcApiRes, 'class curriculum',
+        showSuccessMessage: false)) {
+      return cbcApiRes.$1?.listData ?? [];
+    }
+
     List<GradeModel> gradeContent =
         cbcDummyData.map((e) => GradeModel.fromJson(e)).toList();
     allStrandIds = gradeContent
-        .where((e) => int.parse(e.grade ?? '') <= currentClass!.grade!)
+        .where((e) => int.parse(e.grade ?? '') <= currentClass.grade!)
         .expand((e) => (e.strands ?? []))
         .map((s) => s.id ?? -1)
         .where((id) => id != -1)
@@ -47,7 +79,17 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
     return gradeContent;
   }
 
-  Future<List<double>> fetchClassScores() async {
+  Future<List<ClassStrandScore>> fetchStrandClassScores() async {
+    var classStrandScApiRes = await onApiGetCall<ClassStrandScore>(
+      getEndpoint: endPointGetClassStrandScores,
+      queryParams: {"class_id": currentClass.id},
+    );
+
+    if (apiCallChecks(classStrandScApiRes, 'class strand scores',
+        showSuccessMessage: false)) {
+      return classStrandScApiRes.$1?.listData ?? [];
+    }
+
     return [];
   }
 
@@ -144,21 +186,27 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
     rebuildUi();
 
     Map<String, dynamic> examBody = {
-      "class_id": currentClass!.id,
+      "class_id": currentClass.id,
       "selected_strand_ids": selectedStrandsIds,
-      "selected_times": selectedTimes.map((e) => getApiDateTime(e)).toList(),
+      "selected_times": selectedTimes
+          .map((e) => getFormattedDate(e, apiDateTimeFormat))
+          .toList(),
     };
     if (selectedFiles.isNotEmpty) {
       examBody["selected_files"] = selectedFiles;
     }
 
     log('Creating exam with ${jsonEncode(examBody)}');
-    await Future.delayed(const Duration(seconds: 2));
-
+    var apiCallRes = await onApiPostCall(
+      postEndpoint: endPointSetExam,
+      dataMap: examBody,
+    );
     isLoading = false;
     rebuildUi();
 
-    onGoToHome();
+    if (apiCallChecks(apiCallRes, "exam generation result") == true) {
+      onGoToHome();
+    }
   }
 
   onGoToHome() {

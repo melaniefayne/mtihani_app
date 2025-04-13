@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/class_strand_score.dart';
 import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
 import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
-import 'package:mtihani_app/ui/widgets/model/strand_selection_card.dart';
+import 'package:mtihani_app/ui/widgets/model_widgets/strand_selection_card.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -77,7 +78,8 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
     required Size pageSize,
     required ExamSetupViewModel viewModel,
   }) {
-    ClassModel currentClass = viewModel.currentClass!;
+    ClassModel currentClass = viewModel.currentClass;
+
     return buildSectionScaffold(
       theme: theme,
       pageSize: pageSize,
@@ -121,14 +123,24 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
           Wrap(
             spacing: 15,
             runSpacing: 15,
-            children: viewModel.fetchedCbc
-                .map((e) => StrandSelectionCard(
-                      gradeCbc: e,
-                      selectedStrands: viewModel.selectedStrandsIds,
-                      onStrandSelected: viewModel.onStrandSelected,
-                      cardWidth: pageSize.width * 0.21,
-                    ))
-                .toList(),
+            children: viewModel.fetchedCbc.map(
+              (e) {
+                List<int> gradeStrandIds =
+                    (e.strands ?? []).map((e) => e.id!).toList();
+                List<ClassStrandScore> strandScores = viewModel
+                    .fetchedClassScores
+                    .where((e) => gradeStrandIds.contains(e.strand_score?.id))
+                    .toList();
+
+                return StrandSelectionCard(
+                  gradeCbc: e,
+                  gradeStrandScores: strandScores,
+                  selectedStrands: viewModel.selectedStrandsIds,
+                  onStrandSelected: viewModel.onStrandSelected,
+                  cardWidth: pageSize.width * 0.21,
+                );
+              },
+            ).toList(),
           ),
         ],
       ),
@@ -225,11 +237,6 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
         ],
       ),
     );
-  }
-
-  @override
-  void onViewModelReady(ExamSetupViewModel viewModel) {
-    viewModel.refreshView();
   }
 
   @override
