@@ -2,14 +2,43 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AuthService {
   final _sharedPrefsService = locator<SharedPrefsService>();
+  final _dialogService = locator<DialogService>();
+  final _navigationService = locator<NavigationService>();
   bool isLoggingOut = false;
+
+  // LOGOUT
+  Future<void> onLogoutUser({bool isShowConfirmation = false}) async {
+    if (isLoggingOut) return;
+
+    isLoggingOut = true;
+
+    if (isShowConfirmation) {
+      DialogResponse? isConfirmed = await _dialogService.showCustomDialog(
+        variant: DialogType.appAction,
+        title: "Log Out",
+        description: "Are you sure you want to log out?",
+        barrierDismissible: true,
+      );
+
+      if (isConfirmed?.confirmed == null) {
+        isLoggingOut = false;
+        return;
+      }
+    }
+    await _sharedPrefsService.cleanCachedSession();
+    isLoggingOut = false;
+    _navigationService.clearStackAndShow(Routes.startupView);
+  }
 
   // USER PROFILE
   // -----------------------
@@ -28,12 +57,8 @@ class AuthService {
     return null;
   }
 
-  // TOKEN CHECKING
+  // TOKEN
   // -----------------------
-
-  /// Check if the user is authenticated by verifying the token and fetching the user profile.
-  /// If the token is invalid, it cleans the cached session and returns false.
-  /// If the token is valid, it fetches the user profile and returns true along with the profile.
   Future<(bool, UserModel?)> checkIsAuthenticated() async {
     var checkTokenRes = await checkValidToken();
     bool isTokenValid = checkTokenRes.$2;
