@@ -30,8 +30,9 @@ String endPointGetClassCurriculum = '$baseURL/class-curriculum';
 // EXAM ENDPOINTS
 // -----------------------
 String endPointGetUserExams = '$baseURL/user-exams';
+String endPointSetExam = '$baseURL/set-exam';
+String endPointGetEditExam = '$baseURL/edit-exam';
 
 // CLASS ENDPOINTS
 // -----------------------
 String endPointGetClassStrandScores = '$baseURL/class-strand-scores';
-String endPointSetExam = '$baseURL/set-exam';

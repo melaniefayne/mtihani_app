@@ -514,3 +514,53 @@ buildDialogScaffold({
     ),
   );
 }
+
+Widget buildPageAppHeader({
+  required ThemeData theme,
+  required String pageTitle,
+  Widget? trailing,
+  IconData? iconPath,
+  bool hideBackNav = true,
+}) {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              if (hideBackNav)
+                IconButton(
+                  onPressed: () {
+                    final navigationService = locator<NavigationService>();
+                    navigationService.back();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: theme.primaryColor,
+                  ),
+                ),
+              if (iconPath != null)
+                Icon(
+                  iconPath,
+                  color: theme.primaryColor,
+                ),
+              Text(
+                pageTitle,
+                style: hideBackNav
+                    ? theme.textTheme.titleMedium
+                    : theme.textTheme.headlineMedium,
+              )
+            ],
+          ),
+          if (trailing != null) trailing,
+        ],
+      ),
+      const SizedBox(height: 10),
+      Divider(
+        thickness: hideBackNav ? null : 2.0,
+        color: theme.primaryColor,
+      )
+    ],
+  );
+}

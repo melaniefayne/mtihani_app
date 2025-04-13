@@ -5,10 +5,14 @@ import 'package:mtihani_app/utils/constants/app_variables.dart';
 class AppStartEndDateForm extends StatefulWidget {
   final int? minDurationInMin;
   final void Function(DateTime start, DateTime end) onDateTimesSelected;
+  final bool isReadOnly;
+  final List<DateTime>? setDateTimes;
 
   const AppStartEndDateForm({
     super.key,
     this.minDurationInMin,
+    this.isReadOnly = false,
+    this.setDateTimes,
     required this.onDateTimesSelected,
   });
 
@@ -22,6 +26,21 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
   TimeOfDay? _startTime;
   TimeOfDay? _endTime;
   String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.setDateTimes != null && widget.setDateTimes!.isNotEmpty) {
+      _selectedDate = widget.setDateTimes!.first;
+      _startTime = TimeOfDay(
+          hour: widget.setDateTimes!.first.hour,
+          minute: widget.setDateTimes!.first.minute);
+      _endTime = TimeOfDay(
+          hour: widget.setDateTimes!.last.hour,
+          minute: widget.setDateTimes!.last.minute);
+      defaultTime = _startTime!;
+    }
+  }
 
   Duration get _calculatedDuration {
     if (_startTime == null || _endTime == null) return Duration.zero;
@@ -121,6 +140,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
               theme: theme,
               txt: dateStr,
               action: _pickDate,
+              isReadOnly: widget.isReadOnly,
               width: pageSize.width * 0.4,
             ),
           ],
@@ -132,7 +152,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
             Text(
               "S",
               style: TextStyle(
-                fontSize: pageSize.height * 0.25,
+                fontSize: pageSize.height * 0.2,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -145,6 +165,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
                   dateTime: _startTime,
                   isStartTime: true,
                   suffix: "tart",
+                  isReadOnly: widget.isReadOnly,
                 ),
                 SizedBox(height: pageSize.height * 0.1),
                 buildTimeBox(
@@ -153,6 +174,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
                   dateTime: _endTime,
                   isStartTime: false,
                   suffix: "top",
+                  isReadOnly: widget.isReadOnly,
                 ),
               ],
             ),
@@ -186,11 +208,12 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
             style: theme.textTheme.bodyMedium!
                 .copyWith(color: theme.colorScheme.error),
           ),
-        ElevatedButton.icon(
-          icon: const Icon(Icons.av_timer),
-          label: const Text("Confirm Schedule"),
-          onPressed: _handleConfirm,
-        ),
+        if (!widget.isReadOnly)
+          ElevatedButton.icon(
+            icon: const Icon(Icons.av_timer),
+            label: const Text("Confirm Schedule"),
+            onPressed: _handleConfirm,
+          ),
       ],
     );
   }
@@ -200,9 +223,10 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
     required double width,
     required String txt,
     required Function action,
+    required bool isReadOnly,
   }) {
     return GestureDetector(
-      onTap: () => action(),
+      onTap: widget.isReadOnly ? () {} : () => action(),
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
@@ -220,6 +244,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
     required TimeOfDay? dateTime,
     required bool isStartTime,
     required String suffix,
+    required bool isReadOnly,
   }) {
     return GestureDetector(
       onTap: () => _pickTime(isStart: isStartTime),
@@ -234,6 +259,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
           dateTime == null
               ? buildItemBox(
                   theme: theme,
+                  isReadOnly: isReadOnly,
                   width: pageSize.width * 0.25,
                   txt: "Pick a end time",
                   action: () => _pickTime(isStart: isStartTime),

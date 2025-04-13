@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 
 class ExamList extends StatelessWidget {
   final List<ExamModel> examList;
@@ -85,7 +86,6 @@ class ExamCard extends StatelessWidget {
     final durationStr = exam.duration_min != null
         ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
         : '--';
-    Color examColor = getExamStatusColor(exam.status, theme);
 
     return GestureDetector(
       onTap: () => onTap(exam),
@@ -131,17 +131,7 @@ class ExamCard extends StatelessWidget {
             ),
             Column(
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.circle, size: 14, color: examColor),
-                    const SizedBox(width: 4),
-                    Text(
-                      exam.status ?? "--",
-                      style: theme.textTheme.labelMedium,
-                    ),
-                  ],
-                ),
+                buildExamStatus(theme, exam.status ?? "--"),
                 const SizedBox(height: 8),
                 buildSecBtn(
                   theme: theme,
@@ -159,6 +149,33 @@ class ExamCard extends StatelessWidget {
   }
 }
 
+Widget buildExamStatus(
+  ThemeData theme,
+  String status, {
+  double iconSize = 14,
+  TextStyle? txtStyle,
+}) {
+  Color examColor = getExamStatusColor(status, theme);
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.circle, size: iconSize, color: examColor),
+      const SizedBox(width: 4),
+      Text(
+        status,
+        style: txtStyle ?? theme.textTheme.labelMedium,
+      ),
+    ],
+  );
+}
+
+Widget buildWaitingWidget(double pageHeight) {
+  return Image.asset(
+    astImagesWaiting,
+    height: pageHeight * 0.3,
+  );
+}
+
 const String examStatProcessingKw = "Processing";
 const String examStatUpcomingKw = "Upcoming";
 const String examStatOngoingKw = "Ongoing";
@@ -174,7 +191,7 @@ const List<String> allExamStatuses = [
 
 enum ExamStatus { processing, upcoming, ongoing, grading, complete }
 
-ExamStatus getExamEnumStatus(String statusStr) {
+ExamStatus getExamEnumStatus(String? statusStr) {
   switch (statusStr) {
     case examStatProcessingKw:
       return ExamStatus.processing;

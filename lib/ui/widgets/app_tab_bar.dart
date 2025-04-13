@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 
 /// ==================================================== View
 ///
@@ -93,7 +92,7 @@ class _AppTabBarState extends State<AppTabBar> {
   }
 }
 
-buildTabHeader({
+Widget buildTabHeader({
   required ThemeData theme,
   required double sectionWidth,
   required List<TabViewItem> tabs,
@@ -101,59 +100,62 @@ buildTabHeader({
   required Function(int idx) onTabIndexChange,
   List<bool>? viewedTabs,
 }) {
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: tabs.asMap().entries.map((e) {
-      bool isSelected = e.key == currentTabIdx;
-      Color tabColor = isSelected ? theme.colorScheme.primary : Colors.grey;
-      return GestureDetector(
-        onTap: () => onTabIndexChange(e.key),
-        child: Container(
-          color: Colors.transparent,
-          width: (sectionWidth * 0.93) / tabs.length,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  e.value.imagePath != null
-                      ? buildLocalImage(
-                          imagePath: e.value.imagePath, radius: 40)
-                      : e.value.icon != null
-                          ? Icon(
-                              e.value.icon,
-                              color: tabColor,
-                            )
-                          : const SizedBox(),
-                  const SizedBox(width: 5),
-                  Text(
-                    e.value.label,
-                    style: theme.textTheme.bodyLarge!.copyWith(color: tabColor),
-                  ),
-                  if (viewedTabs != null && !viewedTabs[e.key])
-                    Padding(
-                      padding: const EdgeInsets.only(left: 5),
-                      child: CircleAvatar(
-                        radius: 2.5,
-                        backgroundColor: theme.primaryColor,
-                      ),
-                    ),
-                ],
-              ),
-              SizedBox(height: currentTabIdx == e.key ? 10 : 13),
-              Container(
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                height: currentTabIdx == e.key ? 3 : 1,
-              ),
-            ],
-          ),
+  return Center(
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
         ),
-      );
-    }).toList(),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: tabs.asMap().entries.map((entry) {
+            final idx = entry.key;
+            final tab = entry.value;
+            final isSelected = idx == currentTabIdx;
+
+            return GestureDetector(
+              onTap: () => onTabIndexChange(idx),
+              child: Container(
+                width: (sectionWidth * 0.93) / tabs.length,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: isSelected ? Colors.black : Colors.transparent,
+                  borderRadius: BorderRadius.only(
+                    topLeft: idx == 0 ? const Radius.circular(16) : Radius.zero,
+                    bottomLeft:
+                        idx == 0 ? const Radius.circular(16) : Radius.zero,
+                    topRight: idx == tabs.length - 1
+                        ? const Radius.circular(16)
+                        : Radius.zero,
+                    bottomRight: idx == tabs.length - 1
+                        ? const Radius.circular(16)
+                        : Radius.zero,
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  tab.label,
+                  style: theme.textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isSelected ? Colors.white : Colors.black,
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ),
+    ),
   );
 }
 
