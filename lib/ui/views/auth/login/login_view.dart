@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/ui/views/auth/login/login_view.form.dart';
 import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -39,10 +38,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                astImagesDarkLogo,
-                height: 60,
-              ),
+              buildAppLogo(),
               SizedBox(height: pageSize.height * 0.02),
               AppTextFormField(
                 label: "Email",

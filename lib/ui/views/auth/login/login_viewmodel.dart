@@ -20,20 +20,22 @@ class LoginViewModel extends BaseViewModel with FormStateHelper {
   }
 
   onApiUserLogin() async {
-    validateForm();
-    if (!isFormValid) {
-      rebuildUi();
-      return;
-    }
+    // validateForm();
+    // if (!isFormValid) {
+    //   rebuildUi();
+    //   return;
+    // }
 
-    isLoading = true;
-    rebuildUi();
+    // isLoading = true;
+    // rebuildUi();
 
-    log('Logging in with $emailValue and $passwordValue');
-    await Future.delayed(const Duration(seconds: 2));
+    // log('Logging in with $emailValue and $passwordValue');
+    // await Future.delayed(const Duration(seconds: 2));
 
-    isLoading = false;
-    rebuildUi();
+    // isLoading = false;
+    // rebuildUi();
+
+    _navigationService.clearStackAndShow(Routes.dashboardView);
   }
 
   void onCreateAccountTapped() async {

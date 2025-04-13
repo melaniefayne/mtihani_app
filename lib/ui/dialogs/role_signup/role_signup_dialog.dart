@@ -23,64 +23,47 @@ class RoleSignupDialog extends StackedView<RoleSignupDialogModel> {
   ) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Colors.white,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: pageSize.height * 0.03),
-          Image.asset(
-            astImagesDarkLogo,
-            height: 60,
+    return buildDialogScaffold(
+      theme: theme,
+      pageSize: pageSize,
+      hideLogo: false,
+      title: "Welcome to Mtihani",
+      children: [
+        const Text("What best describes you?"),
+        SizedBox(height: pageSize.height * 0.01),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: pageSize.width * 0.1),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              buildProfileBtn(
+                theme: theme,
+                pageHeight: pageSize.height,
+                imagePath: astImagesStudent,
+                btnLabel: "I'm a Student",
+                onAction: () {
+                  viewModel.onUserSelection(completer, appStudentRoleKw);
+                },
+              ),
+              Container(
+                decoration: BoxDecoration(color: theme.primaryColor),
+                height: pageSize.height * 0.2,
+                width: 1.0,
+                margin: EdgeInsets.symmetric(horizontal: pageSize.width * 0.04),
+              ),
+              buildProfileBtn(
+                theme: theme,
+                pageHeight: pageSize.height,
+                imagePath: astImagesTeacher,
+                btnLabel: "I'm a Teacher",
+                onAction: () {
+                  viewModel.onUserSelection(completer, appTeacherRoleKw);
+                },
+              ),
+            ],
           ),
-          SizedBox(
-            width: pageSize.width * 0.4,
-            child: buildPageTitle(
-              theme: theme,
-              pageTitle: "Welcome to Mtihani",
-              actionTxt: "Back",
-              action: viewModel.getBack,
-            ),
-          ),
-          const Text("What best describes you?"),
-          SizedBox(height: pageSize.height * 0.01),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: pageSize.width * 0.1),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                buildProfileBtn(
-                  theme: theme,
-                  pageHeight: pageSize.height,
-                  imagePath: astImagesStudent,
-                  btnLabel: "I'm a Student",
-                  onAction: () {
-                    viewModel.onUserSelection(completer, appStudentRoleKw);
-                  },
-                ),
-                Container(
-                  decoration: BoxDecoration(color: theme.primaryColor),
-                  height: pageSize.height * 0.2,
-                  width: 1.0,
-                  margin:
-                      EdgeInsets.symmetric(horizontal: pageSize.width * 0.04),
-                ),
-                buildProfileBtn(
-                  theme: theme,
-                  pageHeight: pageSize.height,
-                  imagePath: astImagesTeacher,
-                  btnLabel: "I'm a Teacher",
-                  onAction: () {
-                    viewModel.onUserSelection(completer, appTeacherRoleKw);
-                  },
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: pageSize.height * 0.05),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

@@ -5,9 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 class RoleSignupDialogModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
-  getBack() {
-    _navigationService.back();
-  }
+  onGetBack() => _navigationService.back();
 
   onUserSelection(
       Function(DialogResponse<dynamic>)? completer, String roleName) {

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+Widget buildAppLogo({String? localImgPath, double? height}) {
+  return Image.asset(
+    localImgPath ?? astImagesDarkLogo,
+    height: height ?? 60,
+  );
+}
 
 Widget formEyePassIcon({
   required bool isVisible,
@@ -128,7 +136,7 @@ buildPriBtn({
       onPressed: (isEnabled && !isLoading) ? onAction : null,
       label: isLoading
           ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: CircularProgressIndicator(
                 strokeWidth: 2.0,
                 color: theme.colorScheme.onPrimary,
@@ -138,22 +146,81 @@ buildPriBtn({
       icon: (iconPath == null || isLoading)
           ? null
           : Padding(
-              padding: const EdgeInsets.only(right: 3),
+              padding: const EdgeInsets.only(right: 4),
               child: Icon(
                 iconPath,
                 size: theme.textTheme.bodyLarge!.fontSize,
               ),
             ),
-      style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(
-          isEnabled ? theme.primaryColor : Colors.grey,
-        ),
-        foregroundColor: WidgetStatePropertyAll(theme.colorScheme.onPrimary),
-        shape: const WidgetStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
-          ),
-        ),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        backgroundColor: isEnabled ? theme.primaryColor : Colors.grey,
+        foregroundColor: theme.colorScheme.onPrimary,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      ),
+    ),
+  );
+}
+
+Widget buildSecBtn({
+  required ThemeData theme,
+  required String btnTxt,
+  required Function() onAction,
+  bool isEnabled = true,
+  bool isLoading = false,
+  IconData? iconPath,
+  bool isFullWidth = true,
+}) {
+  return Container(
+    width: isFullWidth ? double.infinity : null,
+    decoration: BoxDecoration(
+      border: Border.all(color: theme.primaryColor, width: 2.0),
+    ),
+    child: ElevatedButton.icon(
+      onPressed: (isEnabled && !isLoading) ? onAction : null,
+      icon: (iconPath == null || isLoading)
+          ? const SizedBox.shrink()
+          : Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: Icon(
+                iconPath,
+                size: theme.textTheme.bodyLarge!.fontSize,
+              ),
+            ),
+      label: isLoading
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: CircularProgressIndicator(
+                strokeWidth: 2.0,
+                color: theme.primaryColor,
+              ),
+            )
+          : Text(btnTxt),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: theme.primaryColor,
+        shadowColor: Colors.transparent,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      ),
+    ),
+  );
+}
+
+buildIconBtn({
+  required ThemeData theme,
+  required Function() onAction,
+  required IconData iconPath,
+}) {
+  return GestureDetector(
+    onTap: onAction,
+    child: CircleAvatar(
+      backgroundColor: theme.primaryColor,
+      foregroundColor: theme.colorScheme.onPrimary,
+      child: Icon(
+        iconPath,
+        color: theme.primaryColor,
       ),
     ),
   );
@@ -308,6 +375,141 @@ Widget buildDetailWidget({
                 color: theme.colorScheme.primary,
               ),
         )
+      ],
+    ),
+  );
+}
+
+buildLoadingWidget(ThemeData theme, String loadTxt) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: 50,
+          decoration: BoxDecoration(
+            color: theme.primaryColor,
+            shape: BoxShape.circle,
+          ),
+          child: Lottie.asset(astLottieLoading, repeat: true),
+        ),
+        const SizedBox(height: 4),
+        Text(loadTxt),
+      ],
+    ),
+  );
+}
+
+buildNoItemsWidget(String noItemsItx) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Lottie.asset(astLottieNoItems, height: 120, repeat: true),
+        const SizedBox(height: 4),
+        Text(noItemsItx),
+      ],
+    ),
+  );
+}
+
+Widget buildSectionDivider({
+  required double height,
+  required Color color,
+}) {
+  return Container(
+    margin: const EdgeInsets.all(10),
+    height: height,
+    width: 1.0,
+    decoration: BoxDecoration(
+      color: color,
+    ),
+  );
+}
+
+Widget formPrefixIcon({IconData? iconPath}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 5),
+    child: Icon(iconPath ?? Icons.search),
+  );
+}
+
+Widget formClearIcon({
+  required Function onClearSearch,
+  required ThemeData theme,
+}) {
+  return GestureDetector(
+    onTap: () => onClearSearch(),
+    child: Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Icon(
+        Icons.close,
+        size: 30,
+        color: theme.primaryColor,
+      ),
+    ),
+  );
+}
+
+buildCountWidget(
+    {required ThemeData theme, required String label, required int count}) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        label,
+        style: theme.textTheme.titleLarge!.copyWith(
+          color: theme.primaryColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      const SizedBox(width: 5),
+      CircleAvatar(
+        radius: theme.textTheme.bodyMedium!.fontSize,
+        backgroundColor: theme.primaryColor,
+        child: Text(
+          count.toString(),
+          style: theme.textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+            color: theme.colorScheme.onPrimary,
+          ),
+        ),
+      )
+    ],
+  );
+}
+
+buildDialogScaffold({
+  required ThemeData theme,
+  required Size pageSize,
+  required String title,
+  required List<Widget> children,
+  bool hideLogo = true,
+}) {
+  return Dialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    backgroundColor: Colors.white,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: pageSize.height * 0.03),
+        if (!hideLogo) buildAppLogo(),
+        SizedBox(
+          width: pageSize.width * 0.4,
+          child: buildPageTitle(
+            theme: theme,
+            pageTitle: title,
+            actionTxt: "Back",
+            action: () {
+              final navigationService = locator<NavigationService>();
+              navigationService.back();
+            },
+          ),
+        ),
+        ...children,
+        SizedBox(height: pageSize.height * 0.05),
       ],
     ),
   );
