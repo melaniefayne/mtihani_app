@@ -42,6 +42,15 @@ class AuthService {
 
   // USER PROFILE
   // -----------------------
+
+  Future<bool> saveUserProfile(UserModel? user) async {
+    if (user == null) return false;
+    return await _sharedPrefsService.sharedPrefsDoSetValue<String>(
+      prefsKey: strDefLoggedInUserData,
+      value: jsonEncode(user.toJson()),
+    );
+  }
+
   Future<UserModel?> getUserProfile() async {
     String? userProfileStr =
         await _sharedPrefsService.sharedPrefsDoGetValue<String>(

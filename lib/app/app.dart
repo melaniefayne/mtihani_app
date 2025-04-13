@@ -22,6 +22,8 @@ import 'package:mtihani_app/ui/views/single_exam/single_exam_view.dart';
 import 'package:mtihani_app/ui/views/single_class/single_class_view.dart';
 import 'package:mtihani_app/ui/dialogs/app_action/app_action_dialog.dart';
 import 'package:mtihani_app/ui/dialogs/class_selector/class_selector_dialog.dart';
+import 'package:mtihani_app/ui/views/auth/profile/edit_profile/edit_profile_view.dart';
+import 'package:mtihani_app/ui/views/auth/profile/change_password/change_password_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -40,6 +42,8 @@ import 'package:mtihani_app/ui/dialogs/class_selector/class_selector_dialog.dart
     MaterialRoute(page: ExamListView),
     MaterialRoute(page: SingleExamView),
     MaterialRoute(page: SingleClassView),
+    MaterialRoute(page: EditProfileView),
+    MaterialRoute(page: ChangePasswordView),
 // @stacked-route
   ],
   dependencies: [

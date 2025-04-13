@@ -11,17 +11,21 @@ const String appInstanceDef =
 String getAppDomainUrl() {
   switch (appInstanceDef) {
     case appInstanceLOCAL:
-      return "local.example.com";
+      return "http://127.0.0.1:8000";
     case appInstanceLIVE:
-      return "pythonanywhere.com";
+      return "https://melaniefayne.pythonanywhere.com";
     default:
       return "";
   }
 }
 
 String appBaseURL = "";
-String baseURLScheme = 'https://';
-String baseURL = '$baseURLScheme${getAppDomainUrl()}/api';
+String baseURL = '${getAppDomainUrl()}/api';
+
+// AUTH ENDPOINTS
+// -----------------------
+String endPointEditProfile = '$baseURL/edit-profile';
+String endPointChangePassword = '$baseURL/change-password';
 
 // CBC ENDPOINTS
 // -----------------------

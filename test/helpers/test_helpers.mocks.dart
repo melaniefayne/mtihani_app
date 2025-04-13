@@ -724,10 +724,35 @@ class MockTeacherOnboardingService extends _i1.Mock
       );
 
   @override
+  bool get isFromOnboarding => (super.noSuchMethod(
+        Invocation.getter(#isFromOnboarding),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set isFromOnboarding(bool? _isFromOnboarding) => super.noSuchMethod(
+        Invocation.setter(
+          #isFromOnboarding,
+          _isFromOnboarding,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   dynamic onSetCurrentClass(_i8.ClassModel? classModel) => super.noSuchMethod(
         Invocation.method(
           #onSetCurrentClass,
           [classModel],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  dynamic onSetIsFromOnboarding(bool? isFromOnboarding) => super.noSuchMethod(
+        Invocation.method(
+          #onSetIsFromOnboarding,
+          [isFromOnboarding],
         ),
         returnValueForMissingStub: null,
       );

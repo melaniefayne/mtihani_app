@@ -1,5 +1,30 @@
 # API TODO
 
+## UPDATE PROFILE
+- String endPointEditProfile = '$baseURL/edit-profile';
+- IsTokenBased - Teacher or Student
+- Body:
+```dart
+dataMap: {
+    "first_name": firstNameValue,
+    "last_name": lastNameValue,
+    "email": emailValue,
+    "phone_no": phoneNoValue,
+    },
+```
+
+## CHANGE PASSWORD
+- String endPointChangePassword = '$baseURL/change-password';
+- IsTokenBased - Teacher or Student
+- Body:
+```dart
+dataMap: {
+    "current_password": currentPasswordValue,
+    "new_password": newPasswordValue,
+    },
+```
+
+
 ## GET CLASS CURRICULUM
 - String endPointGetClassCurriculum = '$baseURL/class-curriculum';
 - IsTokenBased - Teacher

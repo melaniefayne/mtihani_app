@@ -564,3 +564,71 @@ Widget buildPageAppHeader({
     ],
   );
 }
+
+Widget buildAppPageScaffold({
+  required ThemeData theme,
+  required String pageTitle,
+  required Size pageSize,
+  required List<Widget> children,
+  Widget? trailing,
+}) {
+  return Scaffold(
+    body: Column(
+      children: [
+        buildPageAppHeader(
+          theme: theme,
+          hideBackNav: false,
+          pageTitle: pageTitle,
+          trailing: trailing,
+        ),
+        SizedBox(height: pageSize.height * 0.01),
+        ...children,
+      ],
+    ),
+  );
+}
+
+Widget getScreenMenuItem({
+  required ThemeData theme,
+  final Function? action,
+  required String label,
+  String? subtitle,
+  required IconData iconPath,
+  Color textColor = Colors.black,
+}) {
+  return GestureDetector(
+    onTap: action == null
+        ? null
+        : () {
+            action();
+          },
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant,
+          width: 1,
+        ),
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: ListTile(
+          leading: Icon(
+            iconPath,
+            color: textColor,
+          ),
+          title: Text(
+            label,
+            style: theme.textTheme.titleSmall!.copyWith(
+              color: textColor,
+            ),
+          ),
+          subtitle: subtitle != null
+              ? Text(subtitle, style: theme.textTheme.bodySmall)
+              : null,
+          trailing: action == null
+              ? const SizedBox()
+              : Icon(Icons.arrow_forward_ios,
+                  color: theme.primaryColor, size: 16)),
+    ),
+  );
+}
