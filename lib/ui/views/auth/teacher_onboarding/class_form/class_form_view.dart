@@ -21,6 +21,12 @@ class ClassFormView extends StackedView<ClassFormViewModel>
   const ClassFormView({Key? key}) : super(key: key);
 
   @override
+  void onDispose(ClassFormViewModel viewModel) {
+    super.onDispose(viewModel);
+    disposeForm();
+  }
+
+  @override
   Widget builder(
     BuildContext context,
     ClassFormViewModel viewModel,
@@ -94,6 +100,36 @@ class ClassFormView extends StackedView<ClassFormViewModel>
               onRemoved: viewModel.onRemovedLessonTime,
               errorText: viewModel.lessonTimesErrorMsg,
             ),
+            if (viewModel.classToEdit != null)
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.errorContainer.withOpacity(0.1),
+                  border: Border.all(
+                      width: 1.0, color: theme.colorScheme.errorContainer),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.warning_amber_outlined,
+                      color: theme.colorScheme.onErrorContainer,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        "Heads up! Uploading a new student list will replace the existing one. If you're updating term scores, be sure to include all scores up to the current term for each student. To add a new student, simply include them as a new row in your file. Also, make sure each student has a unique name to avoid duplicates.",
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ClassDetailsUploader(
               onParsed: viewModel.onClassCsvUploaded,
               errorText: viewModel.uploadStudentsErrorMsg,
@@ -119,6 +155,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
 
   @override
   void onViewModelReady(ClassFormViewModel viewModel) {
+    viewModel.onClassFormViewReady();
     syncFormWithViewModel(viewModel);
   }
 }

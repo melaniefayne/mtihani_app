@@ -13,7 +13,7 @@ class TeacherOnboardingService {
   ClassModel? currentClass;
   bool isFromOnboarding = true;
 
-  onSetCurrentClass(ClassModel classModel) {
+  onSetCurrentClass(ClassModel? classModel) {
     currentClass = classModel;
   }
 
@@ -36,7 +36,8 @@ class TeacherOnboardingService {
 
   onFinishOnboarding() {
     pageController.dispose();
-    isFromOnboarding = true;
+    onSetCurrentClass(null);
+    onSetIsFromOnboarding(true);
     _navigationService.clearStackAndShow(Routes.dashboardView);
   }
 }

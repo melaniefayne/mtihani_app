@@ -43,6 +43,9 @@ dataMap: {
       "students": uploadedStudents.map((e) => e.toJson()).toList(),
     };
 ```
+- Same endpoint on edit◊
+>   postEndpoint: classToEdit != null ? "$endPointCreateClass/${classToEdit!.id}" : endPointCreateClass,
+
 - Returns the created [UserModel](../models/user.dart) with classes arranged from newest to oldest
 
 ### GET CLASS CURRICULUM
@@ -86,7 +89,7 @@ if (selectedFiles.isNotEmpty) {
 ### GET USER EXAMS
 - String endPointGetUserExams = '$baseURL/user-exams';
 - IsTokenBased - Teacher or Student
-- QueryParams: **start_date, end_date, class_id, exam_status, page_size**
+- QueryParams: **start_date, end_date, class_id, exam_status, grade, page_size**
 - Return: Paginated user exam list of [ExamModel](../models/exam.dart)
 
 ### UPDATE EXAM

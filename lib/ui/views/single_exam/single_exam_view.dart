@@ -27,9 +27,10 @@ class SingleExamView extends StackedView<SingleExamViewModel> {
       theme: theme,
       pageSize: pageSize,
       pageTitle: "Exam ${examItem.code ?? '--'}",
-      trailing: buildExamStatus(
+      trailing: buildStatusDot(
         theme,
         examItem.status ?? "--",
+        getExamStatusColor(examItem.status, theme),
         iconSize: 24,
         txtStyle: theme.textTheme.titleMedium!.copyWith(
           fontWeight: FontWeight.bold,

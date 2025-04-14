@@ -1,4 +1,5 @@
 import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
@@ -22,6 +23,17 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
   List<StudentScores> uploadedStudents = [];
   String? uploadStudentsErrorMsg;
   bool isLoading = false;
+  ClassModel? get classToEdit => _trOnboardingService.currentClass;
+
+  onClassFormViewReady() {
+    if (classToEdit != null) {
+      classNameValue = classToEdit!.name ?? "";
+      schoolNameValue = classToEdit!.school_name ?? "";
+      schoolAddressValue = classToEdit!.school_address ?? "";
+      selectedGrade = classToEdit!.grade;
+      selectedLessonTimes = classToEdit!.lessons_times ?? [];
+    }
+  }
 
   onGradeChanged(int value) {
     selectedGrade = value;
@@ -82,7 +94,9 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
     isLoading = true;
     rebuildUi();
     var apiCallRes = await onApiPostCall<UserModel>(
-      postEndpoint: endPointCreateClass,
+      postEndpoint: classToEdit != null
+          ? "$endPointCreateClass/${classToEdit!.id}"
+          : endPointCreateClass,
       dataMap: classBody,
     );
     isLoading = false;

@@ -29,7 +29,7 @@ class SingleClassView extends StackedView<SingleClassViewModel> {
       trailing: buildPriBtn(
         theme: theme,
         btnTxt: "Edit Class",
-        onAction: () {},
+        onAction: viewModel.onEditClass,
         isFullWidth: false,
       ),
       children: [

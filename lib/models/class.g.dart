@@ -21,6 +21,9 @@ _$ClassModelImpl _$$ClassModelImplFromJson(Map<String, dynamic> json) =>
       lessons_today: (json['lessons_today'] as List<dynamic>?)
           ?.map((e) => DateTime.parse(e as String))
           .toList(),
+      lessons_times: (json['lessons_times'] as List<dynamic>?)
+          ?.map((e) => DateTime.parse(e as String))
+          .toList(),
     );
 
 Map<String, dynamic> _$$ClassModelImplToJson(_$ClassModelImpl instance) =>
@@ -37,4 +40,6 @@ Map<String, dynamic> _$$ClassModelImplToJson(_$ClassModelImpl instance) =>
       'avg_mtihani_score': instance.avg_mtihani_score,
       'lessons_today':
           instance.lessons_today?.map((e) => e.toIso8601String()).toList(),
+      'lessons_times':
+          instance.lessons_times?.map((e) => e.toIso8601String()).toList(),
     };

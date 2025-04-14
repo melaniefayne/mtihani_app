@@ -57,11 +57,17 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
   }
 
   List<StudentScores> toStudentScores(List<List<dynamic>> rows) {
+    final seenNames = <String>{};
+
     return rows
         .skip(1)
         .map((row) {
           final name = row[0].toString().trim();
-          if (name.isEmpty) return null;
+
+          // Skip if name is empty or already exists
+          if (name.isEmpty || seenNames.contains(name)) return null;
+
+          seenNames.add(name);
           final scores = <TermScore>[];
 
           final csvScores =
@@ -166,7 +172,7 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "2. Only enter student names and scores, and leave a blank where scores are not available. Kindly do not modify the header columns.",
+                    "2. Only enter student names and scores, and leave a blank where scores are not available. Kindly do not modify the header columns. Also ensure that each student name is unique",
                     overflow: TextOverflow.clip,
                     style: theme.textTheme.bodySmall,
                   ),

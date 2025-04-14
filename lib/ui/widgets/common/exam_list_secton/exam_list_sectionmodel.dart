@@ -34,6 +34,10 @@ class ExamListSectionModel extends FutureViewModel {
       queryParams["exam_status"] = selectedExamStatus;
     }
 
+    if (selectedExamGrade != null) {
+      queryParams["grade"] = selectedExamGrade;
+    }
+
     var examsApiRes = await onApiGetCall<ExamModel>(
       getEndpoint: isLoadMore
           ? nextPageUrl ?? endPointGetUserExams
@@ -73,6 +77,12 @@ class ExamListSectionModel extends FutureViewModel {
   String? selectedExamStatus;
   onChangeExamStatus(String examStatus) {
     selectedExamStatus = examStatus;
+    initialise();
+  }
+
+  int? selectedExamGrade;
+  onChangeExamGrade(int grade) {
+    selectedExamGrade = grade;
     initialise();
   }
 

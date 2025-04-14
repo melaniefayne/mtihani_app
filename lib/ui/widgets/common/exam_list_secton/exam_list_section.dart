@@ -56,6 +56,19 @@ class ExamListSection extends StackedView<ExamListSectionModel> {
           AppPageFilters(
             filters: [
               AppFilterItem(
+                label: "Grade",
+                selectedValue: viewModel.selectedExamGrade,
+                onChanged: (val) {
+                  viewModel.onChangeExamGrade(val);
+                },
+                items: [7, 8, 9].map<DropdownMenuItem<int>>((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text("Grade ${value.toString()}"),
+                  );
+                }).toList(),
+              ),
+              AppFilterItem(
                 label: "Class",
                 selectedValue: viewModel.selectedClass,
                 onChanged: (val) {

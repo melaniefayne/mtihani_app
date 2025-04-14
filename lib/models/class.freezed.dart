@@ -31,6 +31,7 @@ mixin _$ClassModel {
   double? get avg_term_score => throw _privateConstructorUsedError;
   double? get avg_mtihani_score => throw _privateConstructorUsedError;
   List<DateTime>? get lessons_today => throw _privateConstructorUsedError;
+  List<DateTime>? get lessons_times => throw _privateConstructorUsedError;
 
   /// Serializes this ClassModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -59,7 +60,8 @@ abstract class $ClassModelCopyWith<$Res> {
       int? student_count,
       double? avg_term_score,
       double? avg_mtihani_score,
-      List<DateTime>? lessons_today});
+      List<DateTime>? lessons_today,
+      List<DateTime>? lessons_times});
 }
 
 /// @nodoc
@@ -88,6 +90,7 @@ class _$ClassModelCopyWithImpl<$Res, $Val extends ClassModel>
     Object? avg_term_score = freezed,
     Object? avg_mtihani_score = freezed,
     Object? lessons_today = freezed,
+    Object? lessons_times = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -134,6 +137,10 @@ class _$ClassModelCopyWithImpl<$Res, $Val extends ClassModel>
           ? _value.lessons_today
           : lessons_today // ignore: cast_nullable_to_non_nullable
               as List<DateTime>?,
+      lessons_times: freezed == lessons_times
+          ? _value.lessons_times
+          : lessons_times // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>?,
     ) as $Val);
   }
 }
@@ -157,7 +164,8 @@ abstract class _$$ClassModelImplCopyWith<$Res>
       int? student_count,
       double? avg_term_score,
       double? avg_mtihani_score,
-      List<DateTime>? lessons_today});
+      List<DateTime>? lessons_today,
+      List<DateTime>? lessons_times});
 }
 
 /// @nodoc
@@ -184,6 +192,7 @@ class __$$ClassModelImplCopyWithImpl<$Res>
     Object? avg_term_score = freezed,
     Object? avg_mtihani_score = freezed,
     Object? lessons_today = freezed,
+    Object? lessons_times = freezed,
   }) {
     return _then(_$ClassModelImpl(
       id: freezed == id
@@ -230,6 +239,10 @@ class __$$ClassModelImplCopyWithImpl<$Res>
           ? _value._lessons_today
           : lessons_today // ignore: cast_nullable_to_non_nullable
               as List<DateTime>?,
+      lessons_times: freezed == lessons_times
+          ? _value._lessons_times
+          : lessons_times // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>?,
     ));
   }
 }
@@ -248,8 +261,10 @@ class _$ClassModelImpl implements _ClassModel {
       this.student_count,
       this.avg_term_score,
       this.avg_mtihani_score,
-      final List<DateTime>? lessons_today})
-      : _lessons_today = lessons_today;
+      final List<DateTime>? lessons_today,
+      final List<DateTime>? lessons_times})
+      : _lessons_today = lessons_today,
+        _lessons_times = lessons_times;
 
   factory _$ClassModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassModelImplFromJson(json);
@@ -284,9 +299,19 @@ class _$ClassModelImpl implements _ClassModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<DateTime>? _lessons_times;
+  @override
+  List<DateTime>? get lessons_times {
+    final value = _lessons_times;
+    if (value == null) return null;
+    if (_lessons_times is EqualUnmodifiableListView) return _lessons_times;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'ClassModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, grade: $grade, code: $code, teacher_id: $teacher_id, student_count: $student_count, avg_term_score: $avg_term_score, avg_mtihani_score: $avg_mtihani_score, lessons_today: $lessons_today)';
+    return 'ClassModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, grade: $grade, code: $code, teacher_id: $teacher_id, student_count: $student_count, avg_term_score: $avg_term_score, avg_mtihani_score: $avg_mtihani_score, lessons_today: $lessons_today, lessons_times: $lessons_times)';
   }
 
   @override
@@ -311,7 +336,9 @@ class _$ClassModelImpl implements _ClassModel {
             (identical(other.avg_mtihani_score, avg_mtihani_score) ||
                 other.avg_mtihani_score == avg_mtihani_score) &&
             const DeepCollectionEquality()
-                .equals(other._lessons_today, _lessons_today));
+                .equals(other._lessons_today, _lessons_today) &&
+            const DeepCollectionEquality()
+                .equals(other._lessons_times, _lessons_times));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -328,7 +355,8 @@ class _$ClassModelImpl implements _ClassModel {
       student_count,
       avg_term_score,
       avg_mtihani_score,
-      const DeepCollectionEquality().hash(_lessons_today));
+      const DeepCollectionEquality().hash(_lessons_today),
+      const DeepCollectionEquality().hash(_lessons_times));
 
   /// Create a copy of ClassModel
   /// with the given fields replaced by the non-null parameter values.
@@ -358,7 +386,8 @@ abstract class _ClassModel implements ClassModel {
       final int? student_count,
       final double? avg_term_score,
       final double? avg_mtihani_score,
-      final List<DateTime>? lessons_today}) = _$ClassModelImpl;
+      final List<DateTime>? lessons_today,
+      final List<DateTime>? lessons_times}) = _$ClassModelImpl;
 
   factory _ClassModel.fromJson(Map<String, dynamic> json) =
       _$ClassModelImpl.fromJson;
@@ -385,6 +414,8 @@ abstract class _ClassModel implements ClassModel {
   double? get avg_mtihani_score;
   @override
   List<DateTime>? get lessons_today;
+  @override
+  List<DateTime>? get lessons_times;
 
   /// Create a copy of ClassModel
   /// with the given fields replaced by the non-null parameter values.

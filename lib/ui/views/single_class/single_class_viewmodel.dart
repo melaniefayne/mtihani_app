@@ -17,4 +17,6 @@ class SingleClassViewModel extends BaseViewModel {
   onViewExam(ExamModel exam) async {
     await _navigationService.navigateToSingleExamView(examItem: exam);
   }
+
+  onEditClass() {}
 }

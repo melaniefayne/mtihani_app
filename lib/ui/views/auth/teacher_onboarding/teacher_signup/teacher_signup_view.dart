@@ -23,6 +23,12 @@ class TeacherSignupView extends StackedView<TeacherSignupViewModel>
   const TeacherSignupView({Key? key}) : super(key: key);
 
   @override
+  void onDispose(TeacherSignupViewModel viewModel) {
+    super.onDispose(viewModel);
+    disposeForm();
+  }
+
+  @override
   Widget builder(
     BuildContext context,
     TeacherSignupViewModel viewModel,
