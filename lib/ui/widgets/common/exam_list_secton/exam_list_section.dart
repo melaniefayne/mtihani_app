@@ -15,16 +15,17 @@ import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import 'exam_list_viewmodel.dart';
+import 'exam_list_sectionmodel.dart';
 
-class ExamListWidget extends StackedView<ExamListWidgetModel> {
+class ExamListSection extends StackedView<ExamListSectionModel> {
   final List<ClassModel> userClasses;
-  const ExamListWidget({Key? key, required this.userClasses}) : super(key: key);
+  const ExamListSection({Key? key, required this.userClasses})
+      : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    ExamListWidgetModel viewModel,
+    ExamListSectionModel viewModel,
     Widget? child,
   ) {
     final theme = Theme.of(context);
@@ -83,7 +84,7 @@ class ExamListWidget extends StackedView<ExamListWidgetModel> {
                 }).toList(),
               ),
               AppFilterItem(
-                label: "Status",
+                label: "Date Range",
                 priDateCtrl: viewModel.startDateTxtCtrl,
                 secDateTxtCtrl: viewModel.endDateTxtCtrl,
                 onDateChanged: viewModel.onDateChanged,
@@ -92,7 +93,7 @@ class ExamListWidget extends StackedView<ExamListWidgetModel> {
             ],
           ),
           SizedBox(height: pageSize.height * 0.02),
-          ExamList(
+          ExamListWidget(
             examList: viewModel.userExams,
             onViewExam: viewModel.onViewExam,
             onViewMore: viewModel.nextPageUrl != null
@@ -105,18 +106,18 @@ class ExamListWidget extends StackedView<ExamListWidgetModel> {
   }
 
   @override
-  ExamListWidgetModel viewModelBuilder(
+  ExamListSectionModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ExamListWidgetModel();
+      ExamListSectionModel();
 }
 
-class ExamList extends StatelessWidget {
+class ExamListWidget extends StatelessWidget {
   final List<ExamModel> examList;
   final Function(ExamModel exam) onViewExam;
   final Function? onViewMore;
 
-  const ExamList({
+  const ExamListWidget({
     super.key,
     required this.examList,
     required this.onViewExam,
@@ -234,7 +235,11 @@ class ExamCard extends StatelessWidget {
             ),
             Column(
               children: [
-                buildExamStatus(theme, exam.status ?? "--"),
+                buildStatusDot(
+                  theme,
+                  exam.status ?? "--",
+                  getExamStatusColor(exam.status, theme),
+                ),
                 const SizedBox(height: 8),
                 buildSecBtn(
                   theme: theme,
@@ -250,26 +255,6 @@ class ExamCard extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget buildExamStatus(
-  ThemeData theme,
-  String status, {
-  double iconSize = 14,
-  TextStyle? txtStyle,
-}) {
-  Color examColor = getExamStatusColor(status, theme);
-  return Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Icon(Icons.circle, size: iconSize, color: examColor),
-      const SizedBox(width: 4),
-      Text(
-        status,
-        style: txtStyle ?? theme.textTheme.labelMedium,
-      ),
-    ],
-  );
 }
 
 Widget buildWaitingWidget(double pageHeight) {

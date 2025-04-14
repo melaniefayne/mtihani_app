@@ -78,7 +78,7 @@ if (selectedFiles.isNotEmpty) {
 ## Teacher Dashboard
 
 ### GET USER EXAMS
-String endPointGetUseClasses = '$baseURL/user-classes';
+- String endPointGetUseClasses = '$baseURL/user-classes';
 - IsTokenBased - Teacher
 - Return: Full list of [ClassModel](../models/class.dart)
 
@@ -101,3 +101,10 @@ dataMap: {
 },
 ```
 - Returns the updated [ExamModel](../models/exam.dart)
+
+
+### GET CLASS STUDENTS
+- String endPointGetClassStudents = '$baseURL/class-students';
+- IsTokenBased - Teacher
+- QueryParams: **class_id, expectation_level, page_size**
+- Return: Paginated user class student list of [StudentModel](../models/student.dart)

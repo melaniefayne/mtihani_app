@@ -632,3 +632,23 @@ Widget getScreenMenuItem({
     ),
   );
 }
+
+Widget buildStatusDot(
+  ThemeData theme,
+  String statusLabel,
+  Color statusColor, {
+  double iconSize = 14,
+  TextStyle? txtStyle,
+}) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.circle, size: iconSize, color: statusColor),
+      const SizedBox(width: 4),
+      Text(
+        statusLabel,
+        style: txtStyle ?? theme.textTheme.labelMedium,
+      ),
+    ],
+  );
+}

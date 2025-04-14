@@ -5,7 +5,7 @@ import 'package:mtihani_app/models/class_strand_score.dart';
 import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
 import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/strand_selection_card.dart';
+import 'package:mtihani_app/ui/widgets/common/strand_selection_card.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 

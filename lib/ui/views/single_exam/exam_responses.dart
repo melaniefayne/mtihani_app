@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/exam.dart';
-import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
 
 class ExamResponsesWidget extends StatelessWidget {
   final ExamModel examItem;

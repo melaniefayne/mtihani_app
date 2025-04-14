@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/class_widgets.dart';
+import 'package:mtihani_app/ui/widgets/common/class_widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

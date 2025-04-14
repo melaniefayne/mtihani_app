@@ -11,7 +11,7 @@ import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ExamListWidgetModel extends FutureViewModel {
+class ExamListSectionModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
   List<ExamModel> userExams = [];
   bool isLoadMore = false;

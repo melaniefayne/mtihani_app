@@ -17,7 +17,7 @@ class ClassModel with _$ClassModel {
     int? teacher_id,
     int? student_count,
     double? avg_term_score,
-    double? avg_exam_score,
+    double? avg_mtihani_score,
     List<DateTime>? lessons_today,
   }) = _ClassModel;
 

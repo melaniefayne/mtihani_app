@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/exam.dart';
-import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
 import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
-import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
 import 'package:mtihani_app/ui/views/student_home/student_home_view.dart';
 import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
@@ -49,7 +49,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                           },
                         )
                       : StudentHomeView(loggedInUser: viewModel.loggedInUser),
-                  ExamListWidget(
+                  ExamListSection(
                     userClasses: viewModel.loggedInUser.user_classes ?? [],
                   ),
                   ProfileView(loggedInUser: viewModel.loggedInUser)

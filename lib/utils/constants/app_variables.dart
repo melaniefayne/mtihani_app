@@ -3,6 +3,7 @@
 import 'package:intl/intl.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/models/student.dart';
 import 'package:mtihani_app/models/user.dart';
 
 const String strDefSharedPrefKey = "05cca623-58ad-47";
@@ -95,4 +96,24 @@ UserModel dummyUser = UserModel(
   email: "janeDoe@gmail.com",
   role: appTeacherRoleKw,
   phone_no: "0712345678",
+);
+
+StudentModel dummyStudentOne = StudentModel(
+  name: "Jill Jack",
+  class_name: dummyClass.name,
+  grade: dummyClass.grade,
+  avg_term_score: 64,
+  avg_term_expectation_level: "ME",
+  avg_mtihani_score: 54,
+  avg_mtihani_expectation_level: "AE",
+);
+
+StudentModel dummyStudentTwo = StudentModel(
+  name: "Jack Joe",
+  class_name: dummyClass.name,
+  grade: dummyClass.grade,
+  avg_term_score: 98,
+  avg_term_expectation_level: "EE",
+  avg_mtihani_score: 72,
+  avg_mtihani_expectation_level: "ME",
 );

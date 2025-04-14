@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/user.dart';
-import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/class_widgets.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/lesson_time.dart';
+import 'package:mtihani_app/ui/widgets/common/class_widgets.dart';
+import 'package:mtihani_app/ui/widgets/common/lesson_time.dart';
 import 'package:stacked/stacked.dart';
 
 import 'teacher_home_viewmodel.dart';
@@ -84,7 +84,7 @@ class TeacherHomeView extends StackedView<TeacherHomeViewModel> {
                     const Divider(),
                     viewModel.isFetchingTrClasses
                         ? buildLoadingWidget(theme, "Getting your exams ...")
-                        : ExamList(
+                        : ExamListWidget(
                             examList: viewModel.fetchedTrExams,
                             onViewExam: viewModel.onViewExam,
                             onViewMore: onSwitchToExamTab,
@@ -144,7 +144,7 @@ class TeacherHomeView extends StackedView<TeacherHomeViewModel> {
     List<double> classTermScores =
         classes.map((e) => e.avg_term_score ?? 0.0).toList();
     List<double> classExamScores =
-        classes.map((e) => e.avg_exam_score ?? 0.0).toList();
+        classes.map((e) => e.avg_mtihani_score ?? 0.0).toList();
     List<String> classNames = classes.map((e) => e.name ?? "--").toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

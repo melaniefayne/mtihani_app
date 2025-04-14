@@ -42,3 +42,4 @@ String endPointGetEditExam = '$baseURL/edit-exam';
 String endPointCreateClass = '$baseURL/create-class';
 String endPointGetUseClasses = '$baseURL/user-classes';
 String endPointGetClassStrandScores = '$baseURL/class-strand-scores';
+String endPointGetClassStudents = '$baseURL/class-students';

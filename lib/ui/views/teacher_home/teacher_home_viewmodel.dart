@@ -3,7 +3,7 @@ import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/lesson_time.dart';
+import 'package:mtihani_app/ui/widgets/common/lesson_time.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';

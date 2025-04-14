@@ -17,7 +17,7 @@ _$ClassModelImpl _$$ClassModelImplFromJson(Map<String, dynamic> json) =>
       teacher_id: (json['teacher_id'] as num?)?.toInt(),
       student_count: (json['student_count'] as num?)?.toInt(),
       avg_term_score: (json['avg_term_score'] as num?)?.toDouble(),
-      avg_exam_score: (json['avg_exam_score'] as num?)?.toDouble(),
+      avg_mtihani_score: (json['avg_mtihani_score'] as num?)?.toDouble(),
       lessons_today: (json['lessons_today'] as List<dynamic>?)
           ?.map((e) => DateTime.parse(e as String))
           .toList(),
@@ -34,7 +34,7 @@ Map<String, dynamic> _$$ClassModelImplToJson(_$ClassModelImpl instance) =>
       'teacher_id': instance.teacher_id,
       'student_count': instance.student_count,
       'avg_term_score': instance.avg_term_score,
-      'avg_exam_score': instance.avg_exam_score,
+      'avg_mtihani_score': instance.avg_mtihani_score,
       'lessons_today':
           instance.lessons_today?.map((e) => e.toIso8601String()).toList(),
     };
