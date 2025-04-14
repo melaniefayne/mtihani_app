@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
+import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/ui/views/auth/login/login_view.form.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
@@ -10,6 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 class LoginViewModel extends BaseViewModel with FormStateHelper {
   final _dialogService = locator<DialogService>();
+  final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
   bool isPasswordVisible = false;
   bool isLoading = false;
@@ -34,7 +36,7 @@ class LoginViewModel extends BaseViewModel with FormStateHelper {
 
     // isLoading = false;
     // rebuildUi();
-
+    await _authService.saveUserProfile(dummyUser);
     _navigationService.clearStackAndShow(Routes.dashboardView);
   }
 

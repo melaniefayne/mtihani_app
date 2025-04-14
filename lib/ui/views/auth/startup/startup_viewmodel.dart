@@ -1,6 +1,5 @@
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/auth_service.dart';
-import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
@@ -19,15 +18,6 @@ class StartupViewModel extends BaseViewModel {
       return;
     }
 
-    switch (userProfile.role) {
-      case appTeacherRoleKw:
-        _navigationService.clearStackAndShow(Routes.teacherHomeView);
-        break;
-      case appStudentRoleKw:
-        _navigationService.clearStackAndShow(Routes.studentHomeView);
-        break;
-      default:
-        _navigationService.clearStackAndShow(Routes.loginView);
-    }
+    _navigationService.clearStackAndShow(Routes.dashboardView);
   }
 }
