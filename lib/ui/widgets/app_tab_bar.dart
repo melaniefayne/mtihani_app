@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// ==================================================== View
 ///
-class AppTabBar extends StatefulWidget {
+class AppTabBarScaffold extends StatefulWidget {
   final List<TabViewItem> tabs;
   final Function(int? val)? onIndexChange;
   final bool showUnViewedIndicator;
@@ -16,11 +16,11 @@ class AppTabBar extends StatefulWidget {
   final Color? dividerColor;
   final double? sectionWidth;
 
-  /// [AppTabBar]
+  /// [AppTabBarScaffold]
   /// When defining tabs for this scaffold,
   /// avoid wrapping the widgets or the children within the widgets with 'Expanded'.
   /// Leads to RenderFlex issues and would force defining children height!
-  const AppTabBar({
+  const AppTabBarScaffold({
     super.key,
     required this.tabs,
     this.onIndexChange,
@@ -37,10 +37,10 @@ class AppTabBar extends StatefulWidget {
   });
 
   @override
-  State<AppTabBar> createState() => _AppTabBarState();
+  State<AppTabBarScaffold> createState() => _AppTabBarScaffoldState();
 }
 
-class _AppTabBarState extends State<AppTabBar> {
+class _AppTabBarScaffoldState extends State<AppTabBarScaffold> {
   List<bool> viewedTabs = [];
   int currentTabIdx = 0;
 

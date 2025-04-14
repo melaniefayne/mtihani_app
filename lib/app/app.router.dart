@@ -7,8 +7,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i18;
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/models/class.dart' as _i21;
-import 'package:mtihani_app/models/exam.dart' as _i20;
+import 'package:mtihani_app/models/class.dart' as _i20;
+import 'package:mtihani_app/models/exam.dart' as _i21;
 import 'package:mtihani_app/models/user.dart' as _i19;
 import 'package:mtihani_app/ui/views/auth/login/login_view.dart' as _i3;
 import 'package:mtihani_app/ui/views/auth/profile/change_password/change_password_view.dart'
@@ -140,7 +140,7 @@ class StackedRouter extends _i1.RouterBase {
     ),
     _i1.RouteDef(
       Routes.examListView,
-      page: _i13.ExamListView,
+      page: _i13.ExamListWidget,
     ),
     _i1.RouteDef(
       Routes.singleExamView,
@@ -235,11 +235,11 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i13.ExamListView: (data) {
-      final args = data.getArgs<ExamListViewArguments>(nullOk: false);
+    _i13.ExamListWidget: (data) {
+      final args = data.getArgs<ExamListWidgetArguments>(nullOk: false);
       return _i18.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i13.ExamListView(key: args.key, loggedInUser: args.loggedInUser),
+            _i13.ExamListWidget(key: args.key, userClasses: args.userClasses),
         settings: data,
       );
     },
@@ -366,30 +366,30 @@ class ProfileViewArguments {
   }
 }
 
-class ExamListViewArguments {
-  const ExamListViewArguments({
+class ExamListWidgetArguments {
+  const ExamListWidgetArguments({
     this.key,
-    required this.loggedInUser,
+    required this.userClasses,
   });
 
   final _i18.Key? key;
 
-  final _i19.UserModel loggedInUser;
+  final List<_i20.ClassModel> userClasses;
 
   @override
   String toString() {
-    return '{"key": "$key", "loggedInUser": "$loggedInUser"}';
+    return '{"key": "$key", "userClasses": "$userClasses"}';
   }
 
   @override
-  bool operator ==(covariant ExamListViewArguments other) {
+  bool operator ==(covariant ExamListWidgetArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.loggedInUser == loggedInUser;
+    return other.key == key && other.userClasses == userClasses;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ loggedInUser.hashCode;
+    return key.hashCode ^ userClasses.hashCode;
   }
 }
 
@@ -401,7 +401,7 @@ class SingleExamViewArguments {
 
   final _i18.Key? key;
 
-  final _i20.ExamModel examItem;
+  final _i21.ExamModel examItem;
 
   @override
   String toString() {
@@ -428,7 +428,7 @@ class SingleClassViewArguments {
 
   final _i18.Key? key;
 
-  final _i21.ClassModel classItem;
+  final _i20.ClassModel classItem;
 
   @override
   String toString() {
@@ -616,9 +616,9 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToExamListView({
+  Future<dynamic> navigateToExamListWidget({
     _i18.Key? key,
-    required _i19.UserModel loggedInUser,
+    required List<_i20.ClassModel> userClasses,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -626,7 +626,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.examListView,
-        arguments: ExamListViewArguments(key: key, loggedInUser: loggedInUser),
+        arguments: ExamListWidgetArguments(key: key, userClasses: userClasses),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -635,7 +635,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
 
   Future<dynamic> navigateToSingleExamView({
     _i18.Key? key,
-    required _i20.ExamModel examItem,
+    required _i21.ExamModel examItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -652,7 +652,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
 
   Future<dynamic> navigateToSingleClassView({
     _i18.Key? key,
-    required _i21.ClassModel classItem,
+    required _i20.ClassModel classItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -863,9 +863,9 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithExamListView({
+  Future<dynamic> replaceWithExamListWidget({
     _i18.Key? key,
-    required _i19.UserModel loggedInUser,
+    required List<_i20.ClassModel> userClasses,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -873,7 +873,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.examListView,
-        arguments: ExamListViewArguments(key: key, loggedInUser: loggedInUser),
+        arguments: ExamListWidgetArguments(key: key, userClasses: userClasses),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -882,7 +882,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
 
   Future<dynamic> replaceWithSingleExamView({
     _i18.Key? key,
-    required _i20.ExamModel examItem,
+    required _i21.ExamModel examItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -899,7 +899,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
 
   Future<dynamic> replaceWithSingleClassView({
     _i18.Key? key,
-    required _i21.ClassModel classItem,
+    required _i20.ClassModel classItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,

@@ -3,7 +3,6 @@ import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/exam.dart';
-import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
@@ -12,11 +11,8 @@ import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ExamListViewModel extends FutureViewModel {
+class ExamListWidgetModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
-
-  final UserModel loggedInUser;
-  ExamListViewModel(this.loggedInUser);
   List<ExamModel> userExams = [];
   bool isLoadMore = false;
   String? nextPageUrl;

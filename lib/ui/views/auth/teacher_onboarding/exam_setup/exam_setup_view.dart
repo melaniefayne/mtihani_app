@@ -33,7 +33,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
               actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
               action: viewModel.onGoToHome,
             ),
-            AppTabBar(
+            AppTabBarScaffold(
               showUnViewedIndicator: false,
               sectionWidth: pageSize.width * 0.7,
               tabs: [

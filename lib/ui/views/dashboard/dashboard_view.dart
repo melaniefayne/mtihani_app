@@ -49,7 +49,9 @@ class DashboardView extends StackedView<DashboardViewModel> {
                           },
                         )
                       : StudentHomeView(loggedInUser: viewModel.loggedInUser),
-                  ExamListView(loggedInUser: viewModel.loggedInUser),
+                  ExamListWidget(
+                    userClasses: viewModel.loggedInUser.user_classes ?? [],
+                  ),
                   ProfileView(loggedInUser: viewModel.loggedInUser)
                 ],
               ),

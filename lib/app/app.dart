@@ -17,7 +17,6 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_fo
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
 import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
-import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
 import 'package:mtihani_app/ui/views/single_exam/single_exam_view.dart';
 import 'package:mtihani_app/ui/views/single_class/single_class_view.dart';
 import 'package:mtihani_app/ui/dialogs/app_action/app_action_dialog.dart';
@@ -39,7 +38,6 @@ import 'package:mtihani_app/ui/views/auth/profile/change_password/change_passwor
     MaterialRoute(page: ExamSetupView),
     MaterialRoute(page: DashboardView),
     MaterialRoute(page: ProfileView),
-    MaterialRoute(page: ExamListView),
     MaterialRoute(page: SingleExamView),
     MaterialRoute(page: SingleClassView),
     MaterialRoute(page: EditProfileView),

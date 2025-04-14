@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/ui/widgets/model_widgets/class_widgets.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/model_widgets/lesson_time.dart';
 import 'package:stacked/stacked.dart';
 
