@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 
-const bool _autoTextFieldValidation = true;
+const bool _autoTextFieldValidation = false;
 
 const String CurrentPasswordValueKey = 'currentPassword';
 const String NewPasswordValueKey = 'newPassword';
