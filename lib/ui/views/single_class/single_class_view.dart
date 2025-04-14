@@ -30,7 +30,6 @@ class SingleClassView extends StackedView<SingleClassViewModel> {
         theme: theme,
         btnTxt: "Edit Class",
         onAction: viewModel.onEditClass,
-        isFullWidth: false,
       ),
       children: [
         AppTabBarScaffold(

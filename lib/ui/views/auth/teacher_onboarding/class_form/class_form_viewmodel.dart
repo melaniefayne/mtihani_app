@@ -101,7 +101,9 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
     );
     isLoading = false;
     rebuildUi();
-    if (apiCallChecks(apiCallRes, "create class result") == true) {
+    if (apiCallChecks(apiCallRes, "create class result",
+            showSuccessMessage: true) ==
+        true) {
       UserModel? newUser = apiCallRes.$1?.data;
       if (newUser != null) {
         await _authService.saveUserProfile(newUser);

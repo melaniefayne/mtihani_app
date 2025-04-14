@@ -128,7 +128,7 @@ buildPriBtn({
   bool isEnabled = true,
   bool isLoading = false,
   IconData? iconPath,
-  bool isFullWidth = true,
+  bool isFullWidth = false,
 }) {
   return SizedBox(
     width: isFullWidth ? double.infinity : null,
@@ -169,7 +169,7 @@ Widget buildSecBtn({
   bool isEnabled = true,
   bool isLoading = false,
   IconData? iconPath,
-  bool isFullWidth = true,
+  bool isFullWidth = false,
 }) {
   return Container(
     width: isFullWidth ? double.infinity : null,

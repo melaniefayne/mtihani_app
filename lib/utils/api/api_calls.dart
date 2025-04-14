@@ -227,7 +227,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool, Map<String, dynamic>)>
 
 ///[apiCallChecks] returns isSuccess
 bool apiCallChecks(dynamic apiCallRes, String title,
-    {bool showSuccessMessage = true}) {
+    {bool showSuccessMessage = false}) {
   final snackbarService = locator<SnackbarService>();
   final authService = locator<AuthService>();
   if (!apiCallRes.$4) {

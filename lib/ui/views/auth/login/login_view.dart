@@ -69,6 +69,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 iconPath: Icons.login,
                 onAction: viewModel.onApiUserLogin,
                 isLoading: viewModel.isLoading,
+                isFullWidth: true,
               ),
 
               //

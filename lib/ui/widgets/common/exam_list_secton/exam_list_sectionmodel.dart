@@ -45,7 +45,7 @@ class ExamListSectionModel extends FutureViewModel {
       queryParams: queryParams,
     );
 
-    if (apiCallChecks(examsApiRes, 'exam listing', showSuccessMessage: false)) {
+    if (apiCallChecks(examsApiRes, 'exam listing')) {
       List<ExamModel> resExams = examsApiRes.$1?.listData ?? [];
       userExams = [...userExams, ...resExams];
       nextPageUrl = examsApiRes.$1?.next;

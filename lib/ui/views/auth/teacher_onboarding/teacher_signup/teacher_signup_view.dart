@@ -137,6 +137,7 @@ class TeacherSignupView extends StackedView<TeacherSignupViewModel>
               iconPath: Icons.account_circle_outlined,
               isLoading: viewModel.isLoading,
               onAction: viewModel.onApiTeacherSignup,
+              isFullWidth: true,
             ),
           ],
         ),

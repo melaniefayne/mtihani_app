@@ -142,6 +142,7 @@ class StudentSignupView extends StackedView<StudentSignupViewModel>
                 iconPath: FontAwesomeIcons.usersRectangle,
                 btnTxt: 'Join Class',
                 isLoading: viewModel.isLoading,
+                isFullWidth: true,
               ),
               SizedBox(height: pageSize.height * 0.01),
               GestureDetector(

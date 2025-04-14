@@ -207,6 +207,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
             iconPath: FontAwesomeIcons.scroll,
             isLoading: viewModel.isLoading,
             onAction: viewModel.onConfirmExamConfig,
+            isFullWidth: true,
           ),
         ],
       ),

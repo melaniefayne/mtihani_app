@@ -62,8 +62,7 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
       queryParams: {"class_id": currentClass.id},
     );
 
-    if (apiCallChecks(cbcApiRes, 'class curriculum',
-        showSuccessMessage: false)) {
+    if (apiCallChecks(cbcApiRes, 'class curriculum')) {
       return cbcApiRes.$1?.listData ?? [];
     }
 
@@ -86,8 +85,7 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
       queryParams: {"class_id": currentClass.id},
     );
 
-    if (apiCallChecks(classStrandScApiRes, 'class strand scores',
-        showSuccessMessage: false)) {
+    if (apiCallChecks(classStrandScApiRes, 'class strand scores')) {
       return classStrandScApiRes.$1?.listData ?? [];
     }
 
@@ -205,7 +203,9 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
     isLoading = false;
     rebuildUi();
 
-    if (apiCallChecks(apiCallRes, "exam generation result") == true) {
+    if (apiCallChecks(apiCallRes, "exam generation result",
+            showSuccessMessage: true) ==
+        true) {
       onGoToHome();
     }
   }

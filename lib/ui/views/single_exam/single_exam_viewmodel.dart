@@ -39,7 +39,9 @@ class SingleExamViewModel extends BaseViewModel {
     isLoading = false;
     rebuildUi();
 
-    if (apiCallChecks(apiCallRes, "exam edit result") == true) {
+    if (apiCallChecks(apiCallRes, "exam edit result",
+            showSuccessMessage: true) ==
+        true) {
       ExamModel? newExam = apiCallRes.$1?.data;
       if (newExam != null) {
         examItem = newExam;

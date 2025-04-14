@@ -30,8 +30,7 @@ class TeacherHomeViewModel extends MultipleFutureViewModel {
     var classApiRes = await onApiGetCall<ClassModel>(
       getEndpoint: endPointGetUseClasses,
     );
-    if (apiCallChecks(classApiRes, 'class listing',
-        showSuccessMessage: false)) {
+    if (apiCallChecks(classApiRes, 'class listing')) {
       return classApiRes.$1?.listData ?? [];
     }
 
@@ -43,7 +42,7 @@ class TeacherHomeViewModel extends MultipleFutureViewModel {
       getEndpoint: endPointGetUserExams,
       queryParams: {"page_size": 3},
     );
-    if (apiCallChecks(examApiRes, 'exam listing', showSuccessMessage: false)) {
+    if (apiCallChecks(examApiRes, 'exam listing')) {
       return examApiRes.$1?.listData ?? [];
     }
 

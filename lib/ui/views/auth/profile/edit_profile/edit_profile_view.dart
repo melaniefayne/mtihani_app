@@ -88,6 +88,7 @@ class EditProfileView extends StackedView<EditProfileViewModel>
           iconPath: FontAwesomeIcons.userPen,
           btnTxt: 'Update Profile',
           isLoading: viewModel.isLoading,
+          isFullWidth: true,
         ),
       ],
     );

@@ -122,7 +122,6 @@ class StudentListWidget extends StatelessWidget {
                     theme: theme,
                     btnTxt: "View More",
                     iconPath: Icons.read_more,
-                    isFullWidth: false,
                     onAction: () => onViewMore!(),
                   ),
                 ),

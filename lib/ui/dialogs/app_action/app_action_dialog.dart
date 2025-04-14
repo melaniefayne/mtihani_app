@@ -93,7 +93,6 @@ class AppActionDialog extends StackedView<AppActionDialogModel> {
                         },
                         btnTxt: widgetConfig?['cancelTxt'] ?? 'Cancel',
                         iconPath: widgetConfig?['cancelIcon'] ?? Icons.cancel,
-                        isFullWidth: false,
                       ),
                       buildConfirmBtn,
                     ],

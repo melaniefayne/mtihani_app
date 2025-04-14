@@ -82,6 +82,7 @@ class ChangePasswordView extends StackedView<ChangePasswordViewModel>
           iconPath: Icons.lock,
           btnTxt: 'Change Password',
           isLoading: viewModel.isLoading,
+          isFullWidth: true,
         ),
       ],
     );

@@ -140,6 +140,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
               btnTxt: 'Create a Class',
               isLoading: viewModel.isLoading,
               onAction: viewModel.onApiClassCreate,
+              isFullWidth: true,
             ),
           ],
         ),

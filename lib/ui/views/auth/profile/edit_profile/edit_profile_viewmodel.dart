@@ -60,7 +60,9 @@ class EditProfileViewModel extends BaseViewModel with FormStateHelper {
     isLoading = false;
     rebuildUi();
 
-    if (apiCallChecks(apiCallRes, "edit profile result") == true) {
+    if (apiCallChecks(apiCallRes, "edit profile result",
+            showSuccessMessage: true) ==
+        true) {
       UserModel? newUser = apiCallRes.$1?.data;
       await _authService.saveUserProfile(newUser);
       _navigationService.back();

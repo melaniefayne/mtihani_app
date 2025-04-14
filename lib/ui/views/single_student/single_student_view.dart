@@ -25,7 +25,6 @@ class SingleStudentView extends StackedView<SingleStudentViewModel> {
       trailing: buildPriBtn(
         theme: theme,
         btnTxt: "Edit Student",
-        isFullWidth: false,
         onAction: () {},
       ),
       children: [],

@@ -88,7 +88,6 @@ class RoleSignupDialog extends StackedView<RoleSignupDialogModel> {
             theme: theme,
             btnTxt: btnLabel,
             onAction: onAction,
-            isFullWidth: false,
           )
         ],
       ),

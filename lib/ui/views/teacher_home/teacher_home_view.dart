@@ -43,7 +43,6 @@ class TeacherHomeView extends StackedView<TeacherHomeViewModel> {
                     buildPriBtn(
                       theme: theme,
                       btnTxt: "Add Class",
-                      isFullWidth: false,
                       iconPath: FontAwesomeIcons.usersRectangle,
                       onAction: viewModel.onAddClass,
                     ),
@@ -160,7 +159,6 @@ class TeacherHomeView extends StackedView<TeacherHomeViewModel> {
             buildPriBtn(
               theme: theme,
               btnTxt: "Add Class",
-              isFullWidth: false,
               iconPath: FontAwesomeIcons.usersRectangle,
               onAction: () => onAddClass(),
             ),

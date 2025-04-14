@@ -32,8 +32,7 @@ class StudentListSectionModel extends FutureViewModel {
       queryParams: queryParams,
     );
 
-    if (apiCallChecks(studentsApiRes, 'student listing',
-        showSuccessMessage: false)) {
+    if (apiCallChecks(studentsApiRes, 'student listing')) {
       List<StudentModel> resStudents = studentsApiRes.$1?.listData ?? [];
       classStudents = [...classStudents, ...resStudents];
       nextPageUrl = studentsApiRes.$1?.next;

@@ -45,7 +45,6 @@ class ExamListSection extends StackedView<ExamListSectionModel> {
               buildPriBtn(
                 theme: theme,
                 btnTxt: "Generate Exam",
-                isFullWidth: false,
                 iconPath: FontAwesomeIcons.scroll,
                 onAction: onGenerateExam,
               ),
@@ -148,7 +147,6 @@ class ExamListWidget extends StatelessWidget {
               buildPriBtn(
                 theme: theme,
                 btnTxt: "Generate Exam",
-                isFullWidth: false,
                 iconPath: FontAwesomeIcons.scroll,
                 onAction: onGenerateExam,
               ),
@@ -175,7 +173,6 @@ class ExamListWidget extends StatelessWidget {
                     theme: theme,
                     btnTxt: "View More",
                     iconPath: Icons.read_more,
-                    isFullWidth: false,
                     onAction: () => onViewMore!(),
                   ),
                 ),
@@ -257,7 +254,6 @@ class ExamCard extends StatelessWidget {
                 buildSecBtn(
                   theme: theme,
                   btnTxt: "View",
-                  isFullWidth: false,
                   iconPath: Icons.open_in_new,
                   onAction: () => onTap(exam),
                 ),

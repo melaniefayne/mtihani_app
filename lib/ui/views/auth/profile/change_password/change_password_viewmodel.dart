@@ -48,7 +48,9 @@ class ChangePasswordViewModel extends BaseViewModel with FormStateHelper {
     isLoading = false;
     rebuildUi();
 
-    if (apiCallChecks(apiCallRes, "change password result") == true) {
+    if (apiCallChecks(apiCallRes, "change password result",
+            showSuccessMessage: true) ==
+        true) {
       _navigationService.clearStackAndShow(Routes.loginView);
     }
   }
