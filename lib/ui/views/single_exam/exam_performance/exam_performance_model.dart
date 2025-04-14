@@ -1,6 +1,6 @@
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/exam.dart';
-import 'package:mtihani_app/ui/widgets/model_widgets/exam_widgets.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
 import 'package:stacked/stacked.dart';
 
 class ExamPerformanceWidgetModel extends BaseViewModel {

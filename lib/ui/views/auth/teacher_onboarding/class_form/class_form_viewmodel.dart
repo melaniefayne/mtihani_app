@@ -108,7 +108,7 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
       if (newUser != null) {
         await _authService.saveUserProfile(newUser);
         if (isFromOnboarding) {
-          _trOnboardingService.onSetCurrentClass(newUser.user_classes!.first);
+          _trOnboardingService.onSetCurrentClass(newUser.user_classes!.last);
           onGoToNext();
         } else {
           _navigationService.back();

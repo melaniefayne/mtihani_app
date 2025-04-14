@@ -210,7 +210,7 @@ Widget buildSecBtn({
 
 buildIconBtn({
   required ThemeData theme,
-  required Function() onAction,
+  Function()? onAction,
   required IconData iconPath,
 }) {
   return GestureDetector(

@@ -2,6 +2,61 @@
 
 ## Auth
 
+### LOGIN
+- String endPointLogin = '$baseURL/login';
+- Body:
+> dataMap: {"email": emailValue, "password": passwordValue},
+- Returns a mapData of the loggedInUser:
+```json
+{
+    "user": "[UserModel](../models/user.dart)",
+    "token": "tokenStr"
+}
+```
+
+
+### SIGN UP STUDENT
+- String endPointStudentRegister = '$baseURL/student-register';
+- Body:
+```dart
+Map<String, dynamic> studentBody = {
+    "first_name": firstNameValue,
+    "last_name": lastNameValue,
+    "email": studentEmailValue,
+    "student_code": studentCodeValue,
+    "password": studentPasswordValue,
+    "role": appStudentRoleKw,
+};
+```
+- Returns a mapData of the registeredUSer:
+```json
+{
+    "user": "[UserModel](../models/user.dart)",
+    "token": "tokenStr"
+}
+```
+
+### SIGN UP TEACHER
+- String endPointTeacherRegister = '$baseURL/teacher-register';
+- Body:
+```dart
+Map<String, dynamic> teacherBody = {
+    "first_name": firstNameValue,
+    "last_name": lastNameValue,
+    "email": teacherEmailValue,
+    "phone_no": phoneNoValue,
+    "password": teacherPasswordValue,
+    "role": appTeacherRoleKw,
+};
+```
+- Returns a mapData of the registeredUSer:
+```json
+{
+    "user": "[UserModel](../models/user.dart)",
+    "token": "tokenStr"
+}
+```
+
 ### UPDATE PROFILE
 - String endPointEditProfile = '$baseURL/edit-profile';
 - IsTokenBased - Teacher or Student
@@ -43,10 +98,10 @@ dataMap: {
       "students": uploadedStudents.map((e) => e.toJson()).toList(),
     };
 ```
-- Same endpoint on edit◊
+- Same endpoint on edit:
 >   postEndpoint: classToEdit != null ? "$endPointCreateClass/${classToEdit!.id}" : endPointCreateClass,
 
-- Returns the created [UserModel](../models/user.dart) with classes arranged from newest to oldest
+- Returns the created [UserModel](../models/user.dart)
 
 ### GET CLASS CURRICULUM
 - String endPointGetClassCurriculum = '$baseURL/class-curriculum';

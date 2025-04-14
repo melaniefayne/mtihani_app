@@ -61,7 +61,7 @@ class _AppPageFiltersState extends State<AppPageFilters> {
                           onClearSearch: filterItem.onClearSearch,
                           hint: filterItem.hint,
                         )
-                      : getDropDownFormField(
+                      : buildDropDownFormField(
                           theme: theme,
                           label: filterItem.label,
                           selectedValue: filterItem.selectedValue,
@@ -74,7 +74,7 @@ class _AppPageFiltersState extends State<AppPageFilters> {
     );
   }
 
-  Widget getDropDownFormField({
+  Widget buildDropDownFormField({
     required ThemeData theme,
     required String label,
     double? width,

@@ -24,6 +24,9 @@ String baseURL = '${getAppDomainUrl()}/api';
 
 // AUTH ENDPOINTS
 // -----------------------
+String endPointLogin = '$baseURL/login';
+String endPointStudentRegister = '$baseURL/student-register';
+String endPointTeacherRegister = '$baseURL/teacher-register';
 String endPointEditProfile = '$baseURL/edit-profile';
 String endPointChangePassword = '$baseURL/change-password';
 
