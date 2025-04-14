@@ -38,7 +38,7 @@ class ExamListView extends StackedView<ExamListViewModel> {
                 btnTxt: "Generate Exam",
                 isFullWidth: false,
                 iconPath: FontAwesomeIcons.scroll,
-                onAction: viewModel.onGenerateExam,
+                onAction: onGenerateExam,
               ),
             ],
           ),
@@ -90,7 +90,6 @@ class ExamListView extends StackedView<ExamListViewModel> {
             onViewMore: viewModel.nextPageUrl != null
                 ? viewModel.onViewMoreExams
                 : null,
-            onGenerateExam: viewModel.onGenerateExam,
           ),
         ],
       ),

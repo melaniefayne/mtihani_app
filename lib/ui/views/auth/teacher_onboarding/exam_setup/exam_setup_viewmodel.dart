@@ -21,6 +21,7 @@ const String classStrandScoresFetchKey = 'classStrandScoresFetchKey';
 class ExamSetupViewModel extends MultipleFutureViewModel {
   final _navigationService = locator<NavigationService>();
   final _trOnboardingService = locator<TeacherOnboardingService>();
+  bool get isFromOnboarding => _trOnboardingService.isFromOnboarding;
   bool isLoading = false;
   String? examSetupError;
   late ClassModel currentClass;
@@ -182,9 +183,6 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
   }
 
   onApiExamSetup() async {
-    isLoading = true;
-    rebuildUi();
-
     Map<String, dynamic> examBody = {
       "class_id": currentClass.id,
       "selected_strand_ids": selectedStrandsIds,
@@ -197,6 +195,9 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
     }
 
     log('Creating exam with ${jsonEncode(examBody)}');
+
+    isLoading = true;
+    rebuildUi();
     var apiCallRes = await onApiPostCall(
       postEndpoint: endPointSetExam,
       dataMap: examBody,

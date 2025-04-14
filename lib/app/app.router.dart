@@ -184,8 +184,10 @@ class StackedRouter extends _i1.RouterBase {
     _i5.TeacherHomeView: (data) {
       final args = data.getArgs<TeacherHomeViewArguments>(nullOk: false);
       return _i18.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i5.TeacherHomeView(key: args.key, loggedInUser: args.loggedInUser),
+        builder: (context) => _i5.TeacherHomeView(
+            key: args.key,
+            loggedInUser: args.loggedInUser,
+            onSwitchToExamTab: args.onSwitchToExamTab),
         settings: data,
       );
     },
@@ -309,26 +311,31 @@ class TeacherHomeViewArguments {
   const TeacherHomeViewArguments({
     this.key,
     required this.loggedInUser,
+    required this.onSwitchToExamTab,
   });
 
   final _i18.Key? key;
 
   final _i19.UserModel loggedInUser;
 
+  final Function onSwitchToExamTab;
+
   @override
   String toString() {
-    return '{"key": "$key", "loggedInUser": "$loggedInUser"}';
+    return '{"key": "$key", "loggedInUser": "$loggedInUser", "onSwitchToExamTab": "$onSwitchToExamTab"}';
   }
 
   @override
   bool operator ==(covariant TeacherHomeViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.loggedInUser == loggedInUser;
+    return other.key == key &&
+        other.loggedInUser == loggedInUser &&
+        other.onSwitchToExamTab == onSwitchToExamTab;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ loggedInUser.hashCode;
+    return key.hashCode ^ loggedInUser.hashCode ^ onSwitchToExamTab.hashCode;
   }
 }
 
@@ -490,6 +497,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
   Future<dynamic> navigateToTeacherHomeView({
     _i18.Key? key,
     required _i19.UserModel loggedInUser,
+    required Function onSwitchToExamTab,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -497,8 +505,10 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.teacherHomeView,
-        arguments:
-            TeacherHomeViewArguments(key: key, loggedInUser: loggedInUser),
+        arguments: TeacherHomeViewArguments(
+            key: key,
+            loggedInUser: loggedInUser,
+            onSwitchToExamTab: onSwitchToExamTab),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -734,6 +744,7 @@ extension NavigatorStateExtension on _i22.NavigationService {
   Future<dynamic> replaceWithTeacherHomeView({
     _i18.Key? key,
     required _i19.UserModel loggedInUser,
+    required Function onSwitchToExamTab,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -741,8 +752,10 @@ extension NavigatorStateExtension on _i22.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.teacherHomeView,
-        arguments:
-            TeacherHomeViewArguments(key: key, loggedInUser: loggedInUser),
+        arguments: TeacherHomeViewArguments(
+            key: key,
+            loggedInUser: loggedInUser,
+            onSwitchToExamTab: onSwitchToExamTab),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

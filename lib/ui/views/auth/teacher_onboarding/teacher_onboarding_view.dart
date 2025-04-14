@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart';
+import 'package:mtihani_app/services/teacher_onboarding_service.dart';
+import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 
@@ -33,8 +32,8 @@ class TeacherOnboardingView extends StackedView<TeacherOnboardingViewModel> {
             ),
             child: Column(
               children: [
-                Image.asset(
-                  astImagesLightLogo,
+                buildAppLogo(
+                  localImgPath: astImagesLightLogo,
                   height: 70,
                 ),
                 Divider(color: fgColor, thickness: 2.0),
@@ -146,33 +145,3 @@ class TeacherOnboardingView extends StackedView<TeacherOnboardingViewModel> {
   ) =>
       TeacherOnboardingViewModel();
 }
-
-class TeacherOnboardingModel {
-  final String title;
-  final String subtitle;
-  final Widget mainWidget;
-
-  TeacherOnboardingModel({
-    required this.title,
-    required this.subtitle,
-    required this.mainWidget,
-  });
-}
-
-List<TeacherOnboardingModel> onboardingWidgets = [
-  TeacherOnboardingModel(
-    title: 'Create An Account',
-    subtitle: "Tell us a little about yourself",
-    mainWidget: const TeacherSignupView(),
-  ),
-  TeacherOnboardingModel(
-    title: 'Add a class',
-    subtitle: "Bring your students onboard",
-    mainWidget: const ClassFormView(),
-  ),
-  TeacherOnboardingModel(
-    title: 'Set your first exam',
-    subtitle: "A step closer to better insights",
-    mainWidget: const ExamSetupView(),
-  ),
-];

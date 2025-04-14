@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/models/user.dart';
-import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
@@ -16,7 +14,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 class ExamListViewModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
-  final _dialogService = locator<DialogService>();
+
   final UserModel loggedInUser;
   ExamListViewModel(this.loggedInUser);
   List<ExamModel> userExams = [];
@@ -56,8 +54,9 @@ class ExamListViewModel extends FutureViewModel {
     return [dummyExam];
   }
 
-  onViewExam(ExamModel exam) {
-    _navigationService.navigateToSingleExamView(examItem: exam);
+  onViewExam(ExamModel exam) async {
+    await _navigationService.navigateToSingleExamView(examItem: exam);
+    initialise();
   }
 
   onViewMoreExams() async {
@@ -65,25 +64,6 @@ class ExamListViewModel extends FutureViewModel {
       isLoadMore = true;
       await initialise();
       isLoadMore = false;
-    }
-  }
-
-  onGenerateExam() async {
-    final userClasses = loggedInUser.user_classes;
-    final hasMultipleClasses = (userClasses?.length ?? 0) > 1;
-
-    final selectedClass = hasMultipleClasses
-        ? (await _dialogService.showCustomDialog(
-            variant: DialogType.classSelector,
-            data: {'userClasses': userClasses},
-          ))
-            ?.data as ClassModel?
-        : userClasses?.first;
-
-    if (selectedClass != null) {
-      final trOnboardService = locator<TeacherOnboardingService>();
-      trOnboardService.onSetCurrentClass(selectedClass);
-      _navigationService.navigateToExamSetupView();
     }
   }
 

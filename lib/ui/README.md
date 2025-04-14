@@ -1,6 +1,8 @@
 # API TODO
 
-## UPDATE PROFILE
+## Auth
+
+### UPDATE PROFILE
 - String endPointEditProfile = '$baseURL/edit-profile';
 - IsTokenBased - Teacher or Student
 - Body:
@@ -12,8 +14,9 @@ dataMap: {
     "phone_no": phoneNoValue,
     },
 ```
+- Returns the updated [UserModel](../models/user.dart)
 
-## CHANGE PASSWORD
+### CHANGE PASSWORD
 - String endPointChangePassword = '$baseURL/change-password';
 - IsTokenBased - Teacher or Student
 - Body:
@@ -24,21 +27,38 @@ dataMap: {
     },
 ```
 
+## Teacher Onboarding
 
-## GET CLASS CURRICULUM
+### POST CLASS
+- String endPointCreateClass = '$baseURL/create-class';
+- IsTokenBased - Teacher
+- Body:
+```dart
+    Map<String, dynamic> classBody = {
+      "name": classNameValue,
+      "school_name": schoolNameValue,
+      "school_address": schoolAddressValue,
+      "grade": selectedGrade,
+      "lesson_times": getApiLessonTimes(selectedLessonTimes),
+      "students": uploadedStudents.map((e) => e.toJson()).toList(),
+    };
+```
+- Returns the created [UserModel](../models/user.dart) with classes arranged from newest to oldest
+
+### GET CLASS CURRICULUM
 - String endPointGetClassCurriculum = '$baseURL/class-curriculum';
 - IsTokenBased - Teacher
 - QueryParams: **class_id**
 - Return: Full list of strands [GradeModel](../models/grade.dart) up to given class.grade level
 
-## GET CLASS STRAND SCORES
+### GET CLASS STRAND SCORES
 - String endPointGetClassStrandScores = '$baseURL/class-strand-scores';
 - IsTokenBased - Teacher
 - QueryParams: **class_id**
 - Return: List of strand scores if available [ClassStrandScore](../models/class_strand_score.dart)
 
 
-## POST EXAM
+### POST EXAM
 - String endPointSetExam = '$baseURL/set-exam';
 - IsTokenBased - Teacher
 - Body:
@@ -55,13 +75,21 @@ if (selectedFiles.isNotEmpty) {
 }
 ``` 
 
-## GET USER EXAMS
+## Teacher Dashboard
+
+### GET USER EXAMS
+String endPointGetUseClasses = '$baseURL/user-classes';
+- IsTokenBased - Teacher
+- Return: Full list of [ClassModel](../models/class.dart)
+
+
+### GET USER EXAMS
 - String endPointGetUserExams = '$baseURL/user-exams';
 - IsTokenBased - Teacher or Student
-- QueryParams: **start_date, end_date, class_id, exam_status**
+- QueryParams: **start_date, end_date, class_id, exam_status, page_size**
 - Return: Paginated user exam list of [ExamModel](../models/exam.dart)
 
-## POST EDIT EXAM
+### UPDATE EXAM
 - String endPointGetEditExam = '$baseURL/edit-exam';
 - IsTokenBased - Teacher
 - Body:

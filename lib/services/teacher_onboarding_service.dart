@@ -11,9 +11,14 @@ class TeacherOnboardingService {
   final _navigationService = locator<NavigationService>();
   final PageController pageController = PageController();
   ClassModel? currentClass;
+  bool isFromOnboarding = true;
 
   onSetCurrentClass(ClassModel classModel) {
     currentClass = classModel;
+  }
+
+  onSetIsFromOnboarding(bool isFromOnboarding) {
+    isFromOnboarding = isFromOnboarding;
   }
 
   goToNextPage() {
@@ -31,6 +36,7 @@ class TeacherOnboardingService {
 
   onFinishOnboarding() {
     pageController.dispose();
+    isFromOnboarding = true;
     _navigationService.clearStackAndShow(Routes.dashboardView);
   }
 }

@@ -17,6 +17,8 @@ class ClassModel with _$ClassModel {
     int? teacher_id,
     int? student_count,
     double? avg_term_score,
+    double? avg_exam_score,
+    List<DateTime>? lessons_today,
   }) = _ClassModel;
 
   factory ClassModel.fromJson(Map<String, dynamic> json) =>

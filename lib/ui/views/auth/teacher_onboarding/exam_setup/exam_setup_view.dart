@@ -30,6 +30,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
             buildPageTitle(
               theme: theme,
               pageTitle: "Set an Exam",
+              actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
               action: viewModel.onGoToHome,
             ),
             AppTabBar(

@@ -37,6 +37,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
             buildPageTitle(
               theme: theme,
               pageTitle: "Create A Class",
+              actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
               action: viewModel.onGoToHome,
             ),
             SizedBox(height: pageSize.height * 0.02),

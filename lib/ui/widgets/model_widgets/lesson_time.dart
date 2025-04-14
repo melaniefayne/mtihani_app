@@ -5,8 +5,13 @@ import 'package:mtihani_app/utils/constants/app_variables.dart';
 class ClassLessonTime {
   final String className;
   final DateTime lessonTime;
+  final bool isExam;
 
-  ClassLessonTime({required this.className, required this.lessonTime});
+  ClassLessonTime({
+    required this.className,
+    required this.lessonTime,
+    this.isExam = false,
+  });
 }
 
 Widget buildLessonTimeCard(
@@ -27,14 +32,19 @@ Widget buildLessonTimeCard(
                 ),
               ),
               const SizedBox(height: 4),
-              const Icon(FontAwesomeIcons.personChalkboard),
+              Icon(
+                classLesson.isExam
+                    ? FontAwesomeIcons.scroll
+                    : FontAwesomeIcons.personChalkboard,
+              ),
             ],
           ),
           title: Text.rich(
             TextSpan(
               children: [
                 TextSpan(
-                  text: "Grade ${classLesson.className} Lesson",
+                  text:
+                      "Grade ${classLesson.className} ${classLesson.isExam ? 'Exam' : 'Lesson'}",
                   style: theme.textTheme.titleMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

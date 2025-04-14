@@ -39,4 +39,6 @@ String endPointGetEditExam = '$baseURL/edit-exam';
 
 // CLASS ENDPOINTS
 // -----------------------
+String endPointCreateClass = '$baseURL/create-class';
+String endPointGetUseClasses = '$baseURL/user-classes';
 String endPointGetClassStrandScores = '$baseURL/class-strand-scores';

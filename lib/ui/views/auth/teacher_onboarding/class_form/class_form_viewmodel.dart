@@ -1,15 +1,20 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:mtihani_app/app/app.locator.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.form.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
+import 'package:mtihani_app/ui/widgets/model_widgets/exam_widgets.dart';
+import 'package:mtihani_app/utils/api/api_calls.dart';
+import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class ClassFormViewModel extends BaseViewModel with FormStateHelper {
   final _trOnboardingService = locator<TeacherOnboardingService>();
+  final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
+  bool get isFromOnboarding => _trOnboardingService.isFromOnboarding;
   int? selectedGrade;
   String? gradeErrorMsg;
   List<DateTime> selectedLessonTimes = [];
@@ -38,66 +43,63 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
   }
 
   onApiClassCreate() async {
-    // validateForm();
-    // if (!isFormValid) {
-    //   rebuildUi();
-    //   return;
-    // }
+    validateForm();
+    if (!isFormValid) {
+      rebuildUi();
+      return;
+    }
 
-    // if (selectedGrade == null) {
-    //   gradeErrorMsg = 'Select a grade to continue';
-    //   rebuildUi();
-    //   return;
-    // }
-    // gradeErrorMsg = null;
+    if (selectedGrade == null) {
+      gradeErrorMsg = 'Select a grade to continue';
+      rebuildUi();
+      return;
+    }
+    gradeErrorMsg = null;
 
-    // if (selectedLessonTimes.isEmpty) {
-    //   lessonTimesErrorMsg = 'Add lesson times to continue';
-    //   rebuildUi();
-    //   return;
-    // }
-    // lessonTimesErrorMsg = null;
+    if (selectedLessonTimes.isEmpty) {
+      lessonTimesErrorMsg = 'Add lesson times to continue';
+      rebuildUi();
+      return;
+    }
+    lessonTimesErrorMsg = null;
 
-    // if (uploadedStudents.isEmpty) {
-    //   uploadStudentsErrorMsg = 'Add students to continue';
-    //   rebuildUi();
-    //   return;
-    // }
-    // uploadStudentsErrorMsg = null;
+    if (uploadedStudents.isEmpty) {
+      uploadStudentsErrorMsg = 'Add students to continue';
+      rebuildUi();
+      return;
+    }
+    uploadStudentsErrorMsg = null;
 
-    // isLoading = true;
-    // rebuildUi();
+    Map<String, dynamic> classBody = {
+      "name": classNameValue,
+      "school_name": schoolNameValue,
+      "school_address": schoolAddressValue,
+      "grade": selectedGrade,
+      "lesson_times": getApiLessonTimes(selectedLessonTimes),
+      "students": uploadedStudents.map((e) => e.toJson()).toList(),
+    };
 
-    // Map<String, dynamic> classBody = {
-    //   "name": classNameValue,
-    //   "school_name": schoolNameValue,
-    //   "school_address": schoolAddressValue,
-    //   "grade": selectedGrade,
-    //   "lesson_times": getApiLessonTimes(selectedLessonTimes),
-    //   "students": uploadedStudents.map((e) => e.toJson()).toList(),
-    // };
-
-    // log('Creating class with ${jsonEncode(classBody)}');
-    // await Future.delayed(const Duration(seconds: 2));
-
-    // isLoading = false;
-    // rebuildUi();
-
-    _trOnboardingService.onSetCurrentClass(
-      ClassModel(
-        id: 1,
-        name: "8J",
-        school_name: "Muthaiga Primary School",
-        school_address: "Muthaiga, Thika Road",
-        grade: 8,
-        code: "FG67HG",
-        teacher_id: 1,
-        student_count: 25,
-        avg_term_score: 68.2,
-      ),
+    isLoading = true;
+    rebuildUi();
+    var apiCallRes = await onApiPostCall<UserModel>(
+      postEndpoint: endPointCreateClass,
+      dataMap: classBody,
     );
-    // If class is null, skip to Home, else go on to set exam
-    onGoToNext();
+    isLoading = false;
+    rebuildUi();
+    if (apiCallChecks(apiCallRes, "create class result") == true) {
+      UserModel? newUser = apiCallRes.$1?.data;
+      if (newUser != null) {
+        await _authService.saveUserProfile(newUser);
+        if (isFromOnboarding) {
+          _trOnboardingService.onSetCurrentClass(newUser.user_classes!.first);
+          onGoToNext();
+        } else {
+          _navigationService.back();
+          onGenerateClassExam(newUser.user_classes!.first);
+        }
+      }
+    }
   }
 
   onGoToNext() {

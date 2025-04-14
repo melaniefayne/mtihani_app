@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:mtihani_app/app/app.dialogs.dart';
+import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/app/app.router.dart';
+import 'package:mtihani_app/models/class.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/services/auth_service.dart';
+import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class ExamList extends StatelessWidget {
   final List<ExamModel> examList;
   final Function(ExamModel exam) onViewExam;
   final Function? onViewMore;
-  final Function onGenerateExam;
 
   const ExamList({
     super.key,
     required this.examList,
     required this.onViewExam,
     this.onViewMore,
-    required this.onGenerateExam,
   });
 
   @override
@@ -33,7 +39,7 @@ class ExamList extends StatelessWidget {
                 btnTxt: "Generate Exam",
                 isFullWidth: false,
                 iconPath: FontAwesomeIcons.scroll,
-                onAction: () => onGenerateExam(),
+                onAction: onGenerateExam,
               ),
             ],
           )
@@ -228,4 +234,33 @@ Color getExamStatusColor(String? statusStr, ThemeData theme) {
     }
   }
   return theme.primaryColor;
+}
+
+onGenerateExam() async {
+  final dialogService = locator<DialogService>();
+  final authService = locator<AuthService>();
+
+  UserModel? loggedInUser = await authService.getUserProfile();
+  final userClasses = loggedInUser?.user_classes;
+  final hasMultipleClasses = (userClasses?.length ?? 0) > 1;
+
+  final selectedClass = hasMultipleClasses
+      ? (await dialogService.showCustomDialog(
+          variant: DialogType.classSelector,
+          data: {'userClasses': userClasses},
+        ))
+          ?.data as ClassModel?
+      : userClasses?.first;
+
+  if (selectedClass != null) {
+    onGenerateClassExam(selectedClass);
+  }
+}
+
+onGenerateClassExam(ClassModel classItem) async {
+  final trOnboardService = locator<TeacherOnboardingService>();
+  trOnboardService.onSetCurrentClass(classItem);
+  trOnboardService.onSetIsFromOnboarding(false);
+  final navigationService = locator<NavigationService>();
+  navigationService.navigateToExamSetupView();
 }
