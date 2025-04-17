@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/ui/widgets/common/class_widgets.dart';
+import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -26,17 +26,18 @@ class ClassSelectorDialog extends StackedView<ClassSelectorDialogModel> {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
     final widgetConfig = request.data as Map<String, dynamic>?;
-    List<ClassModel> userClasses = widgetConfig!['userClasses'];
+    List<ClassroomModel> loggedInUserClassrooms =
+        widgetConfig!['loggedInUserClassrooms'];
     return buildDialogScaffold(
         theme: theme,
         pageSize: pageSize,
         title: "Choose a Class",
-        children: userClasses
-            .map((e) => ClassCard(
-                  classItem: e,
+        children: loggedInUserClassrooms
+            .map((e) => ClassroomCard(
+                  classroom: e,
                   isDense: true,
-                  onTap: (classItem) =>
-                      viewModel.onClassSelection(completer, classItem),
+                  onTap: (classroom) =>
+                      viewModel.onClassSelection(completer, classroom),
                 ))
             .toList());
   }

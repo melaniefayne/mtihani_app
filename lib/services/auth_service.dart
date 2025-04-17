@@ -5,8 +5,11 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
+import 'package:mtihani_app/utils/api/api_calls.dart';
+import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -72,6 +75,59 @@ class AuthService {
       }
     }
     return null;
+  }
+
+  Future<bool> get isLoggedInTeacher async {
+    UserModel? loggedInUser = await getUserProfile();
+    if (loggedInUser != null) {
+      return loggedInUser.role == appTeacherRoleKw;
+    }
+    return false;
+  }
+
+  Future<bool> get isLoggedInStudent async {
+    UserModel? loggedInUser = await getUserProfile();
+    if (loggedInUser != null) {
+      return loggedInUser.role == appStudentRoleKw;
+    }
+    return false;
+  }
+
+  Future<List<ClassroomModel>?> getUserClassrooms() async {
+    String? classListStr =
+        await _sharedPrefsService.sharedPrefsDoGetValue<String>(
+      prefsKey: strLoggedInUserClassrooms,
+    );
+    if (classListStr != null) {
+      try {
+        return jsonDecode(classListStr);
+      } catch (e) {
+        log("Error parsing user classrooms: $e");
+      }
+    }
+    return null;
+  }
+
+  Future<List<ClassroomModel>> get loggedInUserClassrooms async {
+    List<ClassroomModel>? savedClassrooms = await getUserClassrooms();
+
+    if (savedClassrooms != null && savedClassrooms.isNotEmpty) {
+      return savedClassrooms;
+    }
+
+    var classroomListRes = await onApiGetCall<ClassroomModel>(
+      getEndpoint: endPointGetUserClassrooms,
+    );
+    if (apiCallChecks(classroomListRes, 'classroom listing')) {
+      List<ClassroomModel> classrooms = classroomListRes.$1?.listData ?? [];
+      _sharedPrefsService.sharedPrefsDoSetValue<String>(
+        prefsKey: strLoggedInUserClassrooms,
+        value: jsonEncode(classrooms),
+      );
+      return classrooms;
+    }
+
+    return [];
   }
 
   // TOKEN

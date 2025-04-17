@@ -1,27 +1,20 @@
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
-import 'package:mtihani_app/utils/api/api_calls.dart';
-import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class TeacherClassesViewModel extends FutureViewModel<List<ClassroomModel>> {
   final trOnboardService = locator<TeacherOnboardingService>();
   final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
 
   @override
   Future<List<ClassroomModel>> futureToRun() async {
-    var classroomListRes = await onApiGetCall<ClassroomModel>(
-      getEndpoint: endPointGetTeacherClassrooms,
-    );
-
-    if (apiCallChecks(classroomListRes, 'classroom listing')) {
-      return classroomListRes.$1?.listData ?? [];
-    }
-    return [];
+    return _authService.loggedInUserClassrooms;
   }
 
   List<ClassLessonTime> get classLessonTimes {

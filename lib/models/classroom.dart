@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mtihani_app/models/user.dart';
 
 part 'classroom.freezed.dart';
 part 'classroom.g.dart';
@@ -15,16 +14,47 @@ class ClassroomModel with _$ClassroomModel {
     String? school_address,
     String? subject,
     int? grade,
-    String? code,
-    TeacherModel? teacher,
+    int? teacher_id,
     List<DateTime>? lessons_times,
     int? student_count,
     double? avg_term_score,
     String? avg_term_expectation_level,
     double? avg_mtihani_score,
     String? avg_mtihani_expectation_level,
+    String? student_code,
+    List<TermScore>? term_scores,
   }) = _ClassroomModel;
 
   factory ClassroomModel.fromJson(Map<String, dynamic> json) =>
       _$ClassroomModelFromJson(json);
+}
+
+@freezed
+class TermScore with _$TermScore {
+  factory TermScore({
+    int? id,
+    ClassroomModel? classroom,
+    int? grade,
+    int? term,
+    double? score,
+    String? expectation_level,
+  }) = _TermScore;
+
+  factory TermScore.fromJson(Map<String, dynamic> json) =>
+      _$TermScoreFromJson(json);
+}
+
+@freezed
+class ClassroomStudent with _$ClassroomStudent {
+  factory ClassroomStudent({
+    int? student_id,
+    String? name,
+    double? avg_term_score,
+    String? avg_term_expectation_level,
+    double? avg_mtihani_score,
+    String? avg_mtihani_expectation_level,
+  }) = _ClassroomStudent;
+
+  factory ClassroomStudent.fromJson(Map<String, dynamic> json) =>
+      _$ClassroomStudentFromJson(json);
 }

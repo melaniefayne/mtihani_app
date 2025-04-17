@@ -5,11 +5,11 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i19;
+import 'package:flutter/material.dart' as _i20;
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/models/classroom.dart' as _i22;
-import 'package:mtihani_app/models/exam.dart' as _i21;
-import 'package:mtihani_app/models/user.dart' as _i20;
+import 'package:mtihani_app/models/classroom.dart' as _i23;
+import 'package:mtihani_app/models/exam.dart' as _i22;
+import 'package:mtihani_app/models/user.dart' as _i21;
 import 'package:mtihani_app/ui/views/auth/login/login_view.dart' as _i3;
 import 'package:mtihani_app/ui/views/auth/profile/change_password/change_password_view.dart'
     as _i16;
@@ -28,6 +28,7 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_onboarding_
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart'
     as _i6;
 import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart' as _i11;
+import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart' as _i19;
 import 'package:mtihani_app/ui/views/single_exam/single_exam_view.dart' as _i13;
 import 'package:mtihani_app/ui/views/single_st_class/single_st_class_view.dart'
     as _i18;
@@ -40,7 +41,7 @@ import 'package:mtihani_app/ui/views/student_classes/student_classes_view.dart'
 import 'package:mtihani_app/ui/views/teacher_classes/teacher_classes_view.dart'
     as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i23;
+import 'package:stacked_services/stacked_services.dart' as _i24;
 
 class Routes {
   static const startupView = '/startup-view';
@@ -77,6 +78,8 @@ class Routes {
 
   static const singleStClassView = '/single-st-class-view';
 
+  static const examListView = '/exam-list-view';
+
   static const all = <String>{
     startupView,
     loginView,
@@ -95,6 +98,7 @@ class Routes {
     changePasswordView,
     singleStudentView,
     singleStClassView,
+    examListView,
   };
 }
 
@@ -168,24 +172,28 @@ class StackedRouter extends _i1.RouterBase {
       Routes.singleStClassView,
       page: _i18.SingleStClassView,
     ),
+    _i1.RouteDef(
+      Routes.examListView,
+      page: _i19.ExamListView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.StartupView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.StartupView(),
         settings: data,
       );
     },
     _i3.LoginView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.LoginView(),
         settings: data,
       );
     },
     _i4.StudentClassesView: (data) {
       final args = data.getArgs<StudentClassesViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => _i4.StudentClassesView(
             key: args.key,
             loggedInUser: args.loggedInUser,
@@ -195,7 +203,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i5.TeacherClassesView: (data) {
       final args = data.getArgs<TeacherClassesViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.TeacherClassesView(
             key: args.key,
             loggedInUser: args.loggedInUser,
@@ -204,44 +212,44 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i6.TeacherSignupView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.TeacherSignupView(),
         settings: data,
       );
     },
     _i7.StudentSignupView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.StudentSignupView(),
         settings: data,
       );
     },
     _i8.TeacherOnboardingView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.TeacherOnboardingView(),
         settings: data,
       );
     },
     _i9.ClassFormView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.ClassFormView(),
         settings: data,
       );
     },
     _i10.ExamSetupView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.ExamSetupView(),
         settings: data,
       );
     },
     _i11.DashboardView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.DashboardView(),
         settings: data,
       );
     },
     _i12.ProfileView: (data) {
       final args = data.getArgs<ProfileViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i12.ProfileView(key: args.key, loggedInUser: args.loggedInUser),
         settings: data,
@@ -249,7 +257,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i13.SingleExamView: (data) {
       final args = data.getArgs<SingleExamViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i13.SingleExamView(key: args.key, examItem: args.examItem),
         settings: data,
@@ -257,27 +265,27 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i14.SingleTrClassView: (data) {
       final args = data.getArgs<SingleTrClassViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i14.SingleTrClassView(key: args.key, classroom: args.classroom),
         settings: data,
       );
     },
     _i15.EditProfileView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.EditProfileView(),
         settings: data,
       );
     },
     _i16.ChangePasswordView: (data) {
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => const _i16.ChangePasswordView(),
         settings: data,
       );
     },
     _i17.SingleStudentView: (data) {
       final args = data.getArgs<SingleStudentViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
+      return _i20.MaterialPageRoute<dynamic>(
         builder: (context) => _i17.SingleStudentView(
             key: args.key, studentItem: args.studentItem),
         settings: data,
@@ -285,9 +293,21 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i18.SingleStClassView: (data) {
       final args = data.getArgs<SingleStClassViewArguments>(nullOk: false);
-      return _i19.MaterialPageRoute<dynamic>(
-        builder: (context) => _i18.SingleStClassView(
-            key: args.key, studentClassroom: args.studentClassroom),
+      return _i20.MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            _i18.SingleStClassView(key: args.key, classroom: args.classroom),
+        settings: data,
+      );
+    },
+    _i19.ExamListView: (data) {
+      final args = data.getArgs<ExamListViewArguments>(
+        orElse: () => const ExamListViewArguments(),
+      );
+      return _i20.MaterialPageRoute<dynamic>(
+        builder: (context) => _i19.ExamListView(
+            key: args.key,
+            classroom: args.classroom,
+            classStudent: args.classStudent),
         settings: data,
       );
     },
@@ -307,9 +327,9 @@ class StudentClassesViewArguments {
     required this.onSwitchToExamTab,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.UserModel loggedInUser;
+  final _i21.UserModel loggedInUser;
 
   final Function onSwitchToExamTab;
 
@@ -339,9 +359,9 @@ class TeacherClassesViewArguments {
     required this.onSwitchToExamTab,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.UserModel loggedInUser;
+  final _i21.UserModel loggedInUser;
 
   final Function onSwitchToExamTab;
 
@@ -370,9 +390,9 @@ class ProfileViewArguments {
     required this.loggedInUser,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.UserModel loggedInUser;
+  final _i21.UserModel loggedInUser;
 
   @override
   String toString() {
@@ -397,9 +417,9 @@ class SingleExamViewArguments {
     required this.examItem,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i21.ExamModel examItem;
+  final _i22.ExamModel examItem;
 
   @override
   String toString() {
@@ -424,9 +444,9 @@ class SingleTrClassViewArguments {
     required this.classroom,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i22.ClassroomModel classroom;
+  final _i23.ClassroomModel classroom;
 
   @override
   String toString() {
@@ -451,9 +471,9 @@ class SingleStudentViewArguments {
     required this.studentItem,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.StudentClassModel studentItem;
+  final _i23.ClassroomStudent studentItem;
 
   @override
   String toString() {
@@ -475,31 +495,63 @@ class SingleStudentViewArguments {
 class SingleStClassViewArguments {
   const SingleStClassViewArguments({
     this.key,
-    required this.studentClassroom,
+    required this.classroom,
   });
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
-  final _i20.StudentClassModel studentClassroom;
+  final _i23.ClassroomModel classroom;
 
   @override
   String toString() {
-    return '{"key": "$key", "studentClassroom": "$studentClassroom"}';
+    return '{"key": "$key", "classroom": "$classroom"}';
   }
 
   @override
   bool operator ==(covariant SingleStClassViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.studentClassroom == studentClassroom;
+    return other.key == key && other.classroom == classroom;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ studentClassroom.hashCode;
+    return key.hashCode ^ classroom.hashCode;
   }
 }
 
-extension NavigatorStateExtension on _i23.NavigationService {
+class ExamListViewArguments {
+  const ExamListViewArguments({
+    this.key,
+    this.classroom,
+    this.classStudent,
+  });
+
+  final _i20.Key? key;
+
+  final _i23.ClassroomModel? classroom;
+
+  final _i23.ClassroomStudent? classStudent;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "classroom": "$classroom", "classStudent": "$classStudent"}';
+  }
+
+  @override
+  bool operator ==(covariant ExamListViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.classroom == classroom &&
+        other.classStudent == classStudent;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ classroom.hashCode ^ classStudent.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i24.NavigationService {
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -529,8 +581,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToStudentClassesView({
-    _i19.Key? key,
-    required _i20.UserModel loggedInUser,
+    _i20.Key? key,
+    required _i21.UserModel loggedInUser,
     required Function onSwitchToExamTab,
     int? routerId,
     bool preventDuplicates = true,
@@ -550,8 +602,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToTeacherClassesView({
-    _i19.Key? key,
-    required _i20.UserModel loggedInUser,
+    _i20.Key? key,
+    required _i21.UserModel loggedInUser,
     required Function onSwitchToExamTab,
     int? routerId,
     bool preventDuplicates = true,
@@ -655,8 +707,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToProfileView({
-    _i19.Key? key,
-    required _i20.UserModel loggedInUser,
+    _i20.Key? key,
+    required _i21.UserModel loggedInUser,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -672,8 +724,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToSingleExamView({
-    _i19.Key? key,
-    required _i21.ExamModel examItem,
+    _i20.Key? key,
+    required _i22.ExamModel examItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -689,8 +741,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToSingleTrClassView({
-    _i19.Key? key,
-    required _i22.ClassroomModel classroom,
+    _i20.Key? key,
+    required _i23.ClassroomModel classroom,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -734,8 +786,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToSingleStudentView({
-    _i19.Key? key,
-    required _i20.StudentClassModel studentItem,
+    _i20.Key? key,
+    required _i23.ClassroomStudent studentItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -752,8 +804,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToSingleStClassView({
-    _i19.Key? key,
-    required _i20.StudentClassModel studentClassroom,
+    _i20.Key? key,
+    required _i23.ClassroomModel classroom,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -761,8 +813,26 @@ extension NavigatorStateExtension on _i23.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.singleStClassView,
-        arguments: SingleStClassViewArguments(
-            key: key, studentClassroom: studentClassroom),
+        arguments: SingleStClassViewArguments(key: key, classroom: classroom),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToExamListView({
+    _i20.Key? key,
+    _i23.ClassroomModel? classroom,
+    _i23.ClassroomStudent? classStudent,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.examListView,
+        arguments: ExamListViewArguments(
+            key: key, classroom: classroom, classStudent: classStudent),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -798,8 +868,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithStudentClassesView({
-    _i19.Key? key,
-    required _i20.UserModel loggedInUser,
+    _i20.Key? key,
+    required _i21.UserModel loggedInUser,
     required Function onSwitchToExamTab,
     int? routerId,
     bool preventDuplicates = true,
@@ -819,8 +889,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithTeacherClassesView({
-    _i19.Key? key,
-    required _i20.UserModel loggedInUser,
+    _i20.Key? key,
+    required _i21.UserModel loggedInUser,
     required Function onSwitchToExamTab,
     int? routerId,
     bool preventDuplicates = true,
@@ -924,8 +994,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithProfileView({
-    _i19.Key? key,
-    required _i20.UserModel loggedInUser,
+    _i20.Key? key,
+    required _i21.UserModel loggedInUser,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -941,8 +1011,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithSingleExamView({
-    _i19.Key? key,
-    required _i21.ExamModel examItem,
+    _i20.Key? key,
+    required _i22.ExamModel examItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -958,8 +1028,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithSingleTrClassView({
-    _i19.Key? key,
-    required _i22.ClassroomModel classroom,
+    _i20.Key? key,
+    required _i23.ClassroomModel classroom,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1003,8 +1073,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithSingleStudentView({
-    _i19.Key? key,
-    required _i20.StudentClassModel studentItem,
+    _i20.Key? key,
+    required _i23.ClassroomStudent studentItem,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1021,8 +1091,8 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithSingleStClassView({
-    _i19.Key? key,
-    required _i20.StudentClassModel studentClassroom,
+    _i20.Key? key,
+    required _i23.ClassroomModel classroom,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1030,8 +1100,26 @@ extension NavigatorStateExtension on _i23.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.singleStClassView,
-        arguments: SingleStClassViewArguments(
-            key: key, studentClassroom: studentClassroom),
+        arguments: SingleStClassViewArguments(key: key, classroom: classroom),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithExamListView({
+    _i20.Key? key,
+    _i23.ClassroomModel? classroom,
+    _i23.ClassroomStudent? classStudent,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.examListView,
+        arguments: ExamListViewArguments(
+            key: key, classroom: classroom, classStudent: classStudent),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

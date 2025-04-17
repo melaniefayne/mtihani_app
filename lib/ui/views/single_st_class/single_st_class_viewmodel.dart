@@ -1,7 +1,7 @@
-import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:stacked/stacked.dart';
 
 class SingleStClassViewModel extends BaseViewModel {
-  final StudentClassModel studentClassroom;
-  SingleStClassViewModel(this.studentClassroom);
+  final ClassroomModel classroom;
+  SingleStClassViewModel(this.classroom);
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_st_class_viewmodel.dart';
 
 class SingleStClassView extends StackedView<SingleStClassViewModel> {
-  final StudentClassModel studentClassroom;
-  const SingleStClassView({Key? key, required this.studentClassroom})
+  final ClassroomModel classroom;
+  const SingleStClassView({Key? key, required this.classroom})
       : super(key: key);
 
   @override
@@ -26,5 +26,5 @@ class SingleStClassView extends StackedView<SingleStClassViewModel> {
   SingleStClassViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      SingleStClassViewModel(studentClassroom);
+      SingleStClassViewModel(classroom);
 }

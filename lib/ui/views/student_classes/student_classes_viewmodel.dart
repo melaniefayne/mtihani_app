@@ -1,20 +1,20 @@
 import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
-import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class StudentClassesViewModel extends FutureViewModel<List<StudentClassModel>> {
+class StudentClassesViewModel extends FutureViewModel<List<ClassroomModel>> {
   final _dialogService = locator<DialogService>();
   final _navigationService = locator<NavigationService>();
 
   @override
-  Future<List<StudentClassModel>> futureToRun() async {
-    var classroomListRes = await onApiGetCall<StudentClassModel>(
+  Future<List<ClassroomModel>> futureToRun() async {
+    var classroomListRes = await onApiGetCall<ClassroomModel>(
       getEndpoint: endPointGetStudentClassrooms,
     );
 
@@ -25,11 +25,9 @@ class StudentClassesViewModel extends FutureViewModel<List<StudentClassModel>> {
   }
 
   List<ClassLessonTime> get classLessonTimes {
-    return ((data ?? [])
-            .map((studentClassroom) => studentClassroom.classroom)
-            .toList())
-        .where((c) => c != null && (c.lessons_times?.isNotEmpty ?? false))
-        .expand((classroom) => (classroom!.lessons_times ?? []).map(
+    return (data ?? [])
+        .where((c) => c.lessons_times?.isNotEmpty ?? false)
+        .expand((classroom) => (classroom.lessons_times ?? []).map(
               (lesson) => ClassLessonTime(
                 className: classroom.name ?? "--",
                 lessonTime: lesson,
@@ -40,7 +38,7 @@ class StudentClassesViewModel extends FutureViewModel<List<StudentClassModel>> {
   }
 
   List<String> get classNames {
-    return (data ?? []).map((e) => e.classroom?.name ?? "--").toList();
+    return (data ?? []).map((e) => e.name ?? "--").toList();
   }
 
   List<double> get classTermScores {
@@ -61,8 +59,7 @@ class StudentClassesViewModel extends FutureViewModel<List<StudentClassModel>> {
     }
   }
 
-  onViewClass(StudentClassModel studentClassroom) {
-    _navigationService.navigateToSingleStClassView(
-        studentClassroom: studentClassroom);
+  onViewClass(ClassroomModel classroom) {
+    _navigationService.navigateToSingleStClassView(classroom: classroom);
   }
 }
