@@ -18,9 +18,6 @@ _$ClassroomModelImpl _$$ClassroomModelImplFromJson(Map<String, dynamic> json) =>
       teacher: json['teacher'] == null
           ? null
           : TeacherModel.fromJson(json['teacher'] as Map<String, dynamic>),
-      lessons_today: (json['lessons_today'] as List<dynamic>?)
-          ?.map((e) => DateTime.parse(e as String))
-          .toList(),
       lessons_times: (json['lessons_times'] as List<dynamic>?)
           ?.map((e) => DateTime.parse(e as String))
           .toList(),
@@ -43,8 +40,6 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'grade': instance.grade,
       'code': instance.code,
       'teacher': instance.teacher,
-      'lessons_today':
-          instance.lessons_today?.map((e) => e.toIso8601String()).toList(),
       'lessons_times':
           instance.lessons_times?.map((e) => e.toIso8601String()).toList(),
       'student_count': instance.student_count,

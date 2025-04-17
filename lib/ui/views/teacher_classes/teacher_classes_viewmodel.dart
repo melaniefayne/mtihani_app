@@ -2,7 +2,7 @@ import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
-import 'package:mtihani_app/ui/widgets/common/lesson_time.dart';
+import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
@@ -24,10 +24,9 @@ class TeacherClassesViewModel extends FutureViewModel<List<ClassroomModel>> {
     return [];
   }
 
-  List<ClassLessonTime> get getLessonTimes {
+  List<ClassLessonTime> get classLessonTimes {
     return (data ?? [])
-        .where((classroom) => classroom.lessons_today?.isNotEmpty ?? false)
-        .expand((classroom) => classroom.lessons_today!.map(
+        .expand((classroom) => (classroom.lessons_times ?? []).map(
               (lesson) => ClassLessonTime(
                 className: classroom.name ?? "--",
                 lessonTime: lesson,

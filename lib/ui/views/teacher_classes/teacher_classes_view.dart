@@ -5,7 +5,6 @@ import 'package:mtihani_app/ui/widgets/app_carousel.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
-import 'package:mtihani_app/ui/widgets/common/lesson_time.dart';
 import 'package:stacked/stacked.dart';
 
 import 'teacher_classes_viewmodel.dart';
@@ -115,31 +114,8 @@ class TeacherClassesView extends StackedView<TeacherClassesViewModel> {
                           ),
                           SizedBox(
                             width: pageSize.width * smallerSectionWidth,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Today",
-                                  style: theme.textTheme.titleLarge!.copyWith(
-                                    color: theme.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const Divider(),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: viewModel.getLessonTimes.length,
-                                  itemBuilder: (context, idx) {
-                                    ClassLessonTime classLesson =
-                                        viewModel.getLessonTimes[idx];
-                                    return buildLessonTimeCard(
-                                      theme: theme,
-                                      classLesson: classLesson,
-                                    );
-                                  },
-                                ),
-                              ],
+                            child: TimeTableWidget(
+                              lessons: viewModel.classLessonTimes,
                             ),
                           ),
                         ],

@@ -184,3 +184,128 @@ class StudentClassroomCard extends StatelessWidget {
     );
   }
 }
+
+class TimeTableWidget extends StatelessWidget {
+  final List<ClassLessonTime> lessons;
+
+  const TimeTableWidget({super.key, required this.lessons});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final grouped = groupLessons(lessons);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Timetable",
+          style: theme.textTheme.titleLarge!.copyWith(
+            color: theme.primaryColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const Divider(),
+        ...grouped.entries
+            .where((entry) => entry.value.isNotEmpty)
+            .map(
+                (entry) => buildSection(theme, entry.key, entry.value, context))
+            .toList(),
+      ],
+    );
+  }
+
+  Widget buildSection(
+    ThemeData theme,
+    String label,
+    List<ClassLessonTime> lessons,
+    BuildContext context,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(height: 10),
+        ...lessons
+            .map((lesson) => buildLessonTile(theme, lesson, context))
+            .toList(),
+      ],
+    );
+  }
+
+  Widget buildLessonTile(
+    ThemeData theme,
+    ClassLessonTime lesson,
+    BuildContext context,
+  ) {
+    final timeString =
+        TimeOfDay.fromDateTime(lesson.lessonTime).format(context);
+    return ListTile(
+      leading: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            timeString,
+            style: theme.textTheme.titleMedium!.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Icon(FontAwesomeIcons.personChalkboard),
+        ],
+      ),
+      title: Text(
+        "Grade ${lesson.className} 'Lesson'}",
+        style: theme.textTheme.titleMedium!.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: const Text("Integrated Science"),
+    );
+  }
+}
+
+class ClassLessonTime {
+  final String className;
+  final DateTime lessonTime;
+
+  ClassLessonTime({
+    required this.className,
+    required this.lessonTime,
+  });
+}
+
+Map<String, List<ClassLessonTime>> groupLessons(List<ClassLessonTime> lessons) {
+  final now = DateTime.now();
+  final today = <ClassLessonTime>[];
+  final tomorrow = <ClassLessonTime>[];
+  final later = <ClassLessonTime>[];
+
+  for (var lesson in lessons) {
+    final lessonDate = DateTime(
+        lesson.lessonTime.year, lesson.lessonTime.month, lesson.lessonTime.day);
+    final todayDate = DateTime(now.year, now.month, now.day);
+    final tomorrowDate = todayDate.add(const Duration(days: 1));
+
+    if (lessonDate == todayDate) {
+      today.add(lesson);
+    } else if (lessonDate == tomorrowDate) {
+      tomorrow.add(lesson);
+    } else {
+      later.add(lesson);
+    }
+  }
+
+  return {
+    'Today': today,
+    'Tomorrow': tomorrow,
+    'Later': later,
+  };
+}

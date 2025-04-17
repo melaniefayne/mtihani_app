@@ -28,7 +28,6 @@ mixin _$ClassroomModel {
   int? get grade => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
   TeacherModel? get teacher => throw _privateConstructorUsedError;
-  List<DateTime>? get lessons_today => throw _privateConstructorUsedError;
   List<DateTime>? get lessons_times => throw _privateConstructorUsedError;
   int? get student_count => throw _privateConstructorUsedError;
   double? get avg_term_score => throw _privateConstructorUsedError;
@@ -62,7 +61,6 @@ abstract class $ClassroomModelCopyWith<$Res> {
       int? grade,
       String? code,
       TeacherModel? teacher,
-      List<DateTime>? lessons_today,
       List<DateTime>? lessons_times,
       int? student_count,
       double? avg_term_score,
@@ -96,7 +94,6 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
     Object? grade = freezed,
     Object? code = freezed,
     Object? teacher = freezed,
-    Object? lessons_today = freezed,
     Object? lessons_times = freezed,
     Object? student_count = freezed,
     Object? avg_term_score = freezed,
@@ -137,10 +134,6 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
               as TeacherModel?,
-      lessons_today: freezed == lessons_today
-          ? _value.lessons_today
-          : lessons_today // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>?,
       lessons_times: freezed == lessons_times
           ? _value.lessons_times
           : lessons_times // ignore: cast_nullable_to_non_nullable
@@ -200,7 +193,6 @@ abstract class _$$ClassroomModelImplCopyWith<$Res>
       int? grade,
       String? code,
       TeacherModel? teacher,
-      List<DateTime>? lessons_today,
       List<DateTime>? lessons_times,
       int? student_count,
       double? avg_term_score,
@@ -233,7 +225,6 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
     Object? grade = freezed,
     Object? code = freezed,
     Object? teacher = freezed,
-    Object? lessons_today = freezed,
     Object? lessons_times = freezed,
     Object? student_count = freezed,
     Object? avg_term_score = freezed,
@@ -274,10 +265,6 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
           ? _value.teacher
           : teacher // ignore: cast_nullable_to_non_nullable
               as TeacherModel?,
-      lessons_today: freezed == lessons_today
-          ? _value._lessons_today
-          : lessons_today // ignore: cast_nullable_to_non_nullable
-              as List<DateTime>?,
       lessons_times: freezed == lessons_times
           ? _value._lessons_times
           : lessons_times // ignore: cast_nullable_to_non_nullable
@@ -318,15 +305,13 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       this.grade,
       this.code,
       this.teacher,
-      final List<DateTime>? lessons_today,
       final List<DateTime>? lessons_times,
       this.student_count,
       this.avg_term_score,
       this.avg_term_expectation_level,
       this.avg_mtihani_score,
       this.avg_mtihani_expectation_level})
-      : _lessons_today = lessons_today,
-        _lessons_times = lessons_times;
+      : _lessons_times = lessons_times;
 
   factory _$ClassroomModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassroomModelImplFromJson(json);
@@ -347,16 +332,6 @@ class _$ClassroomModelImpl implements _ClassroomModel {
   final String? code;
   @override
   final TeacherModel? teacher;
-  final List<DateTime>? _lessons_today;
-  @override
-  List<DateTime>? get lessons_today {
-    final value = _lessons_today;
-    if (value == null) return null;
-    if (_lessons_today is EqualUnmodifiableListView) return _lessons_today;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   final List<DateTime>? _lessons_times;
   @override
   List<DateTime>? get lessons_times {
@@ -380,7 +355,7 @@ class _$ClassroomModelImpl implements _ClassroomModel {
 
   @override
   String toString() {
-    return 'ClassroomModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, subject: $subject, grade: $grade, code: $code, teacher: $teacher, lessons_today: $lessons_today, lessons_times: $lessons_times, student_count: $student_count, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level)';
+    return 'ClassroomModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, subject: $subject, grade: $grade, code: $code, teacher: $teacher, lessons_times: $lessons_times, student_count: $student_count, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level)';
   }
 
   @override
@@ -398,8 +373,6 @@ class _$ClassroomModelImpl implements _ClassroomModel {
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.teacher, teacher) || other.teacher == teacher) &&
-            const DeepCollectionEquality()
-                .equals(other._lessons_today, _lessons_today) &&
             const DeepCollectionEquality()
                 .equals(other._lessons_times, _lessons_times) &&
             (identical(other.student_count, student_count) ||
@@ -430,7 +403,6 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       grade,
       code,
       teacher,
-      const DeepCollectionEquality().hash(_lessons_today),
       const DeepCollectionEquality().hash(_lessons_times),
       student_count,
       avg_term_score,
@@ -465,7 +437,6 @@ abstract class _ClassroomModel implements ClassroomModel {
       final int? grade,
       final String? code,
       final TeacherModel? teacher,
-      final List<DateTime>? lessons_today,
       final List<DateTime>? lessons_times,
       final int? student_count,
       final double? avg_term_score,
@@ -492,8 +463,6 @@ abstract class _ClassroomModel implements ClassroomModel {
   String? get code;
   @override
   TeacherModel? get teacher;
-  @override
-  List<DateTime>? get lessons_today;
   @override
   List<DateTime>? get lessons_times;
   @override

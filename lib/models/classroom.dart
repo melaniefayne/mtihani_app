@@ -17,7 +17,6 @@ class ClassroomModel with _$ClassroomModel {
     int? grade,
     String? code,
     TeacherModel? teacher,
-    List<DateTime>? lessons_today,
     List<DateTime>? lessons_times,
     int? student_count,
     double? avg_term_score,
