@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 
-class ClassCard extends StatelessWidget {
-  final ClassModel classItem;
-  final Function(ClassModel classItem)? onTap;
+class ClassroomCard extends StatelessWidget {
+  final ClassroomModel classroom;
+  final Function(ClassroomModel classroom)? onTap;
   final bool isDense;
 
-  const ClassCard({
+  const ClassroomCard({
     super.key,
-    required this.classItem,
+    required this.classroom,
     this.onTap,
     this.isDense = false,
   });
@@ -22,7 +22,7 @@ class ClassCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (onTap != null) onTap!(classItem);
+        if (onTap != null) onTap!(classroom);
       },
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -30,11 +30,11 @@ class ClassCard extends StatelessWidget {
             ? ListTile(
                 leading: CircleAvatar(
                   child: Text(
-                    "G${classItem.grade ?? "--"}",
+                    "G${classroom.grade ?? "--"}",
                   ),
                 ),
-                title: Text(classItem.name ?? "--"),
-                subtitle: Text('${classItem.student_count} Students'),
+                title: Text(classroom.name ?? "--"),
+                subtitle: Text('${classroom.student_count} Students'),
                 trailing: onTap != null
                     ? buildIconBtn(
                         theme: theme,
@@ -72,14 +72,14 @@ class ClassCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            "Grade ${classItem.name}",
+                            "Grade ${classroom.name}",
                             style: theme.textTheme.headlineSmall!.copyWith(
                               fontWeight: FontWeight.w600,
                               color: theme.colorScheme.primary,
                             ),
                           ),
                           const Text("Integrated Science"),
-                          Text('${classItem.student_count} Students'),
+                          Text('${classroom.student_count} Students'),
                         ],
                       ),
                     ),
@@ -88,7 +88,7 @@ class ClassCard extends StatelessWidget {
                       children: [
                         const Text('Avg Term Score'),
                         Text(
-                          '${classItem.avg_term_score ?? "--"}%',
+                          '${classroom.avg_term_score ?? "--"}%',
                           style: theme.textTheme.headlineMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
