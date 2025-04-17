@@ -9,7 +9,7 @@ import 'dart:ui' as _i6;
 import 'package:flutter/material.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
-import 'package:mtihani_app/models/class.dart' as _i8;
+import 'package:mtihani_app/models/classroom.dart' as _i8;
 import 'package:mtihani_app/services/teacher_onboarding_service.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
@@ -715,7 +715,7 @@ class MockTeacherOnboardingService extends _i1.Mock
       ) as _i2.PageController);
 
   @override
-  set currentClass(_i8.ClassModel? _currentClass) => super.noSuchMethod(
+  set currentClass(_i8.ClassroomModel? _currentClass) => super.noSuchMethod(
         Invocation.setter(
           #currentClass,
           _currentClass,

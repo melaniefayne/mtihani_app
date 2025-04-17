@@ -10,6 +10,7 @@ import 'app.locator.dart';
 import '../ui/dialogs/app_action/app_action_dialog.dart';
 import '../ui/dialogs/class_selector/class_selector_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
+import '../ui/dialogs/join_class/join_class_dialog.dart';
 import '../ui/dialogs/role_signup/role_signup_dialog.dart';
 
 enum DialogType {
@@ -17,6 +18,7 @@ enum DialogType {
   roleSignup,
   appAction,
   classSelector,
+  joinClass,
 }
 
 void setupDialogUi() {
@@ -31,6 +33,8 @@ void setupDialogUi() {
         AppActionDialog(request: request, completer: completer),
     DialogType.classSelector: (context, request, completer) =>
         ClassSelectorDialog(request: request, completer: completer),
+    DialogType.joinClass: (context, request, completer) =>
+        JoinClassDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

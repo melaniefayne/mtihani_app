@@ -6,8 +6,8 @@ import 'package:mtihani_app/ui/views/auth/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mtihani_app/ui/views/auth/login/login_view.dart';
-import 'package:mtihani_app/ui/views/student_home/student_home_view.dart';
-import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
+import 'package:mtihani_app/ui/views/student_classes/student_classes_view.dart';
+import 'package:mtihani_app/ui/views/teacher_classes/teacher_classes_view.dart';
 import 'package:mtihani_app/ui/dialogs/role_signup/role_signup_dialog.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart';
 import 'package:mtihani_app/ui/views/auth/student_signup/student_signup_view.dart';
@@ -18,20 +18,22 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_set
 import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
 import 'package:mtihani_app/ui/views/single_exam/single_exam_view.dart';
-import 'package:mtihani_app/ui/views/single_class/single_class_view.dart';
+import 'package:mtihani_app/ui/views/single_tr_class/single_tr_class_view.dart';
 import 'package:mtihani_app/ui/dialogs/app_action/app_action_dialog.dart';
 import 'package:mtihani_app/ui/dialogs/class_selector/class_selector_dialog.dart';
 import 'package:mtihani_app/ui/views/auth/profile/edit_profile/edit_profile_view.dart';
 import 'package:mtihani_app/ui/views/auth/profile/change_password/change_password_view.dart';
 import 'package:mtihani_app/ui/views/single_student/single_student_view.dart';
+import 'package:mtihani_app/ui/views/single_st_class/single_st_class_view.dart';
+import 'package:mtihani_app/ui/dialogs/join_class/join_class_dialog.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
-    MaterialRoute(page: StudentHomeView),
-    MaterialRoute(page: TeacherHomeView),
+    MaterialRoute(page: StudentClassesView),
+    MaterialRoute(page: TeacherClassesView),
     MaterialRoute(page: TeacherSignupView),
     MaterialRoute(page: StudentSignupView),
     MaterialRoute(page: TeacherOnboardingView),
@@ -40,10 +42,11 @@ import 'package:mtihani_app/ui/views/single_student/single_student_view.dart';
     MaterialRoute(page: DashboardView),
     MaterialRoute(page: ProfileView),
     MaterialRoute(page: SingleExamView),
-    MaterialRoute(page: SingleClassView),
+    MaterialRoute(page: SingleTrClassView),
     MaterialRoute(page: EditProfileView),
     MaterialRoute(page: ChangePasswordView),
     MaterialRoute(page: SingleStudentView),
+    MaterialRoute(page: SingleStClassView),
 // @stacked-route
   ],
   dependencies: [
@@ -64,6 +67,7 @@ import 'package:mtihani_app/ui/views/single_student/single_student_view.dart';
     StackedDialog(classType: RoleSignupDialog),
     StackedDialog(classType: AppActionDialog),
     StackedDialog(classType: ClassSelectorDialog),
+    StackedDialog(classType: JoinClassDialog),
 // @stacked-dialog
   ],
 )
