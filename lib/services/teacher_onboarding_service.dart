@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart';
@@ -10,10 +10,10 @@ import 'package:stacked_services/stacked_services.dart';
 class TeacherOnboardingService {
   final _navigationService = locator<NavigationService>();
   final PageController pageController = PageController();
-  ClassModel? currentClass;
+  ClassroomModel? currentClass;
   bool isFromOnboarding = true;
 
-  onSetCurrentClass(ClassModel? classModel) {
+  onSetCurrentClass(ClassroomModel? classModel) {
     currentClass = classModel;
   }
 

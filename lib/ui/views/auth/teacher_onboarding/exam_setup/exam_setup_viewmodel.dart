@@ -4,10 +4,10 @@ import 'dart:developer';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/cbc.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/class_strand_score.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/cbc_data.dart';
+import 'package:mtihani_app/data/cbc_data.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
@@ -24,7 +24,7 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
   bool get isFromOnboarding => _trOnboardingService.isFromOnboarding;
   bool isLoading = false;
   String? examSetupError;
-  late ClassModel currentClass;
+  late ClassroomModel currentClass;
 
   ExamSetupViewModel() {
     onExamSetupViewReady();
@@ -197,7 +197,7 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
     isLoading = true;
     rebuildUi();
     var apiCallRes = await onApiPostCall(
-      postEndpoint: endPointSetExam,
+      postEndpoint: endPointCreateExam,
       dataMap: examBody,
     );
     isLoading = false;

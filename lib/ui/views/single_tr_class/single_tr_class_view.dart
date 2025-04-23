@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_tr_class_viewmodel.dart';
@@ -17,8 +18,11 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
   ) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
-    return const Material(
-      child: Text("SingleTrClassView"),
+    return buildAppPageScaffold(
+      theme: theme,
+      pageTitle: "Grade ${classroom.name ?? '--'}",
+      pageSize: pageSize,
+      children: [],
     );
   }
 

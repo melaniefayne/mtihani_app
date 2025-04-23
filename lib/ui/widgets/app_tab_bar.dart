@@ -165,11 +165,13 @@ class TabViewItem {
   final String label;
   final IconData? icon;
   final String? imagePath;
+  final Widget? leadingWidget;
   final Widget widget;
 
   TabViewItem({
     required this.label,
     this.icon,
+    this.leadingWidget,
     this.imagePath,
     required this.widget,
   });

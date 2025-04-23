@@ -17,13 +17,11 @@ import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_fo
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
 import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
-import 'package:mtihani_app/ui/views/single_exam/single_exam_view.dart';
 import 'package:mtihani_app/ui/views/single_tr_class/single_tr_class_view.dart';
 import 'package:mtihani_app/ui/dialogs/app_action/app_action_dialog.dart';
 import 'package:mtihani_app/ui/dialogs/class_selector/class_selector_dialog.dart';
 import 'package:mtihani_app/ui/views/auth/profile/edit_profile/edit_profile_view.dart';
 import 'package:mtihani_app/ui/views/auth/profile/change_password/change_password_view.dart';
-import 'package:mtihani_app/ui/views/single_student/single_student_view.dart';
 import 'package:mtihani_app/ui/views/single_st_class/single_st_class_view.dart';
 import 'package:mtihani_app/ui/dialogs/join_class/join_class_dialog.dart';
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
@@ -44,11 +42,9 @@ import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
     MaterialRoute(page: ExamSetupView),
     MaterialRoute(page: DashboardView),
     MaterialRoute(page: ProfileView),
-    MaterialRoute(page: SingleExamView),
     MaterialRoute(page: SingleTrClassView),
     MaterialRoute(page: EditProfileView),
     MaterialRoute(page: ChangePasswordView),
-    MaterialRoute(page: SingleStudentView),
     MaterialRoute(page: SingleStClassView),
     MaterialRoute(page: ExamListView),
     MaterialRoute(page: CbcView),

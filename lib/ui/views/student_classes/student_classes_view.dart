@@ -70,8 +70,7 @@ class StudentClassesView extends StackedView<StudentClassesViewModel> {
                       SizedBox(height: pageSize.height * 0.02),
                       AppCarousel(
                         children: viewModel.data!
-                            .map((e) =>
-                                StudentClassroomCard(studentClassroom: e))
+                            .map((e) => ClassroomCard(classroom: e))
                             .toList(),
                       ),
                       SizedBox(height: pageSize.height * 0.01),

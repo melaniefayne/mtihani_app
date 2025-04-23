@@ -20,7 +20,15 @@ String getAppDomainUrl() {
 }
 
 String appBaseURL = "";
-String baseURL = '${getAppDomainUrl()}/api';
+String get baseURL => '${getAppDomainUrl()}/api';
+
+String get endPointGetUserClassrooms => "";
+String get endPointGetStudentClassrooms => "";
+String get endPointJoinClass => "";
+String get endPointGetExamListing => "";
+
+// =======================================================
+// =======================================================
 
 // AUTH ENDPOINTS
 // -----------------------
@@ -29,20 +37,3 @@ String endPointStudentRegister = '$baseURL/student-register';
 String endPointTeacherRegister = '$baseURL/teacher-register';
 String endPointEditProfile = '$baseURL/edit-profile';
 String endPointChangePassword = '$baseURL/change-password';
-
-// CBC ENDPOINTS
-// -----------------------
-String endPointGetClassCurriculum = '$baseURL/class-curriculum';
-
-// EXAM ENDPOINTS
-// -----------------------
-String endPointGetUserExams = '$baseURL/user-exams';
-String endPointSetExam = '$baseURL/set-exam';
-String endPointGetEditExam = '$baseURL/edit-exam';
-
-// CLASS ENDPOINTS
-// -----------------------
-String endPointCreateClass = '$baseURL/create-class';
-String endPointGetUseClasses = '$baseURL/user-classes';
-String endPointGetClassStrandScores = '$baseURL/class-strand-scores';
-String endPointGetClassStudents = '$baseURL/class-students';

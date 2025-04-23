@@ -108,8 +108,6 @@ const List<String> allExamStatuses = [
   examStatCompleteKw,
 ];
 
-const List<int> allGradesList = [7, 8, 9];
-
 Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
   switch (statusEnum) {
     case ExamStatus.generating:

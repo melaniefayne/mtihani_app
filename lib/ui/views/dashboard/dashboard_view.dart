@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
-import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
-import 'package:mtihani_app/ui/views/student_home/student_home_view.dart';
-import 'package:mtihani_app/ui/views/teacher_home/teacher_home_view.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -41,17 +38,18 @@ class DashboardView extends StackedView<DashboardViewModel> {
               child: IndexedStack(
                 index: viewModel.currentIndex,
                 children: [
-                  viewModel.isTeacherRole
-                      ? TeacherHomeView(
-                          loggedInUser: viewModel.loggedInUser,
-                          onSwitchToExamTab: () {
-                            viewModel.setIndex(1); // exam page index
-                          },
-                        )
-                      : StudentHomeView(loggedInUser: viewModel.loggedInUser),
-                  ExamListSection(
-                    userClasses: viewModel.loggedInUser.user_classes ?? [],
-                  ),
+                  // viewModel.isTeacherRole
+                  //     ? TeacherClassesView(
+                  //         loggedInUser: viewModel.loggedInUser,
+                  //         onSwitchToExamTab: () {
+                  //           viewModel.setIndex(1); // exam page index
+                  //         },
+                  //       )
+                  //     : StudentClassesView(
+                  //         loggedInUser: viewModel.loggedInUser),
+                  // const ExamListSection(
+                  //     // loggedInUserClassrooms: viewModel.loggedInUser.user_classes ?? [],
+                  //     ),
                   ProfileView(loggedInUser: viewModel.loggedInUser)
                 ],
               ),

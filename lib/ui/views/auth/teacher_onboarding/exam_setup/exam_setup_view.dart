@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/class_strand_score.dart';
 import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
 import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
-import 'package:mtihani_app/ui/widgets/common/strand_selection_card.dart';
+import 'package:mtihani_app/ui/widgets/common/cbc/strand_selection_card.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -79,7 +79,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
     required Size pageSize,
     required ExamSetupViewModel viewModel,
   }) {
-    ClassModel currentClass = viewModel.currentClass;
+    ClassroomModel currentClass = viewModel.currentClass;
 
     return buildSectionScaffold(
       theme: theme,

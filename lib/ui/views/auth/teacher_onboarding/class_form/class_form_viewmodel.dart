@@ -1,13 +1,11 @@
 import 'package:mtihani_app/app/app.locator.dart';
-import 'package:mtihani_app/models/class.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.form.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
-import 'package:mtihani_app/ui/widgets/common/exam_list_secton/exam_list_section.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
-import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -23,7 +21,7 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
   List<StudentScores> uploadedStudents = [];
   String? uploadStudentsErrorMsg;
   bool isLoading = false;
-  ClassModel? get classToEdit => _trOnboardingService.currentClass;
+  ClassroomModel? get classToEdit => _trOnboardingService.currentClass;
 
   onClassFormViewReady() {
     if (classToEdit != null) {
@@ -75,7 +73,7 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
     }
     lessonTimesErrorMsg = null;
 
-    if (uploadedStudents.isEmpty) {
+    if (classToEdit == null && uploadedStudents.isEmpty) {
       uploadStudentsErrorMsg = 'Add students to continue';
       rebuildUi();
       return;
@@ -88,8 +86,11 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
       "school_address": schoolAddressValue,
       "grade": selectedGrade,
       "lesson_times": getApiLessonTimes(selectedLessonTimes),
-      "students": uploadedStudents.map((e) => e.toJson()).toList(),
     };
+
+    if (uploadedStudents.isNotEmpty) {
+      classBody["students"] = uploadedStudents.map((e) => e.toJson()).toList();
+    }
 
     isLoading = true;
     rebuildUi();
