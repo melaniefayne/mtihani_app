@@ -36,7 +36,7 @@ class ExamSetupViewModel extends FutureViewModel {
 
   onExamSetupViewReady() {
     if (_trOnboardingService.currentClass == null) {
-      _navigationService.clearStackAndShow(Routes.teacherClassesView);
+      _navigationService.clearStackAndShow(Routes.examListView);
       return;
     }
 

@@ -44,6 +44,7 @@ final DateTime today = DateTime.now();
 final DateTime tomorrow = today.add(const Duration(days: 1));
 final DateFormat appTimeFormat = DateFormat("hh:mm a");
 final DateFormat appDayDateFormat = DateFormat('EEE, dd/MM/yyyy');
+final DateFormat appShortDayDateFormat = DateFormat('EEE, dd/MM');
 const List<int> allGradesList = [7, 8, 9];
 
 // DUMMY DATA

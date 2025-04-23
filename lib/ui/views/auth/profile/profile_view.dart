@@ -17,36 +17,31 @@ class ProfileView extends StackedView<ProfileViewModel> {
     Widget? child,
   ) {
     final theme = Theme.of(context);
-    final pageSize = MediaQuery.sizeOf(context);
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          buildPageAppHeader(
-            theme: theme,
-            iconPath: Icons.account_circle_outlined,
-            pageTitle: "Profile",
-          ),
-          SizedBox(height: pageSize.height * 0.01),
-          getScreenMenuItem(
-            theme: theme,
-            label: "Edit Profile",
-            iconPath: FontAwesomeIcons.userPen,
-            action: viewModel.onEditProfile,
-          ),
-          getScreenMenuItem(
-            theme: theme,
-            label: "Change Password",
-            iconPath: FontAwesomeIcons.lock,
-            action: viewModel.onChangePassword,
-          ),
-          getScreenMenuItem(
-            theme: theme,
-            label: "Logout",
-            iconPath: Icons.logout,
-            action: viewModel.onLogOut,
-            textColor: theme.colorScheme.error,
-          ),
-        ],
+    return Material(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            getScreenMenuItem(
+              theme: theme,
+              label: "Edit Profile",
+              iconPath: FontAwesomeIcons.userPen,
+              action: viewModel.onEditProfile,
+            ),
+            getScreenMenuItem(
+              theme: theme,
+              label: "Change Password",
+              iconPath: FontAwesomeIcons.lock,
+              action: viewModel.onChangePassword,
+            ),
+            getScreenMenuItem(
+              theme: theme,
+              label: "Logout",
+              iconPath: Icons.logout,
+              action: viewModel.onLogOut,
+              textColor: theme.colorScheme.error,
+            ),
+          ],
+        ),
       ),
     );
   }

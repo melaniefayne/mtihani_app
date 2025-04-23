@@ -1,3 +1,4 @@
+import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
@@ -7,10 +8,26 @@ import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class TeacherClassesViewModel extends FutureViewModel<List<ClassroomModel>> {
+class ClassroomListModel extends FutureViewModel<List<ClassroomModel>> {
   final _authService = locator<AuthService>();
+  final _dialogService = locator<DialogService>();
   final trOnboardService = locator<TeacherOnboardingService>();
   final _navigationService = locator<NavigationService>();
+  bool isTeacher = false;
+  bool isStudent = false;
+  String classActionTxt = "Add Class";
+
+  onClassroomListViewReady() async {
+    isTeacher = await _authService.isLoggedInTeacher;
+    isStudent = await _authService.isLoggedInStudent;
+    if (isTeacher) {
+      classActionTxt = "Add Class";
+    }
+    if (isStudent) {
+      classActionTxt = "Join Class";
+    }
+    rebuildUi();
+  }
 
   @override
   Future<List<ClassroomModel>> futureToRun() async {
@@ -41,12 +58,50 @@ class TeacherClassesViewModel extends FutureViewModel<List<ClassroomModel>> {
     return (data ?? []).map((e) => e.avg_mtihani_score ?? 0.0).toList();
   }
 
-  onAddClass() {
+  onOnboardClassroom() {
+    if (isTeacher) {
+      _onAddClass();
+      return;
+    }
+
+    if (isStudent) {
+      _onJoinClass();
+      return;
+    }
+  }
+
+  _onAddClass() {
     trOnboardService.onSetIsFromOnboarding(false);
     _navigationService.navigateToClassFormView();
   }
 
-  onViewClass(ClassroomModel classroom) {
+  _onJoinClass() async {
+    var dialogRes = await _dialogService.showCustomDialog(
+      variant: DialogType.joinClass,
+    );
+    bool? isSuccessfulJoin = dialogRes?.data;
+    if (isSuccessfulJoin == true) {
+      initialise();
+    }
+  }
+
+  onViewClassItem(ClassroomModel classroom) {
+    if (isTeacher) {
+      _onViewTrClass(classroom);
+      return;
+    }
+
+    if (isStudent) {
+      _onViewStClass(classroom);
+      return;
+    }
+  }
+
+  _onViewTrClass(ClassroomModel classroom) {
     _navigationService.navigateToSingleTrClassView(classroom: classroom);
+  }
+
+  _onViewStClass(ClassroomModel classroom) {
+    _navigationService.navigateToSingleStClassView(classroom: classroom);
   }
 }

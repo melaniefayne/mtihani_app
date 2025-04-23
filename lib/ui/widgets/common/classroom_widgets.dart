@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 
 class ClassroomCard extends StatelessWidget {
   final ClassroomModel classroom;
@@ -43,7 +44,7 @@ class ClassroomCard extends StatelessWidget {
                     : null,
               )
             : Container(
-                width: pageSize.width * 0.2,
+                width: pageSize.width * 0.24,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.primaryContainer,
@@ -112,6 +113,7 @@ class TimeTableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
     final grouped = groupLessons(lessons);
 
     return Column(
@@ -125,11 +127,21 @@ class TimeTableWidget extends StatelessWidget {
           ),
         ),
         const Divider(),
-        ...grouped.entries
-            .where((entry) => entry.value.isNotEmpty)
-            .map(
-                (entry) => buildSection(theme, entry.key, entry.value, context))
-            .toList(),
+        SizedBox(
+          height: pageSize.height * 0.38,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                children: grouped.entries
+                    .where((entry) => entry.value.isNotEmpty)
+                    .map((entry) =>
+                        buildSection(theme, entry.key, entry.value, context))
+                    .toList(),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -143,15 +155,13 @@ class TimeTableWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        const SizedBox(height: 10),
+        Text(
+          label,
+          style: theme.textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 10),
         ...lessons
             .map((lesson) => buildLessonTile(theme, lesson, context))
             .toList(),
@@ -166,27 +176,32 @@ class TimeTableWidget extends StatelessWidget {
   ) {
     final timeString =
         TimeOfDay.fromDateTime(lesson.lessonTime).format(context);
-    return ListTile(
-      leading: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            timeString,
-            style: theme.textTheme.titleMedium!.copyWith(
-              fontWeight: FontWeight.bold,
+    return Card(
+      child: ListTile(
+        leading: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              timeString,
+              style: theme.textTheme.bodySmall!.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          const Icon(FontAwesomeIcons.personChalkboard),
-        ],
-      ),
-      title: Text(
-        "Grade ${lesson.className} Lesson",
-        style: theme.textTheme.titleMedium!.copyWith(
-          fontWeight: FontWeight.bold,
+            const SizedBox(height: 4),
+            Icon(
+              FontAwesomeIcons.personChalkboard,
+              size: theme.textTheme.bodyMedium!.fontSize,
+            ),
+          ],
         ),
+        title: Text(
+          "Grade ${lesson.className} Lesson",
+          style: theme.textTheme.titleMedium!.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: const Text("Integrated Science"),
       ),
-      subtitle: const Text("Integrated Science"),
     );
   }
 }
@@ -202,29 +217,32 @@ class ClassLessonTime {
 }
 
 Map<String, List<ClassLessonTime>> groupLessons(List<ClassLessonTime> lessons) {
-  final now = DateTime.now();
-  final today = <ClassLessonTime>[];
-  final tomorrow = <ClassLessonTime>[];
-  final later = <ClassLessonTime>[];
+  final todayLessons = <ClassLessonTime>[];
+  final tomorrowLessons = <ClassLessonTime>[];
+  final Map<String, List<ClassLessonTime>> laterLessons = {};
 
   for (var lesson in lessons) {
     final lessonDate = DateTime(
-        lesson.lessonTime.year, lesson.lessonTime.month, lesson.lessonTime.day);
-    final todayDate = DateTime(now.year, now.month, now.day);
-    final tomorrowDate = todayDate.add(const Duration(days: 1));
+      lesson.lessonTime.year,
+      lesson.lessonTime.month,
+      lesson.lessonTime.day,
+    );
+    final todayDate = DateTime(today.year, today.month, today.day);
+    final tomorrowDate = DateTime(tomorrow.year, tomorrow.month, tomorrow.day);
 
     if (lessonDate == todayDate) {
-      today.add(lesson);
+      todayLessons.add(lesson);
     } else if (lessonDate == tomorrowDate) {
-      tomorrow.add(lesson);
+      tomorrowLessons.add(lesson);
     } else {
-      later.add(lesson);
+      final formattedDate = appShortDayDateFormat.format(lessonDate);
+      laterLessons.putIfAbsent(formattedDate, () => []).add(lesson);
     }
   }
 
   return {
-    'Today': today,
-    'Tomorrow': tomorrow,
-    'Later': later,
+    'Today, ${appShortDayDateFormat.format(today)}': todayLessons,
+    'Tomorrow, ${appShortDayDateFormat.format(tomorrow)}': tomorrowLessons,
+    ...laterLessons,
   };
 }

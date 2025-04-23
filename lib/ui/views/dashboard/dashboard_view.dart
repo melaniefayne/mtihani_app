@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
 import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
+import 'package:mtihani_app/ui/views/classroom_list/classroom_list_view.dart';
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
-import 'package:mtihani_app/ui/views/student_classes/student_classes_view.dart';
-import 'package:mtihani_app/ui/views/teacher_classes/teacher_classes_view.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -25,15 +24,10 @@ class DashboardView extends StackedView<DashboardViewModel> {
     onSwitchToExamTab() => viewModel.setIndex(1); // exam page index
 
     List<Widget> dashboardPages = [
-      viewModel.isTeacherRole
-          ? TeacherClassesView(
-              loggedInUser: viewModel.loggedInUser,
-              onSwitchToExamTab: onSwitchToExamTab,
-            )
-          : StudentClassesView(
-              loggedInUser: viewModel.loggedInUser,
-              onSwitchToExamTab: onSwitchToExamTab,
-            ),
+      ClassroomList(
+        loggedInUser: viewModel.loggedInUser,
+        onSwitchToExamTab: onSwitchToExamTab,
+      ),
       const ExamListView(),
       const CbcView(),
       ProfileView(loggedInUser: viewModel.loggedInUser)
@@ -51,10 +45,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
               theme: theme,
               user: viewModel.loggedInUser,
               currentIdx: viewModel.currentIndex,
-              onViewProfile: () {
-                viewModel.setIndex(dashboardPages.length -
-                    1); // profile page index (last page)
-              },
+              onSwitchTab: viewModel.setIndex,
+              profileTabIdx: dashboardPages.length - 1,
             ),
             SizedBox(height: pageSize.height * 0.02),
             Expanded(
@@ -84,9 +76,14 @@ class DashboardView extends StackedView<DashboardViewModel> {
     required ThemeData theme,
     required UserModel user,
     required int currentIdx,
-    required Function onViewProfile,
+    required int profileTabIdx,
+    required Function(int tabIdx) onSwitchTab,
   }) {
-    List<String> tabs = ["Dashboard", "Exams"];
+    List<String> tabs = ["Dashboard", "Exams", "CBC"];
+    bool isProfileSelcted = currentIdx == profileTabIdx;
+    Color bgColor = isProfileSelcted ? theme.primaryColor : Colors.transparent;
+    Color fgColor =
+        isProfileSelcted ? theme.colorScheme.onPrimary : theme.primaryColor;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -99,55 +96,67 @@ class DashboardView extends StackedView<DashboardViewModel> {
                   children: [
                     buildAppLogo(),
                     const SizedBox(width: 10),
-                    ...tabs
-                        .asMap()
-                        .entries
-                        .map(
-                          (e) => Container(
-                            decoration: BoxDecoration(
-                              border: e.key == currentIdx
-                                  ? Border.all(
-                                      width: 2.0, color: theme.primaryColor)
-                                  : null,
-                            ),
-                            padding: e.key == currentIdx
-                                ? const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 10)
-                                : null,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                    ...tabs.asMap().entries.map(
+                      (e) {
+                        bool isSelected = e.key == currentIdx;
+                        Color bgColor = isSelected
+                            ? theme.primaryColor
+                            : Colors.transparent;
+                        Color fgColor = isSelected
+                            ? theme.colorScheme.onPrimary
+                            : theme.primaryColor;
+                        return GestureDetector(
+                          onTap: () {
+                            onSwitchTab(e.key);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(color: bgColor),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: Text(
                               e.value,
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 fontWeight: FontWeight.bold,
+                                color: fgColor,
                               ),
                             ),
                           ),
-                        )
-                        .toList(),
+                        );
+                      },
+                    ).toList(),
                   ],
                 ),
               ),
               GestureDetector(
-                onTap: () => onViewProfile(),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.account_circle_outlined,
-                      color: theme.primaryColor,
-                      size: theme.textTheme.headlineSmall!.fontSize,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      user.name ?? "--",
-                      style: theme.textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: theme.primaryColor,
+                onTap: () {
+                  onSwitchTab(profileTabIdx);
+                },
+                child: Container(
+                  decoration: BoxDecoration(color: bgColor),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.account_circle_outlined,
+                        color: fgColor,
+                        size: theme.textTheme.headlineSmall!.fontSize,
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 4),
+                      Text(
+                        user.name ?? "--",
+                        style: theme.textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: fgColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),

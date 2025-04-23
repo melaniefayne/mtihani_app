@@ -6,8 +6,7 @@ import 'package:mtihani_app/ui/views/auth/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mtihani_app/ui/views/auth/login/login_view.dart';
-import 'package:mtihani_app/ui/views/student_classes/student_classes_view.dart';
-import 'package:mtihani_app/ui/views/teacher_classes/teacher_classes_view.dart';
+import 'package:mtihani_app/ui/views/classroom_list/classroom_list_view.dart';
 import 'package:mtihani_app/ui/dialogs/role_signup/role_signup_dialog.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart';
 import 'package:mtihani_app/ui/views/auth/student_signup/student_signup_view.dart';
@@ -33,8 +32,7 @@ import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
   routes: [
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
-    MaterialRoute(page: StudentClassesView),
-    MaterialRoute(page: TeacherClassesView),
+    MaterialRoute(page: ClassroomList),
     MaterialRoute(page: TeacherSignupView),
     MaterialRoute(page: StudentSignupView),
     MaterialRoute(page: TeacherOnboardingView),
