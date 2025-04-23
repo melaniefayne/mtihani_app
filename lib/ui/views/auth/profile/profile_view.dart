@@ -43,7 +43,7 @@ class ProfileView extends StackedView<ProfileViewModel> {
             theme: theme,
             label: "Logout",
             iconPath: Icons.logout,
-            action: viewModel.onLogOut(),
+            action: viewModel.onLogOut,
             textColor: theme.colorScheme.error,
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/auth_service.dart';
@@ -6,6 +7,8 @@ import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.form.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/utils.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
+import 'package:mtihani_app/utils/api/api_config.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -53,70 +56,80 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
   }
 
   onApiClassCreate() async {
-    validateForm();
-    if (!isFormValid) {
-      rebuildUi();
-      return;
-    }
+    // validateForm();
+    // if (!isFormValid) {
+    //   rebuildUi();
+    //   return;
+    // }
 
-    if (selectedGrade == null) {
-      gradeErrorMsg = 'Select a grade to continue';
-      rebuildUi();
-      return;
-    }
-    gradeErrorMsg = null;
+    // if (selectedGrade == null) {
+    //   gradeErrorMsg = 'Select a grade to continue';
+    //   rebuildUi();
+    //   return;
+    // }
+    // gradeErrorMsg = null;
 
-    if (selectedLessonTimes.isEmpty) {
-      lessonTimesErrorMsg = 'Add lesson times to continue';
-      rebuildUi();
-      return;
-    }
-    lessonTimesErrorMsg = null;
+    // if (selectedLessonTimes.isEmpty) {
+    //   lessonTimesErrorMsg = 'Add lesson times to continue';
+    //   rebuildUi();
+    //   return;
+    // }
+    // lessonTimesErrorMsg = null;
 
-    if (classToEdit == null && uploadedStudents.isEmpty) {
-      uploadStudentsErrorMsg = 'Add students to continue';
-      rebuildUi();
-      return;
-    }
-    uploadStudentsErrorMsg = null;
+    // if (classToEdit == null && uploadedStudents.isEmpty) {
+    //   uploadStudentsErrorMsg = 'Add students to continue';
+    //   rebuildUi();
+    //   return;
+    // }
+    // uploadStudentsErrorMsg = null;
 
-    Map<String, dynamic> classBody = {
-      "name": classNameValue,
-      "school_name": schoolNameValue,
-      "school_address": schoolAddressValue,
-      "grade": selectedGrade,
-      "lesson_times": getApiLessonTimes(selectedLessonTimes),
-    };
+    // Map<String, dynamic> classBody = {
+    //   "name": classNameValue,
+    //   "school_name": schoolNameValue,
+    //   "school_address": schoolAddressValue,
+    //   "grade": selectedGrade,
+    //   "lesson_times": getApiLessonTimes(selectedLessonTimes),
+    // };
 
-    if (uploadedStudents.isNotEmpty) {
-      classBody["students"] = uploadedStudents.map((e) => e.toJson()).toList();
-    }
+    // if (uploadedStudents.isNotEmpty) {
+    //   classBody["students"] = uploadedStudents.map((e) => e.toJson()).toList();
+    // }
 
-    isLoading = true;
-    rebuildUi();
-    var apiCallRes = await onApiPostCall<UserModel>(
-      postEndpoint: classToEdit != null
-          ? "$endPointCreateClass/${classToEdit!.id}"
-          : endPointCreateClass,
-      dataMap: classBody,
-    );
-    isLoading = false;
-    rebuildUi();
-    if (apiCallChecks(apiCallRes, "create class result",
-            showSuccessMessage: true) ==
-        true) {
-      UserModel? newUser = apiCallRes.$1?.data;
-      if (newUser != null) {
-        await _authService.saveUserProfile(newUser);
-        if (isFromOnboarding) {
-          _trOnboardingService.onSetCurrentClass(newUser.user_classes!.last);
-          onGoToNext();
-        } else {
-          _navigationService.back();
-          onGenerateClassExam(newUser.user_classes!.first);
-        }
-      }
-    }
+    // isLoading = true;
+    // rebuildUi();
+    // var apiCallRes = await onApiPostCall<ClassroomModel>(
+    //   postEndpoint: classToEdit != null
+    //       ? "$endPointCreateClass/${classToEdit!.id}"
+    //       : endPointCreateClass,
+    //   dataMap: classBody,
+    //   listDataFromJson: ClassroomModel.fromJson,
+    // );
+    // isLoading = false;
+    // rebuildUi();
+    // if (apiCallChecks(apiCallRes, "create class result",
+    //         showSuccessMessage: true) ==
+    //     true) {
+    //   List<ClassroomModel>? newUserClassrooms = apiCallRes.$1?.listData;
+    //   if (newUserClassrooms != null && newUserClassrooms.isNotEmpty) {
+    //     _authService.saveUserClassrooms(newUserClassrooms);
+    //     ClassroomModel currentClass = newUserClassrooms.first;
+
+    //     if (isFromOnboarding) {
+    //       _trOnboardingService.onSetCurrentClass(currentClass);
+    //       onGoToNext();
+    //     } else {
+    //       _navigationService.back();
+    //       _trOnboardingService.onSetCurrentClass(currentClass);
+    //       _trOnboardingService.onSetIsFromOnboarding(false);
+    //       _navigationService.navigateToExamSetupView();
+    //     }
+    //   }
+    // }
+
+    // DUMMY ===========================
+    // =================================
+    _trOnboardingService.onSetCurrentClass(dummyTrClass1);
+    onGoToNext();
   }
 
   onGoToNext() {

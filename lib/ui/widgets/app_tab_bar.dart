@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 
 /// ==================================================== View
 ///
@@ -142,13 +143,31 @@ Widget buildTabHeader({
                         : Radius.zero,
                   ),
                 ),
-                alignment: Alignment.center,
-                child: Text(
-                  tab.label,
-                  style: theme.textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: isSelected ? Colors.white : Colors.black,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    tab.leadingWidget ??
+                        (tab.imagePath != null
+                            ? buildLocalImage(
+                                imagePath: tab.imagePath, radius: 40)
+                            : tab.icon != null
+                                ? Icon(
+                                    tab.icon,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : Colors.black,
+                                  )
+                                : const SizedBox()),
+                    Text(
+                      tab.label,
+                      style: theme.textTheme.bodyLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? Colors.white : Colors.black,
+                      ),
+                      overflow: TextOverflow.clip,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
             );

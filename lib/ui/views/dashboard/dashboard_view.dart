@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
+import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
+import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/views/student_classes/student_classes_view.dart';
+import 'package:mtihani_app/ui/views/teacher_classes/teacher_classes_view.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,6 +21,24 @@ class DashboardView extends StackedView<DashboardViewModel> {
   ) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
+
+    onSwitchToExamTab() => viewModel.setIndex(1); // exam page index
+
+    List<Widget> dashboardPages = [
+      viewModel.isTeacherRole
+          ? TeacherClassesView(
+              loggedInUser: viewModel.loggedInUser,
+              onSwitchToExamTab: onSwitchToExamTab,
+            )
+          : StudentClassesView(
+              loggedInUser: viewModel.loggedInUser,
+              onSwitchToExamTab: onSwitchToExamTab,
+            ),
+      const ExamListView(),
+      const CbcView(),
+      ProfileView(loggedInUser: viewModel.loggedInUser)
+    ];
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -30,28 +52,15 @@ class DashboardView extends StackedView<DashboardViewModel> {
               user: viewModel.loggedInUser,
               currentIdx: viewModel.currentIndex,
               onViewProfile: () {
-                viewModel.setIndex(2); // profile page index
+                viewModel.setIndex(dashboardPages.length -
+                    1); // profile page index (last page)
               },
             ),
             SizedBox(height: pageSize.height * 0.02),
             Expanded(
               child: IndexedStack(
                 index: viewModel.currentIndex,
-                children: [
-                  // viewModel.isTeacherRole
-                  //     ? TeacherClassesView(
-                  //         loggedInUser: viewModel.loggedInUser,
-                  //         onSwitchToExamTab: () {
-                  //           viewModel.setIndex(1); // exam page index
-                  //         },
-                  //       )
-                  //     : StudentClassesView(
-                  //         loggedInUser: viewModel.loggedInUser),
-                  // const ExamListSection(
-                  //     // loggedInUserClassrooms: viewModel.loggedInUser.user_classes ?? [],
-                  //     ),
-                  ProfileView(loggedInUser: viewModel.loggedInUser)
-                ],
+                children: dashboardPages,
               ),
             ),
           ],

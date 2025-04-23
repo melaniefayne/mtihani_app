@@ -22,7 +22,7 @@ final Map<String, TextEditingController> _ClassFormViewTextEditingControllers =
 final Map<String, FocusNode> _ClassFormViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _ClassFormViewTextValidations = {
-  ClassNameValueKey: formStrValueValidator,
+  ClassNameValueKey: formAlphanumericValidator,
   SchoolNameValueKey: formStrValueValidator,
   SchoolAddressValueKey: formStrValueValidator,
 };

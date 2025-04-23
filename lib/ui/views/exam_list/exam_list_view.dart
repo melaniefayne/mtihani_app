@@ -67,57 +67,57 @@ class ExamListView extends StackedView<ExamListViewModel> {
                       SizedBox(height: pageSize.height * 0.02),
                       AppPageFilters(
                         filters: [
-                          if (viewModel.allFilterClasses.isNotEmpty)
-                            AppFilterItem(
-                              label: "Class",
-                              selectedValue: viewModel.selectedClass,
-                              onChanged: (val) {
-                                viewModel.onChangeClass(val);
-                              },
-                              items: viewModel.allFilterClasses
-                                  .map<DropdownMenuItem<ClassroomModel>>(
-                                      (ClassroomModel value) {
-                                return DropdownMenuItem<ClassroomModel>(
-                                  value: value,
-                                  child: Text(value.name ?? "--"),
-                                );
-                              }).toList(),
-                            ),
-                          AppFilterItem(
-                            label: "Grade",
-                            selectedValue: viewModel.selectedExamGrade,
-                            onChanged: (val) {
-                              viewModel.onChangeExamGrade(val);
-                            },
-                            items: allGradesList
-                                .map<DropdownMenuItem<int>>((int value) {
-                              return DropdownMenuItem<int>(
-                                value: value,
-                                child: Text("Grade ${value.toString()}"),
-                              );
-                            }).toList(),
-                          ),
-                          AppFilterItem(
-                            label: "Status",
-                            selectedValue: viewModel.selectedExamStatus,
-                            onChanged: (val) {
-                              viewModel.onChangeClass(val);
-                            },
-                            items: allExamStatuses
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                          AppFilterItem(
-                            label: "Date Range",
-                            priDateCtrl: viewModel.startDateTxtCtrl,
-                            secDateTxtCtrl: viewModel.endDateTxtCtrl,
-                            onDateChanged: viewModel.onDateChanged,
-                            firstEndPickerDate: viewModel.firstEndPickerDate,
-                          ),
+                          // if (viewModel.allFilterClasses.isNotEmpty)
+                          //   AppFilterItem(
+                          //     label: "Class",
+                          //     selectedValue: viewModel.selectedClass,
+                          //     onChanged: (val) {
+                          //       viewModel.onChangeClass(val);
+                          //     },
+                          //     items: viewModel.allFilterClasses
+                          //         .map<DropdownMenuItem<ClassroomModel>>(
+                          //             (ClassroomModel value) {
+                          //       return DropdownMenuItem<ClassroomModel>(
+                          //         value: value,
+                          //         child: Text(value.name ?? "--"),
+                          //       );
+                          //     }).toList(),
+                          //   ),
+                          // AppFilterItem(
+                          //   label: "Grade",
+                          //   selectedValue: viewModel.selectedExamGrade,
+                          //   onChanged: (val) {
+                          //     viewModel.onChangeExamGrade(val);
+                          //   },
+                          //   items: allGradesList
+                          //       .map<DropdownMenuItem<int>>((int value) {
+                          //     return DropdownMenuItem<int>(
+                          //       value: value,
+                          //       child: Text("Grade ${value.toString()}"),
+                          //     );
+                          //   }).toList(),
+                          // ),
+                          // AppFilterItem(
+                          //   label: "Status",
+                          //   selectedValue: viewModel.selectedExamStatus,
+                          //   onChanged: (val) {
+                          //     viewModel.onChangeClass(val);
+                          //   },
+                          //   items: allExamStatuses
+                          //       .map<DropdownMenuItem<String>>((String value) {
+                          //     return DropdownMenuItem<String>(
+                          //       value: value,
+                          //       child: Text(value),
+                          //     );
+                          //   }).toList(),
+                          // ),
+                          // AppFilterItem(
+                          //   label: "Date Range",
+                          //   priDateCtrl: viewModel.startDateTxtCtrl,
+                          //   secDateTxtCtrl: viewModel.endDateTxtCtrl,
+                          //   onDateChanged: viewModel.onDateChanged,
+                          //   firstEndPickerDate: viewModel.firstEndPickerDate,
+                          // ),
                         ],
                       ),
                       SizedBox(height: pageSize.height * 0.02),

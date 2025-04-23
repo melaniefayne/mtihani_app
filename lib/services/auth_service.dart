@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -20,27 +21,37 @@ class AuthService {
   bool isLoggingOut = false;
 
   // LOGOUT
+  Future<void>? _logoutInProgress;
+
   Future<void> onLogoutUser({bool isShowConfirmation = false}) async {
-    if (isLoggingOut) return;
-
-    isLoggingOut = true;
-
-    if (isShowConfirmation) {
-      DialogResponse? isConfirmed = await _dialogService.showCustomDialog(
-        variant: DialogType.appAction,
-        title: "Log Out",
-        description: "Are you sure you want to log out?",
-        barrierDismissible: true,
-      );
-
-      if (isConfirmed?.confirmed == null) {
-        isLoggingOut = false;
-        return;
-      }
+    if (_logoutInProgress != null) {
+      log("Logout already in progress.");
+      return;
     }
-    await _sharedPrefsService.cleanCachedSession();
-    isLoggingOut = false;
-    _navigationService.clearStackAndShow(Routes.startupView);
+
+    final logoutCompleter = Completer<void>();
+    _logoutInProgress = logoutCompleter.future;
+
+    try {
+      if (isShowConfirmation) {
+        DialogResponse? isConfirmed = await _dialogService.showCustomDialog(
+          variant: DialogType.appAction,
+          title: "Log Out",
+          description: "Are you sure you want to log out?",
+          barrierDismissible: true,
+        );
+
+        if (isConfirmed?.confirmed == null) {
+          return;
+        }
+      }
+
+      await _sharedPrefsService.cleanCachedSession();
+      await _navigationService.clearStackAndShow(Routes.startupView);
+    } finally {
+      logoutCompleter.complete();
+      _logoutInProgress = null;
+    }
   }
 
   // USER PROFILE
@@ -59,6 +70,14 @@ class AuthService {
     return await _sharedPrefsService.sharedPrefsDoSetValue<String>(
       prefsKey: strDefToken,
       value: tokenStr,
+    );
+  }
+
+  Future<bool> saveUserClassrooms(List<ClassroomModel>? userClassrooms) async {
+    if (userClassrooms == null) return false;
+    return await _sharedPrefsService.sharedPrefsDoSetValue<String>(
+      prefsKey: strLoggedInUserClassrooms,
+      value: jsonEncode(userClassrooms),
     );
   }
 
@@ -100,7 +119,11 @@ class AuthService {
     );
     if (classListStr != null) {
       try {
-        return jsonDecode(classListStr);
+        final List<dynamic> decodedList = jsonDecode(classListStr);
+        return decodedList
+            .map(
+                (item) => ClassroomModel.fromJson(item as Map<String, dynamic>))
+            .toList();
       } catch (e) {
         log("Error parsing user classrooms: $e");
       }
@@ -115,19 +138,22 @@ class AuthService {
       return savedClassrooms;
     }
 
-    var classroomListRes = await onApiGetCall<ClassroomModel>(
-      getEndpoint: endPointGetUserClassrooms,
-    );
-    if (apiCallChecks(classroomListRes, 'classroom listing')) {
-      List<ClassroomModel> classrooms = classroomListRes.$1?.listData ?? [];
-      _sharedPrefsService.sharedPrefsDoSetValue<String>(
-        prefsKey: strLoggedInUserClassrooms,
-        value: jsonEncode(classrooms),
-      );
-      return classrooms;
-    }
+    // var classroomListRes = await onApiGetCall<ClassroomModel>(
+    //   getEndpoint: endPointGetUserClassrooms,
+    // );
+    // if (apiCallChecks(classroomListRes, 'classroom listing')) {
+    //   List<ClassroomModel> classrooms = classroomListRes.$1?.listData ?? [];
+    //   await saveUserClassrooms(classrooms);
+    //   return classrooms;
+    // }
 
-    return [];
+    // return [];
+
+    // DUMMY ============================================
+    // ==================================================
+    List<ClassroomModel> classrooms = [dummyTrClass1, dummyTrClass2];
+    await saveUserClassrooms(classrooms);
+    return classrooms;
   }
 
   // TOKEN

@@ -43,6 +43,7 @@ class CbcView extends StackedView<CbcViewModel> {
               physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),
+              itemCount: viewModel.gradeStrandsList.length,
               itemBuilder: (context, idx) => StrandCard(
                 strand: viewModel.gradeStrandsList[idx],
               ),

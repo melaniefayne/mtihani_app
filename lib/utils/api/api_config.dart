@@ -22,18 +22,33 @@ String getAppDomainUrl() {
 String appBaseURL = "";
 String get baseURL => '${getAppDomainUrl()}/api';
 
-String get endPointGetUserClassrooms => "";
-String get endPointGetStudentClassrooms => "";
-String get endPointJoinClass => "";
-String get endPointGetExamListing => "";
+// AUTH =================================================
+// ======================================================
+String get endPointLogin => "$baseURL/login-user"; // return token and user
+String get endPointStudentRegister =>
+    "$baseURL/register-student"; // return token and user
+String get endPointTeacherRegister =>
+    "$baseURL/register-teacher"; // return token and user
+String get endPointEditProfile =>
+    "$baseURL/edit-profile"; // return updated user
+String get endPointChangePassword =>
+    "$baseURL/change-password"; // return success message
+
+// CLASSROOMS ============================================
+// =======================================================
+String get endPointCreateClass =>
+    "$baseURL/create-class"; // return new list of user's classrooms sorted by updated_at in DESC
+String get endPointGetUserClassrooms =>
+    "$baseURL/get-user-classrooms"; // return logged in user's classrooms with user specific data
+String get endPointJoinClass => "$baseURL/join-classroom";
+String get endPointGetClassStrandScores =>
+    "$baseURL/get-class-strand-scores"; // return List<StrandScoreModel> given class_id
+
+// EXAMS =================================================
+// =======================================================
+String get endPointCreateExam => "$baseURL/create-classroom-exam";
+String get endPointGetExamListing =>
+    "$baseURL/get-exam-listing"; // return list of exams based on token and parameters passed
 
 // =======================================================
 // =======================================================
-
-// AUTH ENDPOINTS
-// -----------------------
-String endPointLogin = '$baseURL/login';
-String endPointStudentRegister = '$baseURL/student-register';
-String endPointTeacherRegister = '$baseURL/teacher-register';
-String endPointEditProfile = '$baseURL/edit-profile';
-String endPointChangePassword = '$baseURL/change-password';

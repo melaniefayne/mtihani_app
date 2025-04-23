@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/cbc.dart';
-import 'package:mtihani_app/models/class_strand_score.dart';
+import 'package:mtihani_app/models/exam.dart';
 
 class StrandSelectionCard extends StatelessWidget {
   final GradeModel gradeCbc;
-  final List<ClassStrandScore> gradeStrandScores;
+  final List<StrandScoreModel> gradeStrandScores;
   final List<int> selectedStrands;
   final Function(int val) onStrandSelected;
   final double? cardWidth;
@@ -59,8 +59,8 @@ class StrandSelectionCard extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   StrandModel strand = gradeCbc.strands![index];
-                  ClassStrandScore? strandScore = gradeStrandScores
-                      .where((e) => e.strand_score?.id == strand.id)
+                  StrandScoreModel? strandScore = gradeStrandScores
+                      .where((e) => e.strand?.id == strand.id)
                       .firstOrNull;
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -112,7 +112,7 @@ class StrandSelectionCard extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 15),
                           child: buildScoreCard(
                             theme: theme,
-                            score: strandScore.strand_score?.score ?? 0.0,
+                            score: strandScore.strand?.score ?? 0.0,
                           ),
                         ),
                     ],

@@ -8,9 +8,9 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class TeacherClassesViewModel extends FutureViewModel<List<ClassroomModel>> {
+  final _authService = locator<AuthService>();
   final trOnboardService = locator<TeacherOnboardingService>();
   final _navigationService = locator<NavigationService>();
-  final _authService = locator<AuthService>();
 
   @override
   Future<List<ClassroomModel>> futureToRun() async {

@@ -181,7 +181,7 @@ class TimeTableWidget extends StatelessWidget {
         ],
       ),
       title: Text(
-        "Grade ${lesson.className} 'Lesson'}",
+        "Grade ${lesson.className} Lesson",
         style: theme.textTheme.titleMedium!.copyWith(
           fontWeight: FontWeight.bold,
         ),

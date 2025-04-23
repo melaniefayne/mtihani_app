@@ -12,7 +12,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'class_form_viewmodel.dart';
 
 @FormView(fields: [
-  FormTextField(name: 'className', validator: formStrValueValidator),
+  FormTextField(name: 'className', validator: formAlphanumericValidator),
   FormTextField(name: 'schoolName', validator: formStrValueValidator),
   FormTextField(name: 'schoolAddress', validator: formStrValueValidator),
 ])

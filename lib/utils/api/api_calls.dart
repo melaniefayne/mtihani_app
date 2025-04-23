@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/api_data.dart';
@@ -48,12 +49,16 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
   try {
     var preCheckRes = await _preApiCallChecks<T>();
     if (!preCheckRes.$2) {
+      log("$getEndpoint failed at preCheckRes");
       return preCheckRes as (ApiDataModel<T>?, bool, bool, bool);
     }
 
     Dio dio = Dio();
     String? tokenStr = preCheckRes.$1;
-    if (tokenStr == null) return (null, false, true, true);
+    if (tokenStr == null) {
+      log("$getEndpoint failed at tokenStr == null");
+      return (null, false, true, true);
+    }
 
     Options authGetOptions = Options(
       followRedirects: _dioGetOptions.followRedirects,
@@ -104,6 +109,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
 
     ///check if 401 unauthorized
     if (isApiResponse401Unauthorized(apiResponse.statusCode)) {
+      log("$getEndpoint failed at isApiResponse401Unauthorized");
       return (null, false, true, true);
     }
 

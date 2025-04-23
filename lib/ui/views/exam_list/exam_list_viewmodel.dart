@@ -56,44 +56,48 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
 
   @override
   Future<List<ExamModel>> futureToRun() async {
-    Map<String, dynamic> queryParams = {};
+    // Map<String, dynamic> queryParams = {};
 
-    if (startDate != null && endDate != null) {
-      queryParams["start_date"] = startDate;
-      queryParams["end_date"] = endDate;
-    }
+    // if (startDate != null && endDate != null) {
+    //   queryParams["start_date"] = startDate;
+    //   queryParams["end_date"] = endDate;
+    // }
 
-    if (selectedClass != null) {
-      queryParams["class_id"] = selectedClass!.id;
-    }
+    // if (selectedClass != null) {
+    //   queryParams["class_id"] = selectedClass!.id;
+    // }
 
-    if (classStudent != null) {
-      queryParams["student_id"] = classStudent!.student_id;
-    }
+    // if (classStudent != null) {
+    //   queryParams["student_id"] = classStudent!.student_id;
+    // }
 
-    if (selectedExamStatus != null) {
-      queryParams["status"] = [selectedExamStatus];
-    }
+    // if (selectedExamStatus != null) {
+    //   queryParams["status"] = [selectedExamStatus];
+    // }
 
-    if (selectedExamGrade != null) {
-      queryParams["grade"] = selectedExamGrade;
-    }
+    // if (selectedExamGrade != null) {
+    //   queryParams["grade"] = selectedExamGrade;
+    // }
 
-    var examsApiRes = await onApiGetCall<ExamModel>(
-      getEndpoint: isLoadMore
-          ? nextPageUrl ?? endPointGetExamListing
-          : endPointGetExamListing,
-      queryParams: queryParams,
-    );
+    // var examsApiRes = await onApiGetCall<ExamModel>(
+    //   getEndpoint: isLoadMore
+    //       ? nextPageUrl ?? endPointGetExamListing
+    //       : endPointGetExamListing,
+    //   queryParams: queryParams,
+    // );
 
-    if (apiCallChecks(examsApiRes, 'exam listing')) {
-      List<ExamModel> resExams = examsApiRes.$1?.listData ?? [];
-      examList = [...examList, ...resExams];
-      nextPageUrl = examsApiRes.$1?.next;
-      return examList;
-    }
+    // if (apiCallChecks(examsApiRes, 'exam listing')) {
+    //   List<ExamModel> resExams = examsApiRes.$1?.listData ?? [];
+    //   examList = [...examList, ...resExams];
+    //   nextPageUrl = examsApiRes.$1?.next;
+    //   return examList;
+    // }
 
-    return [];
+    // return [];
+
+    // DUMMY ==========================================
+    // ================================================
+    return dummyTrExams;
   }
 
   onViewMoreExams() async {

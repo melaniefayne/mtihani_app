@@ -5,102 +5,71 @@ import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/classroom.dart';
-import 'package:mtihani_app/models/class_strand_score.dart';
+import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/services/cbc_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
-import 'package:mtihani_app/data/cbc_data.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:universal_html/html.dart' as html;
 
-const String cbcFetchKey = 'cbcFetchKey';
-const String classStrandScoresFetchKey = 'classStrandScoresFetchKey';
-
-class ExamSetupViewModel extends MultipleFutureViewModel {
+class ExamSetupViewModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
   final _trOnboardingService = locator<TeacherOnboardingService>();
+  final _cbcService = locator<CbcService>();
   bool get isFromOnboarding => _trOnboardingService.isFromOnboarding;
   bool isLoading = false;
   String? examSetupError;
+  List<GradeModel> currentClassCurriculum = [];
+  int defaultGrade = allGradesList.first;
   late ClassroomModel currentClass;
+  List<int> allStrandIds = [];
+  List<int> selectedStrandsIds = [];
+  String? strandSelectError;
 
   ExamSetupViewModel() {
     onExamSetupViewReady();
   }
 
-  onExamSetupViewReady() async {
+  onExamSetupViewReady() {
     if (_trOnboardingService.currentClass == null) {
-      _navigationService.clearStackAndShow(Routes.teacherHomeView);
+      _navigationService.clearStackAndShow(Routes.teacherClassesView);
       return;
     }
-    await refreshView();
+
     currentClass = _trOnboardingService.currentClass!;
-  }
+    currentClassCurriculum =
+        _cbcService.getGradesUpTo(currentClass.grade ?? defaultGrade);
 
-  // ==== STRANDS
-  List<GradeModel> _fetchedCbc = [];
-  List<GradeModel> get fetchedCbc => _fetchedCbc;
-  List<ClassStrandScore> get fetchedClassScores =>
-      dataMap?[classStrandScoresFetchKey] ?? [];
-  bool get isFetchingCbc => busy(cbcFetchKey);
-  bool get isFetchingClassStrandScores => busy(classStrandScoresFetchKey);
-  @override
-  Map<String, Future Function()> get futuresMap => {
-        cbcFetchKey: fetchCbcCurriculum,
-        classStrandScoresFetchKey: fetchStrandClassScores,
-      };
-
-  List<int> allStrandIds = [];
-  List<int> selectedStrandsIds = [];
-  String? strandSelectError;
-
-  Future<List<GradeModel>> fetchCbcCurriculum() async {
-    var cbcApiRes = await onApiGetCall<GradeModel>(
-      getEndpoint: endPointGetClassCurriculum,
-      queryParams: {"class_id": currentClass.id},
-    );
-
-    if (apiCallChecks(cbcApiRes, 'class curriculum')) {
-      return cbcApiRes.$1?.listData ?? [];
-    }
-
-    List<GradeModel> gradeContent =
-        cbcDummyData.map((e) => GradeModel.fromJson(e)).toList();
-    allStrandIds = gradeContent
-        .where((e) => int.parse(e.grade ?? '') <= currentClass.grade!)
+    allStrandIds = currentClassCurriculum
+        .where((e) => (e.grade ?? defaultGrade) <= currentClass.grade!)
         .expand((e) => (e.strands ?? []))
         .map((s) => s.id ?? -1)
         .where((id) => id != -1)
         .toList()
         .cast<int>();
     selectedStrandsIds = [...allStrandIds];
-    return gradeContent;
   }
 
-  Future<List<ClassStrandScore>> fetchStrandClassScores() async {
-    var classStrandScApiRes = await onApiGetCall<ClassStrandScore>(
-      getEndpoint: endPointGetClassStrandScores,
-      queryParams: {"class_id": currentClass.id},
-    );
+  @override
+  Future<List<StrandScoreModel>> futureToRun() async {
+    // var classStrandScApiRes = await onApiGetCall<StrandScoreModel>(
+    //   getEndpoint: endPointGetClassStrandScores,
+    //   queryParams: {"class_id": currentClass.id},
+    // );
 
-    if (apiCallChecks(classStrandScApiRes, 'class strand scores')) {
-      return classStrandScApiRes.$1?.listData ?? [];
-    }
+    // if (apiCallChecks(classStrandScApiRes, 'class strand scores')) {
+    //   return classStrandScApiRes.$1?.listData ?? [];
+    // }
 
-    return [];
-  }
+    // return [];
 
-  refreshView() async {
-    setBusyForObject(cbcFetchKey, true);
-    try {
-      final cbc = await fetchCbcCurriculum();
-      _fetchedCbc = cbc;
-      rebuildUi();
-    } finally {
-      setBusyForObject(cbcFetchKey, false);
-    }
+    // DUMMY ===========================
+    // =================================
+    return dummyTrClass1StrandScores;
   }
 
   onStrandSelected(int strandId) {
@@ -121,6 +90,7 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
 
   onSelectAllStrands() {
     if (!hasSelectedAllStrands) {
+      strandSelectError = null;
       selectedStrandsIds.clear();
       selectedStrandsIds.addAll(allStrandIds);
       rebuildUi();
@@ -131,7 +101,7 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
       selectedStrandsIds.length == allStrandIds.length;
 
   List<StrandModel> get selectedStrands {
-    return fetchedCbc
+    return currentClassCurriculum
         .where((grade) => grade.strands != null)
         .expand((grade) => grade.strands!)
         .toList()
@@ -194,20 +164,24 @@ class ExamSetupViewModel extends MultipleFutureViewModel {
 
     log('Creating exam with ${jsonEncode(examBody)}');
 
-    isLoading = true;
-    rebuildUi();
-    var apiCallRes = await onApiPostCall(
-      postEndpoint: endPointCreateExam,
-      dataMap: examBody,
-    );
-    isLoading = false;
-    rebuildUi();
+    // isLoading = true;
+    // rebuildUi();
+    // var apiCallRes = await onApiPostCall(
+    //   postEndpoint: endPointCreateExam,
+    //   dataMap: examBody,
+    // );
+    // isLoading = false;
+    // rebuildUi();
 
-    if (apiCallChecks(apiCallRes, "exam generation result",
-            showSuccessMessage: true) ==
-        true) {
-      onGoToHome();
-    }
+    // if (apiCallChecks(apiCallRes, "exam generation result",
+    //         showSuccessMessage: true) ==
+    //     true) {
+    //   onGoToHome();
+    // }
+
+    // DUMMY ===========================
+    // =================================
+    onGoToHome();
   }
 
   onGoToHome() {

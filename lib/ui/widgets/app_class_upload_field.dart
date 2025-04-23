@@ -34,12 +34,15 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
     if (result != null) {
       final bytes = result.files.single.bytes!;
       final csvString = utf8.decode(bytes);
-      List<List<dynamic>> values = [];
-
-      values = const CsvToListConverter()
+      List<List<dynamic>> values = const CsvToListConverter(eol: '\n')
           .convert(csvString)
           .map((row) => row.map((cell) => cell.toString().trim()).toList())
           .toList();
+
+      print(values);
+      print(values.length);
+      print(values[0].length);
+      print(classCsvHeaders.length);
 
       if (values.isEmpty || values[0].length != classCsvHeaders.length) {
         setState(() {
@@ -262,14 +265,13 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
                 .take(rowsToShow)
                 .map(
                   (e) => DataRow(
-                    cells: e
-                        .map(
-                          (cell) => DataCell(
-                            Text(cell.toString(),
-                                style: theme.textTheme.bodySmall!),
-                          ),
-                        )
-                        .toList(),
+                    cells: List.generate(
+                      classCsvHeaders.length,
+                      (i) => DataCell(
+                        Text(i < e.length ? e[i].toString() : '',
+                            style: theme.textTheme.bodySmall!),
+                      ),
+                    ),
                   ),
                 )
                 .toList(),

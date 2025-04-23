@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/classroom.dart';
-import 'package:mtihani_app/models/class_strand_score.dart';
+import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
 import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
@@ -38,9 +38,9 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
               sectionWidth: pageSize.width * 0.7,
               tabs: [
                 TabViewItem(
-                  label: "Strands",
+                  label: " 1. Strands",
                   icon: Icons.category,
-                  widget: viewModel.busy(cbcFetchKey)
+                  widget: viewModel.isBusy
                       ? const Center(child: CircularProgressIndicator())
                       : buildStrandSection(
                           theme: theme,
@@ -49,7 +49,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
                         ),
                 ),
                 TabViewItem(
-                  label: "Custom Content",
+                  label: " 2. Custom Content",
                   icon: Icons.file_upload,
                   widget: buildCustomFilesSection(
                     theme: theme,
@@ -58,7 +58,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
                   ),
                 ),
                 TabViewItem(
-                  label: "Duration",
+                  label: " 3. Duration",
                   icon: Icons.timer,
                   widget: buildDurationSection(
                     theme: theme,
@@ -85,7 +85,7 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
       theme: theme,
       pageSize: pageSize,
       sectionTitle:
-          "You’re setting up an exam for Grade ${currentClass.grade} – ${currentClass.name}. Choose the strands you want to include, or leave it as is to test all strands up to this grade.",
+          "You’re setting up an exam for Grade ${currentClass.grade} (${currentClass.name}). Choose the strands you want to include, or leave it as is to test all strands up to this grade.",
       child: Column(
         children: [
           Row(
@@ -124,21 +124,20 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
           Wrap(
             spacing: 15,
             runSpacing: 15,
-            children: viewModel.fetchedCbc.map(
+            children: viewModel.currentClassCurriculum.map(
               (e) {
                 List<int> gradeStrandIds =
                     (e.strands ?? []).map((e) => e.id!).toList();
-                List<ClassStrandScore> strandScores = viewModel
-                    .fetchedClassScores
-                    .where((e) => gradeStrandIds.contains(e.strand_score?.id))
-                    .toList();
+                List<StrandScoreModel> strandScores =
+                    (viewModel.data as List<StrandScoreModel>)
+                        .where((e) => gradeStrandIds.contains(e.strand?.id))
+                        .toList();
 
                 return StrandSelectionCard(
                   gradeCbc: e,
                   gradeStrandScores: strandScores,
                   selectedStrands: viewModel.selectedStrandsIds,
                   onStrandSelected: viewModel.onStrandSelected,
-                  cardWidth: pageSize.width * 0.21,
                 );
               },
             ).toList(),
