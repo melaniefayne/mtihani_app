@@ -29,10 +29,11 @@ class ExamCard extends StatelessWidget {
       onTap: onTap != null ? () => onTap!(exam) : null,
       child: Container(
         padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
+          border: Border.all(color: theme.primaryColor),
           boxShadow: [
             BoxShadow(
               color: theme.primaryColor,

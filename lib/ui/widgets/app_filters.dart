@@ -27,7 +27,7 @@ class _AppPageFiltersState extends State<AppPageFilters> {
     return Wrap(
       spacing: 10.0,
       runSpacing: 10.0,
-      direction: widget.ftWidth != null ? Axis.vertical : Axis.horizontal,
+      direction: Axis.horizontal,
       children: widget.filters.map((filterItem) {
         double width = widget.ftWidth ?? filterWidth;
 
@@ -90,7 +90,6 @@ class _AppPageFiltersState extends State<AppPageFilters> {
           alignedDropdown: true,
           child: DropdownButtonFormField<dynamic>(
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.zero,
               label: Text(
                 label,
                 style: theme.textTheme.bodyLarge!

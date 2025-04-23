@@ -27,17 +27,11 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
   bool isTeacher = false;
   bool isStudent = false;
   bool isLoadMore = false;
-  String? nextPageUrl;
+  String? nextPageUrl = "4d5f67ty8u9i0";
   List<ExamModel> examList = [];
   List<ClassroomModel> allFilterClasses = [];
   ClassroomModel? selectedClass;
   String? selectedExamStatus;
-  int? selectedExamGrade;
-  TextEditingController startDateTxtCtrl = TextEditingController();
-  TextEditingController endDateTxtCtrl = TextEditingController();
-  String? startDate;
-  String? endDate;
-  DateTime firstEndPickerDate = today;
 
   ExamListViewModel(this.classroom, this.classStudent);
 
@@ -58,11 +52,6 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
   Future<List<ExamModel>> futureToRun() async {
     // Map<String, dynamic> queryParams = {};
 
-    // if (startDate != null && endDate != null) {
-    //   queryParams["start_date"] = startDate;
-    //   queryParams["end_date"] = endDate;
-    // }
-
     // if (selectedClass != null) {
     //   queryParams["class_id"] = selectedClass!.id;
     // }
@@ -73,10 +62,6 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
 
     // if (selectedExamStatus != null) {
     //   queryParams["status"] = [selectedExamStatus];
-    // }
-
-    // if (selectedExamGrade != null) {
-    //   queryParams["grade"] = selectedExamGrade;
     // }
 
     // var examsApiRes = await onApiGetCall<ExamModel>(
@@ -93,11 +78,12 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
     //   return examList;
     // }
 
-    // return [];
-
     // DUMMY ==========================================
     // ================================================
-    return dummyTrExams;
+    examList = [...dummyTrExams];
+    //
+
+    return examList;
   }
 
   onViewMoreExams() async {
@@ -136,6 +122,8 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
     }
   }
 
+  onViewExam(ExamModel exam) {}
+
   // ===== FILTERS
 
   onChangeClass(ClassroomModel classroom) {
@@ -146,27 +134,5 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
   onChangeExamStatus(String examStatus) {
     selectedExamStatus = examStatus;
     initialise();
-  }
-
-  onChangeExamGrade(int grade) {
-    selectedExamGrade = grade;
-    initialise();
-  }
-
-  onDateChanged(DateTime? date, bool? isStartDate) async {
-    if (isStartDate == true) {
-      startDate = getFormattedDate(date, shortDateFormat);
-      startDateTxtCtrl.text = startDate ?? '';
-      if (date != null) firstEndPickerDate = date;
-    } else {
-      endDate = getFormattedDate(date, shortDateFormat);
-      endDateTxtCtrl.text = endDate ?? '';
-    }
-    rebuildUi();
-    bool hasStartDate = !isStringEmptyOrNull(startDate);
-    bool hasEndDate = !isStringEmptyOrNull(endDate);
-    if ((hasStartDate && hasEndDate) || (!hasStartDate && !hasEndDate)) {
-      initialise();
-    }
   }
 }

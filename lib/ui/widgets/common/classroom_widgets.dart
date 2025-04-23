@@ -115,6 +115,7 @@ class TimeTableWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
     final grouped = groupLessons(lessons);
+    final ScrollController scrollController = ScrollController();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,16 +129,21 @@ class TimeTableWidget extends StatelessWidget {
         ),
         const Divider(),
         SizedBox(
-          height: pageSize.height * 0.38,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 16),
+          height: pageSize.height * 0.4,
+          child: Scrollbar(
+            controller: scrollController,
+            thumbVisibility: true,
             child: SingleChildScrollView(
-              child: Column(
-                children: grouped.entries
-                    .where((entry) => entry.value.isNotEmpty)
-                    .map((entry) =>
-                        buildSection(theme, entry.key, entry.value, context))
-                    .toList(),
+              controller: scrollController,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: grouped.entries
+                      .where((entry) => entry.value.isNotEmpty)
+                      .map((entry) =>
+                          buildSection(theme, entry.key, entry.value, context))
+                      .toList(),
+                ),
               ),
             ),
           ),
