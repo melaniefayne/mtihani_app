@@ -22,9 +22,6 @@ ApiErrorModel _$ApiErrorModelFromJson(Map<String, dynamic> json) {
 mixin _$ApiErrorModel {
   bool? get status => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-  String? get msg => throw _privateConstructorUsedError;
-  bool? get error => throw _privateConstructorUsedError;
-  String? get errors => throw _privateConstructorUsedError;
 
   /// Serializes this ApiErrorModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,12 +39,7 @@ abstract class $ApiErrorModelCopyWith<$Res> {
           ApiErrorModel value, $Res Function(ApiErrorModel) then) =
       _$ApiErrorModelCopyWithImpl<$Res, ApiErrorModel>;
   @useResult
-  $Res call(
-      {bool? status,
-      String? message,
-      String? msg,
-      bool? error,
-      String? errors});
+  $Res call({bool? status, String? message});
 }
 
 /// @nodoc
@@ -67,9 +59,6 @@ class _$ApiErrorModelCopyWithImpl<$Res, $Val extends ApiErrorModel>
   $Res call({
     Object? status = freezed,
     Object? message = freezed,
-    Object? msg = freezed,
-    Object? error = freezed,
-    Object? errors = freezed,
   }) {
     return _then(_value.copyWith(
       status: freezed == status
@@ -79,18 +68,6 @@ class _$ApiErrorModelCopyWithImpl<$Res, $Val extends ApiErrorModel>
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-      msg: freezed == msg
-          ? _value.msg
-          : msg // ignore: cast_nullable_to_non_nullable
-              as String?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      errors: freezed == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -104,12 +81,7 @@ abstract class _$$ApiErrorModelImplCopyWith<$Res>
       __$$ApiErrorModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {bool? status,
-      String? message,
-      String? msg,
-      bool? error,
-      String? errors});
+  $Res call({bool? status, String? message});
 }
 
 /// @nodoc
@@ -127,9 +99,6 @@ class __$$ApiErrorModelImplCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? message = freezed,
-    Object? msg = freezed,
-    Object? error = freezed,
-    Object? errors = freezed,
   }) {
     return _then(_$ApiErrorModelImpl(
       status: freezed == status
@@ -140,18 +109,6 @@ class __$$ApiErrorModelImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
-      msg: freezed == msg
-          ? _value.msg
-          : msg // ignore: cast_nullable_to_non_nullable
-              as String?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      errors: freezed == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -159,8 +116,7 @@ class __$$ApiErrorModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ApiErrorModelImpl implements _ApiErrorModel {
-  _$ApiErrorModelImpl(
-      {this.status, this.message, this.msg, this.error, this.errors});
+  _$ApiErrorModelImpl({this.status, this.message});
 
   factory _$ApiErrorModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ApiErrorModelImplFromJson(json);
@@ -169,16 +125,10 @@ class _$ApiErrorModelImpl implements _ApiErrorModel {
   final bool? status;
   @override
   final String? message;
-  @override
-  final String? msg;
-  @override
-  final bool? error;
-  @override
-  final String? errors;
 
   @override
   String toString() {
-    return 'ApiErrorModel(status: $status, message: $message, msg: $msg, error: $error, errors: $errors)';
+    return 'ApiErrorModel(status: $status, message: $message)';
   }
 
   @override
@@ -187,16 +137,12 @@ class _$ApiErrorModelImpl implements _ApiErrorModel {
         (other.runtimeType == runtimeType &&
             other is _$ApiErrorModelImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.msg, msg) || other.msg == msg) &&
-            (identical(other.error, error) || other.error == error) &&
-            (identical(other.errors, errors) || other.errors == errors));
+            (identical(other.message, message) || other.message == message));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, status, message, msg, error, errors);
+  int get hashCode => Object.hash(runtimeType, status, message);
 
   /// Create a copy of ApiErrorModel
   /// with the given fields replaced by the non-null parameter values.
@@ -215,12 +161,8 @@ class _$ApiErrorModelImpl implements _ApiErrorModel {
 }
 
 abstract class _ApiErrorModel implements ApiErrorModel {
-  factory _ApiErrorModel(
-      {final bool? status,
-      final String? message,
-      final String? msg,
-      final bool? error,
-      final String? errors}) = _$ApiErrorModelImpl;
+  factory _ApiErrorModel({final bool? status, final String? message}) =
+      _$ApiErrorModelImpl;
 
   factory _ApiErrorModel.fromJson(Map<String, dynamic> json) =
       _$ApiErrorModelImpl.fromJson;
@@ -229,12 +171,6 @@ abstract class _ApiErrorModel implements ApiErrorModel {
   bool? get status;
   @override
   String? get message;
-  @override
-  String? get msg;
-  @override
-  bool? get error;
-  @override
-  String? get errors;
 
   /// Create a copy of ApiErrorModel
   /// with the given fields replaced by the non-null parameter values.

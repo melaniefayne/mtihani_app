@@ -99,14 +99,16 @@ class _AppCollapsibleScaffoldState extends State<AppCollapsibleScaffold> {
                   padding: const EdgeInsets.all(5),
                   child: buildHeaderWidget(
                     theme: theme,
-                    leadingWidget: item.imagePath != null
-                        ? buildLocalImage(imagePath: item.imagePath, radius: 40)
-                        : item.icon != null
-                            ? Icon(
-                                e.value.icon,
-                                color: theme.colorScheme.primary,
-                              )
-                            : const SizedBox(),
+                    leadingWidget: item.leadingWidget ??
+                        (item.imagePath != null
+                            ? buildLocalImage(
+                                imagePath: item.imagePath, radius: 40)
+                            : item.icon != null
+                                ? Icon(
+                                    e.value.icon,
+                                    color: theme.colorScheme.primary,
+                                  )
+                                : const SizedBox()),
                     title: item.label,
                     style: theme.textTheme.titleMedium!.copyWith(
                       color: theme.colorScheme.primary,

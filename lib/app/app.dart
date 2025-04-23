@@ -27,6 +27,8 @@ import 'package:mtihani_app/ui/views/single_student/single_student_view.dart';
 import 'package:mtihani_app/ui/views/single_st_class/single_st_class_view.dart';
 import 'package:mtihani_app/ui/dialogs/join_class/join_class_dialog.dart';
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/services/cbc_service.dart';
+import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -49,6 +51,7 @@ import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
     MaterialRoute(page: SingleStudentView),
     MaterialRoute(page: SingleStClassView),
     MaterialRoute(page: ExamListView),
+    MaterialRoute(page: CbcView),
 // @stacked-route
   ],
   dependencies: [
@@ -58,6 +61,7 @@ import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
     LazySingleton(classType: SharedPrefsService),
     LazySingleton(classType: AuthService),
     LazySingleton(classType: TeacherOnboardingService),
+    LazySingleton(classType: CbcService),
 // @stacked-service
   ],
   bottomsheets: [

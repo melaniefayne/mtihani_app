@@ -51,28 +51,6 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'term_scores': instance.term_scores,
     };
 
-_$TermScoreImpl _$$TermScoreImplFromJson(Map<String, dynamic> json) =>
-    _$TermScoreImpl(
-      id: (json['id'] as num?)?.toInt(),
-      classroom: json['classroom'] == null
-          ? null
-          : ClassroomModel.fromJson(json['classroom'] as Map<String, dynamic>),
-      grade: (json['grade'] as num?)?.toInt(),
-      term: (json['term'] as num?)?.toInt(),
-      score: (json['score'] as num?)?.toDouble(),
-      expectation_level: json['expectation_level'] as String?,
-    );
-
-Map<String, dynamic> _$$TermScoreImplToJson(_$TermScoreImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'classroom': instance.classroom,
-      'grade': instance.grade,
-      'term': instance.term,
-      'score': instance.score,
-      'expectation_level': instance.expectation_level,
-    };
-
 _$ClassroomStudentImpl _$$ClassroomStudentImplFromJson(
         Map<String, dynamic> json) =>
     _$ClassroomStudentImpl(
@@ -83,6 +61,9 @@ _$ClassroomStudentImpl _$$ClassroomStudentImplFromJson(
       avg_mtihani_score: (json['avg_mtihani_score'] as num?)?.toDouble(),
       avg_mtihani_expectation_level:
           json['avg_mtihani_expectation_level'] as String?,
+      term_scores: (json['term_scores'] as List<dynamic>?)
+          ?.map((e) => TermScore.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$ClassroomStudentImplToJson(
@@ -94,4 +75,62 @@ Map<String, dynamic> _$$ClassroomStudentImplToJson(
       'avg_term_expectation_level': instance.avg_term_expectation_level,
       'avg_mtihani_score': instance.avg_mtihani_score,
       'avg_mtihani_expectation_level': instance.avg_mtihani_expectation_level,
+      'term_scores': instance.term_scores,
+    };
+
+_$ClassPerformanceModelImpl _$$ClassPerformanceModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClassPerformanceModelImpl(
+      avg_term_score: (json['avg_term_score'] as num?)?.toDouble(),
+      avg_term_expectation_level: json['avg_term_expectation_level'] as String?,
+      avg_mtihani_score: (json['avg_mtihani_score'] as num?)?.toDouble(),
+      avg_mtihani_expectation_level:
+          json['avg_mtihani_expectation_level'] as String?,
+      grade_scores: (json['grade_scores'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      bloom_skill_scores: (json['bloom_skill_scores'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      strand_scores: (json['strand_scores'] as List<dynamic>?)
+          ?.map((e) => StrandScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      class_term_scores: (json['class_term_scores'] as List<dynamic>?)
+          ?.map((e) => TermScore.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$ClassPerformanceModelImplToJson(
+        _$ClassPerformanceModelImpl instance) =>
+    <String, dynamic>{
+      'avg_term_score': instance.avg_term_score,
+      'avg_term_expectation_level': instance.avg_term_expectation_level,
+      'avg_mtihani_score': instance.avg_mtihani_score,
+      'avg_mtihani_expectation_level': instance.avg_mtihani_expectation_level,
+      'grade_scores': instance.grade_scores,
+      'bloom_skill_scores': instance.bloom_skill_scores,
+      'strand_scores': instance.strand_scores,
+      'class_term_scores': instance.class_term_scores,
+    };
+
+_$TermScoreImpl _$$TermScoreImplFromJson(Map<String, dynamic> json) =>
+    _$TermScoreImpl(
+      id: (json['id'] as num?)?.toInt(),
+      grade: (json['grade'] as num?)?.toInt(),
+      term: (json['term'] as num?)?.toInt(),
+      score: (json['score'] as num?)?.toDouble(),
+      expectation_level: json['expectation_level'] as String?,
+      classroom: json['classroom'] == null
+          ? null
+          : ClassroomModel.fromJson(json['classroom'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$TermScoreImplToJson(_$TermScoreImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'grade': instance.grade,
+      'term': instance.term,
+      'score': instance.score,
+      'expectation_level': instance.expectation_level,
+      'classroom': instance.classroom,
     };

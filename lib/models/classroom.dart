@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mtihani_app/models/exam.dart';
 
 part 'classroom.freezed.dart';
 part 'classroom.g.dart';
@@ -30,21 +31,6 @@ class ClassroomModel with _$ClassroomModel {
 }
 
 @freezed
-class TermScore with _$TermScore {
-  factory TermScore({
-    int? id,
-    ClassroomModel? classroom,
-    int? grade,
-    int? term,
-    double? score,
-    String? expectation_level,
-  }) = _TermScore;
-
-  factory TermScore.fromJson(Map<String, dynamic> json) =>
-      _$TermScoreFromJson(json);
-}
-
-@freezed
 class ClassroomStudent with _$ClassroomStudent {
   factory ClassroomStudent({
     int? student_id,
@@ -53,8 +39,41 @@ class ClassroomStudent with _$ClassroomStudent {
     String? avg_term_expectation_level,
     double? avg_mtihani_score,
     String? avg_mtihani_expectation_level,
+    List<TermScore>? term_scores,
   }) = _ClassroomStudent;
 
   factory ClassroomStudent.fromJson(Map<String, dynamic> json) =>
       _$ClassroomStudentFromJson(json);
+}
+
+@freezed
+class ClassPerformanceModel with _$ClassPerformanceModel {
+  factory ClassPerformanceModel({
+    double? avg_term_score,
+    String? avg_term_expectation_level,
+    double? avg_mtihani_score,
+    String? avg_mtihani_expectation_level,
+    List<ScoreModel>? grade_scores,
+    List<ScoreModel>? bloom_skill_scores,
+    List<StrandScoreModel>? strand_scores,
+    List<TermScore>? class_term_scores,
+  }) = _ClassPerformanceModel;
+
+  factory ClassPerformanceModel.fromJson(Map<String, dynamic> json) =>
+      _$ClassPerformanceModelFromJson(json);
+}
+
+@freezed
+class TermScore with _$TermScore {
+  factory TermScore({
+    int? id,
+    int? grade,
+    int? term,
+    double? score,
+    String? expectation_level,
+    ClassroomModel? classroom,
+  }) = _TermScore;
+
+  factory TermScore.fromJson(Map<String, dynamic> json) =>
+      _$TermScoreFromJson(json);
 }

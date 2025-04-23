@@ -9,7 +9,9 @@ import 'dart:ui' as _i6;
 import 'package:flutter/material.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
+import 'package:mtihani_app/models/cbc.dart' as _i10;
 import 'package:mtihani_app/models/classroom.dart' as _i8;
+import 'package:mtihani_app/services/cbc_service.dart' as _i9;
 import 'package:mtihani_app/services/teacher_onboarding_service.dart' as _i7;
 import 'package:stacked_services/stacked_services.dart' as _i3;
 
@@ -747,4 +749,49 @@ class MockTeacherOnboardingService extends _i1.Mock
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [CbcService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCbcService extends _i1.Mock implements _i9.CbcService {
+  @override
+  List<_i10.GradeModel> getGradesUpTo(int? grade) => (super.noSuchMethod(
+        Invocation.method(
+          #getGradesUpTo,
+          [grade],
+        ),
+        returnValue: <_i10.GradeModel>[],
+        returnValueForMissingStub: <_i10.GradeModel>[],
+      ) as List<_i10.GradeModel>);
+
+  @override
+  List<_i10.GradeModel> getSingleGrade(int? grade) => (super.noSuchMethod(
+        Invocation.method(
+          #getSingleGrade,
+          [grade],
+        ),
+        returnValue: <_i10.GradeModel>[],
+        returnValueForMissingStub: <_i10.GradeModel>[],
+      ) as List<_i10.GradeModel>);
+
+  @override
+  _i10.GradeModel? getGrade(int? grade) => (super.noSuchMethod(
+        Invocation.method(
+          #getGrade,
+          [grade],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i10.GradeModel?);
+
+  @override
+  List<_i10.StrandModel> getAllStrandsForGrade(int? grade) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllStrandsForGrade,
+          [grade],
+        ),
+        returnValue: <_i10.StrandModel>[],
+        returnValueForMissingStub: <_i10.StrandModel>[],
+      ) as List<_i10.StrandModel>);
 }

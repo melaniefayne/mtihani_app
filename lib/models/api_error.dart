@@ -8,9 +8,6 @@ class ApiErrorModel with _$ApiErrorModel {
   factory ApiErrorModel({
     bool? status,
     String? message,
-    String? msg,
-    bool? error,
-    String? errors,
   }) = _ApiErrorModel;
 
   factory ApiErrorModel.fromJson(Map<String, dynamic> json) =>

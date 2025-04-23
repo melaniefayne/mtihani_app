@@ -20,7 +20,7 @@ GradeModel _$GradeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GradeModel {
-  String? get grade => throw _privateConstructorUsedError;
+  int? get grade => throw _privateConstructorUsedError;
   List<StrandModel>? get strands => throw _privateConstructorUsedError;
 
   /// Serializes this GradeModel to a JSON map.
@@ -39,7 +39,7 @@ abstract class $GradeModelCopyWith<$Res> {
           GradeModel value, $Res Function(GradeModel) then) =
       _$GradeModelCopyWithImpl<$Res, GradeModel>;
   @useResult
-  $Res call({String? grade, List<StrandModel>? strands});
+  $Res call({int? grade, List<StrandModel>? strands});
 }
 
 /// @nodoc
@@ -64,7 +64,7 @@ class _$GradeModelCopyWithImpl<$Res, $Val extends GradeModel>
       grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       strands: freezed == strands
           ? _value.strands
           : strands // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$GradeModelImplCopyWith<$Res>
       __$$GradeModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? grade, List<StrandModel>? strands});
+  $Res call({int? grade, List<StrandModel>? strands});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$GradeModelImplCopyWithImpl<$Res>
       grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       strands: freezed == strands
           ? _value._strands
           : strands // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ class _$GradeModelImpl implements _GradeModel {
       _$$GradeModelImplFromJson(json);
 
   @override
-  final String? grade;
+  final int? grade;
   final List<StrandModel>? _strands;
   @override
   List<StrandModel>? get strands {
@@ -170,14 +170,14 @@ class _$GradeModelImpl implements _GradeModel {
 }
 
 abstract class _GradeModel implements GradeModel {
-  factory _GradeModel({final String? grade, final List<StrandModel>? strands}) =
+  factory _GradeModel({final int? grade, final List<StrandModel>? strands}) =
       _$GradeModelImpl;
 
   factory _GradeModel.fromJson(Map<String, dynamic> json) =
       _$GradeModelImpl.fromJson;
 
   @override
-  String? get grade;
+  int? get grade;
   @override
   List<StrandModel>? get strands;
 

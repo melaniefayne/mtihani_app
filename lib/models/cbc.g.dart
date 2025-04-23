@@ -8,7 +8,7 @@ part of 'cbc.dart';
 
 _$GradeModelImpl _$$GradeModelImplFromJson(Map<String, dynamic> json) =>
     _$GradeModelImpl(
-      grade: json['grade'] as String?,
+      grade: (json['grade'] as num?)?.toInt(),
       strands: (json['strands'] as List<dynamic>?)
           ?.map((e) => StrandModel.fromJson(e as Map<String, dynamic>))
           .toList(),

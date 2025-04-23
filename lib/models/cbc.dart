@@ -8,7 +8,7 @@ part 'cbc.g.dart';
 @freezed
 class GradeModel with _$GradeModel {
   factory GradeModel({
-    String? grade,
+    int? grade,
     List<StrandModel>? strands,
   }) = _GradeModel;
 

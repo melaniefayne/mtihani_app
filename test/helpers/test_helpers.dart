@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
+import 'package:mtihani_app/services/cbc_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -13,6 +14,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<TeacherOnboardingService>(
       onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<CbcService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -20,6 +22,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterTeacherOnboardingService();
+  getAndRegisterCbcService();
 // @stacked-mock-register
 }
 
@@ -77,6 +80,13 @@ MockTeacherOnboardingService getAndRegisterTeacherOnboardingService() {
   _removeRegistrationIfExists<TeacherOnboardingService>();
   final service = MockTeacherOnboardingService();
   locator.registerSingleton<TeacherOnboardingService>(service);
+  return service;
+}
+
+MockCbcService getAndRegisterCbcService() {
+  _removeRegistrationIfExists<CbcService>();
+  final service = MockCbcService();
+  locator.registerSingleton<CbcService>(service);
   return service;
 }
 // @stacked-mock-create

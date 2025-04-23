@@ -454,18 +454,21 @@ Widget formClearIcon({
 }
 
 buildCountWidget(
-    {required ThemeData theme, required String label, required int count}) {
+    {required ThemeData theme, String? label, required int count}) {
   return Row(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text(
-        label,
-        style: theme.textTheme.titleLarge!.copyWith(
-          color: theme.primaryColor,
-          fontWeight: FontWeight.bold,
+      if (label != null)
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Text(
+            label,
+            style: theme.textTheme.titleLarge!.copyWith(
+              color: theme.primaryColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-      ),
-      const SizedBox(width: 5),
       CircleAvatar(
         radius: theme.textTheme.bodyMedium!.fontSize,
         backgroundColor: theme.primaryColor,
@@ -477,6 +480,57 @@ buildCountWidget(
           ),
         ),
       )
+    ],
+  );
+}
+
+Widget buildPaginationIndicator({
+  required ThemeData theme,
+  required int listLength,
+  required Function() onPrev,
+  required Function() onNext,
+  required int currentPage,
+  required int totalPages,
+}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          IconButton(
+            onPressed: () {
+              onPrev();
+            },
+            icon: Icon(
+              Icons.keyboard_arrow_left,
+              color: (listLength != 0 && currentPage > 1)
+                  ? theme.primaryColor
+                  : Colors.grey[400],
+            ),
+          ),
+          Text.rich(
+            TextSpan(
+              children: [
+                const TextSpan(text: "Page "),
+                TextSpan(text: currentPage.toString()),
+                const TextSpan(text: " of "),
+                TextSpan(text: totalPages.toString()),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              onNext();
+            },
+            icon: Icon(
+              Icons.keyboard_arrow_right,
+              color: (listLength != 0 && currentPage < totalPages)
+                  ? theme.primaryColor
+                  : Colors.grey[400],
+            ),
+          )
+        ],
+      ),
     ],
   );
 }
