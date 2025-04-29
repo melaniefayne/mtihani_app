@@ -12,5 +12,5 @@ class ProfileViewModel extends BaseViewModel {
 
   onChangePassword() => _navigationService.navigateToChangePasswordView();
 
-  onLogOut() async => _authService.onLogoutUser();
+  onLogOut() async => _authService.onLogoutUser(isShowConfirmation: true);
 }

@@ -15,11 +15,13 @@ class CbcView extends StackedView<CbcViewModel> {
     CbcViewModel viewModel,
     Widget? child,
   ) {
-    return Material(
-      child: SingleChildScrollView(
+    final pageSize = MediaQuery.sizeOf(context);
+    return Scaffold(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: pageSize.height * 0.01),
             AppPageFilters(
               filters: [
                 AppFilterItem(
@@ -37,16 +39,15 @@ class CbcView extends StackedView<CbcViewModel> {
                 ),
               ],
             ),
-            const Divider(),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemCount: viewModel.gradeStrandsList.length,
-              itemBuilder: (context, idx) => StrandCard(
-                strand: viewModel.gradeStrandsList[idx],
-              ),
+            SizedBox(height: pageSize.height * 0.01),
+            Wrap(
+              spacing: 15,
+              runSpacing: 15,
+              children: viewModel.gradeStrandsList
+                  .map((e) => StrandCard(
+                        strand: e,
+                      ))
+                  .toList(),
             ),
           ],
         ),

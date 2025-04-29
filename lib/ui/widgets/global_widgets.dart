@@ -552,14 +552,17 @@ buildDialogScaffold({
         if (!hideLogo) buildAppLogo(),
         SizedBox(
           width: pageSize.width * 0.4,
-          child: buildPageTitle(
-            theme: theme,
-            pageTitle: title,
-            actionTxt: "Back",
-            action: () {
-              final navigationService = locator<NavigationService>();
-              navigationService.back();
-            },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: buildPageTitle(
+              theme: theme,
+              pageTitle: title,
+              actionTxt: "Back",
+              action: () {
+                final navigationService = locator<NavigationService>();
+                navigationService.back();
+              },
+            ),
           ),
         ),
         ...children,
@@ -583,15 +586,18 @@ Widget buildPageAppHeader({
         children: [
           Row(
             children: [
-              if (hideBackNav)
-                IconButton(
-                  onPressed: () {
-                    final navigationService = locator<NavigationService>();
-                    navigationService.back();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: theme.primaryColor,
+              if (!hideBackNav)
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: IconButton(
+                    onPressed: () {
+                      final navigationService = locator<NavigationService>();
+                      navigationService.back();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: theme.primaryColor,
+                    ),
                   ),
                 ),
               if (iconPath != null)
@@ -627,17 +633,20 @@ Widget buildAppPageScaffold({
   Widget? trailing,
 }) {
   return Scaffold(
-    body: Column(
-      children: [
-        buildPageAppHeader(
-          theme: theme,
-          hideBackNav: false,
-          pageTitle: pageTitle,
-          trailing: trailing,
-        ),
-        SizedBox(height: pageSize.height * 0.01),
-        ...children,
-      ],
+    body: Padding(
+      padding: EdgeInsets.all(pageSize.height * 0.04),
+      child: Column(
+        children: [
+          buildPageAppHeader(
+            theme: theme,
+            hideBackNav: false,
+            pageTitle: pageTitle,
+            trailing: trailing,
+          ),
+          SizedBox(height: pageSize.height * 0.01),
+          ...children,
+        ],
+      ),
     ),
   );
 }

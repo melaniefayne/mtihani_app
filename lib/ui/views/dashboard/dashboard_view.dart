@@ -94,7 +94,10 @@ class DashboardView extends StackedView<DashboardViewModel> {
               Expanded(
                 child: Row(
                   children: [
-                    buildAppLogo(),
+                    GestureDetector(
+                      onTap: () => onSwitchTab(0),
+                      child: buildAppLogo(),
+                    ),
                     const SizedBox(width: 10),
                     ...tabs.asMap().entries.map(
                       (e) {
