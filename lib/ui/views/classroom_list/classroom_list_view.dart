@@ -32,103 +32,98 @@ class ClassroomList extends StackedView<ClassroomListModel> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: Center(
-          child: viewModel.isBusy
-              ? buildLoadingWidget(theme, "Setting up your classes ...")
-              : viewModel.hasError ||
-                      viewModel.data == null ||
-                      viewModel.data!.isEmpty
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        buildNoItemsWidget("You have no available classes"),
-                        buildPriBtn(
-                          theme: theme,
-                          btnTxt: viewModel.classActionTxt,
-                          iconPath: FontAwesomeIcons.usersRectangle,
-                          onAction: viewModel.onOnboardClassroom,
-                        ),
-                      ],
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildCountWidget(
-                              theme: theme,
-                              label: "My Classes",
-                              count: viewModel.data!.length,
-                            ),
-                            buildPriBtn(
-                              theme: theme,
-                              btnTxt: viewModel.classActionTxt,
-                              iconPath: FontAwesomeIcons.usersRectangle,
-                              onAction: viewModel.onOnboardClassroom,
-                            ),
-                          ],
-                        ),
-                        const Divider(),
-                        SizedBox(height: pageSize.height * 0.02),
-                        AppCarousel(
-                          children: viewModel.data!
-                              .map((e) => ClassroomCard(
-                                    classroom: e,
-                                    onTap: viewModel.onViewClassItem,
-                                  ))
-                              .toList(),
-                        ),
-                        SizedBox(height: pageSize.height * 0.03),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: pageSize.width * biggerSectionWidth,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Averages",
-                                    style: theme.textTheme.titleLarge!.copyWith(
-                                      color: theme.primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Divider(),
-                                  AppBarChart(
-                                    barWidth: pageSize.width * 0.03,
-                                    chartHeight: pageSize.height * 0.25,
-                                    dataSeries: [
-                                      viewModel.classTermScores,
-                                      viewModel.classMtihaniScores
-                                    ],
-                                    xAxisLabels: viewModel.classNames,
-                                    seriesLabels: const [
-                                      "Term Scores",
-                                      "Mtihani Scores"
-                                    ],
-                                    tipPostText: "%",
-                                  ),
-                                ],
-                              ),
-                            ),
-                            buildSectionDivider(
-                              height: pageSize.height * 0.4,
-                              color: theme.colorScheme.outlineVariant,
-                            ),
-                            SizedBox(
-                              width: pageSize.width * smallerSectionWidth,
-                              child: TimeTableWidget(
-                                lessons: viewModel.classLessonTimes,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+        child: viewModel.isBusy
+            ? buildLoadingWidget(theme, "Setting up your classes ...")
+            : viewModel.hasError ||
+                    viewModel.data == null ||
+                    viewModel.data!.isEmpty
+                ? buildNoItemsWidget(
+                    "You have no available classes",
+                    extraWidget: buildPriBtn(
+                      theme: theme,
+                      btnTxt: viewModel.classActionTxt,
+                      iconPath: FontAwesomeIcons.usersRectangle,
+                      onAction: viewModel.onOnboardClassroom,
                     ),
-        ),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildCountWidget(
+                            theme: theme,
+                            label: "My Classes",
+                            count: viewModel.data!.length,
+                          ),
+                          buildPriBtn(
+                            theme: theme,
+                            btnTxt: viewModel.classActionTxt,
+                            iconPath: FontAwesomeIcons.usersRectangle,
+                            onAction: viewModel.onOnboardClassroom,
+                          ),
+                        ],
+                      ),
+                      const Divider(),
+                      SizedBox(height: pageSize.height * 0.02),
+                      AppCarousel(
+                        children: viewModel.data!
+                            .map((e) => ClassroomCard(
+                                  classroom: e,
+                                  onTap: viewModel.onViewClassItem,
+                                ))
+                            .toList(),
+                      ),
+                      SizedBox(height: pageSize.height * 0.03),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: pageSize.width * biggerSectionWidth,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Averages",
+                                  style: theme.textTheme.titleLarge!.copyWith(
+                                    color: theme.primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Divider(),
+                                AppBarChart(
+                                  barWidth: pageSize.width * 0.03,
+                                  chartHeight: pageSize.height * 0.25,
+                                  dataSeries: [
+                                    viewModel.classTermScores,
+                                    viewModel.classMtihaniScores
+                                  ],
+                                  xAxisLabels: viewModel.classNames,
+                                  seriesLabels: const [
+                                    "Term Scores",
+                                    "Mtihani Scores"
+                                  ],
+                                  tipPostText: "%",
+                                ),
+                              ],
+                            ),
+                          ),
+                          buildSectionDivider(
+                            height: pageSize.height * 0.4,
+                            color: theme.colorScheme.outlineVariant,
+                          ),
+                          SizedBox(
+                            width: pageSize.width * smallerSectionWidth,
+                            child: TimeTableWidget(
+                              lessons: viewModel.classLessonTimes,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
       ),
     );
   }

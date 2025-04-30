@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/models/classroom.dart';
-import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/ui/views/single_tr_class/class_performance_tab/class_performance_tab.dart';
+import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
+import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_tr_class_viewmodel.dart';
 
 class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
-  final ClassroomModel classroom;
-  const SingleTrClassView({Key? key, required this.classroom})
-      : super(key: key);
+  const SingleTrClassView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
@@ -16,13 +15,36 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
     SingleTrClassViewModel viewModel,
     Widget? child,
   ) {
-    final theme = Theme.of(context);
-    final pageSize = MediaQuery.sizeOf(context);
-    return buildAppPageScaffold(
-      theme: theme,
-      pageTitle: "Grade ${classroom.name ?? '--'}",
-      pageSize: pageSize,
-      children: [],
+    return AppSideBarScaffold(
+      pageTitle: "Grade ${viewModel.trClassroom?.name ?? '--'}",
+      tabItems: [
+        TabViewItem(
+          label: "Performance",
+          icon: Icons.trending_up,
+          widget: ClassPerformanceTab(classroom: viewModel.trClassroom!),
+        ),
+        TabViewItem(
+          label: "Exams",
+          icon: Icons.list_alt,
+          widget: const Center(
+            child: Text("Exam listing"),
+          ),
+        ),
+        TabViewItem(
+          label: "Students",
+          icon: Icons.group,
+          widget: const Center(
+            child: Text("Student listing"),
+          ),
+        ),
+        TabViewItem(
+          label: "Edit Classroom",
+          icon: Icons.edit,
+          widget: const Center(
+            child: Text("Edit classroom"),
+          ),
+        ),
+      ],
     );
   }
 
@@ -30,5 +52,17 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
   SingleTrClassViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      SingleTrClassViewModel(classroom);
+      SingleTrClassViewModel();
+
+  @override
+  void onViewModelReady(SingleTrClassViewModel viewModel) {
+    super.onViewModelReady(viewModel);
+    viewModel.onSingleClassViewReady();
+  }
+
+  @override
+  void onDispose(SingleTrClassViewModel viewModel) {
+    viewModel.onDispose();
+    super.onDispose(viewModel);
+  }
 }

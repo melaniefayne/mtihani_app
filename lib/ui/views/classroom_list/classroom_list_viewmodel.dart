@@ -3,6 +3,7 @@ import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/services/auth_service.dart';
+import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
@@ -15,6 +16,7 @@ class ClassroomListModel extends FutureViewModel<List<ClassroomModel>> {
   final _dialogService = locator<DialogService>();
   final trOnboardService = locator<TeacherOnboardingService>();
   final _navigationService = locator<NavigationService>();
+  final _sharedPrefsService = locator<SharedPrefsService>();
   bool isTeacher = false;
   bool isStudent = false;
   String classActionTxt = "Add Class";
@@ -109,8 +111,10 @@ class ClassroomListModel extends FutureViewModel<List<ClassroomModel>> {
     }
   }
 
-  _onViewTrClass(ClassroomModel classroom) {
-    _navigationService.navigateToSingleTrClassView(classroom: classroom);
+  _onViewTrClass(ClassroomModel classroom) async {
+    bool canNavigate =
+        await _sharedPrefsService.setSingleTrClassroomNavArg(classroom);
+    if (canNavigate) _navigationService.navigateToSingleTrClassView();
   }
 
   _onViewStClass(ClassroomModel classroom) {

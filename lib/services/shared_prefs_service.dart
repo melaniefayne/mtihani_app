@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:encrypt_shared_preferences/provider.dart';
+import 'package:mtihani_app/models/classroom.dart';
 import 'dart:developer' as dev;
 
 import 'package:mtihani_app/utils/constants/app_variables.dart';
@@ -62,5 +64,31 @@ class SharedPrefsService {
       dev.log("cleanCachedSession: call  error ==${e.toString()}");
     }
     return false;
+  }
+
+  // ========== Classroom
+
+  Future<bool> setSingleTrClassroomNavArg(ClassroomModel classroom) async {
+    return await sharedPrefsDoSetValue<String>(
+      prefsKey: strCurrentTrClass,
+      value: jsonEncode(classroom.toJson()),
+    );
+  }
+
+  Future<ClassroomModel?> getSingleTrClassroomNavArg() async {
+    String? classroomStr =
+        await sharedPrefsDoGetValue<String>(prefsKey: strCurrentTrClass);
+    if (classroomStr != null) {
+      try {
+        return ClassroomModel.fromJson(jsonDecode(classroomStr));
+      } catch (e) {
+        log("Error parsing classroom: $e");
+      }
+    }
+    return null;
+  }
+
+  Future<bool> clearSingleTrClassroomNavArg() async {
+    return await sharedPrefsDoDeleteValue(strDefToken);
   }
 }

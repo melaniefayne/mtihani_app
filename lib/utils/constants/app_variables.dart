@@ -11,6 +11,7 @@ const String strDefSharedPrefKey = "05cca623-58ad-47";
 const String strDefToken = "access_token";
 const String strDefLoggedInUserData = "loggedInUserData";
 const String strLoggedInUserClassrooms = "strLoggedInUserClassrooms";
+const String strCurrentTrClass = "strCurrentTrClass";
 
 // ROLES
 //

@@ -381,36 +381,45 @@ Widget buildDetailWidget({
 }
 
 buildLoadingWidget(ThemeData theme, String loadTxt) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: theme.primaryColor,
-            shape: BoxShape.circle,
+  return Center(
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: theme.primaryColor,
+              shape: BoxShape.circle,
+            ),
+            child: Lottie.asset(astLottieLoading, repeat: true),
           ),
-          child: Lottie.asset(astLottieLoading, repeat: true),
-        ),
-        const SizedBox(height: 4),
-        Text(loadTxt),
-      ],
+          const SizedBox(height: 4),
+          Text(loadTxt),
+        ],
+      ),
     ),
   );
 }
 
-buildNoItemsWidget(String noItemsItx) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Lottie.asset(astLottieNoItems, height: 120, repeat: true),
-        const SizedBox(height: 4),
-        Text(noItemsItx),
-      ],
+buildNoItemsWidget(String noItemsItx, {Widget? extraWidget}) {
+  return Center(
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Lottie.asset(astLottieNoItems, height: 120, repeat: true),
+          const SizedBox(height: 4),
+          Text(noItemsItx),
+          if (extraWidget != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: extraWidget,
+            ),
+        ],
+      ),
     ),
   );
 }
@@ -601,15 +610,19 @@ Widget buildPageAppHeader({
                   ),
                 ),
               if (iconPath != null)
-                Icon(
-                  iconPath,
-                  color: theme.primaryColor,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Icon(
+                    iconPath,
+                    color: theme.primaryColor,
+                  ),
                 ),
               Text(
                 pageTitle,
-                style: hideBackNav
-                    ? theme.textTheme.titleMedium
-                    : theme.textTheme.headlineMedium,
+                style: (hideBackNav
+                        ? theme.textTheme.titleMedium
+                        : theme.textTheme.headlineMedium)!
+                    .copyWith(fontWeight: FontWeight.bold),
               )
             ],
           ),

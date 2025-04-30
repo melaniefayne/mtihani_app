@@ -227,10 +227,8 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i12.SingleTrClassView: (data) {
-      final args = data.getArgs<SingleTrClassViewArguments>(nullOk: false);
       return _i18.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i12.SingleTrClassView(key: args.key, classroom: args.classroom),
+        builder: (context) => const _i12.SingleTrClassView(),
         settings: data,
       );
     },
@@ -337,33 +335,6 @@ class ProfileViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ loggedInUser.hashCode;
-  }
-}
-
-class SingleTrClassViewArguments {
-  const SingleTrClassViewArguments({
-    this.key,
-    required this.classroom,
-  });
-
-  final _i18.Key? key;
-
-  final _i20.ClassroomModel classroom;
-
-  @override
-  String toString() {
-    return '{"key": "$key", "classroom": "$classroom"}';
-  }
-
-  @override
-  bool operator ==(covariant SingleTrClassViewArguments other) {
-    if (identical(this, other)) return true;
-    return other.key == key && other.classroom == classroom;
-  }
-
-  @override
-  int get hashCode {
-    return key.hashCode ^ classroom.hashCode;
   }
 }
 
@@ -577,17 +548,14 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToSingleTrClassView({
-    _i18.Key? key,
-    required _i20.ClassroomModel classroom,
+  Future<dynamic> navigateToSingleTrClassView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return navigateTo<dynamic>(Routes.singleTrClassView,
-        arguments: SingleTrClassViewArguments(key: key, classroom: classroom),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -822,17 +790,14 @@ extension NavigatorStateExtension on _i21.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithSingleTrClassView({
-    _i18.Key? key,
-    required _i20.ClassroomModel classroom,
+  Future<dynamic> replaceWithSingleTrClassView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  }) async {
+  ]) async {
     return replaceWith<dynamic>(Routes.singleTrClassView,
-        arguments: SingleTrClassViewArguments(key: key, classroom: classroom),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

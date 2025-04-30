@@ -62,6 +62,7 @@ class AppLineChart extends StatefulWidget {
   final Color? bgColor;
   final double? chartHeight;
   final String? tipPreText;
+  final String? tipPostText;
   final String? chartTitle;
   final String? name;
   final bool? useIndIcons;
@@ -78,6 +79,7 @@ class AppLineChart extends StatefulWidget {
     this.name,
     this.chartHeight = 200,
     this.tipPreText = "",
+    this.tipPostText = "",
     this.useIndIcons,
   });
 
@@ -189,7 +191,6 @@ class _AppLineChartState extends State<AppLineChart> {
           child: LineChart(
             LineChartData(
               maxY: chartData.maxY,
-              minY: 0.0,
               lineBarsData: chartData.lineChartData,
               titlesData: FlTitlesData(
                 show: true,
@@ -237,7 +238,7 @@ class _AppLineChartState extends State<AppLineChart> {
                   getTooltipItems: (touchedSpots) {
                     return touchedSpots
                         .map((e) => LineTooltipItem(
-                              "${widget.xAxisLabels[e.spotIndex]}: ${widget.tipPreText}${getThousandsNumber(widget.dataSeries[e.barIndex][e.spotIndex])}",
+                              "${widget.xAxisLabels[e.spotIndex]}: ${widget.tipPreText}${getThousandsNumber(widget.dataSeries[e.barIndex][e.spotIndex])}${widget.tipPostText}",
                               TextStyle(
                                 color: chartData.seriesColors[e.barIndex],
                                 fontWeight: FontWeight.bold,
