@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class AppSearchTable extends StatefulWidget {
   final bool? isSearchActive;
@@ -20,6 +21,8 @@ class AppSearchTable extends StatefulWidget {
   final Map<String, String>? tableKeys;
   final String? tableTitle;
   final String? downloadFileName;
+  final bool hideTableTop;
+  final bool hasTotalRow;
   const AppSearchTable({
     super.key,
     this.isSearchActive,
@@ -39,6 +42,8 @@ class AppSearchTable extends StatefulWidget {
     this.tableKeys,
     this.tableTitle,
     this.downloadFileName,
+    this.hideTableTop = false,
+    this.hasTotalRow = false,
   });
 
   @override
@@ -71,10 +76,11 @@ class _AppSearchTableState extends State<AppSearchTable> {
     allRows.clear();
     if (widget.hasCount) {
       for (int i = 0; i < widget.tableRows.length; i++) {
+        bool isLastRow = i == widget.tableRows.length - 1;
         List<DataCell> rwCells = [
           DataCell(
             Text(
-              (i + 1).toString(),
+              isLastRow && widget.hasTotalRow ? '' : (i + 1).toString(),
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -132,35 +138,29 @@ class _AppSearchTableState extends State<AppSearchTable> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.isSearchActive != null)
-          Column(
-            children: [
-              AppTextFormField(
-                prefixIcon: formPrefixIcon(),
-                suffixIcon: widget.isSearchActive!
-                    ? formClearIcon(
-                        theme: theme,
-                        onClearSearch: () {
-                          if (widget.onSearchCanceled != null) {
-                            widget.onSearchCanceled!();
-                          }
-                        },
-                      )
-                    : null,
-                hintText: widget.hintText ?? "",
-                onChanged: (String val) {
-                  if (widget.onSearchTermChanged != null) {
-                    widget.onSearchTermChanged!(val);
-                  }
-                },
-                controller: widget.searchTxtCtrl,
-              ),
-              const SizedBox(height: 10),
-            ],
+          AppTextFormField(
+            prefixIcon: formPrefixIcon(),
+            suffixIcon: widget.isSearchActive!
+                ? formClearIcon(
+                    theme: theme,
+                    onClearSearch: () {
+                      if (widget.onSearchCanceled != null) {
+                        widget.onSearchCanceled!();
+                      }
+                    },
+                  )
+                : null,
+            hintText: widget.hintText ?? "",
+            onChanged: (String val) {
+              if (widget.onSearchTermChanged != null) {
+                widget.onSearchTermChanged!(val);
+              }
+            },
+            controller: widget.searchTxtCtrl,
           ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        if (!widget.hideTableTop)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Row(
                 children: [
@@ -169,46 +169,41 @@ class _AppSearchTableState extends State<AppSearchTable> {
                       widget.tableTitle!,
                       style: theme.textTheme.titleMedium!.copyWith(
                         color: theme.primaryColor,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   if (!widget.hideTotalCount) ...[
                     const Text(' • '),
-                    buildCountWidget(
-                      theme: theme,
-                      count: widget.tableRows.length,
+                    Text(
+                      "${widget.hasTotalRow ? widget.tableRows.length - 1 : widget.tableRows.length} Items",
                     ),
                   ],
                 ],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.topRightWidget != null)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: widget.topRightWidget!,
-                    ),
-                  if (widget.hasPaginate)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5),
-                      child: buildPaginationIndicator(
-                        theme: theme,
-                        listLength: allRows.length,
-                        onPrev: onPrevPage,
-                        onNext: onNextPage,
-                        currentPage: currentPage,
-                        totalPages: totalPages,
-                      ),
-                    ),
-                  if (widget.downloadFileName != null)
-                    buildExcelDownloadBtn(widget.downloadFileName!, theme),
-                ],
-              ),
+              // Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     if (widget.topRightWidget != null)
+              //       Padding(
+              //         padding: const EdgeInsets.only(right: 5),
+              //         child: widget.topRightWidget!,
+              //       ),
+              //     if (widget.hasPaginate)
+              //       Padding(
+              //         padding: const EdgeInsets.only(right: 5),
+              //         child: buildPaginationIndicator(
+              //           theme: theme,
+              //           listLength: allRows.length,
+              //           onPrev: onPrevPage,
+              //           onNext: onNextPage,
+              //           currentPage: currentPage,
+              //           totalPages: totalPages,
+              //         ),
+              //       ),
+              //   ],
+              // ),
             ],
           ),
-        ),
         const SizedBox(height: 5),
         if (widget.tableKeys != null)
           Row(
@@ -246,28 +241,33 @@ class _AppSearchTableState extends State<AppSearchTable> {
             ],
           ),
         const SizedBox(height: 5),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: DataTable(
-            headingRowColor: WidgetStateColor.resolveWith(
-              (states) => theme.colorScheme.onInverseSurface,
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: theme.colorScheme.inverseSurface,
-              ),
-            ),
-            border: TableBorder.all(color: theme.colorScheme.inverseSurface),
-            headingTextStyle: theme.textTheme.titleMedium!
-                .copyWith(color: theme.primaryColor),
-            columnSpacing: 15,
-            columns: (widget.hasCount
-                    ? ["No.", ...widget.tableHeaders]
-                    : widget.tableHeaders)
-                .map((e) => DataColumn(label: Text(e)))
-                .toList(),
-            rows: paginatedRows,
-          ),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return SfDataGrid(
+              source: V8GridDataSource(tableRows: paginatedRows),
+              columns: [
+                if (widget.hasCount)
+                  GridColumn(
+                    columnName: 'No.',
+                    label: buildHeaderCell(theme: theme, value: ""),
+                  ),
+                ...List.generate(widget.tableHeaders.length, (index) {
+                  return GridColumn(
+                    columnName: 'col_$index',
+                    label: buildHeaderCell(
+                      theme: theme,
+                      value: widget.tableHeaders[index],
+                    ),
+                  );
+                }),
+              ],
+              frozenColumnsCount: 2,
+              gridLinesVisibility: GridLinesVisibility.both,
+              headerGridLinesVisibility: GridLinesVisibility.both,
+              columnWidthMode: ColumnWidthMode.fitByCellValue,
+              rowHeight: 55,
+            );
+          },
         ),
         if (widget.tableRows.isEmpty && !widget.hideNoItemsWidget)
           buildNoItemsWidget(widget.itemsText),
@@ -275,60 +275,106 @@ class _AppSearchTableState extends State<AppSearchTable> {
     );
   }
 
-  Widget buildExcelDownloadBtn(String fileName, ThemeData theme) {
-    return
-        // ElevatedButton(
-        //   onPressed: () {
-        //     onDownloadCSVFile(fileName);
-        //   },
-        //   style: ButtonStyle(
-        //     backgroundColor: WidgetStatePropertyAll(theme.primaryColor),
-        //     foregroundColor: WidgetStatePropertyAll(theme.colorScheme.onPrimary),
-        //   ),
-        //   child: Row(
-        //     mainAxisSize: MainAxisSize.min,
-        //     children: [
-        //       Image.asset(
-        //         astImagesExcelLogo,
-        //         height: 25,
-        //       ),
-        //       const SizedBox(width: 4),
-        //       const Text("Download")
-        //     ],
-        //   ),
-        // );
-        //
-        const SizedBox();
+  Widget buildHeaderCell({
+    required String value,
+    required ThemeData theme,
+  }) {
+    return Container(
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+      ),
+      child: Text(
+        value,
+        style: theme.textTheme.bodyLarge!
+            .copyWith(color: theme.primaryColor, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+class V8GridDataSource extends DataGridSource {
+  late final List<DataGridRow> _gridRows;
+
+  V8GridDataSource({
+    required List<DataRow> tableRows,
+  }) {
+    _gridRows = tableRows.map((row) {
+      List<DataGridCell<dynamic>> cells = [];
+
+      for (int i = 0; i < row.cells.length; i++) {
+        cells.add(DataGridCell<dynamic>(
+          columnName: 'col_$i',
+          value: row.cells[i],
+        ));
+      }
+
+      return DataGridRow(cells: cells);
+    }).toList();
   }
 
-  onDownloadCSVFile(String fileName) async {
-    // if (widget.tableRows.isEmpty) return;
-    // List<List<String>> csvData = [
-    //   widget.tableHeaders,
-    //   ...widget.tableRows.map((row) => row.cells.map((cell) {
-    //         final Widget widget = cell.child;
-    //         if (widget is Text) {
-    //           return widget.data ?? "--";
-    //         } else if (widget is Align && widget.child is Text) {
-    //           return (widget.child as Text).data ?? "---";
-    //         } else {
-    //           return "--";
-    //         }
-    //       }).toList()),
-    // ];
+  @override
+  List<DataGridRow> get rows => _gridRows;
 
-    // String csvString = const ListToCsvConverter().convert(csvData);
-
-    // try {
-    //   await onDownloadFile(docId: fileName, csvString: csvString);
-    // } catch (e) {
-    //   dev.log(e.toString());
-    //   final snackbarService = locator<SnackbarService>();
-    //   snackbarService.showSnackbar(
-    //     title: "Download failed",
-    //     message: "Please try again later",
-    //     duration: const Duration(seconds: 2),
-    //   );
-    // }
+  @override
+  DataGridRowAdapter buildRow(DataGridRow row) {
+    return DataGridRowAdapter(
+      cells: row.getCells().map((cell) {
+        return GestureDetector(
+          onTap: cell.value.onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: cell.value.child,
+          ),
+        );
+      }).toList(),
+    );
   }
+}
+
+DataCell buildCellTxt(
+  String? value, {
+  TextStyle? txtStyle,
+  Function()? onAction,
+  bool useLeftAlign = false,
+  bool useRightAlign = false,
+}) {
+  return DataCell(
+    onTap: onAction,
+    Align(
+      alignment: useRightAlign
+          ? Alignment.centerRight
+          : useLeftAlign
+              ? Alignment.centerLeft
+              : Alignment.center,
+      child: Text(
+        value ?? "--",
+        style: txtStyle,
+        textAlign: useRightAlign
+            ? TextAlign.right
+            : useLeftAlign
+                ? TextAlign.left
+                : TextAlign.center,
+      ),
+    ),
+  );
+}
+
+DataCell buildCellViewAction({
+  required ThemeData theme,
+  Function()? onAction,
+}) {
+  return DataCell(
+    onTap: onAction,
+    Align(
+      alignment: Alignment.center,
+      child: Icon(
+        Icons.visibility,
+        color: theme.primaryColor,
+        size: theme.textTheme.headlineMedium!.fontSize,
+      ),
+    ),
+  );
 }

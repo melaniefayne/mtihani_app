@@ -29,7 +29,7 @@ class ClassPerformanceTab extends StackedView<ClassPerformanceTabModel> {
                   ? buildNoItemsWidget("No available term scores")
                   : sectionScaffold(
                       theme: theme,
-                      iconPath: Icons.trending_up_rounded,
+                      iconPath: Icons.calendar_today,
                       title: "Term Scores",
                       headerTrailing: AppAnimatedCounter(
                         preTexts: const [

@@ -535,8 +535,9 @@ mixin _$ClassroomStudent {
   ClassroomModel? get classroom => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  double? get avg_term_score => throw _privateConstructorUsedError;
-  String? get avg_term_expectation_level => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  double? get avg_score => throw _privateConstructorUsedError;
+  String? get avg_expectation_level => throw _privateConstructorUsedError;
   double? get avg_mtihani_score => throw _privateConstructorUsedError;
   String? get avg_mtihani_expectation_level =>
       throw _privateConstructorUsedError;
@@ -563,8 +564,9 @@ abstract class $ClassroomStudentCopyWith<$Res> {
       ClassroomModel? classroom,
       String? code,
       String? name,
-      double? avg_term_score,
-      String? avg_term_expectation_level,
+      String? status,
+      double? avg_score,
+      String? avg_expectation_level,
       double? avg_mtihani_score,
       String? avg_mtihani_expectation_level,
       List<TermScore>? term_scores});
@@ -591,8 +593,9 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
     Object? classroom = freezed,
     Object? code = freezed,
     Object? name = freezed,
-    Object? avg_term_score = freezed,
-    Object? avg_term_expectation_level = freezed,
+    Object? status = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
     Object? avg_mtihani_score = freezed,
     Object? avg_mtihani_expectation_level = freezed,
     Object? term_scores = freezed,
@@ -614,13 +617,17 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      avg_term_score: freezed == avg_term_score
-          ? _value.avg_term_score
-          : avg_term_score // ignore: cast_nullable_to_non_nullable
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
               as double?,
-      avg_term_expectation_level: freezed == avg_term_expectation_level
-          ? _value.avg_term_expectation_level
-          : avg_term_expectation_level // ignore: cast_nullable_to_non_nullable
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
               as String?,
       avg_mtihani_score: freezed == avg_mtihani_score
           ? _value.avg_mtihani_score
@@ -665,8 +672,9 @@ abstract class _$$ClassroomStudentImplCopyWith<$Res>
       ClassroomModel? classroom,
       String? code,
       String? name,
-      double? avg_term_score,
-      String? avg_term_expectation_level,
+      String? status,
+      double? avg_score,
+      String? avg_expectation_level,
       double? avg_mtihani_score,
       String? avg_mtihani_expectation_level,
       List<TermScore>? term_scores});
@@ -692,8 +700,9 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
     Object? classroom = freezed,
     Object? code = freezed,
     Object? name = freezed,
-    Object? avg_term_score = freezed,
-    Object? avg_term_expectation_level = freezed,
+    Object? status = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
     Object? avg_mtihani_score = freezed,
     Object? avg_mtihani_expectation_level = freezed,
     Object? term_scores = freezed,
@@ -715,13 +724,17 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      avg_term_score: freezed == avg_term_score
-          ? _value.avg_term_score
-          : avg_term_score // ignore: cast_nullable_to_non_nullable
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
               as double?,
-      avg_term_expectation_level: freezed == avg_term_expectation_level
-          ? _value.avg_term_expectation_level
-          : avg_term_expectation_level // ignore: cast_nullable_to_non_nullable
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
               as String?,
       avg_mtihani_score: freezed == avg_mtihani_score
           ? _value.avg_mtihani_score
@@ -747,8 +760,9 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
       this.classroom,
       this.code,
       this.name,
-      this.avg_term_score,
-      this.avg_term_expectation_level,
+      this.status,
+      this.avg_score,
+      this.avg_expectation_level,
       this.avg_mtihani_score,
       this.avg_mtihani_expectation_level,
       final List<TermScore>? term_scores})
@@ -766,9 +780,11 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
   @override
   final String? name;
   @override
-  final double? avg_term_score;
+  final String? status;
   @override
-  final String? avg_term_expectation_level;
+  final double? avg_score;
+  @override
+  final String? avg_expectation_level;
   @override
   final double? avg_mtihani_score;
   @override
@@ -785,7 +801,7 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
 
   @override
   String toString() {
-    return 'ClassroomStudent(student_id: $student_id, classroom: $classroom, code: $code, name: $name, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, term_scores: $term_scores)';
+    return 'ClassroomStudent(student_id: $student_id, classroom: $classroom, code: $code, name: $name, status: $status, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, term_scores: $term_scores)';
   }
 
   @override
@@ -799,12 +815,11 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
                 other.classroom == classroom) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.avg_term_score, avg_term_score) ||
-                other.avg_term_score == avg_term_score) &&
-            (identical(other.avg_term_expectation_level,
-                    avg_term_expectation_level) ||
-                other.avg_term_expectation_level ==
-                    avg_term_expectation_level) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.avg_score, avg_score) ||
+                other.avg_score == avg_score) &&
+            (identical(other.avg_expectation_level, avg_expectation_level) ||
+                other.avg_expectation_level == avg_expectation_level) &&
             (identical(other.avg_mtihani_score, avg_mtihani_score) ||
                 other.avg_mtihani_score == avg_mtihani_score) &&
             (identical(other.avg_mtihani_expectation_level,
@@ -823,8 +838,9 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
       classroom,
       code,
       name,
-      avg_term_score,
-      avg_term_expectation_level,
+      status,
+      avg_score,
+      avg_expectation_level,
       avg_mtihani_score,
       avg_mtihani_expectation_level,
       const DeepCollectionEquality().hash(_term_scores));
@@ -852,8 +868,9 @@ abstract class _ClassroomStudent implements ClassroomStudent {
       final ClassroomModel? classroom,
       final String? code,
       final String? name,
-      final double? avg_term_score,
-      final String? avg_term_expectation_level,
+      final String? status,
+      final double? avg_score,
+      final String? avg_expectation_level,
       final double? avg_mtihani_score,
       final String? avg_mtihani_expectation_level,
       final List<TermScore>? term_scores}) = _$ClassroomStudentImpl;
@@ -870,9 +887,11 @@ abstract class _ClassroomStudent implements ClassroomStudent {
   @override
   String? get name;
   @override
-  double? get avg_term_score;
+  String? get status;
   @override
-  String? get avg_term_expectation_level;
+  double? get avg_score;
+  @override
+  String? get avg_expectation_level;
   @override
   double? get avg_mtihani_score;
   @override

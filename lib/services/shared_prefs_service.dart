@@ -89,6 +89,6 @@ class SharedPrefsService {
   }
 
   Future<bool> clearSingleTrClassroomNavArg() async {
-    return await sharedPrefsDoDeleteValue(strDefToken);
+    return await sharedPrefsDoDeleteValue(strCurrentTrClass);
   }
 }

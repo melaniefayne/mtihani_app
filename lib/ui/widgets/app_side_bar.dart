@@ -101,12 +101,30 @@ class _AppSideBarScaffoldState extends State<AppSideBarScaffold> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "${widget.pageTitle}: ${selectedItem.label}",
-                    style: theme.textTheme.headlineSmall!.copyWith(
-                      color: theme.colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Row(
+                    children: [
+                      Icon(
+                        selectedItem.icon,
+                        color: theme.colorScheme.onSurface,
+                        size: theme.textTheme.headlineSmall!.fontSize,
+                      ),
+                      const SizedBox(width: 10),
+                      Text.rich(
+                        TextSpan(
+                          text: widget.pageTitle,
+                          children: [
+                            const TextSpan(text: ": "),
+                            TextSpan(
+                              text: selectedItem.label,
+                              style: theme.textTheme.headlineSmall!.copyWith(
+                                color: theme.colorScheme.onSurface,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   const Divider(height: 1),
                   Expanded(

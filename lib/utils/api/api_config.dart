@@ -35,6 +35,8 @@ String get endPointCreateClass => "$baseURL/learner/create-class";
 String get endPointGetUserClassrooms => "$baseURL/learner/get-user-classrooms";
 String get endPointGetClassroomTermScores =>
     "$baseURL/learner/get-classroom-term-scores";
+String get endPointGetClassroomStudents =>
+    "$baseURL/learner/get-classroom-students";
 
 String get endPointJoinClass => "$baseURL/join-classroom";
 String get endPointGetClassStrandScores =>

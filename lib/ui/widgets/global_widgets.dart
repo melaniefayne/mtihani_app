@@ -380,26 +380,47 @@ Widget buildDetailWidget({
   );
 }
 
-buildLoadingWidget(ThemeData theme, String loadTxt) {
+buildLoadingWidget(ThemeData theme, String loadTxt, {bool isLinear = false}) {
   return Center(
-    child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: 50,
+    child: isLinear
+        ? Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(vertical: 5),
             decoration: BoxDecoration(
-              color: theme.primaryColor,
-              shape: BoxShape.circle,
+              color: theme.colorScheme.primary,
+              borderRadius: BorderRadius.circular(5),
             ),
-            child: Lottie.asset(astLottieLoading, repeat: true),
+            child: Row(
+              children: [
+                Text(
+                  loadTxt,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    color: theme.colorScheme.onPrimary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Lottie.asset(astLottieLoading, repeat: true, width: 20),
+              ],
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Lottie.asset(astLottieLoading, repeat: true),
+                ),
+                const SizedBox(height: 4),
+                Text(loadTxt),
+              ],
+            ),
           ),
-          const SizedBox(height: 4),
-          Text(loadTxt),
-        ],
-      ),
-    ),
   );
 }
 

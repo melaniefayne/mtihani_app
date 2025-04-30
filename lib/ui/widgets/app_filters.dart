@@ -5,12 +5,12 @@ import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
 
 class AppPageFilters extends StatefulWidget {
   final List<AppFilterItem> filters;
-  final double? ftWidth;
+  final double? fullWidth;
 
   const AppPageFilters({
     super.key,
     required this.filters,
-    this.ftWidth,
+    this.fullWidth,
   });
 
   @override
@@ -23,16 +23,14 @@ class _AppPageFiltersState extends State<AppPageFilters> {
     final theme = Theme.of(context);
     final pageWidth = MediaQuery.sizeOf(context).width;
     final filtersLen = widget.filters.length;
-    final filterWidth = (pageWidth * 0.82) / filtersLen;
+    final filterWidth = (widget.fullWidth ?? pageWidth * 0.8) / filtersLen;
     return Wrap(
       spacing: 10.0,
       runSpacing: 10.0,
       direction: Axis.horizontal,
       children: widget.filters.map((filterItem) {
-        double width = widget.ftWidth ?? filterWidth;
-
         return SizedBox(
-          width: width,
+          width: filterWidth,
           child: filterItem.isTxtField
               ? AppTextFormField(
                   label: filterItem.label,
@@ -42,7 +40,7 @@ class _AppPageFiltersState extends State<AppPageFilters> {
                 )
               : filterItem.isDateField
                   ? AppDateFilter(
-                      ftWidth: width,
+                      ftWidth: filterWidth,
                       label: filterItem.label,
                       priDateTxtCtrl: filterItem.priDateCtrl!,
                       secDateTxtCtrl: filterItem.secDateTxtCtrl,
@@ -93,7 +91,7 @@ class _AppPageFiltersState extends State<AppPageFilters> {
               label: Text(
                 label,
                 style: theme.textTheme.bodyLarge!
-                    .copyWith(fontWeight: FontWeight.bold),
+                    .copyWith(fontWeight: FontWeight.w500),
               ),
             ),
             value: selectedValue,

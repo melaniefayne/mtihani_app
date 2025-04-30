@@ -27,9 +27,6 @@ class SingleTrClassViewModel extends BaseViewModel {
     _navigationService.navigateToExamSetupView();
   }
 
-  // TODO
-  // When you edit a class return the updated list of classrooms for caching
-
   onDispose() async {
     await _sharedPrefsService.clearSingleTrClassroomNavArg();
   }

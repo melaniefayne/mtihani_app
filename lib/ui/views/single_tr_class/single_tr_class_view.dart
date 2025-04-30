@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/ui/views/single_tr_class/class_performance_tab/class_performance_tab.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
+import 'package:mtihani_app/ui/widgets/common/student_listing/student_listing.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_tr_class_viewmodel.dart';
@@ -15,6 +16,9 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
     SingleTrClassViewModel viewModel,
     Widget? child,
   ) {
+    if (viewModel.trClassroom == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return AppSideBarScaffold(
       pageTitle: "Grade ${viewModel.trClassroom?.name ?? '--'}",
       tabItems: [
@@ -33,9 +37,7 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
         TabViewItem(
           label: "Students",
           icon: Icons.group,
-          widget: const Center(
-            child: Text("Student listing"),
-          ),
+          widget: StudentListing(classroom: viewModel.trClassroom!),
         ),
         TabViewItem(
           label: "Edit Classroom",
