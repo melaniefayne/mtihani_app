@@ -5,6 +5,8 @@ import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/widgets/common/classroom_widgets.dart';
+import 'package:mtihani_app/utils/api/api_calls.dart';
+import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -31,12 +33,22 @@ class ClassroomListModel extends FutureViewModel<List<ClassroomModel>> {
 
   @override
   Future<List<ClassroomModel>> futureToRun() async {
-    return _authService.loggedInUserClassrooms;
+    var classroomListRes = await onApiGetCall<ClassroomModel>(
+      getEndpoint: endPointGetUserClassrooms,
+      listDataFromJson: ClassroomModel.fromJson,
+    );
+    if (apiCallChecks(classroomListRes, 'classroom listing')) {
+      List<ClassroomModel> classrooms = classroomListRes.$1?.listData ?? [];
+      await _authService.saveUserClassrooms(classrooms);
+      return classrooms;
+    }
+
+    return [];
   }
 
   List<ClassLessonTime> get classLessonTimes {
-    return (data ?? [])
-        .expand((classroom) => (classroom.lessons_times ?? []).map(
+    return ((data ?? []))
+        .expand((classroom) => (classroom.lesson_times ?? []).map(
               (lesson) => ClassLessonTime(
                 className: classroom.name ?? "--",
                 lessonTime: lesson,

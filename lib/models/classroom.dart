@@ -16,7 +16,12 @@ class ClassroomModel with _$ClassroomModel {
     String? subject,
     int? grade,
     int? teacher_id,
-    List<DateTime>? lessons_times,
+    @JsonKey(
+      name: 'lesson_times',
+      fromJson: _dateTimeListFromJson,
+      toJson: _dateTimeListToJson,
+    )
+    List<DateTime>? lesson_times,
     int? student_count,
     double? avg_term_score,
     String? avg_term_expectation_level,
@@ -30,10 +35,22 @@ class ClassroomModel with _$ClassroomModel {
       _$ClassroomModelFromJson(json);
 }
 
+List<DateTime>? _dateTimeListFromJson(List<dynamic>? jsonList) {
+  if (jsonList == null) return null;
+  return jsonList.map((e) => DateTime.parse(e as String)).toList();
+}
+
+List<String>? _dateTimeListToJson(List<DateTime>? dateList) {
+  if (dateList == null) return null;
+  return dateList.map((e) => e.toIso8601String()).toList();
+}
+
 @freezed
 class ClassroomStudent with _$ClassroomStudent {
   factory ClassroomStudent({
     int? student_id,
+    ClassroomModel? classroom,
+    String? code,
     String? name,
     double? avg_term_score,
     String? avg_term_expectation_level,
@@ -71,7 +88,6 @@ class TermScore with _$TermScore {
     int? term,
     double? score,
     String? expectation_level,
-    ClassroomModel? classroom,
   }) = _TermScore;
 
   factory TermScore.fromJson(Map<String, dynamic> json) =>

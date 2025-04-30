@@ -40,12 +40,18 @@ class ClassFormView extends StackedView<ClassFormViewModel>
         padding: EdgeInsets.all(pageSize.width * 0.04),
         child: Column(
           children: [
-            buildPageTitle(
-              theme: theme,
-              pageTitle: "Create A Class",
-              actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
-              action: viewModel.onGoToHome,
-            ),
+            viewModel.isFromOnboarding
+                ? buildPageAppHeader(
+                    theme: theme,
+                    pageTitle: viewModel.pageTitle,
+                    hideBackNav: false,
+                  )
+                : buildPageTitle(
+                    theme: theme,
+                    pageTitle: viewModel.pageTitle,
+                    actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
+                    action: viewModel.onGoToHome,
+                  ),
             SizedBox(height: pageSize.height * 0.02),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

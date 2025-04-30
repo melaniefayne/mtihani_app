@@ -52,7 +52,7 @@ class StudentSignupViewModel extends BaseViewModel with FormStateHelper {
     // isLoading = true;
     // rebuildUi();
     // var apiCallRes = await onApiPostCall(
-    //   postEndpoint: endPointStudentRegister,
+    //   postEndpoint: endPointRegisterUser,
     //   skipTokenCheck: true,
     //   dataMap: studentBody,
     // );

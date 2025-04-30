@@ -39,7 +39,9 @@ class ApiDataModel<T> {
       data: dataFromJson == null
           ? null
           : dataField != null
-              ? dataFromJson(json[dataField])
+              ? json[dataField] is Map<String, dynamic>
+                  ? dataFromJson(json[dataField])
+                  : null
               : dataFromJson(json),
       listData: listDataFromJson == null
           ? null

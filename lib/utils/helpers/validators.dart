@@ -1,7 +1,8 @@
-final onlyLettersRegEx = RegExp(r'^[a-zA-Z\s]+$');
+final onlyLettersWithPunctuationRegEx = RegExp(r'^[a-zA-Z\s,\.]+$');
 final onlyDigitsRegEx = RegExp(r'^[0-9]+$');
 final emailRegEx = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-final alphanumericRegEx = RegExp(r'^[a-zA-Z0-9]+$');
+final alphanumericNoSpaceRegEx = RegExp(r'^[a-zA-Z0-9]+$');
+final alphanumericRegEx = RegExp(r'^[a-zA-Z0-9\s]+$');
 
 bool isStringEmptyOrNull(String? value) {
   if (value == null || value.trim().isEmpty) {
@@ -51,7 +52,7 @@ String? formStrValueValidator(String? val) {
     return "Field is required";
   }
 
-  if (!onlyLettersRegEx.hasMatch(val!)) {
+  if (!onlyLettersWithPunctuationRegEx.hasMatch(val!)) {
     return "Value must contain only letters";
   }
 
@@ -77,6 +78,26 @@ String? formAlphanumericValidator(String? val) {
 
   if (!alphanumericRegEx.hasMatch(val!)) {
     return "Only letters and numbers are allowed";
+  }
+
+  return null;
+}
+
+String? formAlphanumericNoSpaceValidator(String? val) {
+  if (isStringEmptyOrNull(val)) {
+    return "Field is required";
+  }
+
+  if (!alphanumericNoSpaceRegEx.hasMatch(val!)) {
+    return "Only letters and numbers with no spaces are allowed";
+  }
+
+  return null;
+}
+
+String? formRequiredFieldValidator(String? val) {
+  if (isStringEmptyOrNull(val)) {
+    return "Field is required";
   }
 
   return null;

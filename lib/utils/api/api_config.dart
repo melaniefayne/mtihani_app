@@ -24,22 +24,16 @@ String get baseURL => '${getAppDomainUrl()}/api';
 
 // AUTH =================================================
 // ======================================================
-String get endPointLogin => "$baseURL/login-user"; // return token and user
-String get endPointStudentRegister =>
-    "$baseURL/register-student"; // return token and user
-String get endPointTeacherRegister =>
-    "$baseURL/register-teacher"; // return token and user
-String get endPointEditProfile =>
-    "$baseURL/edit-profile"; // return updated user
-String get endPointChangePassword =>
-    "$baseURL/change-password"; // return success message
+String get endPointLoginUser => "$baseURL/accounts/login-user";
+String get endPointRegisterUser => "$baseURL/accounts/register-user";
+String get endPointChangePassword => "$baseURL/accounts/change-password";
+String get endPointUpdateUser => "$baseURL/accounts/update-user";
 
 // CLASSROOMS ============================================
 // =======================================================
-String get endPointCreateClass =>
-    "$baseURL/create-class"; // return new list of user's classrooms sorted by updated_at in DESC
-String get endPointGetUserClassrooms =>
-    "$baseURL/get-user-classrooms"; // return logged in user's classrooms with user specific data
+String get endPointCreateClass => "$baseURL/learner/create-class";
+String get endPointGetUserClassrooms => "$baseURL/learner/get-user-classrooms";
+
 String get endPointJoinClass => "$baseURL/join-classroom";
 String get endPointGetClassStrandScores =>
     "$baseURL/get-class-strand-scores"; // return List<StrandScoreModel> given class_id

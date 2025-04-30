@@ -102,7 +102,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
           dev.log("$getEndpoint:::error1 == ${error.toString()}");
         }
         if (respData != null) {
-          return (respData, respData.apiError?.status ?? true, false, true);
+          return (respData, true, false, true);
         }
       }
     }
@@ -205,13 +205,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool, Map<String, dynamic>)>
         dataField: dataField,
       );
       if (isApiResponseSuccessful(apiResponse.statusCode)) {
-        return (
-          respData,
-          respData.apiError?.status ?? true,
-          false,
-          true,
-          apiResJson
-        );
+        return (respData, true, false, true, apiResJson);
       }
       return (respData, false, false, true, apiData);
     }
@@ -240,7 +234,7 @@ bool apiCallChecks(dynamic apiCallRes, String title,
     snackbarService.showSnackbar(
       title: 'No Internet!',
       message: errorMsgNoInternet,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: appSnackbarDuration),
     );
 
     return false;
@@ -251,13 +245,15 @@ bool apiCallChecks(dynamic apiCallRes, String title,
     return false;
   }
 
+  String? apiMsg = apiCallRes.$1?.apiError?.message ??
+      apiCallRes.$1?.apiError?.error ??
+      apiCallRes.$1?.apiError?.detail;
+
   if (!apiCallRes.$2) {
     snackbarService.showSnackbar(
       title: "Error",
-      message: apiCallRes.$1?.apiError?.message ??
-          apiCallRes.$1?.apiError?.msg ??
-          "Failed to fetch $title",
-      duration: const Duration(seconds: 3),
+      message: apiMsg ?? "Failed to fetch $title",
+      duration: const Duration(seconds: appSnackbarDuration),
     );
     return false;
   }
@@ -265,10 +261,8 @@ bool apiCallChecks(dynamic apiCallRes, String title,
   if (showSuccessMessage) {
     snackbarService.showSnackbar(
       title: "Success",
-      message: apiCallRes.$1?.apiError?.message ??
-          apiCallRes.$1?.apiError?.msg ??
-          "Success fetching $title",
-      duration: const Duration(seconds: 3),
+      message: apiMsg ?? "Success fetching $title",
+      duration: const Duration(seconds: appSnackbarDuration),
     );
   }
   return true;

@@ -704,19 +704,6 @@ class MockDialogService extends _i1.Mock implements _i3.DialogService {
 class MockTeacherOnboardingService extends _i1.Mock
     implements _i7.TeacherOnboardingService {
   @override
-  _i2.PageController get pageController => (super.noSuchMethod(
-        Invocation.getter(#pageController),
-        returnValue: _FakePageController_0(
-          this,
-          Invocation.getter(#pageController),
-        ),
-        returnValueForMissingStub: _FakePageController_0(
-          this,
-          Invocation.getter(#pageController),
-        ),
-      ) as _i2.PageController);
-
-  @override
   set currentClass(_i8.ClassroomModel? _currentClass) => super.noSuchMethod(
         Invocation.setter(
           #currentClass,
@@ -737,6 +724,28 @@ class MockTeacherOnboardingService extends _i1.Mock
         Invocation.setter(
           #isFromOnboarding,
           _isFromOnboarding,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.PageController get pageController => (super.noSuchMethod(
+        Invocation.getter(#pageController),
+        returnValue: _FakePageController_0(
+          this,
+          Invocation.getter(#pageController),
+        ),
+        returnValueForMissingStub: _FakePageController_0(
+          this,
+          Invocation.getter(#pageController),
+        ),
+      ) as _i2.PageController);
+
+  @override
+  void disposePageController() => super.noSuchMethod(
+        Invocation.method(
+          #disposePageController,
+          [],
         ),
         returnValueForMissingStub: null,
       );

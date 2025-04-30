@@ -9,8 +9,6 @@ import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
-import 'package:mtihani_app/utils/api/api_calls.dart';
-import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -133,27 +131,11 @@ class AuthService {
 
   Future<List<ClassroomModel>> get loggedInUserClassrooms async {
     List<ClassroomModel>? savedClassrooms = await getUserClassrooms();
-
     if (savedClassrooms != null && savedClassrooms.isNotEmpty) {
       return savedClassrooms;
     }
 
-    // var classroomListRes = await onApiGetCall<ClassroomModel>(
-    //   getEndpoint: endPointGetUserClassrooms,
-    // );
-    // if (apiCallChecks(classroomListRes, 'classroom listing')) {
-    //   List<ClassroomModel> classrooms = classroomListRes.$1?.listData ?? [];
-    //   await saveUserClassrooms(classrooms);
-    //   return classrooms;
-    // }
-
-    // return [];
-
-    // DUMMY ============================================
-    // ==================================================
-    List<ClassroomModel> classrooms = [dummyTrClass1, dummyTrClass2];
-    await saveUserClassrooms(classrooms);
-    return classrooms;
+    return [];
   }
 
   // TOKEN

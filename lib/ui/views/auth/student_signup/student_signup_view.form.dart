@@ -29,7 +29,7 @@ final Map<String, String? Function(String?)?>
   FirstNameValueKey: formStrValueValidator,
   LastNameValueKey: formStrValueValidator,
   StudentEmailValueKey: formEmailValidator,
-  StudentCodeValueKey: formAlphanumericValidator,
+  StudentCodeValueKey: formAlphanumericNoSpaceValidator,
   StudentPasswordValueKey: formPasswordValidator,
   StudentConfirmPasswordValueKey: null,
 };

@@ -21,7 +21,7 @@ final Map<String, FocusNode> _LoginViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
   EmailValueKey: formEmailValidator,
-  PasswordValueKey: formPasswordValidator,
+  PasswordValueKey: formRequiredFieldValidator,
 };
 
 mixin $LoginView {

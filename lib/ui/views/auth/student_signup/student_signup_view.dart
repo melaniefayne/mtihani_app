@@ -13,7 +13,8 @@ import 'package:stacked/stacked_annotations.dart';
   FormTextField(name: 'firstName', validator: formStrValueValidator),
   FormTextField(name: 'lastName', validator: formStrValueValidator),
   FormTextField(name: 'studentEmail', validator: formEmailValidator),
-  FormTextField(name: 'studentCode', validator: formAlphanumericValidator),
+  FormTextField(
+      name: 'studentCode', validator: formAlphanumericNoSpaceValidator),
   FormTextField(name: 'studentPassword', validator: formPasswordValidator),
   FormTextField(name: 'studentConfirmPassword'),
 ])

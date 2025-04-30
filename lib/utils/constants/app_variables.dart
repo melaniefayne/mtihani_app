@@ -5,6 +5,8 @@ import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/models/user.dart';
 
+const int appSnackbarDuration = 4;
+
 const String strDefSharedPrefKey = "05cca623-58ad-47";
 const String strDefToken = "access_token";
 const String strDefLoggedInUserData = "loggedInUserData";
@@ -14,6 +16,7 @@ const String strLoggedInUserClassrooms = "strLoggedInUserClassrooms";
 //
 const String appTeacherRoleKw = "teacher";
 const String appStudentRoleKw = "student";
+const String appDefaultSubject = "Integrated Science";
 
 // ASSETS
 // -----------------------
@@ -74,10 +77,10 @@ final ClassroomModel dummyTrClass1 = ClassroomModel(
   name: "7 North",
   school_name: "Sunshine Junior School",
   school_address: "123 Education Lane, Nairobi",
-  subject: "Integrated Science",
+  subject: appDefaultSubject,
   grade: 7,
   teacher_id: -1,
-  lessons_times: [
+  lesson_times: [
     DateTime.now().add(const Duration(hours: 1)),
     DateTime.now().add(const Duration(days: 2)),
   ],
@@ -109,10 +112,10 @@ final ClassroomModel dummyTrClass2 = ClassroomModel(
   name: "8 East",
   school_name: "Sunshine Junior School",
   school_address: "123 Education Lane, Nairobi",
-  subject: "Integrated Science",
+  subject: appDefaultSubject,
   grade: 8,
   teacher_id: -1,
-  lessons_times: [
+  lesson_times: [
     DateTime.now().add(const Duration(days: 1)),
     DateTime.now().add(const Duration(days: 3)),
   ],
@@ -166,11 +169,11 @@ final ClassroomModel dummyStClass1 = ClassroomModel(
   name: "7 North",
   school_name: "Sunshine Junior School",
   school_address: "123 Education Lane, Nairobi",
-  subject: "Integrated Science",
+  subject: appDefaultSubject,
   grade: 7,
   teacher_id: -1,
   student_code: "GH6RT4",
-  lessons_times: [
+  lesson_times: [
     DateTime.now().add(const Duration(hours: 1)),
     DateTime.now().add(const Duration(days: 2)),
   ],

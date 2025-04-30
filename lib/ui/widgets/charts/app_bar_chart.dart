@@ -62,6 +62,7 @@ class AppBarChart extends StatefulWidget {
   final Color? bgColor;
   final double? chartHeight;
   final String? tipPreText;
+  final String? tipPostText;
   final String? chartTitle;
   final String? name;
   final bool? useIndIcons;
@@ -79,6 +80,7 @@ class AppBarChart extends StatefulWidget {
     this.name,
     this.chartHeight = 200,
     this.tipPreText = "",
+    this.tipPostText = "",
     this.useIndIcons,
     this.barWidth,
   });
@@ -242,7 +244,7 @@ class _AppBarChartState extends State<AppBarChart> {
                       children: <TextSpan>[
                         TextSpan(
                           text:
-                              "${widget.tipPreText}${getThousandsNumber(rod.toY)}",
+                              "${widget.tipPreText}${getThousandsNumber(rod.toY)}${widget.tipPostText}",
                           style: TextStyle(
                             color: rod.color,
                             fontWeight: FontWeight.bold,

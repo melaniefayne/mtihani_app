@@ -9,7 +9,7 @@ import 'login_viewmodel.dart';
 
 @FormView(fields: [
   FormTextField(name: 'email', validator: formEmailValidator),
-  FormTextField(name: 'password', validator: formPasswordValidator),
+  FormTextField(name: 'password', validator: formRequiredFieldValidator),
 ])
 class LoginView extends StackedView<LoginViewModel> with $LoginView {
   const LoginView({Key? key}) : super(key: key);

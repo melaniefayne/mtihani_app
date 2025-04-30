@@ -27,7 +27,11 @@ mixin _$ClassroomModel {
   String? get subject => throw _privateConstructorUsedError;
   int? get grade => throw _privateConstructorUsedError;
   int? get teacher_id => throw _privateConstructorUsedError;
-  List<DateTime>? get lessons_times => throw _privateConstructorUsedError;
+  @JsonKey(
+      name: 'lesson_times',
+      fromJson: _dateTimeListFromJson,
+      toJson: _dateTimeListToJson)
+  List<DateTime>? get lesson_times => throw _privateConstructorUsedError;
   int? get student_count => throw _privateConstructorUsedError;
   double? get avg_term_score => throw _privateConstructorUsedError;
   String? get avg_term_expectation_level => throw _privateConstructorUsedError;
@@ -61,7 +65,11 @@ abstract class $ClassroomModelCopyWith<$Res> {
       String? subject,
       int? grade,
       int? teacher_id,
-      List<DateTime>? lessons_times,
+      @JsonKey(
+          name: 'lesson_times',
+          fromJson: _dateTimeListFromJson,
+          toJson: _dateTimeListToJson)
+      List<DateTime>? lesson_times,
       int? student_count,
       double? avg_term_score,
       String? avg_term_expectation_level,
@@ -93,7 +101,7 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
     Object? subject = freezed,
     Object? grade = freezed,
     Object? teacher_id = freezed,
-    Object? lessons_times = freezed,
+    Object? lesson_times = freezed,
     Object? student_count = freezed,
     Object? avg_term_score = freezed,
     Object? avg_term_expectation_level = freezed,
@@ -131,9 +139,9 @@ class _$ClassroomModelCopyWithImpl<$Res, $Val extends ClassroomModel>
           ? _value.teacher_id
           : teacher_id // ignore: cast_nullable_to_non_nullable
               as int?,
-      lessons_times: freezed == lessons_times
-          ? _value.lessons_times
-          : lessons_times // ignore: cast_nullable_to_non_nullable
+      lesson_times: freezed == lesson_times
+          ? _value.lesson_times
+          : lesson_times // ignore: cast_nullable_to_non_nullable
               as List<DateTime>?,
       student_count: freezed == student_count
           ? _value.student_count
@@ -183,7 +191,11 @@ abstract class _$$ClassroomModelImplCopyWith<$Res>
       String? subject,
       int? grade,
       int? teacher_id,
-      List<DateTime>? lessons_times,
+      @JsonKey(
+          name: 'lesson_times',
+          fromJson: _dateTimeListFromJson,
+          toJson: _dateTimeListToJson)
+      List<DateTime>? lesson_times,
       int? student_count,
       double? avg_term_score,
       String? avg_term_expectation_level,
@@ -213,7 +225,7 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
     Object? subject = freezed,
     Object? grade = freezed,
     Object? teacher_id = freezed,
-    Object? lessons_times = freezed,
+    Object? lesson_times = freezed,
     Object? student_count = freezed,
     Object? avg_term_score = freezed,
     Object? avg_term_expectation_level = freezed,
@@ -251,9 +263,9 @@ class __$$ClassroomModelImplCopyWithImpl<$Res>
           ? _value.teacher_id
           : teacher_id // ignore: cast_nullable_to_non_nullable
               as int?,
-      lessons_times: freezed == lessons_times
-          ? _value._lessons_times
-          : lessons_times // ignore: cast_nullable_to_non_nullable
+      lesson_times: freezed == lesson_times
+          ? _value._lesson_times
+          : lesson_times // ignore: cast_nullable_to_non_nullable
               as List<DateTime>?,
       student_count: freezed == student_count
           ? _value.student_count
@@ -298,7 +310,11 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       this.subject,
       this.grade,
       this.teacher_id,
-      final List<DateTime>? lessons_times,
+      @JsonKey(
+          name: 'lesson_times',
+          fromJson: _dateTimeListFromJson,
+          toJson: _dateTimeListToJson)
+      final List<DateTime>? lesson_times,
       this.student_count,
       this.avg_term_score,
       this.avg_term_expectation_level,
@@ -306,7 +322,7 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       this.avg_mtihani_expectation_level,
       this.student_code,
       final List<TermScore>? term_scores})
-      : _lessons_times = lessons_times,
+      : _lesson_times = lesson_times,
         _term_scores = term_scores;
 
   factory _$ClassroomModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -326,12 +342,16 @@ class _$ClassroomModelImpl implements _ClassroomModel {
   final int? grade;
   @override
   final int? teacher_id;
-  final List<DateTime>? _lessons_times;
+  final List<DateTime>? _lesson_times;
   @override
-  List<DateTime>? get lessons_times {
-    final value = _lessons_times;
+  @JsonKey(
+      name: 'lesson_times',
+      fromJson: _dateTimeListFromJson,
+      toJson: _dateTimeListToJson)
+  List<DateTime>? get lesson_times {
+    final value = _lesson_times;
     if (value == null) return null;
-    if (_lessons_times is EqualUnmodifiableListView) return _lessons_times;
+    if (_lesson_times is EqualUnmodifiableListView) return _lesson_times;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -360,7 +380,7 @@ class _$ClassroomModelImpl implements _ClassroomModel {
 
   @override
   String toString() {
-    return 'ClassroomModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, subject: $subject, grade: $grade, teacher_id: $teacher_id, lessons_times: $lessons_times, student_count: $student_count, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, student_code: $student_code, term_scores: $term_scores)';
+    return 'ClassroomModel(id: $id, name: $name, school_name: $school_name, school_address: $school_address, subject: $subject, grade: $grade, teacher_id: $teacher_id, lesson_times: $lesson_times, student_count: $student_count, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, student_code: $student_code, term_scores: $term_scores)';
   }
 
   @override
@@ -379,7 +399,7 @@ class _$ClassroomModelImpl implements _ClassroomModel {
             (identical(other.teacher_id, teacher_id) ||
                 other.teacher_id == teacher_id) &&
             const DeepCollectionEquality()
-                .equals(other._lessons_times, _lessons_times) &&
+                .equals(other._lesson_times, _lesson_times) &&
             (identical(other.student_count, student_count) ||
                 other.student_count == student_count) &&
             (identical(other.avg_term_score, avg_term_score) ||
@@ -411,7 +431,7 @@ class _$ClassroomModelImpl implements _ClassroomModel {
       subject,
       grade,
       teacher_id,
-      const DeepCollectionEquality().hash(_lessons_times),
+      const DeepCollectionEquality().hash(_lesson_times),
       student_count,
       avg_term_score,
       avg_term_expectation_level,
@@ -446,7 +466,11 @@ abstract class _ClassroomModel implements ClassroomModel {
       final String? subject,
       final int? grade,
       final int? teacher_id,
-      final List<DateTime>? lessons_times,
+      @JsonKey(
+          name: 'lesson_times',
+          fromJson: _dateTimeListFromJson,
+          toJson: _dateTimeListToJson)
+      final List<DateTime>? lesson_times,
       final int? student_count,
       final double? avg_term_score,
       final String? avg_term_expectation_level,
@@ -473,7 +497,11 @@ abstract class _ClassroomModel implements ClassroomModel {
   @override
   int? get teacher_id;
   @override
-  List<DateTime>? get lessons_times;
+  @JsonKey(
+      name: 'lesson_times',
+      fromJson: _dateTimeListFromJson,
+      toJson: _dateTimeListToJson)
+  List<DateTime>? get lesson_times;
   @override
   int? get student_count;
   @override
@@ -504,6 +532,8 @@ ClassroomStudent _$ClassroomStudentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ClassroomStudent {
   int? get student_id => throw _privateConstructorUsedError;
+  ClassroomModel? get classroom => throw _privateConstructorUsedError;
+  String? get code => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   double? get avg_term_score => throw _privateConstructorUsedError;
   String? get avg_term_expectation_level => throw _privateConstructorUsedError;
@@ -530,12 +560,16 @@ abstract class $ClassroomStudentCopyWith<$Res> {
   @useResult
   $Res call(
       {int? student_id,
+      ClassroomModel? classroom,
+      String? code,
       String? name,
       double? avg_term_score,
       String? avg_term_expectation_level,
       double? avg_mtihani_score,
       String? avg_mtihani_expectation_level,
       List<TermScore>? term_scores});
+
+  $ClassroomModelCopyWith<$Res>? get classroom;
 }
 
 /// @nodoc
@@ -554,6 +588,8 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
   @override
   $Res call({
     Object? student_id = freezed,
+    Object? classroom = freezed,
+    Object? code = freezed,
     Object? name = freezed,
     Object? avg_term_score = freezed,
     Object? avg_term_expectation_level = freezed,
@@ -566,6 +602,14 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      classroom: freezed == classroom
+          ? _value.classroom
+          : classroom // ignore: cast_nullable_to_non_nullable
+              as ClassroomModel?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -592,6 +636,20 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
               as List<TermScore>?,
     ) as $Val);
   }
+
+  /// Create a copy of ClassroomStudent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ClassroomModelCopyWith<$Res>? get classroom {
+    if (_value.classroom == null) {
+      return null;
+    }
+
+    return $ClassroomModelCopyWith<$Res>(_value.classroom!, (value) {
+      return _then(_value.copyWith(classroom: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -604,12 +662,17 @@ abstract class _$$ClassroomStudentImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? student_id,
+      ClassroomModel? classroom,
+      String? code,
       String? name,
       double? avg_term_score,
       String? avg_term_expectation_level,
       double? avg_mtihani_score,
       String? avg_mtihani_expectation_level,
       List<TermScore>? term_scores});
+
+  @override
+  $ClassroomModelCopyWith<$Res>? get classroom;
 }
 
 /// @nodoc
@@ -626,6 +689,8 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? student_id = freezed,
+    Object? classroom = freezed,
+    Object? code = freezed,
     Object? name = freezed,
     Object? avg_term_score = freezed,
     Object? avg_term_expectation_level = freezed,
@@ -638,6 +703,14 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      classroom: freezed == classroom
+          ? _value.classroom
+          : classroom // ignore: cast_nullable_to_non_nullable
+              as ClassroomModel?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -671,6 +744,8 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
 class _$ClassroomStudentImpl implements _ClassroomStudent {
   _$ClassroomStudentImpl(
       {this.student_id,
+      this.classroom,
+      this.code,
       this.name,
       this.avg_term_score,
       this.avg_term_expectation_level,
@@ -684,6 +759,10 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
 
   @override
   final int? student_id;
+  @override
+  final ClassroomModel? classroom;
+  @override
+  final String? code;
   @override
   final String? name;
   @override
@@ -706,7 +785,7 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
 
   @override
   String toString() {
-    return 'ClassroomStudent(student_id: $student_id, name: $name, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, term_scores: $term_scores)';
+    return 'ClassroomStudent(student_id: $student_id, classroom: $classroom, code: $code, name: $name, avg_term_score: $avg_term_score, avg_term_expectation_level: $avg_term_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, term_scores: $term_scores)';
   }
 
   @override
@@ -716,6 +795,9 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
             other is _$ClassroomStudentImpl &&
             (identical(other.student_id, student_id) ||
                 other.student_id == student_id) &&
+            (identical(other.classroom, classroom) ||
+                other.classroom == classroom) &&
+            (identical(other.code, code) || other.code == code) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.avg_term_score, avg_term_score) ||
                 other.avg_term_score == avg_term_score) &&
@@ -738,6 +820,8 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
   int get hashCode => Object.hash(
       runtimeType,
       student_id,
+      classroom,
+      code,
       name,
       avg_term_score,
       avg_term_expectation_level,
@@ -765,6 +849,8 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
 abstract class _ClassroomStudent implements ClassroomStudent {
   factory _ClassroomStudent(
       {final int? student_id,
+      final ClassroomModel? classroom,
+      final String? code,
       final String? name,
       final double? avg_term_score,
       final String? avg_term_expectation_level,
@@ -777,6 +863,10 @@ abstract class _ClassroomStudent implements ClassroomStudent {
 
   @override
   int? get student_id;
+  @override
+  ClassroomModel? get classroom;
+  @override
+  String? get code;
   @override
   String? get name;
   @override
@@ -1168,7 +1258,6 @@ mixin _$TermScore {
   int? get term => throw _privateConstructorUsedError;
   double? get score => throw _privateConstructorUsedError;
   String? get expectation_level => throw _privateConstructorUsedError;
-  ClassroomModel? get classroom => throw _privateConstructorUsedError;
 
   /// Serializes this TermScore to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1190,10 +1279,7 @@ abstract class $TermScoreCopyWith<$Res> {
       int? grade,
       int? term,
       double? score,
-      String? expectation_level,
-      ClassroomModel? classroom});
-
-  $ClassroomModelCopyWith<$Res>? get classroom;
+      String? expectation_level});
 }
 
 /// @nodoc
@@ -1216,7 +1302,6 @@ class _$TermScoreCopyWithImpl<$Res, $Val extends TermScore>
     Object? term = freezed,
     Object? score = freezed,
     Object? expectation_level = freezed,
-    Object? classroom = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -1239,25 +1324,7 @@ class _$TermScoreCopyWithImpl<$Res, $Val extends TermScore>
           ? _value.expectation_level
           : expectation_level // ignore: cast_nullable_to_non_nullable
               as String?,
-      classroom: freezed == classroom
-          ? _value.classroom
-          : classroom // ignore: cast_nullable_to_non_nullable
-              as ClassroomModel?,
     ) as $Val);
-  }
-
-  /// Create a copy of TermScore
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ClassroomModelCopyWith<$Res>? get classroom {
-    if (_value.classroom == null) {
-      return null;
-    }
-
-    return $ClassroomModelCopyWith<$Res>(_value.classroom!, (value) {
-      return _then(_value.copyWith(classroom: value) as $Val);
-    });
   }
 }
 
@@ -1274,11 +1341,7 @@ abstract class _$$TermScoreImplCopyWith<$Res>
       int? grade,
       int? term,
       double? score,
-      String? expectation_level,
-      ClassroomModel? classroom});
-
-  @override
-  $ClassroomModelCopyWith<$Res>? get classroom;
+      String? expectation_level});
 }
 
 /// @nodoc
@@ -1299,7 +1362,6 @@ class __$$TermScoreImplCopyWithImpl<$Res>
     Object? term = freezed,
     Object? score = freezed,
     Object? expectation_level = freezed,
-    Object? classroom = freezed,
   }) {
     return _then(_$TermScoreImpl(
       id: freezed == id
@@ -1322,10 +1384,6 @@ class __$$TermScoreImplCopyWithImpl<$Res>
           ? _value.expectation_level
           : expectation_level // ignore: cast_nullable_to_non_nullable
               as String?,
-      classroom: freezed == classroom
-          ? _value.classroom
-          : classroom // ignore: cast_nullable_to_non_nullable
-              as ClassroomModel?,
     ));
   }
 }
@@ -1334,12 +1392,7 @@ class __$$TermScoreImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TermScoreImpl implements _TermScore {
   _$TermScoreImpl(
-      {this.id,
-      this.grade,
-      this.term,
-      this.score,
-      this.expectation_level,
-      this.classroom});
+      {this.id, this.grade, this.term, this.score, this.expectation_level});
 
   factory _$TermScoreImpl.fromJson(Map<String, dynamic> json) =>
       _$$TermScoreImplFromJson(json);
@@ -1354,12 +1407,10 @@ class _$TermScoreImpl implements _TermScore {
   final double? score;
   @override
   final String? expectation_level;
-  @override
-  final ClassroomModel? classroom;
 
   @override
   String toString() {
-    return 'TermScore(id: $id, grade: $grade, term: $term, score: $score, expectation_level: $expectation_level, classroom: $classroom)';
+    return 'TermScore(id: $id, grade: $grade, term: $term, score: $score, expectation_level: $expectation_level)';
   }
 
   @override
@@ -1372,15 +1423,13 @@ class _$TermScoreImpl implements _TermScore {
             (identical(other.term, term) || other.term == term) &&
             (identical(other.score, score) || other.score == score) &&
             (identical(other.expectation_level, expectation_level) ||
-                other.expectation_level == expectation_level) &&
-            (identical(other.classroom, classroom) ||
-                other.classroom == classroom));
+                other.expectation_level == expectation_level));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, grade, term, score, expectation_level, classroom);
+  int get hashCode =>
+      Object.hash(runtimeType, id, grade, term, score, expectation_level);
 
   /// Create a copy of TermScore
   /// with the given fields replaced by the non-null parameter values.
@@ -1404,8 +1453,7 @@ abstract class _TermScore implements TermScore {
       final int? grade,
       final int? term,
       final double? score,
-      final String? expectation_level,
-      final ClassroomModel? classroom}) = _$TermScoreImpl;
+      final String? expectation_level}) = _$TermScoreImpl;
 
   factory _TermScore.fromJson(Map<String, dynamic> json) =
       _$TermScoreImpl.fromJson;
@@ -1420,8 +1468,6 @@ abstract class _TermScore implements TermScore {
   double? get score;
   @override
   String? get expectation_level;
-  @override
-  ClassroomModel? get classroom;
 
   /// Create a copy of TermScore
   /// with the given fields replaced by the non-null parameter values.

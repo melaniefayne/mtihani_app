@@ -14,17 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ApiErrorModel _$ApiErrorModelFromJson(Map<String, dynamic> json) {
-  return _ApiErrorModel.fromJson(json);
-}
-
 /// @nodoc
 mixin _$ApiErrorModel {
-  bool? get status => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
-
-  /// Serializes this ApiErrorModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+  String? get detail => throw _privateConstructorUsedError;
 
   /// Create a copy of ApiErrorModel
   /// with the given fields replaced by the non-null parameter values.
@@ -39,7 +33,7 @@ abstract class $ApiErrorModelCopyWith<$Res> {
           ApiErrorModel value, $Res Function(ApiErrorModel) then) =
       _$ApiErrorModelCopyWithImpl<$Res, ApiErrorModel>;
   @useResult
-  $Res call({bool? status, String? message});
+  $Res call({String? message, String? error, String? detail});
 }
 
 /// @nodoc
@@ -57,17 +51,22 @@ class _$ApiErrorModelCopyWithImpl<$Res, $Val extends ApiErrorModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
     Object? message = freezed,
+    Object? error = freezed,
+    Object? detail = freezed,
   }) {
     return _then(_value.copyWith(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as bool?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      detail: freezed == detail
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -81,7 +80,7 @@ abstract class _$$ApiErrorModelImplCopyWith<$Res>
       __$$ApiErrorModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool? status, String? message});
+  $Res call({String? message, String? error, String? detail});
 }
 
 /// @nodoc
@@ -97,38 +96,42 @@ class __$$ApiErrorModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = freezed,
     Object? message = freezed,
+    Object? error = freezed,
+    Object? detail = freezed,
   }) {
     return _then(_$ApiErrorModelImpl(
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as bool?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+      detail: freezed == detail
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$ApiErrorModelImpl implements _ApiErrorModel {
-  _$ApiErrorModelImpl({this.status, this.message});
+  _$ApiErrorModelImpl({this.message, this.error, this.detail});
 
-  factory _$ApiErrorModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ApiErrorModelImplFromJson(json);
-
-  @override
-  final bool? status;
   @override
   final String? message;
+  @override
+  final String? error;
+  @override
+  final String? detail;
 
   @override
   String toString() {
-    return 'ApiErrorModel(status: $status, message: $message)';
+    return 'ApiErrorModel(message: $message, error: $error, detail: $detail)';
   }
 
   @override
@@ -136,13 +139,13 @@ class _$ApiErrorModelImpl implements _ApiErrorModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApiErrorModelImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.detail, detail) || other.detail == detail));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, status, message);
+  int get hashCode => Object.hash(runtimeType, message, error, detail);
 
   /// Create a copy of ApiErrorModel
   /// with the given fields replaced by the non-null parameter values.
@@ -151,26 +154,20 @@ class _$ApiErrorModelImpl implements _ApiErrorModel {
   @pragma('vm:prefer-inline')
   _$$ApiErrorModelImplCopyWith<_$ApiErrorModelImpl> get copyWith =>
       __$$ApiErrorModelImplCopyWithImpl<_$ApiErrorModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ApiErrorModelImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _ApiErrorModel implements ApiErrorModel {
-  factory _ApiErrorModel({final bool? status, final String? message}) =
-      _$ApiErrorModelImpl;
+  factory _ApiErrorModel(
+      {final String? message,
+      final String? error,
+      final String? detail}) = _$ApiErrorModelImpl;
 
-  factory _ApiErrorModel.fromJson(Map<String, dynamic> json) =
-      _$ApiErrorModelImpl.fromJson;
-
-  @override
-  bool? get status;
   @override
   String? get message;
+  @override
+  String? get error;
+  @override
+  String? get detail;
 
   /// Create a copy of ApiErrorModel
   /// with the given fields replaced by the non-null parameter values.

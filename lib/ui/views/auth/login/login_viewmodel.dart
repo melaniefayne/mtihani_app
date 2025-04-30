@@ -23,35 +23,29 @@ class LoginViewModel extends BaseViewModel with FormStateHelper {
   }
 
   onApiUserLogin() async {
-    // validateForm();
-    // if (!isFormValid) {
-    //   rebuildUi();
-    //   return;
-    // }
+    validateForm();
+    if (!isFormValid) {
+      rebuildUi();
+      return;
+    }
 
-    // isLoading = true;
-    // rebuildUi();
-    // var apiCallRes = await onApiPostCall(
-    //   postEndpoint: endPointLogin,
-    //   skipTokenCheck: true,
-    //   dataMap: {"email": emailValue, "password": passwordValue},
-    // );
-    // isLoading = false;
-    // rebuildUi();
-    // if (apiCallChecks(apiCallRes, "login result", showSuccessMessage: true) ==
-    //     true) {
-    //   Map<String, dynamic> resData = apiCallRes.$5;
-    //   UserModel newUser = UserModel.fromJson(resData["user"]);
-    //   await _authService.saveUserProfile(newUser);
-    //   await _authService.saveUserToken(resData["token"]);
-    //   _navigationService.clearStackAndShow(Routes.dashboardView);
-    // }
-
-    // DUMMY ===========================
-    // =================================
-    await _authService.saveUserProfile(dummyTrUser);
-    await _authService.saveUserToken(dummyToken);
-    _navigationService.clearStackAndShow(Routes.dashboardView);
+    isLoading = true;
+    rebuildUi();
+    var apiCallRes = await onApiPostCall(
+      postEndpoint: endPointLoginUser,
+      skipTokenCheck: true,
+      dataMap: {"email": emailValue, "password": passwordValue},
+    );
+    isLoading = false;
+    rebuildUi();
+    if (apiCallChecks(apiCallRes, "login result", showSuccessMessage: true) ==
+        true) {
+      Map<String, dynamic> resData = apiCallRes.$5;
+      UserModel newUser = UserModel.fromJson(resData["user"]);
+      await _authService.saveUserProfile(newUser);
+      await _authService.saveUserToken(resData["token"]);
+      _navigationService.clearStackAndShow(Routes.dashboardView);
+    }
   }
 
   void onCreateAccountTapped() async {

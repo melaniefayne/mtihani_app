@@ -32,25 +32,3 @@ bool isApiResponse401Unauthorized(int? statusCode) {
   }
   return is401Unauthorized;
 }
-
-bool isApiResponse404NotFound(int? statusCode) {
-  bool is404NotFound = false;
-  if (statusCode == null) {
-    return is404NotFound;
-  }
-  if (statusCode == 404) {
-    is404NotFound = true;
-  }
-  return is404NotFound;
-}
-
-bool isApiResponse403Forbidden(int? statusCode) {
-  bool is403Forbidden = false;
-  if (statusCode == null) {
-    return is403Forbidden;
-  }
-  if (statusCode == 403) {
-    is403Forbidden = true;
-  }
-  return is403Forbidden;
-}

@@ -153,6 +153,7 @@ class TeacherSignupView extends StackedView<TeacherSignupViewModel>
 
   @override
   void onViewModelReady(TeacherSignupViewModel viewModel) {
+    viewModel.onTeacherSignUpReady();
     syncFormWithViewModel(viewModel);
   }
 }

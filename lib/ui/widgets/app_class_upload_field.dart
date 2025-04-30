@@ -39,23 +39,24 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
           .map((row) => row.map((cell) => cell.toString().trim()).toList())
           .toList();
 
-      print(values);
-      print(values.length);
-      print(values[0].length);
-      print(classCsvHeaders.length);
-
       if (values.isEmpty || values[0].length != classCsvHeaders.length) {
         setState(() {
-          _classUploadError =
-              "Invalid file format or empty data. Please use the template.";
+          _classUploadError = "Invalid file format! Please use the template.";
         });
-      } else {
+        return;
+      }
+
+      if (values.length == 1) {
         setState(() {
-          rows = [...values];
-          data = toStudentScores(values);
-          widget.onParsed?.call(data);
+          _classUploadError = "Empty data! Please upload students to continue";
         });
       }
+      setState(() {
+        rows = [...values];
+        data = toStudentScores(values);
+        widget.onParsed?.call(data);
+        _classUploadError = null;
+      });
     }
   }
 
@@ -164,7 +165,7 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "1. Open the template on the right in a spreadsheet application and update it with your students' details in this exact order:",
+                    "1. Open the template on the right in a GOOGLE SHEETS and update it with your students' details in this exact order:",
                     overflow: TextOverflow.clip,
                     style: theme.textTheme.bodySmall,
                   ),
@@ -180,7 +181,7 @@ class _ClassDetailsUploaderState extends State<ClassDetailsUploader> {
                     style: theme.textTheme.bodySmall,
                   ),
                   Text(
-                    "3. Once done, download the CSV file and upload it here.",
+                    "3. Once done, download the file as COMMA-SEPARATED VALUES (.CSV) file and upload it here.",
                     overflow: TextOverflow.clip,
                     style: theme.textTheme.bodySmall,
                   ),

@@ -1,14 +1,13 @@
 import 'package:mtihani_app/app/app.locator.dart';
-import 'package:mtihani_app/app/app.router.dart';
+import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/ui/views/auth/profile/change_password/change_password_view.form.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class ChangePasswordViewModel extends BaseViewModel with FormStateHelper {
-  final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
   bool isPasswordVisible = false;
   bool isLoading = false;
   String? confirmPassValidationMessage;
@@ -51,7 +50,7 @@ class ChangePasswordViewModel extends BaseViewModel with FormStateHelper {
     if (apiCallChecks(apiCallRes, "change password result",
             showSuccessMessage: true) ==
         true) {
-      _navigationService.clearStackAndShow(Routes.loginView);
+      await _authService.onLogoutUser();
     }
   }
 }

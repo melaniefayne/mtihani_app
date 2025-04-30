@@ -54,8 +54,10 @@ class EditProfileViewModel extends BaseViewModel with FormStateHelper {
     isLoading = true;
     rebuildUi();
     var apiCallRes = await onApiPostCall<UserModel>(
-      postEndpoint: endPointEditProfile,
+      postEndpoint: endPointUpdateUser,
       dataMap: editBody,
+      dataField: "new_user",
+      dataFromJson: UserModel.fromJson,
     );
     isLoading = false;
     rebuildUi();
@@ -63,9 +65,9 @@ class EditProfileViewModel extends BaseViewModel with FormStateHelper {
     if (apiCallChecks(apiCallRes, "edit profile result",
             showSuccessMessage: true) ==
         true) {
+      _navigationService.back();
       UserModel? newUser = apiCallRes.$1?.data;
       await _authService.saveUserProfile(newUser);
-      _navigationService.back();
     }
   }
 }

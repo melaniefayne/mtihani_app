@@ -1,7 +1,7 @@
 # API TODO
 
 ## 1. LOGIN
-- String endPointLogin = '$baseURL/login';
+- String endPointLoginUser = '$baseURL/login';
 - Body:
 ```dart
 { "email": emailValue, "password": passwordValue}
@@ -17,7 +17,7 @@
 
 
 ## 2. SIGN UP STUDENT
-- String endPointStudentRegister = '$baseURL/student-register';
+- String endPointRegisterUser = '$baseURL/student-register';
 - Body:
 ```dart
 Map<String, dynamic> studentBody = {
@@ -40,7 +40,7 @@ Map<String, dynamic> studentBody = {
 
 
 ## 3. SIGN UP TEACHER
-- String endPointTeacherRegister = '$baseURL/teacher-register';
+- String endPointRegisterUser = '$baseURL/teacher-register';
 - Body:
 ```dart
 Map<String, dynamic> teacherBody = {
@@ -63,7 +63,7 @@ Map<String, dynamic> teacherBody = {
 
 
 ## 4. UPDATE PROFILE
-- String endPointEditProfile = '$baseURL/edit-profile';
+- String endPointUpdateUser = '$baseURL/edit-profile';
 - IsTokenBased: Teacher, Student
 - Body:
 ```dart

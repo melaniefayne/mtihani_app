@@ -9,9 +9,19 @@ import 'package:stacked_services/stacked_services.dart';
 
 class TeacherOnboardingService {
   final _navigationService = locator<NavigationService>();
-  final PageController pageController = PageController();
+  PageController? _pageController;
   ClassroomModel? currentClass;
   bool isFromOnboarding = true;
+
+  PageController get pageController {
+    _pageController ??= PageController();
+    return _pageController!;
+  }
+
+  void disposePageController() {
+    _pageController?.dispose();
+    _pageController = null;
+  }
 
   onSetCurrentClass(ClassroomModel? classModel) {
     currentClass = classModel;
@@ -22,11 +32,15 @@ class TeacherOnboardingService {
   }
 
   goToNextPage() {
+    if (!pageController.hasClients) return;
+
     final nextPage = pageController.page!.toInt() + 1;
+
     if (nextPage == onboardingWidgets.length - 1 && currentClass == null) {
       onFinishOnboarding();
       return;
     }
+
     pageController.animateToPage(
       nextPage,
       duration: const Duration(milliseconds: 300),
@@ -35,7 +49,7 @@ class TeacherOnboardingService {
   }
 
   onFinishOnboarding() {
-    pageController.dispose();
+    disposePageController();
     onSetCurrentClass(null);
     onSetIsFromOnboarding(true);
     _navigationService.clearStackAndShow(Routes.dashboardView);
