@@ -525,14 +525,14 @@ abstract class _ClassroomModel implements ClassroomModel {
       throw _privateConstructorUsedError;
 }
 
-ClassroomStudent _$ClassroomStudentFromJson(Map<String, dynamic> json) {
-  return _ClassroomStudent.fromJson(json);
+ClassroomStudentModel _$ClassroomStudentModelFromJson(
+    Map<String, dynamic> json) {
+  return _ClassroomStudentModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ClassroomStudent {
-  int? get student_id => throw _privateConstructorUsedError;
-  ClassroomModel? get classroom => throw _privateConstructorUsedError;
+mixin _$ClassroomStudentModel {
+  int? get id => throw _privateConstructorUsedError;
   String? get code => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
@@ -542,26 +542,27 @@ mixin _$ClassroomStudent {
   String? get avg_mtihani_expectation_level =>
       throw _privateConstructorUsedError;
   List<TermScore>? get term_scores => throw _privateConstructorUsedError;
+  int? get classroom_id => throw _privateConstructorUsedError;
+  String? get classroom_name => throw _privateConstructorUsedError;
 
-  /// Serializes this ClassroomStudent to a JSON map.
+  /// Serializes this ClassroomStudentModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of ClassroomStudent
+  /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ClassroomStudentCopyWith<ClassroomStudent> get copyWith =>
+  $ClassroomStudentModelCopyWith<ClassroomStudentModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ClassroomStudentCopyWith<$Res> {
-  factory $ClassroomStudentCopyWith(
-          ClassroomStudent value, $Res Function(ClassroomStudent) then) =
-      _$ClassroomStudentCopyWithImpl<$Res, ClassroomStudent>;
+abstract class $ClassroomStudentModelCopyWith<$Res> {
+  factory $ClassroomStudentModelCopyWith(ClassroomStudentModel value,
+          $Res Function(ClassroomStudentModel) then) =
+      _$ClassroomStudentModelCopyWithImpl<$Res, ClassroomStudentModel>;
   @useResult
   $Res call(
-      {int? student_id,
-      ClassroomModel? classroom,
+      {int? id,
       String? code,
       String? name,
       String? status,
@@ -569,28 +570,28 @@ abstract class $ClassroomStudentCopyWith<$Res> {
       String? avg_expectation_level,
       double? avg_mtihani_score,
       String? avg_mtihani_expectation_level,
-      List<TermScore>? term_scores});
-
-  $ClassroomModelCopyWith<$Res>? get classroom;
+      List<TermScore>? term_scores,
+      int? classroom_id,
+      String? classroom_name});
 }
 
 /// @nodoc
-class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
-    implements $ClassroomStudentCopyWith<$Res> {
-  _$ClassroomStudentCopyWithImpl(this._value, this._then);
+class _$ClassroomStudentModelCopyWithImpl<$Res,
+        $Val extends ClassroomStudentModel>
+    implements $ClassroomStudentModelCopyWith<$Res> {
+  _$ClassroomStudentModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ClassroomStudent
+  /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? student_id = freezed,
-    Object? classroom = freezed,
+    Object? id = freezed,
     Object? code = freezed,
     Object? name = freezed,
     Object? status = freezed,
@@ -599,16 +600,14 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
     Object? avg_mtihani_score = freezed,
     Object? avg_mtihani_expectation_level = freezed,
     Object? term_scores = freezed,
+    Object? classroom_id = freezed,
+    Object? classroom_name = freezed,
   }) {
     return _then(_value.copyWith(
-      student_id: freezed == student_id
-          ? _value.student_id
-          : student_id // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      classroom: freezed == classroom
-          ? _value.classroom
-          : classroom // ignore: cast_nullable_to_non_nullable
-              as ClassroomModel?,
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -641,35 +640,29 @@ class _$ClassroomStudentCopyWithImpl<$Res, $Val extends ClassroomStudent>
           ? _value.term_scores
           : term_scores // ignore: cast_nullable_to_non_nullable
               as List<TermScore>?,
+      classroom_id: freezed == classroom_id
+          ? _value.classroom_id
+          : classroom_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      classroom_name: freezed == classroom_name
+          ? _value.classroom_name
+          : classroom_name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  /// Create a copy of ClassroomStudent
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ClassroomModelCopyWith<$Res>? get classroom {
-    if (_value.classroom == null) {
-      return null;
-    }
-
-    return $ClassroomModelCopyWith<$Res>(_value.classroom!, (value) {
-      return _then(_value.copyWith(classroom: value) as $Val);
-    });
   }
 }
 
 /// @nodoc
-abstract class _$$ClassroomStudentImplCopyWith<$Res>
-    implements $ClassroomStudentCopyWith<$Res> {
-  factory _$$ClassroomStudentImplCopyWith(_$ClassroomStudentImpl value,
-          $Res Function(_$ClassroomStudentImpl) then) =
-      __$$ClassroomStudentImplCopyWithImpl<$Res>;
+abstract class _$$ClassroomStudentModelImplCopyWith<$Res>
+    implements $ClassroomStudentModelCopyWith<$Res> {
+  factory _$$ClassroomStudentModelImplCopyWith(
+          _$ClassroomStudentModelImpl value,
+          $Res Function(_$ClassroomStudentModelImpl) then) =
+      __$$ClassroomStudentModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {int? student_id,
-      ClassroomModel? classroom,
+      {int? id,
       String? code,
       String? name,
       String? status,
@@ -677,27 +670,26 @@ abstract class _$$ClassroomStudentImplCopyWith<$Res>
       String? avg_expectation_level,
       double? avg_mtihani_score,
       String? avg_mtihani_expectation_level,
-      List<TermScore>? term_scores});
-
-  @override
-  $ClassroomModelCopyWith<$Res>? get classroom;
+      List<TermScore>? term_scores,
+      int? classroom_id,
+      String? classroom_name});
 }
 
 /// @nodoc
-class __$$ClassroomStudentImplCopyWithImpl<$Res>
-    extends _$ClassroomStudentCopyWithImpl<$Res, _$ClassroomStudentImpl>
-    implements _$$ClassroomStudentImplCopyWith<$Res> {
-  __$$ClassroomStudentImplCopyWithImpl(_$ClassroomStudentImpl _value,
-      $Res Function(_$ClassroomStudentImpl) _then)
+class __$$ClassroomStudentModelImplCopyWithImpl<$Res>
+    extends _$ClassroomStudentModelCopyWithImpl<$Res,
+        _$ClassroomStudentModelImpl>
+    implements _$$ClassroomStudentModelImplCopyWith<$Res> {
+  __$$ClassroomStudentModelImplCopyWithImpl(_$ClassroomStudentModelImpl _value,
+      $Res Function(_$ClassroomStudentModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ClassroomStudent
+  /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? student_id = freezed,
-    Object? classroom = freezed,
+    Object? id = freezed,
     Object? code = freezed,
     Object? name = freezed,
     Object? status = freezed,
@@ -706,16 +698,14 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
     Object? avg_mtihani_score = freezed,
     Object? avg_mtihani_expectation_level = freezed,
     Object? term_scores = freezed,
+    Object? classroom_id = freezed,
+    Object? classroom_name = freezed,
   }) {
-    return _then(_$ClassroomStudentImpl(
-      student_id: freezed == student_id
-          ? _value.student_id
-          : student_id // ignore: cast_nullable_to_non_nullable
+    return _then(_$ClassroomStudentModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      classroom: freezed == classroom
-          ? _value.classroom
-          : classroom // ignore: cast_nullable_to_non_nullable
-              as ClassroomModel?,
       code: freezed == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -748,16 +738,23 @@ class __$$ClassroomStudentImplCopyWithImpl<$Res>
           ? _value._term_scores
           : term_scores // ignore: cast_nullable_to_non_nullable
               as List<TermScore>?,
+      classroom_id: freezed == classroom_id
+          ? _value.classroom_id
+          : classroom_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      classroom_name: freezed == classroom_name
+          ? _value.classroom_name
+          : classroom_name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$ClassroomStudentImpl implements _ClassroomStudent {
-  _$ClassroomStudentImpl(
-      {this.student_id,
-      this.classroom,
+class _$ClassroomStudentModelImpl implements _ClassroomStudentModel {
+  _$ClassroomStudentModelImpl(
+      {this.id,
       this.code,
       this.name,
       this.status,
@@ -765,16 +762,16 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
       this.avg_expectation_level,
       this.avg_mtihani_score,
       this.avg_mtihani_expectation_level,
-      final List<TermScore>? term_scores})
+      final List<TermScore>? term_scores,
+      this.classroom_id,
+      this.classroom_name})
       : _term_scores = term_scores;
 
-  factory _$ClassroomStudentImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ClassroomStudentImplFromJson(json);
+  factory _$ClassroomStudentModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClassroomStudentModelImplFromJson(json);
 
   @override
-  final int? student_id;
-  @override
-  final ClassroomModel? classroom;
+  final int? id;
   @override
   final String? code;
   @override
@@ -800,19 +797,21 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
   }
 
   @override
+  final int? classroom_id;
+  @override
+  final String? classroom_name;
+
+  @override
   String toString() {
-    return 'ClassroomStudent(student_id: $student_id, classroom: $classroom, code: $code, name: $name, status: $status, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, term_scores: $term_scores)';
+    return 'ClassroomStudentModel(id: $id, code: $code, name: $name, status: $status, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, avg_mtihani_score: $avg_mtihani_score, avg_mtihani_expectation_level: $avg_mtihani_expectation_level, term_scores: $term_scores, classroom_id: $classroom_id, classroom_name: $classroom_name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ClassroomStudentImpl &&
-            (identical(other.student_id, student_id) ||
-                other.student_id == student_id) &&
-            (identical(other.classroom, classroom) ||
-                other.classroom == classroom) &&
+            other is _$ClassroomStudentModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.status, status) || other.status == status) &&
@@ -827,15 +826,18 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
                 other.avg_mtihani_expectation_level ==
                     avg_mtihani_expectation_level) &&
             const DeepCollectionEquality()
-                .equals(other._term_scores, _term_scores));
+                .equals(other._term_scores, _term_scores) &&
+            (identical(other.classroom_id, classroom_id) ||
+                other.classroom_id == classroom_id) &&
+            (identical(other.classroom_name, classroom_name) ||
+                other.classroom_name == classroom_name));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      student_id,
-      classroom,
+      id,
       code,
       name,
       status,
@@ -843,29 +845,30 @@ class _$ClassroomStudentImpl implements _ClassroomStudent {
       avg_expectation_level,
       avg_mtihani_score,
       avg_mtihani_expectation_level,
-      const DeepCollectionEquality().hash(_term_scores));
+      const DeepCollectionEquality().hash(_term_scores),
+      classroom_id,
+      classroom_name);
 
-  /// Create a copy of ClassroomStudent
+  /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ClassroomStudentImplCopyWith<_$ClassroomStudentImpl> get copyWith =>
-      __$$ClassroomStudentImplCopyWithImpl<_$ClassroomStudentImpl>(
-          this, _$identity);
+  _$$ClassroomStudentModelImplCopyWith<_$ClassroomStudentModelImpl>
+      get copyWith => __$$ClassroomStudentModelImplCopyWithImpl<
+          _$ClassroomStudentModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ClassroomStudentImplToJson(
+    return _$$ClassroomStudentModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _ClassroomStudent implements ClassroomStudent {
-  factory _ClassroomStudent(
-      {final int? student_id,
-      final ClassroomModel? classroom,
+abstract class _ClassroomStudentModel implements ClassroomStudentModel {
+  factory _ClassroomStudentModel(
+      {final int? id,
       final String? code,
       final String? name,
       final String? status,
@@ -873,15 +876,15 @@ abstract class _ClassroomStudent implements ClassroomStudent {
       final String? avg_expectation_level,
       final double? avg_mtihani_score,
       final String? avg_mtihani_expectation_level,
-      final List<TermScore>? term_scores}) = _$ClassroomStudentImpl;
+      final List<TermScore>? term_scores,
+      final int? classroom_id,
+      final String? classroom_name}) = _$ClassroomStudentModelImpl;
 
-  factory _ClassroomStudent.fromJson(Map<String, dynamic> json) =
-      _$ClassroomStudentImpl.fromJson;
+  factory _ClassroomStudentModel.fromJson(Map<String, dynamic> json) =
+      _$ClassroomStudentModelImpl.fromJson;
 
   @override
-  int? get student_id;
-  @override
-  ClassroomModel? get classroom;
+  int? get id;
   @override
   String? get code;
   @override
@@ -898,13 +901,17 @@ abstract class _ClassroomStudent implements ClassroomStudent {
   String? get avg_mtihani_expectation_level;
   @override
   List<TermScore>? get term_scores;
+  @override
+  int? get classroom_id;
+  @override
+  String? get classroom_name;
 
-  /// Create a copy of ClassroomStudent
+  /// Create a copy of ClassroomStudentModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ClassroomStudentImplCopyWith<_$ClassroomStudentImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$ClassroomStudentModelImplCopyWith<_$ClassroomStudentModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 ClassPerformanceModel _$ClassPerformanceModelFromJson(

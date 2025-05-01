@@ -12,6 +12,7 @@ const String strDefToken = "access_token";
 const String strDefLoggedInUserData = "loggedInUserData";
 const String strLoggedInUserClassrooms = "strLoggedInUserClassrooms";
 const String strCurrentTrClass = "strCurrentTrClass";
+const String strCurrentStClass = "strCurrentStClass";
 
 // ROLES
 //

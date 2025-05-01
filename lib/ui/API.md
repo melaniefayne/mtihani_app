@@ -216,7 +216,7 @@ if (selectedFiles.isNotEmpty) {
 
 
 ## 15. GET CLASSROOM STUDENTS
-- String endPointGetClassroomStudents = '$baseURL/classroom-students';
+- String endPointGetClassroomStudentModels = '$baseURL/classroom-students';
 - QueryParams:
 ```dart
 { "classroom_id": classroom_id }

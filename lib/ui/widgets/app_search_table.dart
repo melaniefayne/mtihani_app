@@ -246,37 +246,37 @@ class _AppSearchTableState extends State<AppSearchTable> {
         const SizedBox(height: 5),
         LayoutBuilder(
           builder: (context, constraints) {
-            return SizedBox(
-              height: widget.tableHeight,
-              child: SfDataGrid(
-                source: V8GridDataSource(tableRows: paginatedRows),
-                columns: [
-                  if (widget.hasCount)
-                    GridColumn(
-                      columnName: 'No.',
-                      label: buildHeaderCell(theme: theme, value: ""),
+            return widget.tableRows.isEmpty && !widget.hideNoItemsWidget
+                ? buildNoItemsWidget(widget.itemsText)
+                : SizedBox(
+                    height: widget.tableHeight,
+                    child: SfDataGrid(
+                      source: V8GridDataSource(tableRows: paginatedRows),
+                      columns: [
+                        if (widget.hasCount)
+                          GridColumn(
+                            columnName: 'No.',
+                            label: buildHeaderCell(theme: theme, value: ""),
+                          ),
+                        ...List.generate(widget.tableHeaders.length, (index) {
+                          return GridColumn(
+                            columnName: 'col_$index',
+                            label: buildHeaderCell(
+                              theme: theme,
+                              value: widget.tableHeaders[index],
+                            ),
+                          );
+                        }),
+                      ],
+                      frozenColumnsCount: 2,
+                      gridLinesVisibility: GridLinesVisibility.both,
+                      headerGridLinesVisibility: GridLinesVisibility.both,
+                      columnWidthMode: ColumnWidthMode.fitByCellValue,
+                      rowHeight: 55,
                     ),
-                  ...List.generate(widget.tableHeaders.length, (index) {
-                    return GridColumn(
-                      columnName: 'col_$index',
-                      label: buildHeaderCell(
-                        theme: theme,
-                        value: widget.tableHeaders[index],
-                      ),
-                    );
-                  }),
-                ],
-                frozenColumnsCount: 2,
-                gridLinesVisibility: GridLinesVisibility.both,
-                headerGridLinesVisibility: GridLinesVisibility.both,
-                columnWidthMode: ColumnWidthMode.fitByCellValue,
-                rowHeight: 55,
-              ),
-            );
+                  );
           },
         ),
-        if (widget.tableRows.isEmpty && !widget.hideNoItemsWidget)
-          buildNoItemsWidget(widget.itemsText),
       ],
     );
   }

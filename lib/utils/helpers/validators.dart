@@ -32,6 +32,22 @@ String? formIntValidator(String? val) {
   return null;
 }
 
+String? formDoubleValidator(String? val) {
+  if (isStringEmptyOrNull(val)) {
+    return "Field is required";
+  }
+  val = val!.trim();
+  if (!isStringAllDigits(val)) {
+    return 'Value must contain only digits.';
+  }
+
+  if (double.tryParse(val) == null) {
+    return 'Invalid value';
+  }
+
+  return null;
+}
+
 String? formPhoneNoValidator(String? val) {
   if (isStringEmptyOrNull(val)) {
     return "Phone number is required";

@@ -117,7 +117,5 @@ class ClassroomListModel extends FutureViewModel<List<ClassroomModel>> {
     if (canNavigate) _navigationService.navigateToSingleTrClassView();
   }
 
-  _onViewStClass(ClassroomModel classroom) {
-    _navigationService.navigateToSingleStClassView(classroom: classroom);
-  }
+  _onViewStClass(ClassroomModel classroom) {}
 }

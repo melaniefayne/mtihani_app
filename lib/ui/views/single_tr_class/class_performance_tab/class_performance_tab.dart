@@ -27,7 +27,7 @@ class ClassPerformanceTab extends StackedView<ClassPerformanceTabModel> {
               ? buildLoadingWidget(theme, "Fetching term scores ...")
               : viewModel.classAvgTermScores.isEmpty
                   ? buildNoItemsWidget("No available term scores")
-                  : sectionScaffold(
+                  : buildPageSectionScaffold(
                       theme: theme,
                       iconPath: Icons.calendar_today,
                       title: "Term Scores",
@@ -50,30 +50,6 @@ class ClassPerformanceTab extends StackedView<ClassPerformanceTabModel> {
                         ),
                       ],
                     ),
-        ],
-      ),
-    );
-  }
-
-  Widget sectionScaffold(
-      {required ThemeData theme,
-      required String title,
-      required IconData iconPath,
-      required List<Widget> children,
-      Widget? headerTrailing}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildPageAppHeader(
-            theme: theme,
-            iconPath: iconPath,
-            pageTitle: title,
-            trailing: headerTrailing,
-          ),
-          const SizedBox(height: 10),
-          ...children,
         ],
       ),
     );

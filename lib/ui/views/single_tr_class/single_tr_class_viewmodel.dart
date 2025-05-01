@@ -12,7 +12,7 @@ class SingleTrClassViewModel extends BaseViewModel {
   final _sharedPrefsService = locator<SharedPrefsService>();
   ClassroomModel? trClassroom;
 
-  onSingleClassViewReady() async {
+  onSingleTrClassViewReady() async {
     trClassroom = await _sharedPrefsService.getSingleTrClassroomNavArg();
     if (trClassroom == null) {
       _navigationService.clearStackAndShow(Routes.startupView);
@@ -21,10 +21,6 @@ class SingleTrClassViewModel extends BaseViewModel {
     _trOnboardService.onSetCurrentClass(trClassroom!);
     _trOnboardService.onSetIsFromOnboarding(false);
     rebuildUi();
-  }
-
-  onGenerateClassExam() async {
-    _navigationService.navigateToExamSetupView();
   }
 
   onDispose() async {

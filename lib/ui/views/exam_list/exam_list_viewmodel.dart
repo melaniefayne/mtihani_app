@@ -21,7 +21,7 @@ class ExamListViewModel extends FutureViewModel<List<ExamModel>> {
   final _navigationService = locator<NavigationService>();
 
   final ClassroomModel? classroom;
-  final ClassroomStudent? classStudent;
+  final ClassroomStudentModel? classStudent;
   bool get isClassExamList => classroom != null;
   bool get isClassStudentExamList => classStudent != null;
   bool isTeacher = false;

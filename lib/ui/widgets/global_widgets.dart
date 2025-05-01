@@ -749,3 +749,27 @@ Widget buildStatusDot(
     ],
   );
 }
+
+Widget buildPageSectionScaffold(
+    {required ThemeData theme,
+    required String title,
+    required IconData iconPath,
+    required List<Widget> children,
+    Widget? headerTrailing}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildPageAppHeader(
+          theme: theme,
+          iconPath: iconPath,
+          pageTitle: title,
+          trailing: headerTrailing,
+        ),
+        const SizedBox(height: 10),
+        ...children,
+      ],
+    ),
+  );
+}

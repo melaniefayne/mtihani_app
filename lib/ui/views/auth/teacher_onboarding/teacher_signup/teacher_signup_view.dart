@@ -155,5 +155,6 @@ class TeacherSignupView extends StackedView<TeacherSignupViewModel>
   void onViewModelReady(TeacherSignupViewModel viewModel) {
     viewModel.onTeacherSignUpReady();
     syncFormWithViewModel(viewModel);
+    super.onViewModelReady(viewModel);
   }
 }

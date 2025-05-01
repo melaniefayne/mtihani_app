@@ -24,7 +24,7 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
       pageTitle: "Grade ${viewModel.trClassroom?.name ?? '--'}",
       tabItems: [
         TabViewItem(
-          label: "Performance",
+          label: "Overall Performance",
           icon: Icons.trending_up,
           widget: ClassPerformanceTab(classroom: viewModel.trClassroom!),
         ),
@@ -58,7 +58,7 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
   @override
   void onViewModelReady(SingleTrClassViewModel viewModel) {
     super.onViewModelReady(viewModel);
-    viewModel.onSingleClassViewReady();
+    viewModel.onSingleTrClassViewReady();
   }
 
   @override

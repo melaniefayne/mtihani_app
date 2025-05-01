@@ -48,13 +48,10 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'term_scores': instance.term_scores,
     };
 
-_$ClassroomStudentImpl _$$ClassroomStudentImplFromJson(
+_$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
         Map<String, dynamic> json) =>
-    _$ClassroomStudentImpl(
-      student_id: (json['student_id'] as num?)?.toInt(),
-      classroom: json['classroom'] == null
-          ? null
-          : ClassroomModel.fromJson(json['classroom'] as Map<String, dynamic>),
+    _$ClassroomStudentModelImpl(
+      id: (json['id'] as num?)?.toInt(),
       code: json['code'] as String?,
       name: json['name'] as String?,
       status: json['status'] as String?,
@@ -66,13 +63,14 @@ _$ClassroomStudentImpl _$$ClassroomStudentImplFromJson(
       term_scores: (json['term_scores'] as List<dynamic>?)
           ?.map((e) => TermScore.fromJson(e as Map<String, dynamic>))
           .toList(),
+      classroom_id: (json['classroom_id'] as num?)?.toInt(),
+      classroom_name: json['classroom_name'] as String?,
     );
 
-Map<String, dynamic> _$$ClassroomStudentImplToJson(
-        _$ClassroomStudentImpl instance) =>
+Map<String, dynamic> _$$ClassroomStudentModelImplToJson(
+        _$ClassroomStudentModelImpl instance) =>
     <String, dynamic>{
-      'student_id': instance.student_id,
-      'classroom': instance.classroom,
+      'id': instance.id,
       'code': instance.code,
       'name': instance.name,
       'status': instance.status,
@@ -81,6 +79,8 @@ Map<String, dynamic> _$$ClassroomStudentImplToJson(
       'avg_mtihani_score': instance.avg_mtihani_score,
       'avg_mtihani_expectation_level': instance.avg_mtihani_expectation_level,
       'term_scores': instance.term_scores,
+      'classroom_id': instance.classroom_id,
+      'classroom_name': instance.classroom_name,
     };
 
 _$ClassPerformanceModelImpl _$$ClassPerformanceModelImplFromJson(

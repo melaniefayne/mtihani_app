@@ -10,7 +10,7 @@ import 'exam_list_viewmodel.dart';
 
 class ExamListView extends StackedView<ExamListViewModel> {
   final ClassroomModel? classroom;
-  final ClassroomStudent? classStudent;
+  final ClassroomStudentModel? classStudent;
 
   const ExamListView({Key? key, this.classroom, this.classStudent})
       : super(key: key);

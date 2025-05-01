@@ -66,7 +66,7 @@ class SharedPrefsService {
     return false;
   }
 
-  // ========== Classroom
+  // ========== Teacher Classroom
 
   Future<bool> setSingleTrClassroomNavArg(ClassroomModel classroom) async {
     return await sharedPrefsDoSetValue<String>(
@@ -90,5 +90,32 @@ class SharedPrefsService {
 
   Future<bool> clearSingleTrClassroomNavArg() async {
     return await sharedPrefsDoDeleteValue(strCurrentTrClass);
+  }
+
+  // ========== Student Classroom
+
+  Future<bool> setSingleStClassroomNavArg(
+      ClassroomStudentModel classroom) async {
+    return await sharedPrefsDoSetValue<String>(
+      prefsKey: strCurrentStClass,
+      value: jsonEncode(classroom.toJson()),
+    );
+  }
+
+  Future<ClassroomStudentModel?> getSingleStClassroomNavArg() async {
+    String? classroomStr =
+        await sharedPrefsDoGetValue<String>(prefsKey: strCurrentStClass);
+    if (classroomStr != null) {
+      try {
+        return ClassroomStudentModel.fromJson(jsonDecode(classroomStr));
+      } catch (e) {
+        log("Error parsing classroom: $e");
+      }
+    }
+    return null;
+  }
+
+  Future<bool> clearSingleStClassroomNavArg() async {
+    return await sharedPrefsDoDeleteValue(strCurrentStClass);
   }
 }

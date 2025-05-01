@@ -79,13 +79,14 @@ class StudentListing extends StackedView<StudentListingModel> {
               tableHeight: pageSize.height * 0.57,
               tableHeaders: const [
                 "Name",
+                "Student Code",
                 "Avg. Term Score",
                 "Expectation Level",
                 "Status",
                 "Action"
               ],
               tableRows: List.generate(viewModel.data!.length, (int idx) {
-                ClassroomStudent student = viewModel.data![idx];
+                ClassroomStudentModel student = viewModel.data![idx];
                 onViewStudent() => viewModel.onViewStudent(student);
 
                 return DataRow(
@@ -95,6 +96,7 @@ class StudentListing extends StackedView<StudentListingModel> {
                       useLeftAlign: true,
                       onAction: onViewStudent,
                     ),
+                    buildCellTxt(student.code ?? "--", onAction: onViewStudent),
                     buildCellTxt("${student.avg_score ?? 0.0}%",
                         onAction: onViewStudent),
                     buildCellTxt(student.avg_expectation_level ?? "--",
