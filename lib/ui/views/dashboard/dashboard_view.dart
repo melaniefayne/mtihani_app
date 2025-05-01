@@ -80,10 +80,10 @@ class DashboardView extends StackedView<DashboardViewModel> {
     required Function(int tabIdx) onSwitchTab,
   }) {
     List<String> tabs = ["Dashboard", "Exams", "CBC"];
-    bool isProfileSelcted = currentIdx == profileTabIdx;
-    Color bgColor = isProfileSelcted ? theme.primaryColor : Colors.transparent;
+    bool isProfileSelected = currentIdx == profileTabIdx;
+    Color bgColor = isProfileSelected ? theme.primaryColor : Colors.transparent;
     Color fgColor =
-        isProfileSelcted ? theme.colorScheme.onPrimary : theme.primaryColor;
+        isProfileSelected ? theme.colorScheme.onPrimary : theme.primaryColor;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -40,7 +40,6 @@ String get endPointGetClassroomStudentModels =>
 String get endPointEditClass => "$baseURL/learner/edit-class";
 String get endPointEditStudent => "$baseURL/learner/edit-classroom-student";
 
-String get endPointJoinClass => "$baseURL/join-classroom";
 String get endPointGetClassStrandScores =>
     "$baseURL/get-class-strand-scores"; // return List<StrandScoreModel> given class_id
 

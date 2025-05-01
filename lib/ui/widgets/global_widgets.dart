@@ -575,15 +575,15 @@ buildDialogScaffold({
   return Dialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     backgroundColor: Colors.white,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(height: pageSize.height * 0.03),
-        if (!hideLogo) buildAppLogo(),
-        SizedBox(
-          width: pageSize.width * 0.4,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: pageSize.height * 0.03),
+          if (!hideLogo) buildAppLogo(),
+          SizedBox(
+            width: pageSize.width * 0.4,
             child: buildPageTitle(
               theme: theme,
               pageTitle: title,
@@ -594,10 +594,10 @@ buildDialogScaffold({
               },
             ),
           ),
-        ),
-        ...children,
-        SizedBox(height: pageSize.height * 0.05),
-      ],
+          ...children,
+          SizedBox(height: pageSize.height * 0.05),
+        ],
+      ),
     ),
   );
 }

@@ -10,8 +10,6 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 @FormView(fields: [
-  FormTextField(name: 'firstName', validator: formStrValueValidator),
-  FormTextField(name: 'lastName', validator: formStrValueValidator),
   FormTextField(name: 'studentEmail', validator: formEmailValidator),
   FormTextField(
       name: 'studentCode', validator: formAlphanumericNoSpaceValidator),
@@ -59,31 +57,6 @@ class StudentSignupView extends StackedView<StudentSignupViewModel>
                 ),
               ),
               SizedBox(height: pageSize.height * 0.02),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: pageSize.width * rowFieldFactor,
-                    child: AppTextFormField(
-                      label: "First Name",
-                      inputType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      controller: firstNameController,
-                      errorText: viewModel.firstNameValidationMessage,
-                    ),
-                  ),
-                  SizedBox(
-                    width: pageSize.width * rowFieldFactor,
-                    child: AppTextFormField(
-                      label: "Last Name",
-                      inputType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      controller: lastNameController,
-                      errorText: viewModel.lastNameValidationMessage,
-                    ),
-                  ),
-                ],
-              ),
               AppTextFormField(
                 label: "Email",
                 inputType: TextInputType.emailAddress,

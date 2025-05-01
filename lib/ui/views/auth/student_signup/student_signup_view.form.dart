@@ -12,8 +12,6 @@ import 'package:stacked/stacked.dart';
 
 const bool _autoTextFieldValidation = false;
 
-const String FirstNameValueKey = 'firstName';
-const String LastNameValueKey = 'lastName';
 const String StudentEmailValueKey = 'studentEmail';
 const String StudentCodeValueKey = 'studentCode';
 const String StudentPasswordValueKey = 'studentPassword';
@@ -26,8 +24,6 @@ final Map<String, FocusNode> _StudentSignupViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?>
     _StudentSignupViewTextValidations = {
-  FirstNameValueKey: formStrValueValidator,
-  LastNameValueKey: formStrValueValidator,
   StudentEmailValueKey: formEmailValidator,
   StudentCodeValueKey: formAlphanumericNoSpaceValidator,
   StudentPasswordValueKey: formPasswordValidator,
@@ -35,10 +31,6 @@ final Map<String, String? Function(String?)?>
 };
 
 mixin $StudentSignupView {
-  TextEditingController get firstNameController =>
-      _getFormTextEditingController(FirstNameValueKey);
-  TextEditingController get lastNameController =>
-      _getFormTextEditingController(LastNameValueKey);
   TextEditingController get studentEmailController =>
       _getFormTextEditingController(StudentEmailValueKey);
   TextEditingController get studentCodeController =>
@@ -48,8 +40,6 @@ mixin $StudentSignupView {
   TextEditingController get studentConfirmPasswordController =>
       _getFormTextEditingController(StudentConfirmPasswordValueKey);
 
-  FocusNode get firstNameFocusNode => _getFormFocusNode(FirstNameValueKey);
-  FocusNode get lastNameFocusNode => _getFormFocusNode(LastNameValueKey);
   FocusNode get studentEmailFocusNode =>
       _getFormFocusNode(StudentEmailValueKey);
   FocusNode get studentCodeFocusNode => _getFormFocusNode(StudentCodeValueKey);
@@ -82,8 +72,6 @@ mixin $StudentSignupView {
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
   void syncFormWithViewModel(FormStateHelper model) {
-    firstNameController.addListener(() => _updateFormData(model));
-    lastNameController.addListener(() => _updateFormData(model));
     studentEmailController.addListener(() => _updateFormData(model));
     studentCodeController.addListener(() => _updateFormData(model));
     studentPasswordController.addListener(() => _updateFormData(model));
@@ -99,8 +87,6 @@ mixin $StudentSignupView {
     'This feature was deprecated after 3.1.0.',
   )
   void listenToFormUpdated(FormViewModel model) {
-    firstNameController.addListener(() => _updateFormData(model));
-    lastNameController.addListener(() => _updateFormData(model));
     studentEmailController.addListener(() => _updateFormData(model));
     studentCodeController.addListener(() => _updateFormData(model));
     studentPasswordController.addListener(() => _updateFormData(model));
@@ -114,8 +100,6 @@ mixin $StudentSignupView {
     model.setData(
       model.formValueMap
         ..addAll({
-          FirstNameValueKey: firstNameController.text,
-          LastNameValueKey: lastNameController.text,
           StudentEmailValueKey: studentEmailController.text,
           StudentCodeValueKey: studentCodeController.text,
           StudentPasswordValueKey: studentPasswordController.text,
@@ -161,8 +145,6 @@ extension ValueProperties on FormStateHelper {
     return !hasAnyValidationMessage;
   }
 
-  String? get firstNameValue => this.formValueMap[FirstNameValueKey] as String?;
-  String? get lastNameValue => this.formValueMap[LastNameValueKey] as String?;
   String? get studentEmailValue =>
       this.formValueMap[StudentEmailValueKey] as String?;
   String? get studentCodeValue =>
@@ -171,30 +153,6 @@ extension ValueProperties on FormStateHelper {
       this.formValueMap[StudentPasswordValueKey] as String?;
   String? get studentConfirmPasswordValue =>
       this.formValueMap[StudentConfirmPasswordValueKey] as String?;
-
-  set firstNameValue(String? value) {
-    this.setData(
-      this.formValueMap..addAll({FirstNameValueKey: value}),
-    );
-
-    if (_StudentSignupViewTextEditingControllers.containsKey(
-        FirstNameValueKey)) {
-      _StudentSignupViewTextEditingControllers[FirstNameValueKey]?.text =
-          value ?? '';
-    }
-  }
-
-  set lastNameValue(String? value) {
-    this.setData(
-      this.formValueMap..addAll({LastNameValueKey: value}),
-    );
-
-    if (_StudentSignupViewTextEditingControllers.containsKey(
-        LastNameValueKey)) {
-      _StudentSignupViewTextEditingControllers[LastNameValueKey]?.text =
-          value ?? '';
-    }
-  }
 
   set studentEmailValue(String? value) {
     this.setData(
@@ -244,12 +202,6 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
-  bool get hasFirstName =>
-      this.formValueMap.containsKey(FirstNameValueKey) &&
-      (firstNameValue?.isNotEmpty ?? false);
-  bool get hasLastName =>
-      this.formValueMap.containsKey(LastNameValueKey) &&
-      (lastNameValue?.isNotEmpty ?? false);
   bool get hasStudentEmail =>
       this.formValueMap.containsKey(StudentEmailValueKey) &&
       (studentEmailValue?.isNotEmpty ?? false);
@@ -263,10 +215,6 @@ extension ValueProperties on FormStateHelper {
       this.formValueMap.containsKey(StudentConfirmPasswordValueKey) &&
       (studentConfirmPasswordValue?.isNotEmpty ?? false);
 
-  bool get hasFirstNameValidationMessage =>
-      this.fieldsValidationMessages[FirstNameValueKey]?.isNotEmpty ?? false;
-  bool get hasLastNameValidationMessage =>
-      this.fieldsValidationMessages[LastNameValueKey]?.isNotEmpty ?? false;
   bool get hasStudentEmailValidationMessage =>
       this.fieldsValidationMessages[StudentEmailValueKey]?.isNotEmpty ?? false;
   bool get hasStudentCodeValidationMessage =>
@@ -280,10 +228,6 @@ extension ValueProperties on FormStateHelper {
           ?.isNotEmpty ??
       false;
 
-  String? get firstNameValidationMessage =>
-      this.fieldsValidationMessages[FirstNameValueKey];
-  String? get lastNameValidationMessage =>
-      this.fieldsValidationMessages[LastNameValueKey];
   String? get studentEmailValidationMessage =>
       this.fieldsValidationMessages[StudentEmailValueKey];
   String? get studentCodeValidationMessage =>
@@ -295,10 +239,6 @@ extension ValueProperties on FormStateHelper {
 }
 
 extension Methods on FormStateHelper {
-  setFirstNameValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[FirstNameValueKey] = validationMessage;
-  setLastNameValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[LastNameValueKey] = validationMessage;
   setStudentEmailValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[StudentEmailValueKey] = validationMessage;
   setStudentCodeValidationMessage(String? validationMessage) =>
@@ -312,8 +252,6 @@ extension Methods on FormStateHelper {
 
   /// Clears text input fields on the Form
   void clearForm() {
-    firstNameValue = '';
-    lastNameValue = '';
     studentEmailValue = '';
     studentCodeValue = '';
     studentPasswordValue = '';
@@ -323,8 +261,6 @@ extension Methods on FormStateHelper {
   /// Validates text input fields on the Form
   void validateForm() {
     this.setValidationMessages({
-      FirstNameValueKey: getValidationMessage(FirstNameValueKey),
-      LastNameValueKey: getValidationMessage(LastNameValueKey),
       StudentEmailValueKey: getValidationMessage(StudentEmailValueKey),
       StudentCodeValueKey: getValidationMessage(StudentCodeValueKey),
       StudentPasswordValueKey: getValidationMessage(StudentPasswordValueKey),
@@ -349,8 +285,6 @@ String? getValidationMessage(String key) {
 /// Updates the fieldsValidationMessages on the FormViewModel
 void updateValidationData(FormStateHelper model) =>
     model.setValidationMessages({
-      FirstNameValueKey: getValidationMessage(FirstNameValueKey),
-      LastNameValueKey: getValidationMessage(LastNameValueKey),
       StudentEmailValueKey: getValidationMessage(StudentEmailValueKey),
       StudentCodeValueKey: getValidationMessage(StudentCodeValueKey),
       StudentPasswordValueKey: getValidationMessage(StudentPasswordValueKey),

@@ -29,17 +29,22 @@ class EditProfileViewModel extends BaseViewModel with FormStateHelper {
     }
   }
 
+  bool checkFormValid() {
+    bool isValid = getValidationMessage(FirstNameValueKey) == null &&
+        getValidationMessage(LastNameValueKey) == null &&
+        getValidationMessage(EmailValueKey) == null;
+    if (isTeacherProfile) {
+      return isValid && getValidationMessage(PhoneNoValueKey) == null;
+    } else {
+      return isValid;
+    }
+  }
+
   onApiEditProfile() async {
     validateForm();
+    rebuildUi();
 
-    if (!isTeacherProfile) {
-      setValidationMessage(null);
-    }
-
-    if (!isFormValid) {
-      rebuildUi();
-      return;
-    }
+    if (!checkFormValid()) return;
 
     final editBody = {
       "first_name": firstNameValue,
@@ -65,7 +70,6 @@ class EditProfileViewModel extends BaseViewModel with FormStateHelper {
     if (apiCallChecks(apiCallRes, "edit profile result",
             showSuccessMessage: true) ==
         true) {
-      _navigationService.back();
       UserModel? newUser = apiCallRes.$1?.data;
       await _authService.saveUserProfile(newUser);
     }

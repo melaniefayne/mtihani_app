@@ -43,14 +43,18 @@ class JoinClassDialog extends StackedView<JoinClassDialogModel>
       pageSize: pageSize,
       title: "Join Class",
       children: [
-        AppTextFormField(
-          label: "Student Code",
-          inputType: TextInputType.name,
-          textInputAction: TextInputAction.next,
-          controller: studentCodeController,
-          errorText: viewModel.studentCodeValidationMessage,
-          hintText: "The alphanumeric code your teacher sent you :)",
+        SizedBox(
+          width: pageSize.width * 0.45,
+          child: AppTextFormField(
+            label: "Student Code",
+            inputType: TextInputType.name,
+            textInputAction: TextInputAction.next,
+            controller: studentCodeController,
+            errorText: viewModel.studentCodeValidationMessage,
+            hintText: "The alphanumeric code your teacher sent you :)",
+          ),
         ),
+        const SizedBox(height: 16),
         buildPriBtn(
           theme: theme,
           onAction: () {
@@ -59,7 +63,6 @@ class JoinClassDialog extends StackedView<JoinClassDialogModel>
           iconPath: FontAwesomeIcons.usersRectangle,
           btnTxt: 'Join Class',
           isLoading: viewModel.isLoading,
-          isFullWidth: true,
         ),
       ],
     );
