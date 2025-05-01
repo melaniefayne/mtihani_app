@@ -18,12 +18,12 @@ class SingleTrClassViewModel extends BaseViewModel {
       _navigationService.clearStackAndShow(Routes.startupView);
       return;
     }
+    _trOnboardService.onSetCurrentClass(trClassroom!);
+    _trOnboardService.onSetIsFromOnboarding(false);
     rebuildUi();
   }
 
   onGenerateClassExam() async {
-    _trOnboardService.onSetCurrentClass(trClassroom!);
-    _trOnboardService.onSetIsFromOnboarding(false);
     _navigationService.navigateToExamSetupView();
   }
 

@@ -90,7 +90,7 @@ class ClassroomCard extends StatelessWidget {
                       children: [
                         const Text('Avg Term Score'),
                         Text(
-                          '${classroom.avg_term_score ?? "--"}%',
+                          '${(classroom.avg_term_score ?? 0.0).toStringAsFixed(1)}%',
                           style: theme.textTheme.headlineMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),

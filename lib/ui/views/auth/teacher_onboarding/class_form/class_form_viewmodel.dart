@@ -32,10 +32,11 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
       schoolNameValue = classToEdit!.school_name ?? "";
       schoolAddressValue = classToEdit!.school_address ?? "";
       selectedGrade = classToEdit!.grade;
-      selectedLessonTimes = classToEdit!.lesson_times ?? [];
+      selectedLessonTimes = [...(classToEdit!.lesson_times ?? [])];
     } else {
       pageTitle = "Create A Class";
     }
+    rebuildUi();
   }
 
   onGradeChanged(int value) {
@@ -102,8 +103,8 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
     isLoading = true;
     rebuildUi();
     var apiCallRes = await onApiPostCall<ClassroomModel>(
-      postEndpoint: classToEdit != null
-          ? "$endPointCreateClass/${classToEdit!.id}" // TODO
+      postEndpoint: isClassEdit
+          ? "$endPointEditClass/${classToEdit!.id!}"
           : endPointCreateClass,
       dataMap: classBody,
       dataFromJson: ClassroomModel.fromJson,
@@ -111,7 +112,7 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
     );
     isLoading = false;
     rebuildUi();
-    if (apiCallChecks(apiCallRes, "create class result",
+    if (apiCallChecks(apiCallRes, "classroom result",
             showSuccessMessage: true) ==
         true) {
       ClassroomModel? newClassroom = apiCallRes.$1?.data;
@@ -120,12 +121,19 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
           _trOnboardingService.onSetCurrentClass(newClassroom);
           onGoToNext();
         } else {
-          _trOnboardingService.onSetCurrentClass(newClassroom);
-          _trOnboardingService.onSetIsFromOnboarding(false);
           _navigationService.back();
         }
       }
+
+      if (!isClassEdit) resetClassFormView();
     }
+  }
+
+  resetClassFormView() {
+    clearForm();
+    selectedGrade = null;
+    selectedLessonTimes = [];
+    rebuildUi();
   }
 
   onGoToNext() {

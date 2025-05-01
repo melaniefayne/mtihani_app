@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
 import 'package:mtihani_app/ui/views/single_tr_class/class_performance_tab/class_performance_tab.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
@@ -42,9 +43,7 @@ class SingleTrClassView extends StackedView<SingleTrClassViewModel> {
         TabViewItem(
           label: "Edit Classroom",
           icon: Icons.edit,
-          widget: const Center(
-            child: Text("Edit classroom"),
-          ),
+          widget: const ClassFormView(),
         ),
       ],
     );

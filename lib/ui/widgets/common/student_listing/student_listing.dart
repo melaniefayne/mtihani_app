@@ -76,6 +76,7 @@ class StudentListing extends StackedView<StudentListingModel> {
               onSearchTermChanged: viewModel.onSearchTermChanged,
               hintText: "Search by student name",
               searchTxtCtrl: viewModel.searchTxtCtrl,
+              tableHeight: pageSize.height * 0.57,
               tableHeaders: const [
                 "Name",
                 "Avg. Term Score",

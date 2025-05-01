@@ -37,6 +37,7 @@ String get endPointGetClassroomTermScores =>
     "$baseURL/learner/get-classroom-term-scores";
 String get endPointGetClassroomStudents =>
     "$baseURL/learner/get-classroom-students";
+String get endPointEditClass => "$baseURL/learner/edit-class";
 
 String get endPointJoinClass => "$baseURL/join-classroom";
 String get endPointGetClassStrandScores =>

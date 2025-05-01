@@ -37,22 +37,25 @@ class ClassFormView extends StackedView<ClassFormViewModel>
     double rowFieldFactor = 0.33;
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(pageSize.width * 0.04),
+        padding: EdgeInsets.all(pageSize.width * 0.02),
         child: Column(
           children: [
-            viewModel.isFromOnboarding
-                ? buildPageAppHeader(
-                    theme: theme,
-                    pageTitle: viewModel.pageTitle,
-                    hideBackNav: false,
-                  )
-                : buildPageTitle(
-                    theme: theme,
-                    pageTitle: viewModel.pageTitle,
-                    actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
-                    action: viewModel.onGoToHome,
-                  ),
-            SizedBox(height: pageSize.height * 0.02),
+            if (!viewModel.isClassEdit)
+              Padding(
+                padding: EdgeInsets.only(bottom: pageSize.height * 0.02),
+                child: viewModel.isFromOnboarding
+                    ? buildPageAppHeader(
+                        theme: theme,
+                        pageTitle: viewModel.pageTitle,
+                        hideBackNav: false,
+                      )
+                    : buildPageTitle(
+                        theme: theme,
+                        pageTitle: viewModel.pageTitle,
+                        actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
+                        action: viewModel.onGoToHome,
+                      ),
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -106,7 +109,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
               onRemoved: viewModel.onRemovedLessonTime,
               errorText: viewModel.lessonTimesErrorMsg,
             ),
-            if (viewModel.classToEdit != null)
+            if (!viewModel.isFromOnboarding && viewModel.classToEdit != null)
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -143,7 +146,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
             SizedBox(height: pageSize.height * 0.02),
             buildPriBtn(
               theme: theme,
-              btnTxt: 'Create a Class',
+              btnTxt: viewModel.pageTitle,
               isLoading: viewModel.isLoading,
               onAction: viewModel.onApiClassCreate,
               isFullWidth: true,
@@ -163,6 +166,9 @@ class ClassFormView extends StackedView<ClassFormViewModel>
   @override
   void onViewModelReady(ClassFormViewModel viewModel) {
     viewModel.onClassFormViewReady();
+    classNameController.text = viewModel.classNameValue ?? "";
+    schoolNameController.text = viewModel.schoolNameValue ?? "";
+    schoolAddressController.text = viewModel.schoolAddressValue ?? "";
     syncFormWithViewModel(viewModel);
   }
 }
