@@ -2,6 +2,7 @@ import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/services/auth_service.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
@@ -117,5 +118,28 @@ class ClassroomListModel extends FutureViewModel<List<ClassroomModel>> {
     if (canNavigate) _navigationService.navigateToSingleTrClassView();
   }
 
-  _onViewStClass(ClassroomModel classroom) {}
+  _onViewStClass(ClassroomModel classroom) async {
+    ClassroomStudentModel student =
+        await getStudentFromClassroom(classroom, _authService);
+    bool canNavigate =
+        await _sharedPrefsService.setSingleStClassroomNavArg(student);
+    if (canNavigate) _navigationService.navigateToSingleStClassView();
+  }
+}
+
+Future<ClassroomStudentModel> getStudentFromClassroom(
+    ClassroomModel classroom, AuthService authService) async {
+  UserModel loggedInUser = (await authService.getUserProfile())!;
+
+  return ClassroomStudentModel(
+    id: loggedInUser.student_id,
+    code: classroom.student_code,
+    avg_score: classroom.avg_term_score,
+    avg_expectation_level: classroom.avg_term_expectation_level,
+    avg_mtihani_score: classroom.avg_mtihani_score,
+    avg_mtihani_expectation_level: classroom.avg_mtihani_expectation_level,
+    term_scores: [...classroom.term_scores ?? []],
+    classroom_id: classroom.id,
+    classroom_name: classroom.name,
+  );
 }

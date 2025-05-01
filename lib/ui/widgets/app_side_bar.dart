@@ -49,10 +49,9 @@ class _AppSideBarScaffoldState extends State<AppSideBarScaffold> {
                       setState(() => selectedIndex = i);
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 16),
+                      padding: const EdgeInsets.all(16),
                       color: selectedIndex == i
-                          ? theme.colorScheme.primaryContainer
+                          ? theme.colorScheme.onPrimary
                           : Colors.transparent,
                       child: Row(
                         children: [
@@ -65,7 +64,7 @@ class _AppSideBarScaffoldState extends State<AppSideBarScaffold> {
                             Icon(
                               widget.tabItems[i].icon,
                               color: selectedIndex == i
-                                  ? theme.colorScheme.onPrimaryContainer
+                                  ? theme.colorScheme.primary
                                   : theme.colorScheme.onPrimary,
                               size: 20,
                             ),
@@ -75,7 +74,7 @@ class _AppSideBarScaffoldState extends State<AppSideBarScaffold> {
                               widget.tabItems[i].label,
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 color: selectedIndex == i
-                                    ? theme.colorScheme.onPrimaryContainer
+                                    ? theme.colorScheme.primary
                                     : theme.colorScheme.onPrimary,
                                 fontWeight: FontWeight.w500,
                               ),

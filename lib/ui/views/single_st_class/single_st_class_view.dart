@@ -20,8 +20,9 @@ class SingleStClassView extends StackedView<SingleStClassViewModel> {
       return const Center(child: CircularProgressIndicator());
     }
     return AppSideBarScaffold(
-      pageTitle:
-          "Grade ${viewModel.stClassroom?.classroom_name ?? '--'}: ${viewModel.stClassroom?.name ?? "--"}",
+      pageTitle: viewModel.isStudent
+          ? "Grade ${viewModel.stClassroom?.classroom_name ?? '--'}"
+          : "Grade ${viewModel.stClassroom?.classroom_name ?? '--'}: ${viewModel.stClassroom?.name ?? "--"}",
       tabItems: [
         TabViewItem(
           label: "Overall Performance",
@@ -35,11 +36,12 @@ class SingleStClassView extends StackedView<SingleStClassViewModel> {
             child: Text("Exam listing"),
           ),
         ),
-        TabViewItem(
-          label: "Edit Student",
-          icon: Icons.edit,
-          widget: StudentEditForm(student: viewModel.stClassroom!),
-        ),
+        if (viewModel.isTeacher)
+          TabViewItem(
+            label: "Edit Student",
+            icon: Icons.edit,
+            widget: StudentEditForm(student: viewModel.stClassroom!),
+          ),
       ],
     );
   }

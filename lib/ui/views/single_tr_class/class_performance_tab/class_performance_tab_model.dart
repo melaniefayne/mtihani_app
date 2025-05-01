@@ -40,7 +40,7 @@ class ClassPerformanceTabModel extends MultipleFutureViewModel {
 
   List<String> get classTermNames {
     return (classAvgTermScores)
-        .map((e) => "Grade ${e.grade ?? '--'} Term ${e.term ?? '--'}")
+        .map((e) => "G${e.grade ?? '--'} T${e.term ?? '--'}")
         .toList();
   }
 }

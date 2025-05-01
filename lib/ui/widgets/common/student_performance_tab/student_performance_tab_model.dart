@@ -12,7 +12,7 @@ class StudentPerformanceTabModel extends BaseViewModel {
 
   List<String> get termNames {
     return (student.term_scores ?? [])
-        .map((e) => "Grade ${e.grade ?? '--'} Term ${e.term ?? '--'}")
+        .map((e) => "G${e.grade ?? '--'} T${e.term ?? '--'}")
         .toList();
   }
 }
