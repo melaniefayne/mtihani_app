@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/cbc.dart';
-import 'package:mtihani_app/ui/widgets/app_animated_counter.dart';
 import 'package:mtihani_app/ui/widgets/app_collapsible_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_search_table.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
-import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 
 class StrandCard extends StatelessWidget {
   final StrandModel strand;
@@ -69,6 +66,7 @@ class StrandCard extends StatelessWidget {
                     widget: buildSubStrandSection(
                       theme: theme,
                       subStrand: subStrand,
+                      pageSize: pageSize,
                     ),
                   ),
                 )
@@ -82,192 +80,101 @@ class StrandCard extends StatelessWidget {
   buildSubStrandSection({
     required ThemeData theme,
     required SubStrandModel subStrand,
+    required Size pageSize,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildHeaderWidget(
-          theme: theme,
-          title: "Lesson Count",
-          leadingWidget: const Icon(FontAwesomeIcons.chalkboardUser),
-        ),
-        Center(
-          child: AppAnimatedCounter(
-            valueToAnimate: subStrand.lesson_count ?? 0,
-            postTexts: const [TextSpan(text: "Lessons")],
-          ),
-        ),
-        const Divider(),
-        if (subStrand.descriptions != null &&
-            subStrand.descriptions!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Description",
-            mainIcon: Icons.summarize,
-            subIcon: Icons.summarize_outlined,
-            items: subStrand.descriptions!,
-          ),
-        if (subStrand.key_inquiries != null &&
-            subStrand.key_inquiries!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Key Inquiries",
-            mainIcon: Icons.help,
-            subIcon: Icons.question_mark,
-            items: subStrand.key_inquiries!,
-          ),
-        if (subStrand.learning_outcomes != null &&
-            subStrand.learning_outcomes!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Learning Outcomes",
-            mainIcon: Icons.outbox_rounded,
-            subIcon: Icons.outbox_outlined,
-            items: subStrand.learning_outcomes!,
-          ),
-        if (subStrand.skills != null && subStrand.skills!.isNotEmpty)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildHeaderWidget(
-                theme: theme,
-                title: "Assessment Rubrics",
-                leadingWidget: const Icon(Icons.check_circle),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: AppSearchTable(
+        hasCount: false,
+        hideTotalCount: true,
+        rowHeight: pageSize.height * 0.45,
+        tableHeight: pageSize.height * 0.45,
+        frozenColumnsCount: 0,
+        tableHeaders: const [
+          "Description",
+          "Key Inquiries",
+          "Learning Outcomes",
+          "Assessment Rubrics",
+          "Learning Experiences",
+          "Core Competencies",
+          "Values",
+          "Pertinent Issues",
+          "Other Learning Areas",
+          "Learning Materials",
+          "Non Formal Activities",
+        ],
+        tableRows: [
+          DataRow(
+            cells: [
+              DataCell(buildListSection(items: subStrand.descriptions)),
+              DataCell(buildListSection(items: subStrand.key_inquiries)),
+              DataCell(buildListSection(items: subStrand.learning_outcomes)),
+              DataCell(
+                (subStrand.skills == null || (subStrand.skills ?? []).isEmpty)
+                    ? const SizedBox.shrink()
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: subStrand.skills!.length,
+                        itemBuilder: (context, idx) => SkillRubricWidget(
+                            skillData: subStrand.skills![idx]),
+                      ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: subStrand.skills!.length,
-                itemBuilder: (context, idx) => AppSearchTable(
-                  hasCount: false,
-                  hideTotalCount: true,
-                  tableTitle: subStrand.skills![idx].skill ?? "--",
-                  tableHeaders: const ["Expectation Level", "Description"],
-                  tableRows: List.generate(
-                    (subStrand.skills![idx].skillRubrics ?? []).length,
-                    (int idx) {
-                      SkillRubricModel skillRubric =
-                          (subStrand.skills![idx].skillRubrics ?? [])[idx];
-
-                      return DataRow(
-                        cells: [
-                          DataCell(Text(
-                            skillRubric.expectation ?? "--",
-                            style: theme.textTheme.titleMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: theme.primaryColor,
-                            ),
-                          )),
-                          DataCell(
-                            Text(
-                              skillRubric.description ?? "--",
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  itemsText: "No skill rubrics available",
-                ),
-              ),
-              const Divider(),
+              DataCell(buildListSection(items: subStrand.learning_experiences)),
+              DataCell(buildListSection(items: subStrand.core_competencies)),
+              DataCell(buildListSection(items: subStrand.values)),
+              DataCell(buildListSection(items: subStrand.pertinent_issues)),
+              DataCell(buildListSection(items: subStrand.other_learning_areas)),
+              DataCell(buildListSection(items: subStrand.learning_materials)),
+              DataCell(
+                  buildListSection(items: subStrand.non_formal_activities)),
             ],
           ),
-        if (subStrand.learning_experiences != null &&
-            subStrand.learning_experiences!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Learning Experiences",
-            mainIcon: Icons.category,
-            subIcon: Icons.category_outlined,
-            items: subStrand.learning_experiences!,
-          ),
-        if (subStrand.core_competencies != null &&
-            subStrand.core_competencies!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Core Competencies",
-            mainIcon: Icons.language,
-            subIcon: Icons.language_outlined,
-            items: subStrand.core_competencies!,
-          ),
-        if (subStrand.values != null && subStrand.values!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Values",
-            mainIcon: Icons.interests,
-            subIcon: Icons.interests_outlined,
-            items: subStrand.values!,
-          ),
-        if (subStrand.pertinent_issues != null &&
-            subStrand.pertinent_issues!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Pertinent Issues",
-            mainIcon: Icons.star,
-            subIcon: Icons.star_border,
-            items: subStrand.pertinent_issues!,
-          ),
-        if (subStrand.other_learning_areas != null &&
-            subStrand.other_learning_areas!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Other Learning Areas",
-            mainIcon: FontAwesomeIcons.folderTree,
-            subIcon: Icons.folder,
-            items: subStrand.other_learning_areas!,
-          ),
-        if (subStrand.learning_materials != null &&
-            subStrand.learning_materials!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Learning Materials",
-            mainIcon: Icons.library_books,
-            subIcon: FontAwesomeIcons.book,
-            items: subStrand.learning_materials!,
-          ),
-        if (subStrand.non_formal_activities != null &&
-            subStrand.non_formal_activities!.isNotEmpty)
-          buildSection(
-            theme: theme,
-            label: "Non Formal Activities",
-            mainIcon: Icons.video_collection,
-            subIcon: Icons.video_collection_outlined,
-            items: subStrand.non_formal_activities!,
-          ),
-      ],
+        ],
+        itemsText: "No curriculum for this sub strand found",
+      ),
     );
   }
 
-  buildSection({
-    required ThemeData theme,
-    required String label,
-    required IconData mainIcon,
-    required IconData subIcon,
-    required List<String> items,
+  buildListSection({
+    List<String>? items,
   }) {
+    if (items == null || items.isEmpty) return const SizedBox.shrink();
+
+    return ListView.builder(
+      // shrinkWrap: true,
+      // physics: const NeverScrollableScrollPhysics(),
+      itemCount: items.length,
+      itemBuilder: (context, idx) => Padding(
+        padding: const EdgeInsets.only(bottom: 5),
+        child: Text("• ${items[idx]}"),
+      ),
+    );
+  }
+}
+
+class SkillRubricWidget extends StatelessWidget {
+  final SubStrandSkillModel skillData;
+
+  const SkillRubricWidget({super.key, required this.skillData});
+
+  @override
+  Widget build(BuildContext context) {
+    final String skill = skillData.skill ?? "--";
+    final List<SkillRubricModel> rubrics = skillData.rubrics ?? [];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
       children: [
-        buildHeaderWidget(
-          theme: theme,
-          title: label,
-          leadingWidget: Icon(mainIcon),
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: items.length,
-          itemBuilder: (context, idx) => ListTile(
-            leading: Icon(subIcon),
-            title: Text(
-              items[idx],
-            ),
-          ),
-        ),
-        const Divider(),
+        Text("• $skill", style: const TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(height: 8),
+        ...rubrics.map<Widget>((rubric) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0, bottom: 4.0),
+            child: Text(
+                "• ${rubric.expectation ?? "--"}: ${rubric.description ?? "--"}"),
+          );
+        }).toList(),
       ],
     );
   }

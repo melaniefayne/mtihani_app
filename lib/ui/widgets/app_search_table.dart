@@ -24,6 +24,8 @@ class AppSearchTable extends StatefulWidget {
   final bool hideTableTop;
   final bool hasTotalRow;
   final double? tableHeight;
+  final int frozenColumnsCount;
+  final double rowHeight;
 
   const AppSearchTable({
     super.key,
@@ -47,6 +49,8 @@ class AppSearchTable extends StatefulWidget {
     this.hideTableTop = false,
     this.hasTotalRow = false,
     this.tableHeight,
+    this.frozenColumnsCount = 2,
+    this.rowHeight = 55,
   });
 
   @override
@@ -268,11 +272,11 @@ class _AppSearchTableState extends State<AppSearchTable> {
                           );
                         }),
                       ],
-                      frozenColumnsCount: 2,
+                      frozenColumnsCount: widget.frozenColumnsCount,
                       gridLinesVisibility: GridLinesVisibility.both,
                       headerGridLinesVisibility: GridLinesVisibility.both,
                       columnWidthMode: ColumnWidthMode.fitByCellValue,
-                      rowHeight: 55,
+                      rowHeight: widget.rowHeight,
                     ),
                   );
           },
@@ -293,7 +297,7 @@ class _AppSearchTableState extends State<AppSearchTable> {
       ),
       child: Text(
         value,
-        style: theme.textTheme.bodyLarge!
+        style: theme.textTheme.bodyMedium!
             .copyWith(color: theme.primaryColor, fontWeight: FontWeight.bold),
         textAlign: TextAlign.center,
       ),

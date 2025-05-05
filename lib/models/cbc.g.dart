@@ -105,7 +105,7 @@ _$SubStrandSkillModelImpl _$$SubStrandSkillModelImplFromJson(
     _$SubStrandSkillModelImpl(
       id: (json['id'] as num?)?.toInt(),
       skill: json['skill'] as String?,
-      skillRubrics: (json['skillRubrics'] as List<dynamic>?)
+      rubrics: (json['rubrics'] as List<dynamic>?)
           ?.map((e) => SkillRubricModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -115,7 +115,7 @@ Map<String, dynamic> _$$SubStrandSkillModelImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'skill': instance.skill,
-      'skillRubrics': instance.skillRubrics,
+      'rubrics': instance.rubrics,
     };
 
 _$SkillRubricModelImpl _$$SkillRubricModelImplFromJson(

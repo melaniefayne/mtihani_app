@@ -1005,8 +1005,7 @@ SubStrandSkillModel _$SubStrandSkillModelFromJson(Map<String, dynamic> json) {
 mixin _$SubStrandSkillModel {
   int? get id => throw _privateConstructorUsedError;
   String? get skill => throw _privateConstructorUsedError;
-  List<SkillRubricModel>? get skillRubrics =>
-      throw _privateConstructorUsedError;
+  List<SkillRubricModel>? get rubrics => throw _privateConstructorUsedError;
 
   /// Serializes this SubStrandSkillModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1024,7 +1023,7 @@ abstract class $SubStrandSkillModelCopyWith<$Res> {
           SubStrandSkillModel value, $Res Function(SubStrandSkillModel) then) =
       _$SubStrandSkillModelCopyWithImpl<$Res, SubStrandSkillModel>;
   @useResult
-  $Res call({int? id, String? skill, List<SkillRubricModel>? skillRubrics});
+  $Res call({int? id, String? skill, List<SkillRubricModel>? rubrics});
 }
 
 /// @nodoc
@@ -1044,7 +1043,7 @@ class _$SubStrandSkillModelCopyWithImpl<$Res, $Val extends SubStrandSkillModel>
   $Res call({
     Object? id = freezed,
     Object? skill = freezed,
-    Object? skillRubrics = freezed,
+    Object? rubrics = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -1055,9 +1054,9 @@ class _$SubStrandSkillModelCopyWithImpl<$Res, $Val extends SubStrandSkillModel>
           ? _value.skill
           : skill // ignore: cast_nullable_to_non_nullable
               as String?,
-      skillRubrics: freezed == skillRubrics
-          ? _value.skillRubrics
-          : skillRubrics // ignore: cast_nullable_to_non_nullable
+      rubrics: freezed == rubrics
+          ? _value.rubrics
+          : rubrics // ignore: cast_nullable_to_non_nullable
               as List<SkillRubricModel>?,
     ) as $Val);
   }
@@ -1071,7 +1070,7 @@ abstract class _$$SubStrandSkillModelImplCopyWith<$Res>
       __$$SubStrandSkillModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? id, String? skill, List<SkillRubricModel>? skillRubrics});
+  $Res call({int? id, String? skill, List<SkillRubricModel>? rubrics});
 }
 
 /// @nodoc
@@ -1089,7 +1088,7 @@ class __$$SubStrandSkillModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? skill = freezed,
-    Object? skillRubrics = freezed,
+    Object? rubrics = freezed,
   }) {
     return _then(_$SubStrandSkillModelImpl(
       id: freezed == id
@@ -1100,9 +1099,9 @@ class __$$SubStrandSkillModelImplCopyWithImpl<$Res>
           ? _value.skill
           : skill // ignore: cast_nullable_to_non_nullable
               as String?,
-      skillRubrics: freezed == skillRubrics
-          ? _value._skillRubrics
-          : skillRubrics // ignore: cast_nullable_to_non_nullable
+      rubrics: freezed == rubrics
+          ? _value._rubrics
+          : rubrics // ignore: cast_nullable_to_non_nullable
               as List<SkillRubricModel>?,
     ));
   }
@@ -1112,8 +1111,8 @@ class __$$SubStrandSkillModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SubStrandSkillModelImpl implements _SubStrandSkillModel {
   _$SubStrandSkillModelImpl(
-      {this.id, this.skill, final List<SkillRubricModel>? skillRubrics})
-      : _skillRubrics = skillRubrics;
+      {this.id, this.skill, final List<SkillRubricModel>? rubrics})
+      : _rubrics = rubrics;
 
   factory _$SubStrandSkillModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SubStrandSkillModelImplFromJson(json);
@@ -1122,19 +1121,19 @@ class _$SubStrandSkillModelImpl implements _SubStrandSkillModel {
   final int? id;
   @override
   final String? skill;
-  final List<SkillRubricModel>? _skillRubrics;
+  final List<SkillRubricModel>? _rubrics;
   @override
-  List<SkillRubricModel>? get skillRubrics {
-    final value = _skillRubrics;
+  List<SkillRubricModel>? get rubrics {
+    final value = _rubrics;
     if (value == null) return null;
-    if (_skillRubrics is EqualUnmodifiableListView) return _skillRubrics;
+    if (_rubrics is EqualUnmodifiableListView) return _rubrics;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'SubStrandSkillModel(id: $id, skill: $skill, skillRubrics: $skillRubrics)';
+    return 'SubStrandSkillModel(id: $id, skill: $skill, rubrics: $rubrics)';
   }
 
   @override
@@ -1144,14 +1143,13 @@ class _$SubStrandSkillModelImpl implements _SubStrandSkillModel {
             other is _$SubStrandSkillModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.skill, skill) || other.skill == skill) &&
-            const DeepCollectionEquality()
-                .equals(other._skillRubrics, _skillRubrics));
+            const DeepCollectionEquality().equals(other._rubrics, _rubrics));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, skill,
-      const DeepCollectionEquality().hash(_skillRubrics));
+  int get hashCode => Object.hash(
+      runtimeType, id, skill, const DeepCollectionEquality().hash(_rubrics));
 
   /// Create a copy of SubStrandSkillModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1174,7 +1172,7 @@ abstract class _SubStrandSkillModel implements SubStrandSkillModel {
   factory _SubStrandSkillModel(
       {final int? id,
       final String? skill,
-      final List<SkillRubricModel>? skillRubrics}) = _$SubStrandSkillModelImpl;
+      final List<SkillRubricModel>? rubrics}) = _$SubStrandSkillModelImpl;
 
   factory _SubStrandSkillModel.fromJson(Map<String, dynamic> json) =
       _$SubStrandSkillModelImpl.fromJson;
@@ -1184,7 +1182,7 @@ abstract class _SubStrandSkillModel implements SubStrandSkillModel {
   @override
   String? get skill;
   @override
-  List<SkillRubricModel>? get skillRubrics;
+  List<SkillRubricModel>? get rubrics;
 
   /// Create a copy of SubStrandSkillModel
   /// with the given fields replaced by the non-null parameter values.

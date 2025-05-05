@@ -17,40 +17,36 @@ class CbcView extends StackedView<CbcViewModel> {
   ) {
     final pageSize = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: pageSize.height * 0.01),
-            AppPageFilters(
-              filters: [
-                AppFilterItem(
-                  label: "Grade",
-                  selectedValue: viewModel.selectedGrade,
-                  onChanged: (val) {
-                    viewModel.onChangeGrade(val);
-                  },
-                  items: allGradesList.map<DropdownMenuItem<int>>((int value) {
-                    return DropdownMenuItem<int>(
-                      value: value,
-                      child: Text("Grade ${value.toString()}"),
-                    );
-                  }).toList(),
-                ),
-              ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: pageSize.height * 0.01),
+          AppPageFilters(
+            filters: [
+              AppFilterItem(
+                label: "Grade",
+                selectedValue: viewModel.selectedGrade,
+                onChanged: (val) {
+                  viewModel.onChangeGrade(val);
+                },
+                items: allGradesList.map<DropdownMenuItem<int>>((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text("Grade ${value.toString()}"),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          SizedBox(height: pageSize.height * 0.02),
+          Expanded(
+            child: ListView.builder(
+              itemCount: viewModel.gradeStrandsList.length,
+              itemBuilder: (context, idx) =>
+                  StrandCard(strand: viewModel.gradeStrandsList[idx]),
             ),
-            SizedBox(height: pageSize.height * 0.01),
-            Wrap(
-              spacing: 15,
-              runSpacing: 15,
-              children: viewModel.gradeStrandsList
-                  .map((e) => StrandCard(
-                        strand: e,
-                      ))
-                  .toList(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

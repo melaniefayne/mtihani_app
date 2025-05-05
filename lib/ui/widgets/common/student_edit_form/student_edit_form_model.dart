@@ -71,7 +71,8 @@ class StudentEditFormModel extends BaseViewModel with FormStateHelper {
       "updated_term_scores": validScores.map((e) => e.toJson()).toList(),
     };
     var apiCallRes = await onApiPostCall(
-      postEndpoint: "$endPointEditStudent/${student.id!}",
+      postEndpoint: endPointEditStudent,
+      queryParams: {"student_id": student.id!},
       dataMap: studentBody,
     );
     isLoading = false;

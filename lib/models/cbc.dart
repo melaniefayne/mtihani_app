@@ -59,7 +59,7 @@ class SubStrandSkillModel with _$SubStrandSkillModel {
   factory SubStrandSkillModel({
     int? id,
     String? skill,
-    List<SkillRubricModel>? skillRubrics,
+    List<SkillRubricModel>? rubrics,
   }) = _SubStrandSkillModel;
 
   factory SubStrandSkillModel.fromJson(Map<String, dynamic> json) =>
