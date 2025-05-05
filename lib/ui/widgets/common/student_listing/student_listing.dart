@@ -67,8 +67,7 @@ class StudentListing extends StackedView<StudentListingModel> {
           ),
           SizedBox(height: pageSize.height * 0.01),
           if (viewModel.isBusy)
-            buildLoadingWidget(theme, "Fetching classroom students",
-                isLinear: true),
+            buildLoadingWidget(theme, "Fetching your students", isLinear: true),
           if (viewModel.data != null)
             AppSearchTable(
               isSearchActive: hasSearch ? viewModel.isSearchActive : null,

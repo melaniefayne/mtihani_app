@@ -4,7 +4,7 @@ import 'package:mtihani_app/app/app.locator.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  group('ClassroomListViewModel Tests -', () {
+  group('DashPageModel Tests -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

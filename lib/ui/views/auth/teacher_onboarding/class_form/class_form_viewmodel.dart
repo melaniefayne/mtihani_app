@@ -1,4 +1,5 @@
 import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.form.dart';
@@ -117,14 +118,11 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
       ClassroomModel? newClassroom = apiCallRes.$1?.data;
       if (newClassroom != null) {
         if (isFromOnboarding) {
-          _trOnboardingService.onSetCurrentClass(newClassroom);
-          onGoToNext();
+          onGoToHome();
         } else {
-          _navigationService.back();
+          _navigationService.clearStackAndShow(Routes.dashboardView);
         }
       }
-
-      if (!isClassEdit) resetClassFormView();
     }
   }
 

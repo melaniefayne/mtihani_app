@@ -32,7 +32,7 @@ import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
   routes: [
     MaterialRoute(page: StartupView),
     MaterialRoute(page: LoginView),
-    MaterialRoute(page: ClassroomList),
+    MaterialRoute(page: ClassroomListView),
     MaterialRoute(page: TeacherSignupView),
     MaterialRoute(page: StudentSignupView),
     MaterialRoute(page: TeacherOnboardingView),

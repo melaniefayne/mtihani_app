@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
 import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
@@ -21,14 +22,15 @@ class DashboardView extends StackedView<DashboardViewModel> {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
 
-    onSwitchToExamTab() => viewModel.setIndex(1); // exam page index
-
     List<Widget> dashboardPages = [
-      ClassroomList(
+      ClassroomListView(
+        userClassrooms: viewModel.userClassrooms,
         loggedInUser: viewModel.loggedInUser,
-        onSwitchToExamTab: onSwitchToExamTab,
       ),
-      const ExamListView(),
+      ExamListView(
+        userClassrooms: viewModel.userClassrooms,
+        loggedInUser: viewModel.loggedInUser,
+      ),
       const CbcView(),
       ProfileView(loggedInUser: viewModel.loggedInUser)
     ];
@@ -52,7 +54,33 @@ class DashboardView extends StackedView<DashboardViewModel> {
             Expanded(
               child: IndexedStack(
                 index: viewModel.currentIndex,
-                children: dashboardPages,
+                children: viewModel.isLoading
+                    ? [
+                        ...List.generate(
+                            2,
+                            (idx) => buildLoadingWidget(
+                                theme, "Setting up your classes ...")),
+                        const CbcView(),
+                        ProfileView(loggedInUser: viewModel.loggedInUser),
+                      ]
+                    : viewModel.userClassrooms.isEmpty
+                        ? [
+                            ...List.generate(
+                                2,
+                                (idx) => buildNoItemsWidget(
+                                      "You have no available classes",
+                                      extraWidget: buildPriBtn(
+                                        theme: theme,
+                                        btnTxt: viewModel.classActionTxt,
+                                        iconPath:
+                                            FontAwesomeIcons.usersRectangle,
+                                        onAction: viewModel.onOnboardClassroom,
+                                      ),
+                                    )),
+                            const CbcView(),
+                            ProfileView(loggedInUser: viewModel.loggedInUser),
+                          ]
+                        : dashboardPages,
               ),
             ),
           ],
