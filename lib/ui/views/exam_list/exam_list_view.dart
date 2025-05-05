@@ -1,133 +1,139 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/models/user.dart';
 import 'package:mtihani_app/ui/widgets/app_filters.dart';
+import 'package:mtihani_app/ui/widgets/common/dash_page/dash_page.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:stacked/stacked.dart';
 
 import 'exam_list_viewmodel.dart';
 
-class ExamListView extends StackedView<ExamListViewModel> {
-  final ClassroomModel? classroom;
-  final ClassroomStudentModel? classStudent;
-
-  const ExamListView({Key? key, this.classroom, this.classStudent})
-      : super(key: key);
+class ExamListView extends DashPage<ExamListViewModel> {
+  final ClassroomModel? currentClassroom;
+  const ExamListView({
+    Key? key,
+    required List<ClassroomModel> userClassrooms,
+    required UserModel loggedInUser,
+    this.currentClassroom,
+  }) : super(
+          key: key,
+          userClassrooms: userClassrooms,
+          loggedInUser: loggedInUser,
+        );
 
   @override
-  Widget builder(
-    BuildContext context,
-    ExamListViewModel viewModel,
-    Widget? child,
-  ) {
+  Widget buildContent(BuildContext context, ExamListViewModel viewModel) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
     final ScrollController scrollController = ScrollController();
+
+    if (userClassrooms.isEmpty) {
+      return Center(
+        child: Text(
+            "${viewModel.isTeacher ? "Create" : "Join"} a classroom to view exams"),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
-        child: viewModel.isBusy
-            ? buildLoadingWidget(theme, "Setting up your exams ...")
-            : viewModel.hasError ||
-                    viewModel.data == null ||
-                    viewModel.data!.isEmpty
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      buildNoItemsWidget("You have no available exams"),
-                      buildPriBtn(
-                        theme: theme,
-                        btnTxt: "Generate Exam",
-                        iconPath: FontAwesomeIcons.scroll,
-                        onAction: viewModel.onGenerateExam,
-                      ),
-                    ],
-                  )
-                : Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildCountWidget(
-                            theme: theme,
-                            label: viewModel.listTitle,
-                            count: viewModel.data!.length,
-                          ),
-                          if (viewModel.isTeacher)
-                            buildPriBtn(
-                              theme: theme,
-                              btnTxt: "Generate Exam",
-                              iconPath: FontAwesomeIcons.scroll,
-                              onAction: viewModel.onGenerateExam,
-                            ),
-                        ],
-                      ),
-                      const Divider(),
-                      SizedBox(height: pageSize.height * 0.01),
-                      AppPageFilters(
-                        filters: [
-                          if (viewModel.allFilterClasses.isNotEmpty)
-                            AppFilterItem(
-                              label: "Class",
-                              selectedValue: viewModel.selectedClass,
-                              onChanged: (val) {
-                                viewModel.onChangeClass(val);
-                              },
-                              items: viewModel.allFilterClasses
-                                  .map<DropdownMenuItem<ClassroomModel>>(
-                                      (ClassroomModel value) {
-                                return DropdownMenuItem<ClassroomModel>(
-                                  value: value,
-                                  child: Text(value.name ?? "--"),
-                                );
-                              }).toList(),
-                            ),
-                          AppFilterItem(
-                            label: "Status",
-                            selectedValue: viewModel.selectedExamStatus,
-                            onChanged: (val) {
-                              viewModel.onChangeExamStatus(val);
-                            },
-                            items: allExamStatuses
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: pageSize.height * 0.01),
-                      SizedBox(
-                        height: pageSize.height * 0.6,
-                        child: Scrollbar(
-                          controller: scrollController,
-                          thumbVisibility: true,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            controller: scrollController,
-                            itemCount: viewModel.examList.length,
-                            itemBuilder: (context, idx) => ExamCard(
-                              exam: viewModel.examList[idx],
-                              onTap: viewModel.onViewExam,
-                            ),
-                          ),
-                        ),
-                      ),
-                      if (viewModel.nextPageUrl != null)
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: pageSize.height * 0.01),
-                          child: buildPriBtn(
-                            theme: theme,
-                            btnTxt: "View More",
-                            iconPath: Icons.read_more,
-                            onAction: viewModel.onViewMoreExams,
-                          ),
-                        ),
-                    ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildCountWidget(
+                  theme: theme,
+                  label: viewModel.isSingleClassView
+                      ? "Grade ${userClassrooms.first.name} Exams"
+                      : "Exam Listing",
+                  count: viewModel.data?.length ?? 0,
+                ),
+                if (viewModel.isTeacher)
+                  buildPriBtn(
+                    theme: theme,
+                    btnTxt: "Generate Exam",
+                    iconPath: FontAwesomeIcons.scroll,
+                    onAction: viewModel.onGenerateExam,
                   ),
+              ],
+            ),
+            const Divider(),
+            SizedBox(height: pageSize.height * 0.01),
+            AppPageFilters(
+              filters: [
+                if (userClassrooms.isNotEmpty)
+                  AppFilterItem(
+                    label: "Class",
+                    selectedValue: viewModel.selectedClass,
+                    onChanged: (val) {
+                      viewModel.onChangeClass(val);
+                    },
+                    items: userClassrooms.map<DropdownMenuItem<ClassroomModel>>(
+                        (ClassroomModel value) {
+                      return DropdownMenuItem<ClassroomModel>(
+                        value: value,
+                        child: Text(value.name ?? "--"),
+                      );
+                    }).toList(),
+                  ),
+                AppFilterItem(
+                  label: "Status",
+                  selectedValue: viewModel.selectedExamStatus,
+                  onChanged: (val) {
+                    viewModel.onChangeExamStatus(val);
+                  },
+                  items: allExamStatuses
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                if (viewModel.isTeacher)
+                  AppFilterItem(
+                    label: "Publish Status",
+                    selectedValue: viewModel.selectedExamIsPublished,
+                    onChanged: (val) {
+                      viewModel.onChangeExamIsPublished(val);
+                    },
+                    items: allExamPublishStatuses
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+              ],
+            ),
+            SizedBox(height: pageSize.height * 0.02),
+            if (viewModel.isBusy)
+              buildLoadingWidget(theme, "Fetching your exams", isLinear: true),
+            if (viewModel.data != null)
+              viewModel.data!.isEmpty
+                  ? buildNoItemsWidget("No exams available")
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: scrollController,
+                      itemCount: viewModel.examList.length,
+                      itemBuilder: (context, idx) => ExamCard(
+                        exam: viewModel.examList[idx],
+                        onTap: viewModel.onViewExam,
+                      ),
+                    ),
+            const SizedBox(height: 10),
+            if (viewModel.nextPageUrl != null)
+              buildPriBtn(
+                theme: theme,
+                btnTxt: "Load More",
+                onAction: viewModel.onViewMoreExams,
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -136,7 +142,7 @@ class ExamListView extends StackedView<ExamListViewModel> {
   ExamListViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ExamListViewModel(classroom, classStudent);
+      ExamListViewModel(userClassrooms, loggedInUser, currentClassroom);
 
   @override
   void onViewModelReady(ExamListViewModel viewModel) {

@@ -74,7 +74,7 @@ class ClassPerformanceModel with _$ClassPerformanceModel {
     String? avg_mtihani_expectation_level,
     List<ScoreModel>? grade_scores,
     List<ScoreModel>? bloom_skill_scores,
-    List<StrandScoreModel>? strand_scores,
+    List<ScoreModel>? strand_scores,
     List<TermScore>? class_term_scores,
   }) = _ClassPerformanceModel;
 

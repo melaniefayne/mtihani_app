@@ -929,8 +929,7 @@ mixin _$ClassPerformanceModel {
   List<ScoreModel>? get grade_scores => throw _privateConstructorUsedError;
   List<ScoreModel>? get bloom_skill_scores =>
       throw _privateConstructorUsedError;
-  List<StrandScoreModel>? get strand_scores =>
-      throw _privateConstructorUsedError;
+  List<ScoreModel>? get strand_scores => throw _privateConstructorUsedError;
   List<TermScore>? get class_term_scores => throw _privateConstructorUsedError;
 
   /// Serializes this ClassPerformanceModel to a JSON map.
@@ -956,7 +955,7 @@ abstract class $ClassPerformanceModelCopyWith<$Res> {
       String? avg_mtihani_expectation_level,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
-      List<StrandScoreModel>? strand_scores,
+      List<ScoreModel>? strand_scores,
       List<TermScore>? class_term_scores});
 }
 
@@ -1013,7 +1012,7 @@ class _$ClassPerformanceModelCopyWithImpl<$Res,
       strand_scores: freezed == strand_scores
           ? _value.strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
-              as List<StrandScoreModel>?,
+              as List<ScoreModel>?,
       class_term_scores: freezed == class_term_scores
           ? _value.class_term_scores
           : class_term_scores // ignore: cast_nullable_to_non_nullable
@@ -1038,7 +1037,7 @@ abstract class _$$ClassPerformanceModelImplCopyWith<$Res>
       String? avg_mtihani_expectation_level,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
-      List<StrandScoreModel>? strand_scores,
+      List<ScoreModel>? strand_scores,
       List<TermScore>? class_term_scores});
 }
 
@@ -1093,7 +1092,7 @@ class __$$ClassPerformanceModelImplCopyWithImpl<$Res>
       strand_scores: freezed == strand_scores
           ? _value._strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
-              as List<StrandScoreModel>?,
+              as List<ScoreModel>?,
       class_term_scores: freezed == class_term_scores
           ? _value._class_term_scores
           : class_term_scores // ignore: cast_nullable_to_non_nullable
@@ -1112,7 +1111,7 @@ class _$ClassPerformanceModelImpl implements _ClassPerformanceModel {
       this.avg_mtihani_expectation_level,
       final List<ScoreModel>? grade_scores,
       final List<ScoreModel>? bloom_skill_scores,
-      final List<StrandScoreModel>? strand_scores,
+      final List<ScoreModel>? strand_scores,
       final List<TermScore>? class_term_scores})
       : _grade_scores = grade_scores,
         _bloom_skill_scores = bloom_skill_scores,
@@ -1151,9 +1150,9 @@ class _$ClassPerformanceModelImpl implements _ClassPerformanceModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<StrandScoreModel>? _strand_scores;
+  final List<ScoreModel>? _strand_scores;
   @override
-  List<StrandScoreModel>? get strand_scores {
+  List<ScoreModel>? get strand_scores {
     final value = _strand_scores;
     if (value == null) return null;
     if (_strand_scores is EqualUnmodifiableListView) return _strand_scores;
@@ -1242,7 +1241,7 @@ abstract class _ClassPerformanceModel implements ClassPerformanceModel {
       final String? avg_mtihani_expectation_level,
       final List<ScoreModel>? grade_scores,
       final List<ScoreModel>? bloom_skill_scores,
-      final List<StrandScoreModel>? strand_scores,
+      final List<ScoreModel>? strand_scores,
       final List<TermScore>? class_term_scores}) = _$ClassPerformanceModelImpl;
 
   factory _ClassPerformanceModel.fromJson(Map<String, dynamic> json) =
@@ -1261,7 +1260,7 @@ abstract class _ClassPerformanceModel implements ClassPerformanceModel {
   @override
   List<ScoreModel>? get bloom_skill_scores;
   @override
-  List<StrandScoreModel>? get strand_scores;
+  List<ScoreModel>? get strand_scores;
   @override
   List<TermScore>? get class_term_scores;
 

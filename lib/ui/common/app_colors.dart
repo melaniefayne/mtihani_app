@@ -25,6 +25,7 @@ List<Color> getOnChartColors(int seriesLength, ThemeData theme) {
 const Color appGreen = Color(0xFF18A558);
 const Color appBlue = Color(0xFF0292B7);
 const Color appPeach = Color(0xFFDF7A57);
+const Color appRed = Color(0xFFF54D3D);
 const Color appPurple = Color(0xFF7A77E9);
 
 // chart constants
@@ -33,7 +34,7 @@ List<Color> defaultChartColors = const [
   appGreen,
   Color(0xFFE59349),
   Color(0xFFF9E56A),
-  Color(0xFFF54D3D),
+  appRed,
   appPurple,
   Color(0xFF84D3C5),
   Color(0xFF5C99F0),
@@ -46,16 +47,16 @@ List<Color> defaultChartColors = const [
 ];
 
 Map<Color, Color> defaultTextChartColors = {
-  const Color(0xFF0292B7): Colors.white, // Blue
-  const Color(0xFF18A558): Colors.white, // Green
+  appBlue: Colors.white, // Blue
+  appGreen: Colors.white, // Green
   const Color(0xFFE59349): Colors.white, // Orange
-  const Color(0xFFF54D3D): Colors.white, // Red
+  appRed: Colors.white, // Red
   const Color(0xFFF9E56A): Colors.black, // Yellow
-  const Color(0xFF7A77E9): Colors.white, // Purple
+  appPurple: Colors.white, // Purple
   const Color(0xFF84D3C5): Colors.black, // Light teal
   const Color(0xFF5C99F0): Colors.white, // Sky blue
   const Color(0xFF955670): Colors.white, // Dark purple
-  const Color(0xFFDF7A57): Colors.white, // Peach
+  appPeach: Colors.white, // Peach
   const Color(0xFF3D5B59): Colors.white, // Dark teal
   const Color(0xFFDB668D): Colors.white, // Pink
   const Color(0xFF000C66): Colors.white, // Navy

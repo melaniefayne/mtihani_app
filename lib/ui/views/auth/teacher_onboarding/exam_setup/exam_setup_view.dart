@@ -128,9 +128,9 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
               (e) {
                 List<int> gradeStrandIds =
                     (e.strands ?? []).map((e) => e.id!).toList();
-                List<StrandScoreModel> strandScores =
-                    (viewModel.data as List<StrandScoreModel>)
-                        .where((e) => gradeStrandIds.contains(e.strand?.id))
+                List<ScoreModel> strandScores =
+                    (viewModel.data as List<ScoreModel>)
+                        .where((e) => gradeStrandIds.contains(e.id))
                         .toList();
 
                 return StrandSelectionCard(

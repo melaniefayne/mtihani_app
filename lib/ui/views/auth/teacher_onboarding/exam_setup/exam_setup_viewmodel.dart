@@ -55,7 +55,7 @@ class ExamSetupViewModel extends FutureViewModel {
   }
 
   @override
-  Future<List<StrandScoreModel>> futureToRun() async {
+  Future<List<ScoreModel>> futureToRun() async {
     // var classStrandScApiRes = await onApiGetCall<StrandScoreModel>(
     //   getEndpoint: endPointGetClassStrandScores,
     //   queryParams: {"class_id": currentClass.id},
@@ -69,7 +69,7 @@ class ExamSetupViewModel extends FutureViewModel {
 
     // DUMMY ===========================
     // =================================
-    return dummyTrClass1StrandScores;
+    return [];
   }
 
   onStrandSelected(int strandId) {

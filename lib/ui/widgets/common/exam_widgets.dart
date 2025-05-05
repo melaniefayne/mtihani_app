@@ -18,8 +18,8 @@ class ExamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final dateStr = exam.start_time != null
-        ? appDayDateFormat.format(exam.start_time!)
+    final dateStr = exam.start_date_time != null
+        ? appDayDateFormat.format(exam.end_date_time!)
         : '--';
     final durationStr = exam.duration_min != null
         ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
@@ -62,7 +62,8 @@ class ExamCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text('Grade ${exam.classroom?.name ?? "--"} • $dateStr'),
+                    Text(
+                        '${exam.analysis?.question_count ?? "--"} Questions • $dateStr'),
                     Text(durationStr),
                   ],
                 ),
@@ -95,24 +96,22 @@ class ExamCard extends StatelessWidget {
   }
 }
 
-const String examStatGeneratingKw = "Generating";
-const String examStatUpcomingKw = "Upcoming";
-const String examStatOngoingKw = "Ongoing";
-const String examStatGradingKw = "Grading";
-const String examStatCompleteKw = "Complete";
-
-const List<String> allExamStatuses = [
-  examStatGeneratingKw,
-  examStatUpcomingKw,
-  examStatOngoingKw,
-  examStatGradingKw,
-  examStatCompleteKw,
+const String examIsPublishedKw = "Published";
+const String examIsUnpublishedKw = "Unpublished";
+const List<String> allExamPublishStatuses = [
+  examIsPublishedKw,
+  examIsUnpublishedKw
 ];
+List<String> allExamStatuses = ExamStatus.values
+    .map((e) => e.name.replaceFirst(e.name[0], e.name[0].toUpperCase()))
+    .toList();
 
 Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
   switch (statusEnum) {
     case ExamStatus.generating:
       return appPeach;
+    case ExamStatus.failed:
+      return appRed;
     case ExamStatus.upcoming:
       return appBlue;
     case ExamStatus.ongoing:
@@ -121,6 +120,8 @@ Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
       return appPurple;
     case ExamStatus.complete:
       return theme.primaryColor;
+    case ExamStatus.archived:
+      return Colors.grey;
     default:
       break;
   }

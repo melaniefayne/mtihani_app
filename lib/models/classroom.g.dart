@@ -98,7 +98,7 @@ _$ClassPerformanceModelImpl _$$ClassPerformanceModelImplFromJson(
           ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       strand_scores: (json['strand_scores'] as List<dynamic>?)
-          ?.map((e) => StrandScoreModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       class_term_scores: (json['class_term_scores'] as List<dynamic>?)
           ?.map((e) => TermScore.fromJson(e as Map<String, dynamic>))

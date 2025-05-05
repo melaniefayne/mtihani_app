@@ -25,8 +25,7 @@ mixin _$ClassExamPerformanceModel {
   List<ScoreModel>? get grade_scores => throw _privateConstructorUsedError;
   List<ScoreModel>? get bloom_skill_scores =>
       throw _privateConstructorUsedError;
-  List<StrandScoreModel>? get strand_scores =>
-      throw _privateConstructorUsedError;
+  List<ScoreModel>? get strand_scores => throw _privateConstructorUsedError;
   ExamModel? get exam => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
@@ -52,7 +51,7 @@ abstract class $ClassExamPerformanceModelCopyWith<$Res> {
       {double? avg_score,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
-      List<StrandScoreModel>? strand_scores,
+      List<ScoreModel>? strand_scores,
       ExamModel? exam,
       DateTime? created_at,
       DateTime? updated_at,
@@ -103,7 +102,7 @@ class _$ClassExamPerformanceModelCopyWithImpl<$Res,
       strand_scores: freezed == strand_scores
           ? _value.strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
-              as List<StrandScoreModel>?,
+              as List<ScoreModel>?,
       exam: freezed == exam
           ? _value.exam
           : exam // ignore: cast_nullable_to_non_nullable
@@ -165,7 +164,7 @@ abstract class _$$ClassExamPerformanceModelImplCopyWith<$Res>
       {double? avg_score,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
-      List<StrandScoreModel>? strand_scores,
+      List<ScoreModel>? strand_scores,
       ExamModel? exam,
       DateTime? created_at,
       DateTime? updated_at,
@@ -217,7 +216,7 @@ class __$$ClassExamPerformanceModelImplCopyWithImpl<$Res>
       strand_scores: freezed == strand_scores
           ? _value._strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
-              as List<StrandScoreModel>?,
+              as List<ScoreModel>?,
       exam: freezed == exam
           ? _value.exam
           : exam // ignore: cast_nullable_to_non_nullable
@@ -245,7 +244,7 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
       {this.avg_score,
       final List<ScoreModel>? grade_scores,
       final List<ScoreModel>? bloom_skill_scores,
-      final List<StrandScoreModel>? strand_scores,
+      final List<ScoreModel>? strand_scores,
       this.exam,
       this.created_at,
       this.updated_at,
@@ -280,9 +279,9 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<StrandScoreModel>? _strand_scores;
+  final List<ScoreModel>? _strand_scores;
   @override
-  List<StrandScoreModel>? get strand_scores {
+  List<ScoreModel>? get strand_scores {
     final value = _strand_scores;
     if (value == null) return null;
     if (_strand_scores is EqualUnmodifiableListView) return _strand_scores;
@@ -361,7 +360,7 @@ abstract class _ClassExamPerformanceModel implements ClassExamPerformanceModel {
       {final double? avg_score,
       final List<ScoreModel>? grade_scores,
       final List<ScoreModel>? bloom_skill_scores,
-      final List<StrandScoreModel>? strand_scores,
+      final List<ScoreModel>? strand_scores,
       final ExamModel? exam,
       final DateTime? created_at,
       final DateTime? updated_at,
@@ -377,7 +376,7 @@ abstract class _ClassExamPerformanceModel implements ClassExamPerformanceModel {
   @override
   List<ScoreModel>? get bloom_skill_scores;
   @override
-  List<StrandScoreModel>? get strand_scores;
+  List<ScoreModel>? get strand_scores;
   @override
   ExamModel? get exam;
   @override
@@ -719,8 +718,7 @@ mixin _$StudentExamSessionPerformanceModel {
   List<ScoreModel>? get grade_scores => throw _privateConstructorUsedError;
   List<ScoreModel>? get bloom_skill_scores =>
       throw _privateConstructorUsedError;
-  List<StrandScoreModel>? get strand_scores =>
-      throw _privateConstructorUsedError;
+  List<ScoreModel>? get strand_scores => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
   StudentExamSessionModel? get session => throw _privateConstructorUsedError;
@@ -750,7 +748,7 @@ abstract class $StudentExamSessionPerformanceModelCopyWith<$Res> {
       double? avg_score,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
-      List<StrandScoreModel>? strand_scores,
+      List<ScoreModel>? strand_scores,
       DateTime? created_at,
       DateTime? updated_at,
       StudentExamSessionModel? session,
@@ -805,7 +803,7 @@ class _$StudentExamSessionPerformanceModelCopyWithImpl<$Res,
       strand_scores: freezed == strand_scores
           ? _value.strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
-              as List<StrandScoreModel>?,
+              as List<ScoreModel>?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -854,7 +852,7 @@ abstract class _$$StudentExamSessionPerformanceModelImplCopyWith<$Res>
       double? avg_score,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
-      List<StrandScoreModel>? strand_scores,
+      List<ScoreModel>? strand_scores,
       DateTime? created_at,
       DateTime? updated_at,
       StudentExamSessionModel? session,
@@ -909,7 +907,7 @@ class __$$StudentExamSessionPerformanceModelImplCopyWithImpl<$Res>
       strand_scores: freezed == strand_scores
           ? _value._strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
-              as List<StrandScoreModel>?,
+              as List<ScoreModel>?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -939,7 +937,7 @@ class _$StudentExamSessionPerformanceModelImpl
       this.avg_score,
       final List<ScoreModel>? grade_scores,
       final List<ScoreModel>? bloom_skill_scores,
-      final List<StrandScoreModel>? strand_scores,
+      final List<ScoreModel>? strand_scores,
       this.created_at,
       this.updated_at,
       this.session,
@@ -978,9 +976,9 @@ class _$StudentExamSessionPerformanceModelImpl
     return EqualUnmodifiableListView(value);
   }
 
-  final List<StrandScoreModel>? _strand_scores;
+  final List<ScoreModel>? _strand_scores;
   @override
-  List<StrandScoreModel>? get strand_scores {
+  List<ScoreModel>? get strand_scores {
     final value = _strand_scores;
     if (value == null) return null;
     if (_strand_scores is EqualUnmodifiableListView) return _strand_scores;
@@ -1070,7 +1068,7 @@ abstract class _StudentExamSessionPerformanceModel
           final double? avg_score,
           final List<ScoreModel>? grade_scores,
           final List<ScoreModel>? bloom_skill_scores,
-          final List<StrandScoreModel>? strand_scores,
+          final List<ScoreModel>? strand_scores,
           final DateTime? created_at,
           final DateTime? updated_at,
           final StudentExamSessionModel? session,
@@ -1090,7 +1088,7 @@ abstract class _StudentExamSessionPerformanceModel
   @override
   List<ScoreModel>? get bloom_skill_scores;
   @override
-  List<StrandScoreModel>? get strand_scores;
+  List<ScoreModel>? get strand_scores;
   @override
   DateTime? get created_at;
   @override

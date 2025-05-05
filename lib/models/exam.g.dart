@@ -9,52 +9,103 @@ part of 'exam.dart';
 _$ExamModelImpl _$$ExamModelImplFromJson(Map<String, dynamic> json) =>
     _$ExamModelImpl(
       id: (json['id'] as num?)?.toInt(),
-      teacher_id: (json['teacher_id'] as num?)?.toInt(),
-      classroom: json['classroom'] == null
+      start_date_time: json['start_date_time'] == null
           ? null
-          : ClassroomModel.fromJson(json['classroom'] as Map<String, dynamic>),
-      grade: (json['grade'] as num?)?.toInt(),
-      code: json['code'] as String?,
+          : DateTime.parse(json['start_date_time'] as String),
+      end_date_time: json['end_date_time'] == null
+          ? null
+          : DateTime.parse(json['end_date_time'] as String),
       status: $enumDecodeNullable(_$ExamStatusEnumMap, json['status']),
+      is_published: json['is_published'] as bool?,
+      code: json['code'] as String?,
       duration_min: (json['duration_min'] as num?)?.toInt(),
-      start_time: json['start_time'] == null
-          ? null
-          : DateTime.parse(json['start_time'] as String),
-      end_time: json['end_time'] == null
-          ? null
-          : DateTime.parse(json['end_time'] as String),
-      isPublished: json['isPublished'] as bool?,
+      generation_error: json['generation_error'] as String?,
+      classroom_id: (json['classroom_id'] as num?)?.toInt(),
       created_at: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
       updated_at: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
+      analysis: json['analysis'] == null
+          ? null
+          : ExamQuestionAnalysisModel.fromJson(
+              json['analysis'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'teacher_id': instance.teacher_id,
-      'classroom': instance.classroom,
-      'grade': instance.grade,
-      'code': instance.code,
+      'start_date_time': instance.start_date_time?.toIso8601String(),
+      'end_date_time': instance.end_date_time?.toIso8601String(),
       'status': _$ExamStatusEnumMap[instance.status],
+      'is_published': instance.is_published,
+      'code': instance.code,
       'duration_min': instance.duration_min,
-      'start_time': instance.start_time?.toIso8601String(),
-      'end_time': instance.end_time?.toIso8601String(),
-      'isPublished': instance.isPublished,
+      'generation_error': instance.generation_error,
+      'classroom_id': instance.classroom_id,
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
+      'analysis': instance.analysis,
     };
 
 const _$ExamStatusEnumMap = {
-  ExamStatus.generating: 'generating',
-  ExamStatus.upcoming: 'upcoming',
-  ExamStatus.ongoing: 'ongoing',
-  ExamStatus.grading: 'grading',
-  ExamStatus.complete: 'complete',
+  ExamStatus.generating: 'Generating',
+  ExamStatus.failed: 'Failed',
+  ExamStatus.upcoming: 'Upcoming',
+  ExamStatus.ongoing: 'Ongoing',
+  ExamStatus.grading: 'Grading',
+  ExamStatus.complete: 'Complete',
+  ExamStatus.archived: 'Archived',
 };
+
+_$ExamQuestionAnalysisModelImpl _$$ExamQuestionAnalysisModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ExamQuestionAnalysisModelImpl(
+      question_count: (json['question_count'] as num?)?.toInt(),
+      grade_distribution: (json['grade_distribution'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      bloom_skill_distribution:
+          (json['bloom_skill_distribution'] as List<dynamic>?)
+              ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      strand_distribution: (json['strand_distribution'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      sub_strand_distribution:
+          (json['sub_strand_distribution'] as List<dynamic>?)
+              ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+    );
+
+Map<String, dynamic> _$$ExamQuestionAnalysisModelImplToJson(
+        _$ExamQuestionAnalysisModelImpl instance) =>
+    <String, dynamic>{
+      'question_count': instance.question_count,
+      'grade_distribution': instance.grade_distribution,
+      'bloom_skill_distribution': instance.bloom_skill_distribution,
+      'strand_distribution': instance.strand_distribution,
+      'sub_strand_distribution': instance.sub_strand_distribution,
+    };
+
+_$ScoreModelImpl _$$ScoreModelImplFromJson(Map<String, dynamic> json) =>
+    _$ScoreModelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'],
+      count: (json['count'] as num?)?.toInt(),
+      score: (json['score'] as num?)?.toDouble(),
+      expectation_level: json['expectation_level'] as String?,
+    );
+
+Map<String, dynamic> _$$ScoreModelImplToJson(_$ScoreModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'count': instance.count,
+      'score': instance.score,
+      'expectation_level': instance.expectation_level,
+    };
 
 _$ExamQuestionModelImpl _$$ExamQuestionModelImplFromJson(
         Map<String, dynamic> json) =>
@@ -92,78 +143,6 @@ Map<String, dynamic> _$$ExamQuestionModelImplToJson(
       'tr_description': instance.tr_description,
       'tr_expected_answer': instance.tr_expected_answer,
       'difficulty_level': instance.difficulty_level,
-    };
-
-_$ExamQuestionAnalysisModelImpl _$$ExamQuestionAnalysisModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ExamQuestionAnalysisModelImpl(
-      exam_id: (json['exam_id'] as num?)?.toInt(),
-      question_count: (json['question_count'] as num?)?.toInt(),
-      grade_distribution: (json['grade_distribution'] as List<dynamic>?)
-          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      bloom_skill_distribution:
-          (json['bloom_skill_distribution'] as List<dynamic>?)
-              ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
-              .toList(),
-      strand_distribution: (json['strand_distribution'] as List<dynamic>?)
-          ?.map((e) => StrandScoreModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      difficulty_distribution:
-          (json['difficulty_distribution'] as List<dynamic>?)
-              ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
-              .toList(),
-      questions: (json['questions'] as List<dynamic>?)
-          ?.map((e) => ExamQuestionModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$ExamQuestionAnalysisModelImplToJson(
-        _$ExamQuestionAnalysisModelImpl instance) =>
-    <String, dynamic>{
-      'exam_id': instance.exam_id,
-      'question_count': instance.question_count,
-      'grade_distribution': instance.grade_distribution,
-      'bloom_skill_distribution': instance.bloom_skill_distribution,
-      'strand_distribution': instance.strand_distribution,
-      'difficulty_distribution': instance.difficulty_distribution,
-      'questions': instance.questions,
-    };
-
-_$ScoreModelImpl _$$ScoreModelImplFromJson(Map<String, dynamic> json) =>
-    _$ScoreModelImpl(
-      id: (json['id'] as num?)?.toInt(),
-      name: json['name'] as String?,
-      count: (json['count'] as num?)?.toInt(),
-      score: (json['score'] as num?)?.toDouble(),
-      expectation_level: json['expectation_level'] as String?,
-    );
-
-Map<String, dynamic> _$$ScoreModelImplToJson(_$ScoreModelImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'count': instance.count,
-      'score': instance.score,
-      'expectation_level': instance.expectation_level,
-    };
-
-_$StrandScoreModelImpl _$$StrandScoreModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$StrandScoreModelImpl(
-      strand: json['strand'] == null
-          ? null
-          : ScoreModel.fromJson(json['strand'] as Map<String, dynamic>),
-      sub_strands: (json['sub_strands'] as List<dynamic>?)
-          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$StrandScoreModelImplToJson(
-        _$StrandScoreModelImpl instance) =>
-    <String, dynamic>{
-      'strand': instance.strand,
-      'sub_strands': instance.sub_strands,
     };
 
 _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(
