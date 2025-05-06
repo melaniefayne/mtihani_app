@@ -53,3 +53,17 @@ double getListOfDoublesSum(List<double> items) {
   }
   return sum;
 }
+
+String gradeText(int? grade) {
+  if (grade == null) return '—-';
+  switch (grade) {
+    case 7:
+      return 'Seven';
+    case 8:
+      return 'Eight';
+    case 9:
+      return 'Nine';
+    default:
+      return '$grade';
+  }
+}

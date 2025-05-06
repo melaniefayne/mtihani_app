@@ -10,7 +10,6 @@ class CbcService {
         .toList();
   }
 
-  /// Get GradeModels for the given grade and all grades before it
   List<GradeModel> getGradesUpTo(int grade) {
     return _grades
         .where((g) => g.grade != null)
@@ -26,7 +25,6 @@ class CbcService {
         .toList();
   }
 
-  /// Get GradeModel by grade string (e.g. "7")
   GradeModel? getGrade(int grade) {
     return _grades.firstWhere(
       (g) => g.grade == grade,
@@ -34,9 +32,52 @@ class CbcService {
     );
   }
 
-  /// Returns all strands for a given grade
-  List<StrandModel> getAllStrandsForGrade(int grade) {
+  List<StrandModel> getAllStrandsForGrade(int? grade) {
+    if (grade == null) return getAllStrands();
+
     final gradeModel = getGrade(grade);
     return gradeModel?.strands ?? [];
+  }
+
+  List<StrandModel> getAllStrands() {
+    return _grades.map((e) => e.strands ?? []).expand((s) => s).toList();
+  }
+
+  StrandModel? getStrand(int strandId) {
+    for (final grade in _grades) {
+      for (final strand in grade.strands ?? []) {
+        if (strand.id == strandId) {
+          return strand;
+        }
+      }
+    }
+    return null;
+  }
+
+  StrandModel? getStrandByName(String strandName) {
+    for (final grade in _grades) {
+      for (final strand in grade.strands ?? []) {
+        if (strand.name == strandName) {
+          return strand;
+        }
+      }
+    }
+    return null;
+  }
+
+  List<SubStrandModel> getAllSubStrandsForStrand(int? strandId) {
+    if (strandId == null) return getAllSubStrands();
+
+    final strand = getStrand(strandId);
+    return strand?.sub_strands ?? [];
+  }
+
+  List<SubStrandModel> getAllSubStrands() {
+    return _grades
+        .map((g) => g.strands ?? [])
+        .expand((s) => s)
+        .map((s) => s.sub_strands ?? [])
+        .expand((ss) => ss)
+        .toList();
   }
 }

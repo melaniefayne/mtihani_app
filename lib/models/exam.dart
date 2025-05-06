@@ -78,16 +78,18 @@ class ScoreModel with _$ScoreModel {
 class ExamQuestionModel with _$ExamQuestionModel {
   factory ExamQuestionModel({
     int? id,
-    int? exam_id,
+    int? number,
     int? grade,
-    ScoreModel? strand,
-    ScoreModel? sub_strand,
-    ScoreModel? bloom_skill,
+    String? strand,
+    String? sub_strand,
+    String? bloom_skill,
     String? description,
     String? expected_answer,
+    List<String>? bloom_skill_options,
+    List<String>? question_options,
+    List<String>? answer_options,
     String? tr_description,
     String? tr_expected_answer,
-    String? difficulty_level,
   }) = _ExamQuestionModel;
 
   factory ExamQuestionModel.fromJson(Map<String, dynamic> json) =>

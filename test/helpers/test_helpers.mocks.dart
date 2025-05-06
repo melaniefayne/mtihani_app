@@ -803,4 +803,53 @@ class MockCbcService extends _i1.Mock implements _i9.CbcService {
         returnValue: <_i10.StrandModel>[],
         returnValueForMissingStub: <_i10.StrandModel>[],
       ) as List<_i10.StrandModel>);
+
+  @override
+  List<_i10.StrandModel> getAllStrands() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllStrands,
+          [],
+        ),
+        returnValue: <_i10.StrandModel>[],
+        returnValueForMissingStub: <_i10.StrandModel>[],
+      ) as List<_i10.StrandModel>);
+
+  @override
+  _i10.StrandModel? getStrand(int? strandId) => (super.noSuchMethod(
+        Invocation.method(
+          #getStrand,
+          [strandId],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i10.StrandModel?);
+
+  @override
+  _i10.StrandModel? getStrandByName(String? strandName) => (super.noSuchMethod(
+        Invocation.method(
+          #getStrandByName,
+          [strandName],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i10.StrandModel?);
+
+  @override
+  List<_i10.SubStrandModel> getAllSubStrandsForStrand(int? strandId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllSubStrandsForStrand,
+          [strandId],
+        ),
+        returnValue: <_i10.SubStrandModel>[],
+        returnValueForMissingStub: <_i10.SubStrandModel>[],
+      ) as List<_i10.SubStrandModel>);
+
+  @override
+  List<_i10.SubStrandModel> getAllSubStrands() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllSubStrands,
+          [],
+        ),
+        returnValue: <_i10.SubStrandModel>[],
+        returnValueForMissingStub: <_i10.SubStrandModel>[],
+      ) as List<_i10.SubStrandModel>);
 }

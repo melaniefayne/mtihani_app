@@ -82,57 +82,53 @@ class StrandCard extends StatelessWidget {
     required SubStrandModel subStrand,
     required Size pageSize,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: AppSearchTable(
-        hasCount: false,
-        hideTotalCount: true,
-        rowHeight: pageSize.height * 0.45,
-        tableHeight: pageSize.height * 0.45,
-        frozenColumnsCount: 0,
-        tableHeaders: const [
-          "Description",
-          "Key Inquiries",
-          "Learning Outcomes",
-          "Assessment Rubrics",
-          "Learning Experiences",
-          "Core Competencies",
-          "Values",
-          "Pertinent Issues",
-          "Other Learning Areas",
-          "Learning Materials",
-          "Non Formal Activities",
-        ],
-        tableRows: [
-          DataRow(
-            cells: [
-              DataCell(buildListSection(items: subStrand.descriptions)),
-              DataCell(buildListSection(items: subStrand.key_inquiries)),
-              DataCell(buildListSection(items: subStrand.learning_outcomes)),
-              DataCell(
-                (subStrand.skills == null || (subStrand.skills ?? []).isEmpty)
-                    ? const SizedBox.shrink()
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: subStrand.skills!.length,
-                        itemBuilder: (context, idx) => SkillRubricWidget(
-                            skillData: subStrand.skills![idx]),
-                      ),
-              ),
-              DataCell(buildListSection(items: subStrand.learning_experiences)),
-              DataCell(buildListSection(items: subStrand.core_competencies)),
-              DataCell(buildListSection(items: subStrand.values)),
-              DataCell(buildListSection(items: subStrand.pertinent_issues)),
-              DataCell(buildListSection(items: subStrand.other_learning_areas)),
-              DataCell(buildListSection(items: subStrand.learning_materials)),
-              DataCell(
-                  buildListSection(items: subStrand.non_formal_activities)),
-            ],
-          ),
-        ],
-        itemsText: "No curriculum for this sub strand found",
-      ),
+    return AppSearchTable(
+      hasCount: false,
+      hideTotalCount: true,
+      rowHeight: pageSize.height * 0.45,
+      tableHeight: pageSize.height * 0.45,
+      frozenColumnsCount: 0,
+      tableHeaders: const [
+        "Description",
+        "Key Inquiries",
+        "Learning Outcomes",
+        "Assessment Rubrics",
+        "Learning Experiences",
+        "Core Competencies",
+        "Values",
+        "Pertinent Issues",
+        "Other Learning Areas",
+        "Learning Materials",
+        "Non Formal Activities",
+      ],
+      tableRows: [
+        DataRow(
+          cells: [
+            DataCell(buildListSection(items: subStrand.descriptions)),
+            DataCell(buildListSection(items: subStrand.key_inquiries)),
+            DataCell(buildListSection(items: subStrand.learning_outcomes)),
+            DataCell(
+              (subStrand.skills == null || (subStrand.skills ?? []).isEmpty)
+                  ? const SizedBox.shrink()
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: subStrand.skills!.length,
+                      itemBuilder: (context, idx) =>
+                          SkillRubricWidget(skillData: subStrand.skills![idx]),
+                    ),
+            ),
+            DataCell(buildListSection(items: subStrand.learning_experiences)),
+            DataCell(buildListSection(items: subStrand.core_competencies)),
+            DataCell(buildListSection(items: subStrand.values)),
+            DataCell(buildListSection(items: subStrand.pertinent_issues)),
+            DataCell(buildListSection(items: subStrand.other_learning_areas)),
+            DataCell(buildListSection(items: subStrand.learning_materials)),
+            DataCell(buildListSection(items: subStrand.non_formal_activities)),
+          ],
+        ),
+      ],
+      itemsText: "No curriculum for this sub strand found",
     );
   }
 

@@ -44,7 +44,4 @@ String get endPointCreateClassroomExam => "$baseURL/exam/create-classroom-exam";
 String get endPointRetryExamGeneration => "$baseURL/exam/retry-exam-generation";
 String get endPointEditClassroomExam => "$baseURL/exam/edit-classroom-exam";
 String get endPointGetExam => "$baseURL/exam/get-single-exam";
-
-// TODO ==================================================
-String get endPointGetClassStrandScores =>
-    "$baseURL/get-class-strand-scores"; // return List<StrandScoreModel> given class_id
+String get endPointGetExamQuestions => "$baseURL/exam/get-exam-questions";

@@ -1,12 +1,173 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:mtihani_app/app/app.locator.dart';
+import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/services/cbc_service.dart';
+import 'package:mtihani_app/utils/api/api_calls.dart';
+import 'package:mtihani_app/utils/api/api_config.dart';
+import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 
-class ExamQuestionListModel
-    extends FutureViewModel<List<ExamQuestionListModel>> {
+class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
   ExamModel exam;
   ExamQuestionListModel(this.exam);
+
+  final _cbcService = locator<CbcService>();
+  List<ExamQuestionModel> questionsOgList = [];
+  List<ExamQuestionModel> questionsList = [];
+  String? nextPageUrl;
+  bool isLoadMore = false;
+  TextEditingController searchTxtCtrl = TextEditingController();
+  bool isSearchActive = false;
+  String? searchTerm;
+  int? selectedGrade;
+  String? selectedBloomSkill;
+  StrandModel? selectedStrand;
+  SubStrandModel? selectedSubStrand;
+
   @override
-  Future<List<ExamQuestionListModel>> futureToRun() async {
+  Future<List<ExamQuestionModel>> futureToRun() async {
+    Map<String, dynamic> queryParams = {"exam_id": exam.id};
+
+    // if (!isStringEmptyOrNull(searchTerm)) {
+    //   queryParams["search"] = searchTerm;
+    // }
+
+    // if (selectedGrade != null) {
+    //   queryParams["grade"] = selectedGrade;
+    // }
+
+    // if (selectedBloomSkill != null) {
+    //   queryParams["bloom_skill"] = selectedBloomSkill;
+    // }
+
+    // if (selectedStrand != null) {
+    //   queryParams["strand"] = selectedStrand!.name;
+    // }
+
+    // if (selectedSubStrand != null) {
+    //   queryParams["sub_strand"] = selectedSubStrand!.name;
+    // }
+
+    var examQuestionsApiRes = await onApiGetCall<ExamQuestionModel>(
+      getEndpoint: isLoadMore
+          ? nextPageUrl ?? endPointGetExamQuestions
+          : endPointGetExamQuestions,
+      queryParams: queryParams,
+      listDataFromJson: ExamQuestionModel.fromJson,
+    );
+
+    if (apiCallChecks(examQuestionsApiRes, 'exam questions listing')) {
+      List<ExamQuestionModel> resQuestions =
+          examQuestionsApiRes.$1?.listData ?? [];
+      questionsList =
+          isLoadMore ? [...questionsList, ...resQuestions] : resQuestions;
+      nextPageUrl = examQuestionsApiRes.$1?.next;
+      questionsOgList = [...questionsList];
+      return questionsList;
+    }
     return [];
   }
+
+  onViewMoreQuestions() async {
+    if (nextPageUrl != null) {
+      isLoadMore = true;
+      await initialise();
+      isLoadMore = false;
+    }
+  }
+
+  onLocalFilter() {
+    questionsList = questionsOgList.where((q) {
+      final matchesGrade = selectedGrade == null || q.grade == selectedGrade;
+
+      final matchesStrand = selectedStrand?.name == null ||
+          q.strand?.toLowerCase() == selectedStrand?.name?.toLowerCase();
+
+      final matchesSubStrand = selectedSubStrand?.name == null ||
+          q.sub_strand?.toLowerCase() == selectedSubStrand?.name?.toLowerCase();
+
+      final matchesBloomSkill = selectedBloomSkill == null ||
+          q.bloom_skill?.toLowerCase() == selectedBloomSkill?.toLowerCase();
+
+      final matchesDescription = searchTerm == null ||
+          (q.description?.toLowerCase().contains(searchTerm!.toLowerCase()) ??
+              false);
+
+      return matchesGrade &&
+          matchesStrand &&
+          matchesSubStrand &&
+          matchesBloomSkill &&
+          matchesDescription;
+    }).toList();
+
+    rebuildUi();
+  }
+
+  Timer? _searchDebounce;
+  onSearchTermChanged(String? val) async {
+    if (_searchDebounce?.isActive ?? false) _searchDebounce!.cancel();
+    _searchDebounce = Timer(const Duration(seconds: 1), () async {
+      searchTerm = val;
+
+      if (isStringEmptyOrNull(val)) {
+        await onSearchCanceled();
+        return;
+      }
+
+      isSearchActive = true;
+      await onLocalFilter();
+    });
+  }
+
+  onSearchCanceled() async {
+    isSearchActive = false;
+    searchTerm = null;
+    searchTxtCtrl.clear();
+    await onLocalFilter();
+  }
+
+  onChangeSelectedGrade(String grade) {
+    if (grade == "All") {
+      selectedGrade = null;
+    } else {
+      selectedGrade = int.parse(grade);
+    }
+    onLocalFilter();
+  }
+
+  onChangeSelectedBloomSkill(String bloomSkill) {
+    if (bloomSkill == "All") {
+      selectedBloomSkill = null;
+    } else {
+      selectedBloomSkill = bloomSkill;
+    }
+    onLocalFilter();
+  }
+
+  List<StrandModel> get allStrands =>
+      _cbcService.getAllStrandsForGrade(selectedGrade);
+  onChangeSelectedStrand(StrandModel strand) {
+    if (strand.name == "All") {
+      selectedStrand = null;
+    } else {
+      selectedStrand = strand;
+    }
+    onLocalFilter();
+  }
+
+  List<SubStrandModel> get allSubStrands =>
+      _cbcService.getAllSubStrandsForStrand(selectedStrand?.id);
+  onChangeSelectedSubStrand(SubStrandModel subStrand) {
+    if (subStrand.name == "All") {
+      selectedSubStrand = null;
+    } else {
+      selectedSubStrand = subStrand;
+    }
+    onLocalFilter();
+  }
+
+  onViewExamQuestion(ExamQuestionModel question) {}
 }

@@ -46,3 +46,11 @@ final DateTime today = DateTime.now();
 final DateTime tomorrow = today.add(const Duration(days: 1));
 const List<int> allGradesList = [7, 8, 9];
 const int minExamDurationInMin = 75;
+const List<String> allBloomSkills = [
+  "Knowledge",
+  "Comprehension",
+  "Application",
+  "Analysis",
+  "Synthesis",
+  "Evaluation"
+];

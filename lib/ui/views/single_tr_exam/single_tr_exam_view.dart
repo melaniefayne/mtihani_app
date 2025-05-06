@@ -109,6 +109,11 @@ class ExamConfigTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        buildHeaderWidget(
+          theme: theme,
+          title: "Schedule",
+          leadingWidget: const Icon(Icons.calendar_today),
+        ),
         ListTile(
           onTap: exam.status == ExamStatus.upcoming
               ? () => onEditExamSchedule()

@@ -987,16 +987,18 @@ ExamQuestionModel _$ExamQuestionModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ExamQuestionModel {
   int? get id => throw _privateConstructorUsedError;
-  int? get exam_id => throw _privateConstructorUsedError;
+  int? get number => throw _privateConstructorUsedError;
   int? get grade => throw _privateConstructorUsedError;
-  ScoreModel? get strand => throw _privateConstructorUsedError;
-  ScoreModel? get sub_strand => throw _privateConstructorUsedError;
-  ScoreModel? get bloom_skill => throw _privateConstructorUsedError;
+  String? get strand => throw _privateConstructorUsedError;
+  String? get sub_strand => throw _privateConstructorUsedError;
+  String? get bloom_skill => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get expected_answer => throw _privateConstructorUsedError;
+  List<String>? get bloom_skill_options => throw _privateConstructorUsedError;
+  List<String>? get question_options => throw _privateConstructorUsedError;
+  List<String>? get answer_options => throw _privateConstructorUsedError;
   String? get tr_description => throw _privateConstructorUsedError;
   String? get tr_expected_answer => throw _privateConstructorUsedError;
-  String? get difficulty_level => throw _privateConstructorUsedError;
 
   /// Serializes this ExamQuestionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1016,20 +1018,18 @@ abstract class $ExamQuestionModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      int? exam_id,
+      int? number,
       int? grade,
-      ScoreModel? strand,
-      ScoreModel? sub_strand,
-      ScoreModel? bloom_skill,
+      String? strand,
+      String? sub_strand,
+      String? bloom_skill,
       String? description,
       String? expected_answer,
+      List<String>? bloom_skill_options,
+      List<String>? question_options,
+      List<String>? answer_options,
       String? tr_description,
-      String? tr_expected_answer,
-      String? difficulty_level});
-
-  $ScoreModelCopyWith<$Res>? get strand;
-  $ScoreModelCopyWith<$Res>? get sub_strand;
-  $ScoreModelCopyWith<$Res>? get bloom_skill;
+      String? tr_expected_answer});
 }
 
 /// @nodoc
@@ -1048,25 +1048,27 @@ class _$ExamQuestionModelCopyWithImpl<$Res, $Val extends ExamQuestionModel>
   @override
   $Res call({
     Object? id = freezed,
-    Object? exam_id = freezed,
+    Object? number = freezed,
     Object? grade = freezed,
     Object? strand = freezed,
     Object? sub_strand = freezed,
     Object? bloom_skill = freezed,
     Object? description = freezed,
     Object? expected_answer = freezed,
+    Object? bloom_skill_options = freezed,
+    Object? question_options = freezed,
+    Object? answer_options = freezed,
     Object? tr_description = freezed,
     Object? tr_expected_answer = freezed,
-    Object? difficulty_level = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      exam_id: freezed == exam_id
-          ? _value.exam_id
-          : exam_id // ignore: cast_nullable_to_non_nullable
+      number: freezed == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
               as int?,
       grade: freezed == grade
           ? _value.grade
@@ -1075,15 +1077,15 @@ class _$ExamQuestionModelCopyWithImpl<$Res, $Val extends ExamQuestionModel>
       strand: freezed == strand
           ? _value.strand
           : strand // ignore: cast_nullable_to_non_nullable
-              as ScoreModel?,
+              as String?,
       sub_strand: freezed == sub_strand
           ? _value.sub_strand
           : sub_strand // ignore: cast_nullable_to_non_nullable
-              as ScoreModel?,
+              as String?,
       bloom_skill: freezed == bloom_skill
           ? _value.bloom_skill
           : bloom_skill // ignore: cast_nullable_to_non_nullable
-              as ScoreModel?,
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -1092,6 +1094,18 @@ class _$ExamQuestionModelCopyWithImpl<$Res, $Val extends ExamQuestionModel>
           ? _value.expected_answer
           : expected_answer // ignore: cast_nullable_to_non_nullable
               as String?,
+      bloom_skill_options: freezed == bloom_skill_options
+          ? _value.bloom_skill_options
+          : bloom_skill_options // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      question_options: freezed == question_options
+          ? _value.question_options
+          : question_options // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      answer_options: freezed == answer_options
+          ? _value.answer_options
+          : answer_options // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       tr_description: freezed == tr_description
           ? _value.tr_description
           : tr_description // ignore: cast_nullable_to_non_nullable
@@ -1100,53 +1114,7 @@ class _$ExamQuestionModelCopyWithImpl<$Res, $Val extends ExamQuestionModel>
           ? _value.tr_expected_answer
           : tr_expected_answer // ignore: cast_nullable_to_non_nullable
               as String?,
-      difficulty_level: freezed == difficulty_level
-          ? _value.difficulty_level
-          : difficulty_level // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
-  }
-
-  /// Create a copy of ExamQuestionModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ScoreModelCopyWith<$Res>? get strand {
-    if (_value.strand == null) {
-      return null;
-    }
-
-    return $ScoreModelCopyWith<$Res>(_value.strand!, (value) {
-      return _then(_value.copyWith(strand: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ExamQuestionModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ScoreModelCopyWith<$Res>? get sub_strand {
-    if (_value.sub_strand == null) {
-      return null;
-    }
-
-    return $ScoreModelCopyWith<$Res>(_value.sub_strand!, (value) {
-      return _then(_value.copyWith(sub_strand: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ExamQuestionModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ScoreModelCopyWith<$Res>? get bloom_skill {
-    if (_value.bloom_skill == null) {
-      return null;
-    }
-
-    return $ScoreModelCopyWith<$Res>(_value.bloom_skill!, (value) {
-      return _then(_value.copyWith(bloom_skill: value) as $Val);
-    });
   }
 }
 
@@ -1160,23 +1128,18 @@ abstract class _$$ExamQuestionModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
-      int? exam_id,
+      int? number,
       int? grade,
-      ScoreModel? strand,
-      ScoreModel? sub_strand,
-      ScoreModel? bloom_skill,
+      String? strand,
+      String? sub_strand,
+      String? bloom_skill,
       String? description,
       String? expected_answer,
+      List<String>? bloom_skill_options,
+      List<String>? question_options,
+      List<String>? answer_options,
       String? tr_description,
-      String? tr_expected_answer,
-      String? difficulty_level});
-
-  @override
-  $ScoreModelCopyWith<$Res>? get strand;
-  @override
-  $ScoreModelCopyWith<$Res>? get sub_strand;
-  @override
-  $ScoreModelCopyWith<$Res>? get bloom_skill;
+      String? tr_expected_answer});
 }
 
 /// @nodoc
@@ -1193,25 +1156,27 @@ class __$$ExamQuestionModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? exam_id = freezed,
+    Object? number = freezed,
     Object? grade = freezed,
     Object? strand = freezed,
     Object? sub_strand = freezed,
     Object? bloom_skill = freezed,
     Object? description = freezed,
     Object? expected_answer = freezed,
+    Object? bloom_skill_options = freezed,
+    Object? question_options = freezed,
+    Object? answer_options = freezed,
     Object? tr_description = freezed,
     Object? tr_expected_answer = freezed,
-    Object? difficulty_level = freezed,
   }) {
     return _then(_$ExamQuestionModelImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      exam_id: freezed == exam_id
-          ? _value.exam_id
-          : exam_id // ignore: cast_nullable_to_non_nullable
+      number: freezed == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
               as int?,
       grade: freezed == grade
           ? _value.grade
@@ -1220,15 +1185,15 @@ class __$$ExamQuestionModelImplCopyWithImpl<$Res>
       strand: freezed == strand
           ? _value.strand
           : strand // ignore: cast_nullable_to_non_nullable
-              as ScoreModel?,
+              as String?,
       sub_strand: freezed == sub_strand
           ? _value.sub_strand
           : sub_strand // ignore: cast_nullable_to_non_nullable
-              as ScoreModel?,
+              as String?,
       bloom_skill: freezed == bloom_skill
           ? _value.bloom_skill
           : bloom_skill // ignore: cast_nullable_to_non_nullable
-              as ScoreModel?,
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -1237,6 +1202,18 @@ class __$$ExamQuestionModelImplCopyWithImpl<$Res>
           ? _value.expected_answer
           : expected_answer // ignore: cast_nullable_to_non_nullable
               as String?,
+      bloom_skill_options: freezed == bloom_skill_options
+          ? _value._bloom_skill_options
+          : bloom_skill_options // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      question_options: freezed == question_options
+          ? _value._question_options
+          : question_options // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      answer_options: freezed == answer_options
+          ? _value._answer_options
+          : answer_options // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       tr_description: freezed == tr_description
           ? _value.tr_description
           : tr_description // ignore: cast_nullable_to_non_nullable
@@ -1244,10 +1221,6 @@ class __$$ExamQuestionModelImplCopyWithImpl<$Res>
       tr_expected_answer: freezed == tr_expected_answer
           ? _value.tr_expected_answer
           : tr_expected_answer // ignore: cast_nullable_to_non_nullable
-              as String?,
-      difficulty_level: freezed == difficulty_level
-          ? _value.difficulty_level
-          : difficulty_level // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -1258,16 +1231,21 @@ class __$$ExamQuestionModelImplCopyWithImpl<$Res>
 class _$ExamQuestionModelImpl implements _ExamQuestionModel {
   _$ExamQuestionModelImpl(
       {this.id,
-      this.exam_id,
+      this.number,
       this.grade,
       this.strand,
       this.sub_strand,
       this.bloom_skill,
       this.description,
       this.expected_answer,
+      final List<String>? bloom_skill_options,
+      final List<String>? question_options,
+      final List<String>? answer_options,
       this.tr_description,
-      this.tr_expected_answer,
-      this.difficulty_level});
+      this.tr_expected_answer})
+      : _bloom_skill_options = bloom_skill_options,
+        _question_options = question_options,
+        _answer_options = answer_options;
 
   factory _$ExamQuestionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExamQuestionModelImplFromJson(json);
@@ -1275,29 +1253,59 @@ class _$ExamQuestionModelImpl implements _ExamQuestionModel {
   @override
   final int? id;
   @override
-  final int? exam_id;
+  final int? number;
   @override
   final int? grade;
   @override
-  final ScoreModel? strand;
+  final String? strand;
   @override
-  final ScoreModel? sub_strand;
+  final String? sub_strand;
   @override
-  final ScoreModel? bloom_skill;
+  final String? bloom_skill;
   @override
   final String? description;
   @override
   final String? expected_answer;
+  final List<String>? _bloom_skill_options;
+  @override
+  List<String>? get bloom_skill_options {
+    final value = _bloom_skill_options;
+    if (value == null) return null;
+    if (_bloom_skill_options is EqualUnmodifiableListView)
+      return _bloom_skill_options;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _question_options;
+  @override
+  List<String>? get question_options {
+    final value = _question_options;
+    if (value == null) return null;
+    if (_question_options is EqualUnmodifiableListView)
+      return _question_options;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _answer_options;
+  @override
+  List<String>? get answer_options {
+    final value = _answer_options;
+    if (value == null) return null;
+    if (_answer_options is EqualUnmodifiableListView) return _answer_options;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? tr_description;
   @override
   final String? tr_expected_answer;
-  @override
-  final String? difficulty_level;
 
   @override
   String toString() {
-    return 'ExamQuestionModel(id: $id, exam_id: $exam_id, grade: $grade, strand: $strand, sub_strand: $sub_strand, bloom_skill: $bloom_skill, description: $description, expected_answer: $expected_answer, tr_description: $tr_description, tr_expected_answer: $tr_expected_answer, difficulty_level: $difficulty_level)';
+    return 'ExamQuestionModel(id: $id, number: $number, grade: $grade, strand: $strand, sub_strand: $sub_strand, bloom_skill: $bloom_skill, description: $description, expected_answer: $expected_answer, bloom_skill_options: $bloom_skill_options, question_options: $question_options, answer_options: $answer_options, tr_description: $tr_description, tr_expected_answer: $tr_expected_answer)';
   }
 
   @override
@@ -1306,7 +1314,7 @@ class _$ExamQuestionModelImpl implements _ExamQuestionModel {
         (other.runtimeType == runtimeType &&
             other is _$ExamQuestionModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
+            (identical(other.number, number) || other.number == number) &&
             (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.strand, strand) || other.strand == strand) &&
             (identical(other.sub_strand, sub_strand) ||
@@ -1317,12 +1325,16 @@ class _$ExamQuestionModelImpl implements _ExamQuestionModel {
                 other.description == description) &&
             (identical(other.expected_answer, expected_answer) ||
                 other.expected_answer == expected_answer) &&
+            const DeepCollectionEquality()
+                .equals(other._bloom_skill_options, _bloom_skill_options) &&
+            const DeepCollectionEquality()
+                .equals(other._question_options, _question_options) &&
+            const DeepCollectionEquality()
+                .equals(other._answer_options, _answer_options) &&
             (identical(other.tr_description, tr_description) ||
                 other.tr_description == tr_description) &&
             (identical(other.tr_expected_answer, tr_expected_answer) ||
-                other.tr_expected_answer == tr_expected_answer) &&
-            (identical(other.difficulty_level, difficulty_level) ||
-                other.difficulty_level == difficulty_level));
+                other.tr_expected_answer == tr_expected_answer));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1330,16 +1342,18 @@ class _$ExamQuestionModelImpl implements _ExamQuestionModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      exam_id,
+      number,
       grade,
       strand,
       sub_strand,
       bloom_skill,
       description,
       expected_answer,
+      const DeepCollectionEquality().hash(_bloom_skill_options),
+      const DeepCollectionEquality().hash(_question_options),
+      const DeepCollectionEquality().hash(_answer_options),
       tr_description,
-      tr_expected_answer,
-      difficulty_level);
+      tr_expected_answer);
 
   /// Create a copy of ExamQuestionModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1361,16 +1375,18 @@ class _$ExamQuestionModelImpl implements _ExamQuestionModel {
 abstract class _ExamQuestionModel implements ExamQuestionModel {
   factory _ExamQuestionModel(
       {final int? id,
-      final int? exam_id,
+      final int? number,
       final int? grade,
-      final ScoreModel? strand,
-      final ScoreModel? sub_strand,
-      final ScoreModel? bloom_skill,
+      final String? strand,
+      final String? sub_strand,
+      final String? bloom_skill,
       final String? description,
       final String? expected_answer,
+      final List<String>? bloom_skill_options,
+      final List<String>? question_options,
+      final List<String>? answer_options,
       final String? tr_description,
-      final String? tr_expected_answer,
-      final String? difficulty_level}) = _$ExamQuestionModelImpl;
+      final String? tr_expected_answer}) = _$ExamQuestionModelImpl;
 
   factory _ExamQuestionModel.fromJson(Map<String, dynamic> json) =
       _$ExamQuestionModelImpl.fromJson;
@@ -1378,25 +1394,29 @@ abstract class _ExamQuestionModel implements ExamQuestionModel {
   @override
   int? get id;
   @override
-  int? get exam_id;
+  int? get number;
   @override
   int? get grade;
   @override
-  ScoreModel? get strand;
+  String? get strand;
   @override
-  ScoreModel? get sub_strand;
+  String? get sub_strand;
   @override
-  ScoreModel? get bloom_skill;
+  String? get bloom_skill;
   @override
   String? get description;
   @override
   String? get expected_answer;
   @override
+  List<String>? get bloom_skill_options;
+  @override
+  List<String>? get question_options;
+  @override
+  List<String>? get answer_options;
+  @override
   String? get tr_description;
   @override
   String? get tr_expected_answer;
-  @override
-  String? get difficulty_level;
 
   /// Create a copy of ExamQuestionModel
   /// with the given fields replaced by the non-null parameter values.

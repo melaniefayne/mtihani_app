@@ -31,16 +31,13 @@ Widget chartIndicator({
                 children: [
                   TextSpan(
                     text: label,
-                    style: const TextStyle(
-                        fontSize: 10, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
                     text: percentage == null ? '' : ' ($percentage)',
-                    style: const TextStyle(fontSize: 8),
                   ),
                   TextSpan(
                     text: extension != null ? ' • $extension' : '',
-                    style: const TextStyle(fontSize: 8),
                   ),
                 ],
               ),
@@ -95,15 +92,12 @@ Widget actionChartIndicator({
                     children: [
                       TextSpan(
                         text: label,
-                        style: const TextStyle(fontSize: 10),
                       ),
                       TextSpan(
                         text: percentage == null ? '' : ' ($percentage)',
-                        style: const TextStyle(fontSize: 8),
                       ),
                       TextSpan(
                         text: extension != null ? ' • $extension' : '',
-                        style: const TextStyle(fontSize: 8),
                       ),
                     ],
                   ),

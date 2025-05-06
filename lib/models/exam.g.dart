@@ -113,38 +113,42 @@ _$ExamQuestionModelImpl _$$ExamQuestionModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ExamQuestionModelImpl(
       id: (json['id'] as num?)?.toInt(),
-      exam_id: (json['exam_id'] as num?)?.toInt(),
+      number: (json['number'] as num?)?.toInt(),
       grade: (json['grade'] as num?)?.toInt(),
-      strand: json['strand'] == null
-          ? null
-          : ScoreModel.fromJson(json['strand'] as Map<String, dynamic>),
-      sub_strand: json['sub_strand'] == null
-          ? null
-          : ScoreModel.fromJson(json['sub_strand'] as Map<String, dynamic>),
-      bloom_skill: json['bloom_skill'] == null
-          ? null
-          : ScoreModel.fromJson(json['bloom_skill'] as Map<String, dynamic>),
+      strand: json['strand'] as String?,
+      sub_strand: json['sub_strand'] as String?,
+      bloom_skill: json['bloom_skill'] as String?,
       description: json['description'] as String?,
       expected_answer: json['expected_answer'] as String?,
+      bloom_skill_options: (json['bloom_skill_options'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      question_options: (json['question_options'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      answer_options: (json['answer_options'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       tr_description: json['tr_description'] as String?,
       tr_expected_answer: json['tr_expected_answer'] as String?,
-      difficulty_level: json['difficulty_level'] as String?,
     );
 
 Map<String, dynamic> _$$ExamQuestionModelImplToJson(
         _$ExamQuestionModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'exam_id': instance.exam_id,
+      'number': instance.number,
       'grade': instance.grade,
       'strand': instance.strand,
       'sub_strand': instance.sub_strand,
       'bloom_skill': instance.bloom_skill,
       'description': instance.description,
       'expected_answer': instance.expected_answer,
+      'bloom_skill_options': instance.bloom_skill_options,
+      'question_options': instance.question_options,
+      'answer_options': instance.answer_options,
       'tr_description': instance.tr_description,
       'tr_expected_answer': instance.tr_expected_answer,
-      'difficulty_level': instance.difficulty_level,
     };
 
 _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(

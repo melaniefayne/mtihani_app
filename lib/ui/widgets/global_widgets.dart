@@ -328,27 +328,32 @@ Widget buildHeaderWidget({
   Widget? leadingWidget,
   Widget? trailingWidget,
 }) {
-  return Row(
-    children: [
-      if (leadingWidget != null)
-        Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: leadingWidget,
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 20),
+    child: Row(
+      children: [
+        if (leadingWidget != null)
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: leadingWidget,
+          ),
+        Text(
+          title,
+          style: style ??
+              theme.textTheme.headlineSmall!
+                  .copyWith(fontWeight: FontWeight.bold),
         ),
-      Text(
-        title,
-        style: style ?? theme.textTheme.titleSmall,
-      ),
-      Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Divider(
-            color: theme.colorScheme.outline,
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Divider(
+              color: theme.colorScheme.outline,
+            ),
           ),
         ),
-      ),
-      if (trailingWidget != null) trailingWidget,
-    ],
+        if (trailingWidget != null) trailingWidget,
+      ],
+    ),
   );
 }
 

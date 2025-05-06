@@ -61,6 +61,7 @@ class _AppPageFiltersState extends State<AppPageFilters> {
                         )
                       : buildDropDownFormField(
                           theme: theme,
+                          width: filterWidth,
                           label: filterItem.label,
                           selectedValue: filterItem.selectedValue,
                           items: filterItem.items!
@@ -87,15 +88,14 @@ class _AppPageFiltersState extends State<AppPageFilters> {
         child: ButtonTheme(
           alignedDropdown: true,
           child: DropdownButtonFormField<dynamic>(
+            isExpanded: true,
             decoration: InputDecoration(
               label: Text(
                 label,
-                style: theme.textTheme.bodyLarge!
-                    .copyWith(fontWeight: FontWeight.w500),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             value: selectedValue,
-            icon: const Icon(Icons.arrow_drop_down),
             onChanged: (dynamic value) {
               onChanged(value);
             },

@@ -69,6 +69,7 @@ class _AppCarouselState extends State<AppCarousel> {
           ? const BouncingScrollPhysics()
           : const NeverScrollableScrollPhysics(),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: widget.children,
       ),
     );

@@ -81,7 +81,7 @@ class _AppCollapsibleScaffoldState extends State<AppCollapsibleScaffold> {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: ExpansionPanelList(
         expandedHeaderPadding: EdgeInsets.zero,
         materialGapSize: widget.sectionsGapSize,
@@ -123,7 +123,10 @@ class _AppCollapsibleScaffoldState extends State<AppCollapsibleScaffold> {
                   ),
                 );
               },
-              body: item.widget,
+              body: Padding(
+                padding: const EdgeInsets.all(10),
+                child: item.widget,
+              ),
             );
           },
         ).toList(),
