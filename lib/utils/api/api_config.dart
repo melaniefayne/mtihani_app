@@ -45,3 +45,4 @@ String get endPointRetryExamGeneration => "$baseURL/exam/retry-exam-generation";
 String get endPointEditClassroomExam => "$baseURL/exam/edit-classroom-exam";
 String get endPointGetExam => "$baseURL/exam/get-single-exam";
 String get endPointGetExamQuestions => "$baseURL/exam/get-exam-questions";
+String get endPointEditExamQuestions => "$baseURL/exam/edit-exam-questions";

@@ -32,104 +32,118 @@ class ExamQuestionList extends StackedView<ExamQuestionListModel> {
             title: "Analysis",
             leadingWidget: const Icon(Icons.analytics_outlined),
           ),
-          ExamQuestionAnalysisSection(
-            questionAnalysis: viewModel.exam.analysis!,
-          ),
+          viewModel.isLoading
+              ? buildLoadingWidget(theme, "Fetching exam details ...")
+              : ExamQuestionAnalysisSection(
+                  questionAnalysis: viewModel.exam.analysis!,
+                ),
           SizedBox(height: pageSize.height * 0.02),
           buildHeaderWidget(
             theme: theme,
             title: "Listing",
             leadingWidget: const Icon(Icons.help_outline),
           ),
-          AppPageFilters(
-            fullWidth: pageSize.width * 0.75,
-            filters: [
-              AppFilterItem(
-                label: "Bloom Skill",
-                selectedValue: viewModel.selectedBloomSkill,
-                onChanged: (val) {
-                  viewModel.onChangeSelectedBloomSkill(val);
-                },
-                items: ['All', ...allBloomSkills]
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              AppFilterItem(
-                label: "Grade",
-                selectedValue: viewModel.selectedGrade?.toString(),
-                onChanged: (val) {
-                  viewModel.onChangeSelectedGrade(val);
-                },
-                items: ['All', "7", "8", "9"]
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value == "All" ? "All" : "Grade $value"),
-                  );
-                }).toList(),
-              ),
-              AppFilterItem(
-                label: "Strand",
-                selectedValue: viewModel.selectedStrand,
-                onChanged: (val) {
-                  viewModel.onChangeSelectedStrand(val);
-                },
-                items: [StrandModel(name: "All"), ...viewModel.allStrands]
-                    .map<DropdownMenuItem<StrandModel>>((StrandModel value) {
-                  return DropdownMenuItem<StrandModel>(
-                    value: value,
-                    child: Text(value.name ?? "--"),
-                  );
-                }).toList(),
-              ),
-              AppFilterItem(
-                label: "Sub-Strand",
-                selectedValue: viewModel.selectedSubStrand,
-                onChanged: (val) {
-                  viewModel.onChangeSelectedSubStrand(val);
-                },
-                items: [
-                  SubStrandModel(name: "All"),
-                  ...viewModel.allSubStrands
-                ].map<DropdownMenuItem<SubStrandModel>>((SubStrandModel value) {
-                  return DropdownMenuItem<SubStrandModel>(
-                    value: value,
-                    child: Text(value.name ?? "--"),
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-          SizedBox(height: pageSize.height * 0.01),
-          if (viewModel.isBusy)
-            buildLoadingWidget(theme, "Fetching exam questions",
-                isLinear: true),
-          AppSearchList(
-            isSearchActive: viewModel.isSearchActive,
-            searchTxtCtrl: viewModel.searchTxtCtrl,
-            onSearchTermChanged: viewModel.onSearchTermChanged,
-            onSearchCanceled: viewModel.onSearchCanceled,
-            hintText: "Search by question description",
-            itemsText: "exam questions",
-            children: viewModel.questionsList
-                .map((e) => ExamQuestionCard(
-                      question: e,
-                      canEdit: viewModel.exam.status == ExamStatus.upcoming,
-                      onViewQuestion: viewModel.onViewExamQuestion,
-                    ))
-                .toList(),
-          ),
-          const SizedBox(height: 10),
-          if (viewModel.nextPageUrl != null)
-            buildPriBtn(
-              theme: theme,
-              btnTxt: "Load More",
-              onAction: viewModel.onViewMoreQuestions,
-            ),
+          viewModel.isLoading
+              ? buildLoadingWidget(theme, "Fetching exam details ...")
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppPageFilters(
+                      fullWidth: pageSize.width * 0.75,
+                      filters: [
+                        AppFilterItem(
+                          label: "Bloom Skill",
+                          selectedValue: viewModel.selectedBloomSkill,
+                          onChanged: (val) {
+                            viewModel.onChangeSelectedBloomSkill(val);
+                          },
+                          items: ['All', ...allBloomSkills]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                        AppFilterItem(
+                          label: "Grade",
+                          selectedValue: viewModel.selectedGrade?.toString(),
+                          onChanged: (val) {
+                            viewModel.onChangeSelectedGrade(val);
+                          },
+                          items: ['All', "7", "8", "9"]
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child:
+                                  Text(value == "All" ? "All" : "Grade $value"),
+                            );
+                          }).toList(),
+                        ),
+                        AppFilterItem(
+                          label: "Strand",
+                          selectedValue: viewModel.selectedStrand,
+                          onChanged: (val) {
+                            viewModel.onChangeSelectedStrand(val);
+                          },
+                          items: [
+                            StrandModel(name: "All"),
+                            ...viewModel.allStrands
+                          ].map<DropdownMenuItem<StrandModel>>(
+                              (StrandModel value) {
+                            return DropdownMenuItem<StrandModel>(
+                              value: value,
+                              child: Text(value.name ?? "--"),
+                            );
+                          }).toList(),
+                        ),
+                        AppFilterItem(
+                          label: "Sub-Strand",
+                          selectedValue: viewModel.selectedSubStrand,
+                          onChanged: (val) {
+                            viewModel.onChangeSelectedSubStrand(val);
+                          },
+                          items: [
+                            SubStrandModel(name: "All"),
+                            ...viewModel.allSubStrands
+                          ].map<DropdownMenuItem<SubStrandModel>>(
+                              (SubStrandModel value) {
+                            return DropdownMenuItem<SubStrandModel>(
+                              value: value,
+                              child: Text(value.name ?? "--"),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: pageSize.height * 0.01),
+                    if (viewModel.isBusy)
+                      buildLoadingWidget(theme, "Fetching exam questions",
+                          isLinear: true),
+                    AppSearchList(
+                      isSearchActive: viewModel.isSearchActive,
+                      searchTxtCtrl: viewModel.searchTxtCtrl,
+                      onSearchTermChanged: viewModel.onSearchTermChanged,
+                      onSearchCanceled: viewModel.onSearchCanceled,
+                      hintText: "Search by question description",
+                      itemsText: "exam questions",
+                      children: viewModel.questionsList
+                          .map((e) => ExamQuestionCard(
+                                question: e,
+                                onEditQuestion: viewModel.onEditQuestion,
+                              ))
+                          .toList(),
+                    ),
+                    const SizedBox(height: 10),
+                    if (viewModel.nextPageUrl != null)
+                      buildPriBtn(
+                        theme: theme,
+                        btnTxt: "Load More",
+                        onAction: viewModel.onViewMoreQuestions,
+                      ),
+                  ],
+                ),
         ],
       ),
     );

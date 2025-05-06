@@ -28,6 +28,7 @@ import 'package:mtihani_app/services/cbc_service.dart';
 import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
 import 'package:mtihani_app/ui/views/single_tr_exam/single_tr_exam_view.dart';
 import 'package:mtihani_app/ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart';
+import 'package:mtihani_app/ui/dialogs/edit_exam_question/edit_exam_question_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -72,6 +73,7 @@ import 'package:mtihani_app/ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart
     StackedDialog(classType: ClassSelectorDialog),
     StackedDialog(classType: JoinClassDialog),
     StackedDialog(classType: EditExamTimeDialog),
+    StackedDialog(classType: EditExamQuestionDialog),
 // @stacked-dialog
   ],
 )

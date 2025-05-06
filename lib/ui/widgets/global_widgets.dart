@@ -238,7 +238,7 @@ Widget buildPageTitle({
           Center(
             child: Text(
               pageTitle,
-              style: theme.textTheme.headlineMedium!
+              style: theme.textTheme.titleLarge!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -773,5 +773,39 @@ Widget buildPageSectionScaffold(
         ...children,
       ],
     ),
+  );
+}
+
+Widget metaIconText(
+    ThemeData theme, Size pageSize, IconData icon, String label, String? value,
+    {bool isLast = false, double? spacing}) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon),
+      const SizedBox(width: 10),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$label ',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            value ?? '—-',
+            style: theme.textTheme.bodySmall,
+          ),
+        ],
+      ),
+      if (!isLast)
+        Container(
+          margin: EdgeInsets.symmetric(
+              horizontal: spacing ?? pageSize.width * 0.035),
+          width: 1,
+          height: pageSize.height * 0.05,
+          color: theme.colorScheme.outlineVariant,
+        ),
+    ],
   );
 }

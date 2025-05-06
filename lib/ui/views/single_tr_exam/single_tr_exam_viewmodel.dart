@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/exam.dart';
@@ -37,7 +35,6 @@ class SingleTrExamViewModel extends BaseViewModel {
       data: {'currentExam': trClassroomExam!},
     );
     List<DateTime>? selectedTimes = dialogRes?.data;
-    log("received $selectedTimes");
 
     if (selectedTimes != null && selectedTimes.isNotEmpty) {
       await onApiUpdateExam({

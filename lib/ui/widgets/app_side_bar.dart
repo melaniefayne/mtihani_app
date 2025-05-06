@@ -33,7 +33,7 @@ class _AppSideBarScaffoldState extends State<AppSideBarScaffold> {
         children: [
           // Sidebar
           Container(
-            width: pageSize.width * 0.17,
+            width: pageSize.width * 0.15,
             color: theme.primaryColor,
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Column(

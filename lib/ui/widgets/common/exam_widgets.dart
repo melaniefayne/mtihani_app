@@ -189,14 +189,12 @@ Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
 
 class ExamQuestionCard extends StatelessWidget {
   final ExamQuestionModel question;
-  final Function(ExamQuestionModel question) onViewQuestion;
-  final bool canEdit;
+  final Function(ExamQuestionModel question)? onEditQuestion;
 
   const ExamQuestionCard({
     super.key,
     required this.question,
-    required this.onViewQuestion,
-    this.canEdit = false,
+    this.onEditQuestion,
   });
 
   @override
@@ -204,7 +202,7 @@ class ExamQuestionCard extends StatelessWidget {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
     return GestureDetector(
-      onTap: () => onViewQuestion(question),
+      onTap: onEditQuestion != null ? () => onEditQuestion!(question) : null,
       child: Container(
         decoration: BoxDecoration(
           color: theme.cardColor,
@@ -247,11 +245,14 @@ class ExamQuestionCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  buildIconBtn(
-                    theme: theme,
-                    iconPath: canEdit ? Icons.edit : Icons.read_more,
-                  ),
+                  if (onEditQuestion != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: buildIconBtn(
+                        theme: theme,
+                        iconPath: Icons.edit,
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -282,13 +283,13 @@ class ExamQuestionCard extends StatelessWidget {
             Center(
               child: AppCarousel(
                 children: [
-                  _metaIconText(theme, pageSize, Icons.stairs_outlined, 'Grade',
+                  metaIconText(theme, pageSize, Icons.stairs_outlined, 'Grade',
                       gradeText(question.grade)),
-                  _metaIconText(theme, pageSize, Icons.folder_copy, 'Strand',
+                  metaIconText(theme, pageSize, Icons.folder_copy, 'Strand',
                       question.strand),
-                  _metaIconText(theme, pageSize, Icons.folder_open,
-                      'Sub-Strand', question.sub_strand),
-                  _metaIconText(theme, pageSize, Icons.psychology, 'Skill',
+                  metaIconText(theme, pageSize, Icons.folder_open, 'Sub-Strand',
+                      question.sub_strand),
+                  metaIconText(theme, pageSize, Icons.psychology, 'Skill',
                       question.bloom_skill,
                       isLast: true),
                 ],
@@ -297,39 +298,6 @@ class ExamQuestionCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _metaIconText(ThemeData theme, Size pageSize, IconData icon,
-      String label, String? value,
-      {bool isLast = false}) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon),
-        const SizedBox(width: 10),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '$label ',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text(
-              value ?? '—-',
-              style: theme.textTheme.bodySmall,
-            ),
-          ],
-        ),
-        if (!isLast)
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: pageSize.width * 0.035),
-            width: 1,
-            height: pageSize.height * 0.05,
-            color: theme.colorScheme.outlineVariant,
-          ),
-      ],
     );
   }
 }

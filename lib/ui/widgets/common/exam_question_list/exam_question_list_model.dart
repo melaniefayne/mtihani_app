@@ -1,20 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/services/cbc_service.dart';
+import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
   ExamModel exam;
   ExamQuestionListModel(this.exam);
 
   final _cbcService = locator<CbcService>();
+  final _dialogService = locator<DialogService>();
+  final _sharedPrefsService = locator<SharedPrefsService>();
   List<ExamQuestionModel> questionsOgList = [];
   List<ExamQuestionModel> questionsList = [];
   String? nextPageUrl;
@@ -26,6 +31,7 @@ class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
   String? selectedBloomSkill;
   StrandModel? selectedStrand;
   SubStrandModel? selectedSubStrand;
+  bool isLoading = false;
 
   @override
   Future<List<ExamQuestionModel>> futureToRun() async {
@@ -169,5 +175,37 @@ class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
     onLocalFilter();
   }
 
-  onViewExamQuestion(ExamQuestionModel question) {}
+  onEditQuestion(ExamQuestionModel examQuestion) async {
+    var dialogRes = await _dialogService.showCustomDialog(
+      variant: DialogType.editExamQuestion,
+      data: {'examQuestion': examQuestion},
+    );
+    Map<String, dynamic>? updateBody = dialogRes?.data;
+
+    if (updateBody != null) {
+      isLoading = true;
+      rebuildUi();
+      var examApiRes = await onApiPostCall<ExamModel>(
+        postEndpoint: endPointEditExamQuestions,
+        dataMap: {
+          "questions": [updateBody],
+        },
+        dataFromJson: ExamModel.fromJson,
+        dataField: "new_exam",
+      );
+      isLoading = false;
+      rebuildUi();
+
+      if (apiCallChecks(examApiRes, "exam question update result",
+              showSuccessMessage: true) ==
+          true) {
+        ExamModel? resExam = examApiRes.$1?.data;
+        if (resExam != null) {
+          exam = resExam;
+          await _sharedPrefsService.setSingleTrExamNavArg(resExam);
+          await initialise();
+        }
+      }
+    }
+  }
 }
