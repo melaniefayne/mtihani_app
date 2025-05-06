@@ -29,6 +29,7 @@ mixin _$ExamModel {
   int? get duration_min => throw _privateConstructorUsedError;
   String? get generation_error => throw _privateConstructorUsedError;
   int? get classroom_id => throw _privateConstructorUsedError;
+  String? get classroom_name => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
   ExamQuestionAnalysisModel? get analysis => throw _privateConstructorUsedError;
@@ -58,6 +59,7 @@ abstract class $ExamModelCopyWith<$Res> {
       int? duration_min,
       String? generation_error,
       int? classroom_id,
+      String? classroom_name,
       DateTime? created_at,
       DateTime? updated_at,
       ExamQuestionAnalysisModel? analysis});
@@ -89,6 +91,7 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
     Object? duration_min = freezed,
     Object? generation_error = freezed,
     Object? classroom_id = freezed,
+    Object? classroom_name = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
     Object? analysis = freezed,
@@ -130,6 +133,10 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
           ? _value.classroom_id
           : classroom_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      classroom_name: freezed == classroom_name
+          ? _value.classroom_name
+          : classroom_name // ignore: cast_nullable_to_non_nullable
+              as String?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -178,6 +185,7 @@ abstract class _$$ExamModelImplCopyWith<$Res>
       int? duration_min,
       String? generation_error,
       int? classroom_id,
+      String? classroom_name,
       DateTime? created_at,
       DateTime? updated_at,
       ExamQuestionAnalysisModel? analysis});
@@ -208,6 +216,7 @@ class __$$ExamModelImplCopyWithImpl<$Res>
     Object? duration_min = freezed,
     Object? generation_error = freezed,
     Object? classroom_id = freezed,
+    Object? classroom_name = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
     Object? analysis = freezed,
@@ -249,6 +258,10 @@ class __$$ExamModelImplCopyWithImpl<$Res>
           ? _value.classroom_id
           : classroom_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      classroom_name: freezed == classroom_name
+          ? _value.classroom_name
+          : classroom_name // ignore: cast_nullable_to_non_nullable
+              as String?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -278,6 +291,7 @@ class _$ExamModelImpl implements _ExamModel {
       this.duration_min,
       this.generation_error,
       this.classroom_id,
+      this.classroom_name,
       this.created_at,
       this.updated_at,
       this.analysis});
@@ -304,6 +318,8 @@ class _$ExamModelImpl implements _ExamModel {
   @override
   final int? classroom_id;
   @override
+  final String? classroom_name;
+  @override
   final DateTime? created_at;
   @override
   final DateTime? updated_at;
@@ -312,7 +328,7 @@ class _$ExamModelImpl implements _ExamModel {
 
   @override
   String toString() {
-    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, created_at: $created_at, updated_at: $updated_at, analysis: $analysis)';
+    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis)';
   }
 
   @override
@@ -335,6 +351,8 @@ class _$ExamModelImpl implements _ExamModel {
                 other.generation_error == generation_error) &&
             (identical(other.classroom_id, classroom_id) ||
                 other.classroom_id == classroom_id) &&
+            (identical(other.classroom_name, classroom_name) ||
+                other.classroom_name == classroom_name) &&
             (identical(other.created_at, created_at) ||
                 other.created_at == created_at) &&
             (identical(other.updated_at, updated_at) ||
@@ -356,6 +374,7 @@ class _$ExamModelImpl implements _ExamModel {
       duration_min,
       generation_error,
       classroom_id,
+      classroom_name,
       created_at,
       updated_at,
       analysis);
@@ -387,6 +406,7 @@ abstract class _ExamModel implements ExamModel {
       final int? duration_min,
       final String? generation_error,
       final int? classroom_id,
+      final String? classroom_name,
       final DateTime? created_at,
       final DateTime? updated_at,
       final ExamQuestionAnalysisModel? analysis}) = _$ExamModelImpl;
@@ -412,6 +432,8 @@ abstract class _ExamModel implements ExamModel {
   String? get generation_error;
   @override
   int? get classroom_id;
+  @override
+  String? get classroom_name;
   @override
   DateTime? get created_at;
   @override

@@ -13,7 +13,7 @@ import 'package:mtihani_app/ui/views/auth/student_signup/student_signup_view.dar
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_onboarding_view.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
+import 'package:mtihani_app/ui/views/exam_setup/exam_setup_view.dart';
 import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart';
 import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
 import 'package:mtihani_app/ui/views/single_tr_class/single_tr_class_view.dart';

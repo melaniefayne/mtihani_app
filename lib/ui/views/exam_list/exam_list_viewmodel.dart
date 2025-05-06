@@ -4,7 +4,6 @@ import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
-import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/widgets/common/dash_page/dash_page_model.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
@@ -14,7 +13,6 @@ import 'package:stacked_services/stacked_services.dart';
 
 class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   final _dialogService = locator<DialogService>();
-  final _trOnboardService = locator<TeacherOnboardingService>();
   final _navigationService = locator<NavigationService>();
   final _sharedPrefsService = locator<SharedPrefsService>();
   bool isTeacher = false;
@@ -104,9 +102,9 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
             ?.data as ClassroomModel?;
 
     if (chosenClass != null) {
-      _trOnboardService.onSetCurrentClass(chosenClass);
-      _trOnboardService.onSetIsFromOnboarding(false);
-      _navigationService.navigateToExamSetupView();
+      bool canNavigate =
+          await _sharedPrefsService.setSingleTrClassroomNavArg(chosenClass);
+      if (canNavigate) _navigationService.navigateToExamSetupView();
     }
   }
 

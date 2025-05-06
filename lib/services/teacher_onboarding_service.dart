@@ -3,7 +3,6 @@ import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart';
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -66,11 +65,6 @@ List<TeacherOnboardingModel> onboardingWidgets = [
     title: 'Add a class',
     subtitle: "Bring your students onboard",
     mainWidget: const ClassFormView(),
-  ),
-  TeacherOnboardingModel(
-    title: 'Set your first exam',
-    subtitle: "A step closer to better insights",
-    mainWidget: const ExamSetupView(),
   ),
 ];
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mtihani_app/models/classroom.dart';
-import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/widgets/app_start_end_date_form.dart';
 import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
@@ -22,55 +20,58 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
   ) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(pageSize.width * 0.03),
-        child: Column(
-          children: [
-            buildPageTitle(
-              theme: theme,
-              pageTitle: "Set an Exam",
-              actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
-              action: viewModel.onGoToHome,
+
+    if (viewModel.trClassroom == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return buildAppPageScaffold(
+      theme: theme,
+      pageSize: pageSize,
+      pageTitle: "Generate an exam",
+      children: [
+        Text(
+          "You’re setting up an exam for a Grade ${viewModel.trClassroom!.grade} class (${viewModel.trClassroom!.name}).",
+          textAlign: TextAlign.center,
+          style: theme.textTheme.titleMedium,
+        ),
+        const SizedBox(height: 10),
+        AppTabBarScaffold(
+          showUnViewedIndicator: false,
+          sectionWidth: pageSize.width * 0.7,
+          tabs: [
+            TabViewItem(
+              label: " 1. Strands",
+              icon: Icons.category,
+              widget: viewModel.isBusy
+                  ? const Center(child: CircularProgressIndicator())
+                  : buildStrandSection(
+                      theme: theme,
+                      pageSize: pageSize,
+                      viewModel: viewModel,
+                    ),
             ),
-            AppTabBarScaffold(
-              showUnViewedIndicator: false,
-              sectionWidth: pageSize.width * 0.7,
-              tabs: [
-                TabViewItem(
-                  label: " 1. Strands",
-                  icon: Icons.category,
-                  widget: viewModel.isBusy
-                      ? const Center(child: CircularProgressIndicator())
-                      : buildStrandSection(
-                          theme: theme,
-                          pageSize: pageSize,
-                          viewModel: viewModel,
-                        ),
-                ),
-                TabViewItem(
-                  label: " 2. Custom Content",
-                  icon: Icons.file_upload,
-                  widget: buildCustomFilesSection(
-                    theme: theme,
-                    pageSize: pageSize,
-                    viewModel: viewModel,
-                  ),
-                ),
-                TabViewItem(
-                  label: " 3. Duration",
-                  icon: Icons.timer,
-                  widget: buildDurationSection(
-                    theme: theme,
-                    pageSize: pageSize,
-                    viewModel: viewModel,
-                  ),
-                ),
-              ],
+            TabViewItem(
+              label: " 2. Custom Content",
+              icon: Icons.file_upload,
+              widget: buildCustomFilesSection(
+                theme: theme,
+                pageSize: pageSize,
+                viewModel: viewModel,
+              ),
+            ),
+            TabViewItem(
+              label: " 3. Duration",
+              icon: Icons.timer,
+              widget: buildDurationSection(
+                theme: theme,
+                pageSize: pageSize,
+                viewModel: viewModel,
+              ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 
@@ -79,13 +80,11 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
     required Size pageSize,
     required ExamSetupViewModel viewModel,
   }) {
-    ClassroomModel currentClass = viewModel.currentClass;
-
     return buildSectionScaffold(
       theme: theme,
       pageSize: pageSize,
       sectionTitle:
-          "You’re setting up an exam for Grade ${currentClass.grade} (${currentClass.name}). Choose the strands you want to include, or leave it as is to test all strands up to this grade.",
+          "Choose the strands you want to include, or leave it as is to test all strands up to this grade.",
       child: Column(
         children: [
           Row(
@@ -124,23 +123,16 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
           Wrap(
             spacing: 15,
             runSpacing: 15,
-            children: viewModel.currentClassCurriculum.map(
-              (e) {
-                List<int> gradeStrandIds =
-                    (e.strands ?? []).map((e) => e.id!).toList();
-                List<ScoreModel> strandScores =
-                    (viewModel.data as List<ScoreModel>)
-                        .where((e) => gradeStrandIds.contains(e.id))
-                        .toList();
-
-                return StrandSelectionCard(
-                  gradeCbc: e,
-                  gradeStrandScores: strandScores,
-                  selectedStrands: viewModel.selectedStrandsIds,
-                  onStrandSelected: viewModel.onStrandSelected,
-                );
-              },
-            ).toList(),
+            children: viewModel.currentClassCurriculum
+                .map(
+                  (e) => StrandSelectionCard(
+                    gradeCbc: e,
+                    gradeStrandScores: [],
+                    selectedStrands: viewModel.selectedStrandsIds,
+                    onStrandSelected: viewModel.onStrandSelected,
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -245,4 +237,16 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
     BuildContext context,
   ) =>
       ExamSetupViewModel();
+
+  @override
+  void onViewModelReady(ExamSetupViewModel viewModel) {
+    super.onViewModelReady(viewModel);
+    viewModel.onExamSetupViewReady();
+  }
+
+  @override
+  void onDispose(ExamSetupViewModel viewModel) {
+    super.onDispose(viewModel);
+    viewModel.onDispose();
+  }
 }

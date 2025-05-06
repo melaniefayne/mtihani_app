@@ -1,5 +1,4 @@
 import 'package:mtihani_app/app/app.locator.dart';
-import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.form.dart';
@@ -8,11 +7,9 @@ import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class ClassFormViewModel extends BaseViewModel with FormStateHelper {
   final _trOnboardingService = locator<TeacherOnboardingService>();
-  final _navigationService = locator<NavigationService>();
   bool get isFromOnboarding => _trOnboardingService.isFromOnboarding;
   int? selectedGrade;
   String? gradeErrorMsg;
@@ -115,29 +112,11 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
     if (apiCallChecks(apiCallRes, "classroom result",
             showSuccessMessage: true) ==
         true) {
-      ClassroomModel? newClassroom = apiCallRes.$1?.data;
-      if (newClassroom != null) {
-        if (isFromOnboarding) {
-          onGoToHome();
-        } else {
-          _navigationService.clearStackAndShow(Routes.dashboardView);
-        }
-      }
+      onFinishOnboarding();
     }
   }
 
-  resetClassFormView() {
-    clearForm();
-    selectedGrade = null;
-    selectedLessonTimes = [];
-    rebuildUi();
-  }
-
-  onGoToNext() {
-    _trOnboardingService.goToNextPage();
-  }
-
-  onGoToHome() {
+  onFinishOnboarding() {
     _trOnboardingService.onFinishOnboarding();
   }
 }

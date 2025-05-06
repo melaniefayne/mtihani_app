@@ -20,8 +20,6 @@ import 'package:mtihani_app/ui/views/auth/student_signup/student_signup_view.dar
     as _i6;
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/class_form/class_form_view.dart'
     as _i8;
-import 'package:mtihani_app/ui/views/auth/teacher_onboarding/exam_setup/exam_setup_view.dart'
-    as _i9;
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_onboarding_view.dart'
     as _i7;
 import 'package:mtihani_app/ui/views/auth/teacher_onboarding/teacher_signup/teacher_signup_view.dart'
@@ -31,6 +29,7 @@ import 'package:mtihani_app/ui/views/classroom_list/classroom_list_view.dart'
     as _i4;
 import 'package:mtihani_app/ui/views/dashboard/dashboard_view.dart' as _i10;
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart' as _i16;
+import 'package:mtihani_app/ui/views/exam_setup/exam_setup_view.dart' as _i9;
 import 'package:mtihani_app/ui/views/single_st_class/single_st_class_view.dart'
     as _i15;
 import 'package:mtihani_app/ui/views/single_tr_class/single_tr_class_view.dart'

@@ -21,6 +21,7 @@ _$ExamModelImpl _$$ExamModelImplFromJson(Map<String, dynamic> json) =>
       duration_min: (json['duration_min'] as num?)?.toInt(),
       generation_error: json['generation_error'] as String?,
       classroom_id: (json['classroom_id'] as num?)?.toInt(),
+      classroom_name: json['classroom_name'] as String?,
       created_at: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -44,6 +45,7 @@ Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
       'duration_min': instance.duration_min,
       'generation_error': instance.generation_error,
       'classroom_id': instance.classroom_id,
+      'classroom_name': instance.classroom_name,
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
       'analysis': instance.analysis,

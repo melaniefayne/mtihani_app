@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
 
 DateFormat shortDateFormat = DateFormat('dd/MM/yy');
-DateFormat apiDateTimeFormat = DateFormat('dd/MM/yyyy HH:mm');
 
 String? getFormattedDate(DateTime? dateTime, DateFormat dtFormat) {
   if (dateTime == null) return null;

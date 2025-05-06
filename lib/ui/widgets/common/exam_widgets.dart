@@ -77,7 +77,7 @@ class ExamCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Exam ${exam.code ?? "--"}',
+                      'Exam ${exam.code ?? "--"} (Grade ${exam.classroom_name})',
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),

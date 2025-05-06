@@ -36,6 +36,7 @@ class ExamModel with _$ExamModel {
     int? duration_min,
     String? generation_error,
     int? classroom_id,
+    String? classroom_name,
     DateTime? created_at,
     DateTime? updated_at,
     ExamQuestionAnalysisModel? analysis,

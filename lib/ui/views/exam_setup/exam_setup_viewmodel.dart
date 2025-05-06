@@ -1,75 +1,50 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/classroom.dart';
-import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/services/cbc_service.dart';
-import 'package:mtihani_app/services/teacher_onboarding_service.dart';
+import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
-import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:universal_html/html.dart' as html;
 
-class ExamSetupViewModel extends FutureViewModel {
-  final _navigationService = locator<NavigationService>();
-  final _trOnboardingService = locator<TeacherOnboardingService>();
-  final _cbcService = locator<CbcService>();
-  bool get isFromOnboarding => _trOnboardingService.isFromOnboarding;
-  bool isLoading = false;
-  String? examSetupError;
+class ExamSetupViewModel extends BaseViewModel {
+  final _sharedPrefsService = locator<SharedPrefsService>();
+  ClassroomModel? trClassroom;
   List<GradeModel> currentClassCurriculum = [];
-  int defaultGrade = allGradesList.first;
-  late ClassroomModel currentClass;
   List<int> allStrandIds = [];
   List<int> selectedStrandsIds = [];
+  //
+  final _navigationService = locator<NavigationService>();
+  final _cbcService = locator<CbcService>();
+  bool isLoading = false;
+  String? examSetupError;
+
+  int defaultGrade = allGradesList.first;
+
   String? strandSelectError;
 
-  ExamSetupViewModel() {
-    onExamSetupViewReady();
-  }
-
-  onExamSetupViewReady() {
-    if (_trOnboardingService.currentClass == null) {
-      _navigationService.clearStackAndShow(Routes.examListView);
+  onExamSetupViewReady() async {
+    trClassroom = await _sharedPrefsService.getSingleTrClassroomNavArg();
+    if (trClassroom == null) {
+      _navigationService.clearStackAndShow(Routes.startupView);
       return;
     }
-
-    currentClass = _trOnboardingService.currentClass!;
     currentClassCurriculum =
-        _cbcService.getGradesUpTo(currentClass.grade ?? defaultGrade);
+        _cbcService.getGradesUpTo(trClassroom!.grade ?? defaultGrade);
 
     allStrandIds = currentClassCurriculum
-        .where((e) => (e.grade ?? defaultGrade) <= currentClass.grade!)
+        .where((e) => (e.grade ?? defaultGrade) <= trClassroom!.grade!)
         .expand((e) => (e.strands ?? []))
         .map((s) => s.id ?? -1)
         .where((id) => id != -1)
         .toList()
         .cast<int>();
     selectedStrandsIds = [...allStrandIds];
-  }
-
-  @override
-  Future<List<ScoreModel>> futureToRun() async {
-    // var classStrandScApiRes = await onApiGetCall<StrandScoreModel>(
-    //   getEndpoint: endPointGetClassStrandScores,
-    //   queryParams: {"class_id": currentClass.id},
-    // );
-
-    // if (apiCallChecks(classStrandScApiRes, 'class strand scores')) {
-    //   return classStrandScApiRes.$1?.listData ?? [];
-    // }
-
-    // return [];
-
-    // DUMMY ===========================
-    // =================================
-    return [];
+    rebuildUi();
   }
 
   onStrandSelected(int strandId) {
@@ -152,39 +127,34 @@ class ExamSetupViewModel extends FutureViewModel {
 
   onApiExamSetup() async {
     Map<String, dynamic> examBody = {
-      "class_id": currentClass.id,
-      "selected_strand_ids": selectedStrandsIds,
-      "selected_times": selectedTimes
-          .map((e) => getFormattedDate(e, apiDateTimeFormat))
-          .toList(),
+      "start_date_time": selectedTimes.first.toIso8601String(),
+      "end_date_time": selectedTimes.last.toIso8601String(),
+      "strand_ids": selectedStrandsIds,
+      // "question_count": 3,
+      // "bloom_skill_count": 1,
     };
     if (selectedFiles.isNotEmpty) {
       examBody["selected_files"] = selectedFiles;
     }
 
-    log('Creating exam with ${jsonEncode(examBody)}');
+    isLoading = true;
+    rebuildUi();
+    var apiCallRes = await onApiPostCall(
+      queryParams: {"classroom_id": trClassroom!.id},
+      postEndpoint: endPointCreateClassroomExam,
+      dataMap: examBody,
+    );
+    isLoading = false;
+    rebuildUi();
 
-    // isLoading = true;
-    // rebuildUi();
-    // var apiCallRes = await onApiPostCall(
-    //   postEndpoint: endPointCreateExam,
-    //   dataMap: examBody,
-    // );
-    // isLoading = false;
-    // rebuildUi();
-
-    // if (apiCallChecks(apiCallRes, "exam generation result",
-    //         showSuccessMessage: true) ==
-    //     true) {
-    //   onGoToHome();
-    // }
-
-    // DUMMY ===========================
-    // =================================
-    onGoToHome();
+    if (apiCallChecks(apiCallRes, "exam generation result",
+            showSuccessMessage: true) ==
+        true) {
+      _navigationService.clearStackAndShow(Routes.dashboardView);
+    }
   }
 
-  onGoToHome() {
-    _trOnboardingService.onFinishOnboarding();
+  onDispose() async {
+    await _sharedPrefsService.clearSingleTrClassroomNavArg();
   }
 }

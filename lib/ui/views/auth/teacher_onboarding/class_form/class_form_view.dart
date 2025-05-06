@@ -53,7 +53,7 @@ class ClassFormView extends StackedView<ClassFormViewModel>
                         theme: theme,
                         pageTitle: viewModel.pageTitle,
                         actionTxt: viewModel.isFromOnboarding ? "Skip" : "Back",
-                        action: viewModel.onGoToHome,
+                        action: viewModel.onFinishOnboarding,
                       ),
               ),
             Row(
