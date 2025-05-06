@@ -42,12 +42,13 @@ class ClassroomListView extends DashPage<ClassroomListViewModel> {
                   label: "My Classes",
                   count: userClassrooms.length,
                 ),
-                buildPriBtn(
-                  theme: theme,
-                  btnTxt: viewModel.classActionTxt,
-                  iconPath: FontAwesomeIcons.usersRectangle,
-                  onAction: viewModel.onOnboardClassroom,
-                ),
+                if (viewModel.isTeacher)
+                  buildPriBtn(
+                    theme: theme,
+                    btnTxt: viewModel.classActionTxt,
+                    iconPath: FontAwesomeIcons.usersRectangle,
+                    onAction: viewModel.onOnboardClassroom,
+                  ),
               ],
             ),
             const Divider(),

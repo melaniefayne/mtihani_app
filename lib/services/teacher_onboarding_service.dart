@@ -35,11 +35,6 @@ class TeacherOnboardingService {
 
     final nextPage = pageController.page!.toInt() + 1;
 
-    if (nextPage == onboardingWidgets.length - 1 && currentClass == null) {
-      onFinishOnboarding();
-      return;
-    }
-
     pageController.animateToPage(
       nextPage,
       duration: const Duration(milliseconds: 300),

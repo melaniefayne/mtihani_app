@@ -121,19 +121,20 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
                 ),
               ),
             ),
-          Wrap(
-            spacing: 15,
-            runSpacing: 15,
-            children: viewModel.currentClassCurriculum
-                .map(
-                  (e) => StrandSelectionCard(
-                    gradeCbc: e,
-                    gradeStrandScores: [],
-                    selectedStrands: viewModel.selectedStrandsIds,
-                    onStrandSelected: viewModel.onStrandSelected,
-                  ),
-                )
-                .toList(),
+          SizedBox(
+            height: pageSize.height * 0.6,
+            child: ListView(
+              children: viewModel.currentClassCurriculum
+                  .map(
+                    (e) => StrandSelectionCard(
+                      gradeCbc: e,
+                      gradeStrandScores: const [],
+                      selectedStrands: viewModel.selectedStrandsIds,
+                      onStrandSelected: viewModel.onStrandSelected,
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         ],
       ),

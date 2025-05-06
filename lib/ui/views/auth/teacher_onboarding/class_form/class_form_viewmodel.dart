@@ -100,12 +100,10 @@ class ClassFormViewModel extends BaseViewModel with FormStateHelper {
 
     isLoading = true;
     rebuildUi();
-    var apiCallRes = await onApiPostCall<ClassroomModel>(
+    var apiCallRes = await onApiPostCall(
       postEndpoint: isClassEdit ? endPointEditClass : endPointCreateClass,
       queryParams: isClassEdit ? {"classroom_id": classToEdit!.id!} : null,
       dataMap: classBody,
-      dataFromJson: ClassroomModel.fromJson,
-      dataField: "new_classroom",
     );
     isLoading = false;
     rebuildUi();
