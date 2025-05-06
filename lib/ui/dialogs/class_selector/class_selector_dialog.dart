@@ -26,19 +26,20 @@ class ClassSelectorDialog extends StackedView<ClassSelectorDialogModel> {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
     final widgetConfig = request.data as Map<String, dynamic>?;
-    List<ClassroomModel> loggedInUserClassrooms =
-        widgetConfig!['loggedInUserClassrooms'];
+    List<ClassroomModel> userClassrooms = widgetConfig!['userClassrooms'];
     return buildDialogScaffold(
         theme: theme,
         pageSize: pageSize,
         title: "Choose a Class",
-        children: loggedInUserClassrooms
-            .map((e) => ClassroomCard(
+        children: userClassrooms
+            .map((e) => SizedBox(
+                width: pageSize.width * 0.3,
+                child: ClassroomCard(
                   classroom: e,
                   isDense: true,
                   onTap: (classroom) =>
                       viewModel.onClassSelection(completer, classroom),
-                ))
+                )))
             .toList());
   }
 

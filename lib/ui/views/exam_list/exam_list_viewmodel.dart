@@ -3,6 +3,7 @@ import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/services/teacher_onboarding_service.dart';
 import 'package:mtihani_app/ui/widgets/common/dash_page/dash_page_model.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
@@ -15,11 +16,7 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   final _dialogService = locator<DialogService>();
   final _trOnboardService = locator<TeacherOnboardingService>();
   final _navigationService = locator<NavigationService>();
-
-  List<ClassroomModel> examClassrooms = [];
-  ClassroomModel? currentClassroom;
-  bool isSingleClassView = false;
-
+  final _sharedPrefsService = locator<SharedPrefsService>();
   bool isTeacher = false;
   bool isStudent = false;
   bool isLoadMore = false;
@@ -29,18 +26,13 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   String? selectedExamStatus;
   String? selectedExamIsPublished;
 
-  ExamListViewModel(
-      super.userClassrooms, super.loggedInUser, this.currentClassroom);
-
-  onExamListViewReady() async {
+  ExamListViewModel(super.userClassrooms, super.loggedInUser) {
     isTeacher = loggedInUser.role == appTeacherRoleKw;
     isStudent = loggedInUser.role == appStudentRoleKw;
-    isSingleClassView = currentClassroom != null;
-    examClassrooms =
-        isSingleClassView ? [currentClassroom!] : [...userClassrooms];
-    selectedClass = isSingleClassView ? currentClassroom : null;
-    rebuildUi();
+    selectedClass = isSingleClassView ? userClassrooms.first : null;
   }
+
+  bool get isSingleClassView => userClassrooms.length == 1;
 
   @override
   Future<List<ExamModel>> futureToRun() async {
@@ -85,26 +77,6 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
     }
   }
 
-  onGenerateExam() async {
-    final hasMultipleClasses = userClassrooms.length > 1;
-
-    final selectedClass = hasMultipleClasses
-        ? (await _dialogService.showCustomDialog(
-            variant: DialogType.classSelector,
-            data: {'loggedInUserClassrooms': userClassrooms},
-          ))
-            ?.data as ClassroomModel?
-        : userClassrooms.first;
-
-    if (selectedClass != null) {
-      _trOnboardService.onSetCurrentClass(selectedClass);
-      _trOnboardService.onSetIsFromOnboarding(false);
-      _navigationService.navigateToExamSetupView();
-    }
-  }
-
-  onViewExam(ExamModel exam) {}
-
   // ===== FILTERS
 
   onChangeClass(ClassroomModel classroom) {
@@ -120,5 +92,38 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   onChangeExamIsPublished(String isPublished) {
     selectedExamIsPublished = isPublished;
     initialise();
+  }
+
+  onGenerateExam() async {
+    ClassroomModel? chosenClass = isSingleClassView
+        ? userClassrooms.first
+        : (await _dialogService.showCustomDialog(
+            variant: DialogType.classSelector,
+            data: {'userClassrooms': userClassrooms},
+          ))
+            ?.data as ClassroomModel?;
+
+    if (chosenClass != null) {
+      _trOnboardService.onSetCurrentClass(chosenClass);
+      _trOnboardService.onSetIsFromOnboarding(false);
+      _navigationService.navigateToExamSetupView();
+    }
+  }
+
+  onViewExam(ExamModel exam) async {
+    bool canNavigate = await _sharedPrefsService.setSingleTrExamNavArg(exam);
+    if (canNavigate) _navigationService.navigateToSingleTrExamView();
+  }
+
+  onRetryExamGeneration(ExamModel exam) async {
+    var apiCallRes = await onApiPostCall(
+      postEndpoint: endPointRetryExamGeneration,
+      queryParams: {"exam_id": exam.id},
+    );
+    if (apiCallChecks(apiCallRes, "retry exam generation result",
+            showSuccessMessage: true) ==
+        true) {
+      await initialise();
+    }
   }
 }

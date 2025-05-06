@@ -7,12 +7,16 @@ import 'package:mtihani_app/utils/constants/app_variables.dart';
 
 class ExamCard extends StatelessWidget {
   final ExamModel exam;
-  final Function(ExamModel)? onTap;
+  final Function(ExamModel) onViewExam;
+  final Function(ExamModel) onRetryExamGen;
+  final Function() onRefresh;
 
   const ExamCard({
     super.key,
     required this.exam,
-    this.onTap,
+    required this.onViewExam,
+    required this.onRetryExamGen,
+    required this.onRefresh,
   });
 
   @override
@@ -24,9 +28,25 @@ class ExamCard extends StatelessWidget {
     final durationStr = exam.duration_min != null
         ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
         : '--';
+    final bool isFailedGen = exam.status == ExamStatus.failed;
+    final bool isGenerating = exam.status == ExamStatus.generating;
+
+    onExamAction() {
+      if (isGenerating) {
+        onRefresh();
+        return;
+      }
+
+      if (isFailedGen) {
+        onRetryExamGen(exam);
+        return;
+      }
+
+      onViewExam(exam);
+    }
 
     return GestureDetector(
-      onTap: onTap != null ? () => onTap!(exam) : null,
+      onTap: onExamAction,
       child: Container(
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.symmetric(vertical: 5),
@@ -62,9 +82,16 @@ class ExamCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text(
-                        '${exam.analysis?.question_count ?? "--"} Questions • $dateStr'),
-                    Text(durationStr),
+                    if (!isGenerating)
+                      isFailedGen
+                          ? Text(
+                              exam.generation_error ?? "Please contact support",
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                color: theme.colorScheme.error,
+                              ))
+                          : Text(
+                              '${exam.analysis?.question_count ?? "--"} Questions'),
+                    Text("$dateStr • $durationStr"),
                   ],
                 ),
               ],
@@ -77,16 +104,23 @@ class ExamCard extends StatelessWidget {
                       exam.status!.name[0], exam.status!.name[0].toUpperCase()),
                   getExamStatusColor(exam.status!, theme),
                 ),
-                if (onTap != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: buildSecBtn(
-                      theme: theme,
-                      btnTxt: "View",
-                      iconPath: Icons.open_in_new,
-                      onAction: () => onTap!(exam),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: buildSecBtn(
+                    theme: theme,
+                    btnTxt: isGenerating
+                        ? "Refresh"
+                        : isFailedGen
+                            ? "Retry"
+                            : "View",
+                    iconPath: isGenerating
+                        ? Icons.refresh
+                        : isFailedGen
+                            ? Icons.repeat
+                            : Icons.open_in_new,
+                    onAction: onExamAction,
                   ),
+                ),
               ],
             ),
           ],

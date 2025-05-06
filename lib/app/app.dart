@@ -26,6 +26,7 @@ import 'package:mtihani_app/ui/dialogs/join_class/join_class_dialog.dart';
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
 import 'package:mtihani_app/services/cbc_service.dart';
 import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
+import 'package:mtihani_app/ui/views/single_tr_exam/single_tr_exam_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -46,6 +47,7 @@ import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
     MaterialRoute(page: SingleStClassView),
     MaterialRoute(page: ExamListView),
     MaterialRoute(page: CbcView),
+    MaterialRoute(page: SingleTrExamView),
 // @stacked-route
   ],
   dependencies: [

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/models/exam.dart';
 import 'dart:developer' as dev;
 
 import 'package:mtihani_app/utils/constants/app_variables.dart';
@@ -117,5 +118,31 @@ class SharedPrefsService {
 
   Future<bool> clearSingleStClassroomNavArg() async {
     return await sharedPrefsDoDeleteValue(strCurrentStClass);
+  }
+
+  // ========== Teacher Exam
+
+  Future<bool> setSingleTrExamNavArg(ExamModel trExam) async {
+    return await sharedPrefsDoSetValue<String>(
+      prefsKey: strCurrentTrExam,
+      value: jsonEncode(trExam.toJson()),
+    );
+  }
+
+  Future<ExamModel?> getSingleTrExamNavArg() async {
+    String? trExamStr =
+        await sharedPrefsDoGetValue<String>(prefsKey: strCurrentTrExam);
+    if (trExamStr != null) {
+      try {
+        return ExamModel.fromJson(jsonDecode(trExamStr));
+      } catch (e) {
+        log("Error parsing trExam: $e");
+      }
+    }
+    return null;
+  }
+
+  Future<bool> clearSingleTrExamNavArg() async {
+    return await sharedPrefsDoDeleteValue(strCurrentTrExam);
   }
 }

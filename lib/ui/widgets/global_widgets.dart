@@ -218,10 +218,7 @@ buildIconBtn({
     child: CircleAvatar(
       backgroundColor: theme.primaryColor,
       foregroundColor: theme.colorScheme.onPrimary,
-      child: Icon(
-        iconPath,
-        color: theme.primaryColor,
-      ),
+      child: Icon(iconPath),
     ),
   );
 }

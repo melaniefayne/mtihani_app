@@ -10,12 +10,10 @@ import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'exam_list_viewmodel.dart';
 
 class ExamListView extends DashPage<ExamListViewModel> {
-  final ClassroomModel? currentClassroom;
   const ExamListView({
     Key? key,
     required List<ClassroomModel> userClassrooms,
     required UserModel loggedInUser,
-    this.currentClassroom,
   }) : super(
           key: key,
           userClassrooms: userClassrooms,
@@ -62,6 +60,7 @@ class ExamListView extends DashPage<ExamListViewModel> {
             const Divider(),
             SizedBox(height: pageSize.height * 0.01),
             AppPageFilters(
+              fullWidth: pageSize.width * 0.75,
               filters: [
                 if (userClassrooms.isNotEmpty)
                   AppFilterItem(
@@ -122,7 +121,9 @@ class ExamListView extends DashPage<ExamListViewModel> {
                       itemCount: viewModel.examList.length,
                       itemBuilder: (context, idx) => ExamCard(
                         exam: viewModel.examList[idx],
-                        onTap: viewModel.onViewExam,
+                        onViewExam: viewModel.onViewExam,
+                        onRetryExamGen: viewModel.onRetryExamGeneration,
+                        onRefresh: viewModel.initialise,
                       ),
                     ),
             const SizedBox(height: 10),
@@ -142,11 +143,5 @@ class ExamListView extends DashPage<ExamListViewModel> {
   ExamListViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ExamListViewModel(userClassrooms, loggedInUser, currentClassroom);
-
-  @override
-  void onViewModelReady(ExamListViewModel viewModel) {
-    super.onViewModelReady(viewModel);
-    viewModel.onExamListViewReady();
-  }
+      ExamListViewModel(userClassrooms, loggedInUser);
 }

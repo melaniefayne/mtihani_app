@@ -6,13 +6,13 @@ import 'package:mtihani_app/utils/constants/app_variables.dart';
 
 class ClassroomCard extends StatelessWidget {
   final ClassroomModel classroom;
-  final Function(ClassroomModel classroom)? onTap;
+  final Function(ClassroomModel classroom) onTap;
   final bool isDense;
 
   const ClassroomCard({
     super.key,
     required this.classroom,
-    this.onTap,
+    required this.onTap,
     this.isDense = false,
   });
 
@@ -23,25 +23,25 @@ class ClassroomCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (onTap != null) onTap!(classroom);
+        onTap(classroom);
       },
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: isDense
             ? ListTile(
+                tileColor: theme.cardColor,
                 leading: CircleAvatar(
-                  child: Text(
-                    "G${classroom.grade ?? "--"}",
-                  ),
+                  backgroundColor: theme.colorScheme.secondaryContainer,
+                  foregroundColor: theme.colorScheme.onPrimaryContainer,
+                  child: Text("G${classroom.grade ?? "--"}"),
                 ),
                 title: Text(classroom.name ?? "--"),
                 subtitle: Text('${classroom.student_count} Students'),
-                trailing: onTap != null
-                    ? buildIconBtn(
-                        theme: theme,
-                        onAction: () => onTap!,
-                        iconPath: Icons.call_made)
-                    : null,
+                trailing: buildIconBtn(
+                  theme: theme,
+                  onAction: () => onTap(classroom),
+                  iconPath: Icons.call_made,
+                ),
               )
             : Container(
                 width: pageSize.width * 0.24,
