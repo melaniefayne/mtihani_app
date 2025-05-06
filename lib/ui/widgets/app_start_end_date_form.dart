@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
+import 'package:mtihani_app/utils/helpers/convertors.dart';
 
 class AppStartEndDateForm extends StatefulWidget {
   final int? minDurationInMin;
@@ -121,7 +121,7 @@ class _AppStartEndDateFormState extends State<AppStartEndDateForm> {
   @override
   Widget build(BuildContext context) {
     final dateStr = _selectedDate != null
-        ? DateFormat("EEEE, dd/MMM/yyyy").format(_selectedDate!)
+        ? fullDayDateFormat.format(_selectedDate!)
         : 'Pick a date';
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);

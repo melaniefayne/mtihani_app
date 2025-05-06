@@ -5,6 +5,7 @@ import 'package:mtihani_app/ui/widgets/app_files_form_field.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:mtihani_app/ui/widgets/common/cbc/strand_selection_card.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 
 import 'exam_setup_viewmodel.dart';
@@ -171,36 +172,16 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
     required Size pageSize,
     required ExamSetupViewModel viewModel,
   }) {
-    const int minDurationInMin = 75;
     return buildSectionScaffold(
       theme: theme,
       pageSize: pageSize,
       sectionTitle:
           "Here’s where you schedule the exam date and time. For comprehensive coverage of the selected strands, we recommend a minimum duration of 1 hour 15 minutes.",
-      child: Column(
-        children: [
-          AppStartEndDateForm(
-            minDurationInMin: minDurationInMin,
-            onDateTimesSelected: viewModel.onDateTimesSelected,
-          ),
-          SizedBox(height: pageSize.height * 0.02),
-          const Divider(),
-          if (viewModel.examSetupError != null)
-            Text(
-              viewModel.examSetupError!,
-              style: theme.textTheme.bodyMedium!
-                  .copyWith(color: theme.colorScheme.error),
-            ),
-          SizedBox(height: pageSize.height * 0.01),
-          buildPriBtn(
-            theme: theme,
-            btnTxt: "Generate Exam",
-            iconPath: FontAwesomeIcons.scroll,
-            isLoading: viewModel.isLoading,
-            onAction: viewModel.onConfirmExamConfig,
-            isFullWidth: true,
-          ),
-        ],
+      child: ExamDateTimeForm(
+        onDateTimesSelected: viewModel.onDateTimesSelected,
+        isLoading: viewModel.isLoading,
+        onConfirm: viewModel.onConfirmExamConfig,
+        examSetupError: viewModel.examSetupError,
       ),
     );
   }
@@ -248,5 +229,57 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
   void onDispose(ExamSetupViewModel viewModel) {
     super.onDispose(viewModel);
     viewModel.onDispose();
+  }
+}
+
+class ExamDateTimeForm extends StatelessWidget {
+  final Function(DateTime, DateTime) onDateTimesSelected;
+  final bool isLoading;
+  final Function() onConfirm;
+  final String? examSetupError;
+  final String btnTxt;
+  final IconData btnIconPath;
+
+  const ExamDateTimeForm({
+    super.key,
+    required this.onDateTimesSelected,
+    required this.isLoading,
+    required this.onConfirm,
+    required this.examSetupError,
+    this.btnTxt = "Generate Exam",
+    this.btnIconPath = FontAwesomeIcons.scroll,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AppStartEndDateForm(
+          minDurationInMin: minExamDurationInMin,
+          onDateTimesSelected: onDateTimesSelected,
+        ),
+        SizedBox(height: pageSize.height * 0.02),
+        const Divider(),
+        if (examSetupError != null)
+          Text(
+            examSetupError!,
+            style: theme.textTheme.bodyMedium!
+                .copyWith(color: theme.colorScheme.error),
+          ),
+        SizedBox(height: pageSize.height * 0.01),
+        buildPriBtn(
+          theme: theme,
+          btnTxt: btnTxt,
+          iconPath: btnIconPath,
+          isLoading: isLoading,
+          onAction: onConfirm,
+          isFullWidth: true,
+        ),
+      ],
+    );
   }
 }

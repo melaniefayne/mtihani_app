@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/utils/constants/app_variables.dart';
+import 'package:mtihani_app/utils/helpers/convertors.dart';
 
 class ExamCard extends StatelessWidget {
   final ExamModel exam;
@@ -23,7 +23,7 @@ class ExamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final dateStr = exam.start_date_time != null
-        ? appDayDateFormat.format(exam.end_date_time!)
+        ? shortDayDateFormat.format(exam.end_date_time!)
         : '--';
     final durationStr = exam.duration_min != null
         ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
@@ -98,12 +98,7 @@ class ExamCard extends StatelessWidget {
             ),
             Column(
               children: [
-                buildStatusDot(
-                  theme,
-                  exam.status!.name.replaceFirst(
-                      exam.status!.name[0], exam.status!.name[0].toUpperCase()),
-                  getExamStatusColor(exam.status!, theme),
-                ),
+                buildExamStatusDot(theme, exam.status!),
                 Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: buildSecBtn(
@@ -128,6 +123,28 @@ class ExamCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget buildExamStatusDot(
+  ThemeData theme,
+  ExamStatus status, {
+  double iconSize = 14,
+  TextStyle? txtStyle,
+}) {
+  String statusLabel =
+      status.name.replaceFirst(status.name[0], status.name[0].toUpperCase());
+  Color statusColor = getExamStatusColor(status, theme);
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(Icons.circle, size: iconSize, color: statusColor),
+      const SizedBox(width: 4),
+      Text(
+        statusLabel,
+        style: txtStyle ?? theme.textTheme.labelMedium,
+      ),
+    ],
+  );
 }
 
 const String examIsPublishedKw = "Published";

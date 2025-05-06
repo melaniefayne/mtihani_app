@@ -27,6 +27,7 @@ class ClassSelectorDialog extends StackedView<ClassSelectorDialogModel> {
     final pageSize = MediaQuery.sizeOf(context);
     final widgetConfig = request.data as Map<String, dynamic>?;
     List<ClassroomModel> userClassrooms = widgetConfig!['userClassrooms'];
+
     return buildDialogScaffold(
         theme: theme,
         pageSize: pageSize,

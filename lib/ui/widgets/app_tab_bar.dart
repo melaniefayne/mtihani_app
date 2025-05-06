@@ -91,91 +91,92 @@ class _AppTabBarScaffoldState extends State<AppTabBarScaffold> {
       ],
     );
   }
-}
 
-Widget buildTabHeader({
-  required ThemeData theme,
-  required double sectionWidth,
-  required List<TabViewItem> tabs,
-  required int currentTabIdx,
-  required Function(int idx) onTabIndexChange,
-  List<bool>? viewedTabs,
-}) {
-  return Center(
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey.shade300,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: tabs.asMap().entries.map((entry) {
-            final idx = entry.key;
-            final tab = entry.value;
-            final isSelected = idx == currentTabIdx;
+  Widget buildTabHeader({
+    required ThemeData theme,
+    required double sectionWidth,
+    required List<TabViewItem> tabs,
+    required int currentTabIdx,
+    required Function(int idx) onTabIndexChange,
+    List<bool>? viewedTabs,
+  }) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: tabs.asMap().entries.map((entry) {
+              final idx = entry.key;
+              final tab = entry.value;
+              final isSelected = idx == currentTabIdx;
 
-            return GestureDetector(
-              onTap: () => onTabIndexChange(idx),
-              child: Container(
-                width: (sectionWidth * 0.93) / tabs.length,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: isSelected ? Colors.black : Colors.transparent,
-                  borderRadius: BorderRadius.only(
-                    topLeft: idx == 0 ? const Radius.circular(16) : Radius.zero,
-                    bottomLeft:
-                        idx == 0 ? const Radius.circular(16) : Radius.zero,
-                    topRight: idx == tabs.length - 1
-                        ? const Radius.circular(16)
-                        : Radius.zero,
-                    bottomRight: idx == tabs.length - 1
-                        ? const Radius.circular(16)
-                        : Radius.zero,
+              return GestureDetector(
+                onTap: () => onTabIndexChange(idx),
+                child: Container(
+                  width: (sectionWidth * 0.93) / tabs.length,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Colors.black : Colors.transparent,
+                    borderRadius: BorderRadius.only(
+                      topLeft:
+                          idx == 0 ? const Radius.circular(16) : Radius.zero,
+                      bottomLeft:
+                          idx == 0 ? const Radius.circular(16) : Radius.zero,
+                      topRight: idx == tabs.length - 1
+                          ? const Radius.circular(16)
+                          : Radius.zero,
+                      bottomRight: idx == tabs.length - 1
+                          ? const Radius.circular(16)
+                          : Radius.zero,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      tab.leadingWidget ??
+                          (tab.imagePath != null
+                              ? buildLocalImage(
+                                  imagePath: tab.imagePath, radius: 40)
+                              : tab.icon != null
+                                  ? Icon(
+                                      tab.icon,
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                    )
+                                  : const SizedBox()),
+                      Text(
+                        tab.label,
+                        style: theme.textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isSelected ? Colors.white : Colors.black,
+                        ),
+                        overflow: TextOverflow.clip,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    tab.leadingWidget ??
-                        (tab.imagePath != null
-                            ? buildLocalImage(
-                                imagePath: tab.imagePath, radius: 40)
-                            : tab.icon != null
-                                ? Icon(
-                                    tab.icon,
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.black,
-                                  )
-                                : const SizedBox()),
-                    Text(
-                      tab.label,
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: isSelected ? Colors.white : Colors.black,
-                      ),
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
+              );
+            }).toList(),
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 /// ==================================================== Models

@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
+import 'package:mtihani_app/utils/helpers/convertors.dart';
 
 class ClassroomCard extends StatelessWidget {
   final ClassroomModel classroom;
@@ -241,14 +242,14 @@ Map<String, List<ClassLessonTime>> groupLessons(List<ClassLessonTime> lessons) {
     } else if (lessonDate == tomorrowDate) {
       tomorrowLessons.add(lesson);
     } else {
-      final formattedDate = appShortDayDateFormat.format(lessonDate);
+      final formattedDate = shortDayDateFormat.format(lessonDate);
       laterLessons.putIfAbsent(formattedDate, () => []).add(lesson);
     }
   }
 
   return {
-    'Today, ${appShortDayDateFormat.format(today)}': todayLessons,
-    'Tomorrow, ${appShortDayDateFormat.format(tomorrow)}': tomorrowLessons,
+    'Today, ${shortDayDateFormat.format(today)}': todayLessons,
+    'Tomorrow, ${shortDayDateFormat.format(tomorrow)}': tomorrowLessons,
     ...laterLessons,
   };
 }

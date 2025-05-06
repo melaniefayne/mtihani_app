@@ -9,6 +9,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'app.locator.dart';
 import '../ui/dialogs/app_action/app_action_dialog.dart';
 import '../ui/dialogs/class_selector/class_selector_dialog.dart';
+import '../ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/dialogs/join_class/join_class_dialog.dart';
 import '../ui/dialogs/role_signup/role_signup_dialog.dart';
@@ -19,6 +20,7 @@ enum DialogType {
   appAction,
   classSelector,
   joinClass,
+  editExamTime,
 }
 
 void setupDialogUi() {
@@ -35,6 +37,8 @@ void setupDialogUi() {
         ClassSelectorDialog(request: request, completer: completer),
     DialogType.joinClass: (context, request, completer) =>
         JoinClassDialog(request: request, completer: completer),
+    DialogType.editExamTime: (context, request, completer) =>
+        EditExamTimeDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

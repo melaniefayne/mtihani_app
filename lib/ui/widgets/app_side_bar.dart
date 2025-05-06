@@ -6,11 +6,13 @@ import 'package:mtihani_app/utils/constants/app_variables.dart';
 class AppSideBarScaffold extends StatefulWidget {
   final String pageTitle;
   final List<TabViewItem> tabItems;
+  final Widget? trailingWidget;
 
   const AppSideBarScaffold({
     super.key,
     required this.tabItems,
     required this.pageTitle,
+    this.trailingWidget,
   });
 
   @override
@@ -101,31 +103,40 @@ class _AppSideBarScaffoldState extends State<AppSideBarScaffold> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        selectedItem.icon,
-                        color: theme.colorScheme.onSurface,
-                        size: theme.textTheme.headlineSmall!.fontSize,
-                      ),
-                      const SizedBox(width: 10),
-                      Text.rich(
-                        TextSpan(
-                          text: widget.pageTitle,
-                          children: [
-                            const TextSpan(text: ": "),
-                            TextSpan(
-                              text: selectedItem.label,
-                              style: theme.textTheme.headlineSmall!.copyWith(
-                                color: theme.colorScheme.onSurface,
-                                fontWeight: FontWeight.w500,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            selectedItem.icon,
+                            color: theme.colorScheme.onSurface,
+                            size: theme.textTheme.headlineSmall!.fontSize,
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                selectedItem.label,
+                                style: theme.textTheme.headlineSmall!.copyWith(
+                                  color: theme.colorScheme.onSurface,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                              Text(widget.pageTitle),
+                            ],
+                          ),
+                        ],
                       ),
+                      if (widget.trailingWidget != null) widget.trailingWidget!,
                     ],
                   ),
-                  const Divider(height: 1),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Divider(height: 1),
+                  ),
                   Expanded(
                     child: IndexedStack(
                       index: selectedIndex,
