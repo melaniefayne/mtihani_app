@@ -68,6 +68,7 @@ class ClassroomListViewModel extends DashPageModel {
 
   _onAddClass() {
     trOnboardService.onSetIsFromOnboarding(false);
+    trOnboardService.onSetCurrentClass(null);
     _navigationService.navigateToClassFormView();
   }
 
@@ -100,15 +101,14 @@ class ClassroomListViewModel extends DashPageModel {
   }
 
   _onViewStClass(ClassroomModel classroom) async {
-    ClassroomStudentModel student = await getStudentFromClassroom(classroom);
+    StudentModel student = await getStudentFromClassroom(classroom);
     bool canNavigate =
         await _sharedPrefsService.setSingleStClassroomNavArg(student);
     if (canNavigate) _navigationService.navigateToSingleStClassView();
   }
 
-  Future<ClassroomStudentModel> getStudentFromClassroom(
-      ClassroomModel classroom) async {
-    return ClassroomStudentModel(
+  Future<StudentModel> getStudentFromClassroom(ClassroomModel classroom) async {
+    return StudentModel(
       id: loggedInUser.student_id,
       code: classroom.student_code,
       avg_score: classroom.avg_term_score,

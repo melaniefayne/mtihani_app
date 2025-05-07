@@ -74,7 +74,7 @@ class SingleTrExamViewModel extends BaseViewModel {
       getEndpoint: endPointGetExam,
       queryParams: {"exam_id": trClassroomExam!.id},
       dataFromJson: ExamModel.fromJson,
-      dataField: "new_exam",
+      dataField: "exam",
     );
 
     if (apiCallChecks(examApiRes, 'current exam')) {

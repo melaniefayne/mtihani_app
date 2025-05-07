@@ -85,7 +85,7 @@ class StudentListing extends StackedView<StudentListingModel> {
                 "Action"
               ],
               tableRows: List.generate(viewModel.data!.length, (int idx) {
-                ClassroomStudentModel student = viewModel.data![idx];
+                StudentModel student = viewModel.data![idx];
                 onViewStudent() => viewModel.onViewStudent(student);
 
                 return DataRow(

@@ -48,9 +48,8 @@ Map<String, dynamic> _$$ClassroomModelImplToJson(
       'term_scores': instance.term_scores,
     };
 
-_$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ClassroomStudentModelImpl(
+_$StudentModelImpl _$$StudentModelImplFromJson(Map<String, dynamic> json) =>
+    _$StudentModelImpl(
       id: (json['id'] as num?)?.toInt(),
       code: json['code'] as String?,
       name: json['name'] as String?,
@@ -67,8 +66,7 @@ _$ClassroomStudentModelImpl _$$ClassroomStudentModelImplFromJson(
       classroom_name: json['classroom_name'] as String?,
     );
 
-Map<String, dynamic> _$$ClassroomStudentModelImplToJson(
-        _$ClassroomStudentModelImpl instance) =>
+Map<String, dynamic> _$$StudentModelImplToJson(_$StudentModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'code': instance.code,

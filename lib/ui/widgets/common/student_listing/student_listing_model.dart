@@ -11,7 +11,7 @@ import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class StudentListingModel extends FutureViewModel<List<ClassroomStudentModel>> {
+class StudentListingModel extends FutureViewModel<List<StudentModel>> {
   final ClassroomModel classroom;
   final _navigationService = locator<NavigationService>();
   final _sharedPrefsService = locator<SharedPrefsService>();
@@ -20,7 +20,7 @@ class StudentListingModel extends FutureViewModel<List<ClassroomStudentModel>> {
 
   String? nextPageUrl;
   bool isLoadMore = false;
-  List<ClassroomStudentModel> studentList = [];
+  List<StudentModel> studentList = [];
   String? selectedStudentStatus;
   String? selectedStudentExpectation;
   TextEditingController searchTxtCtrl = TextEditingController();
@@ -28,7 +28,7 @@ class StudentListingModel extends FutureViewModel<List<ClassroomStudentModel>> {
   String? searchTerm;
 
   @override
-  Future<List<ClassroomStudentModel>> futureToRun() async {
+  Future<List<StudentModel>> futureToRun() async {
     Map<String, dynamic> queryParams = {"classroom_id": classroom.id};
 
     if (!isStringEmptyOrNull(searchTerm)) {
@@ -42,17 +42,16 @@ class StudentListingModel extends FutureViewModel<List<ClassroomStudentModel>> {
       queryParams["expectation_level"] = selectedStudentExpectation;
     }
 
-    var studentApiRes = await onApiGetCall<ClassroomStudentModel>(
+    var studentApiRes = await onApiGetCall<StudentModel>(
       getEndpoint: isLoadMore
-          ? nextPageUrl ?? endPointGetClassroomStudentModels
-          : endPointGetClassroomStudentModels,
+          ? nextPageUrl ?? endPointGetStudentModels
+          : endPointGetStudentModels,
       queryParams: queryParams,
-      listDataFromJson: ClassroomStudentModel.fromJson,
+      listDataFromJson: StudentModel.fromJson,
     );
 
     if (apiCallChecks(studentApiRes, 'student listing')) {
-      List<ClassroomStudentModel> resStudents =
-          studentApiRes.$1?.listData ?? [];
+      List<StudentModel> resStudents = studentApiRes.$1?.listData ?? [];
       studentList = isLoadMore ? [...studentList, ...resStudents] : resStudents;
       nextPageUrl = studentApiRes.$1?.next;
       return studentList;
@@ -101,7 +100,7 @@ class StudentListingModel extends FutureViewModel<List<ClassroomStudentModel>> {
     initialise();
   }
 
-  onViewStudent(ClassroomStudentModel student) async {
+  onViewStudent(StudentModel student) async {
     bool canNavigate =
         await _sharedPrefsService.setSingleStClassroomNavArg(student);
     if (canNavigate) {

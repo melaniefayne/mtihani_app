@@ -33,11 +33,12 @@ String get endPointCreateClass => "$baseURL/learner/create-class";
 String get endPointGetUserClassrooms => "$baseURL/learner/get-user-classrooms";
 String get endPointGetClassroomTermScores =>
     "$baseURL/learner/get-classroom-term-scores";
-String get endPointGetClassroomStudentModels =>
+String get endPointGetStudentModels =>
     "$baseURL/learner/get-classroom-students";
 String get endPointEditClass => "$baseURL/learner/edit-classroom";
 String get endPointEditStudent => "$baseURL/learner/edit-classroom-student";
 String get endPointJoinClassroom => "$baseURL/learner/join-classroom";
+String get endPointGetStudent => "$baseURL/learner/get-single-student";
 
 // EXAMS =================================================
 String get endPointGetUserExams => "$baseURL/exam/get-user-exams";

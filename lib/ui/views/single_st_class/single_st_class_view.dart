@@ -40,7 +40,10 @@ class SingleStClassView extends StackedView<SingleStClassViewModel> {
           TabViewItem(
             label: "Edit Student",
             icon: Icons.edit,
-            widget: StudentEditForm(student: viewModel.stClassroom!),
+            widget: StudentEditForm(
+              student: viewModel.stClassroom!,
+              onApiUpdateStudent: viewModel.onApiUpdateStudent,
+            ),
           ),
       ],
     );

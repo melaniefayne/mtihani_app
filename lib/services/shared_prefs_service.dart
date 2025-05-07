@@ -95,20 +95,19 @@ class SharedPrefsService {
 
   // ========== Student Classroom
 
-  Future<bool> setSingleStClassroomNavArg(
-      ClassroomStudentModel classroom) async {
+  Future<bool> setSingleStClassroomNavArg(StudentModel classroom) async {
     return await sharedPrefsDoSetValue<String>(
       prefsKey: strCurrentStClass,
       value: jsonEncode(classroom.toJson()),
     );
   }
 
-  Future<ClassroomStudentModel?> getSingleStClassroomNavArg() async {
+  Future<StudentModel?> getSingleStClassroomNavArg() async {
     String? classroomStr =
         await sharedPrefsDoGetValue<String>(prefsKey: strCurrentStClass);
     if (classroomStr != null) {
       try {
-        return ClassroomStudentModel.fromJson(jsonDecode(classroomStr));
+        return StudentModel.fromJson(jsonDecode(classroomStr));
       } catch (e) {
         log("Error parsing classroom: $e");
       }

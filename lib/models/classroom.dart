@@ -46,8 +46,8 @@ List<String>? _dateTimeListToJson(List<DateTime>? dateList) {
 }
 
 @freezed
-class ClassroomStudentModel with _$ClassroomStudentModel {
-  factory ClassroomStudentModel({
+class StudentModel with _$StudentModel {
+  factory StudentModel({
     int? id,
     String? code,
     String? name,
@@ -59,10 +59,10 @@ class ClassroomStudentModel with _$ClassroomStudentModel {
     List<TermScore>? term_scores,
     int? classroom_id,
     String? classroom_name,
-  }) = _ClassroomStudentModel;
+  }) = _StudentModel;
 
-  factory ClassroomStudentModel.fromJson(Map<String, dynamic> json) =>
-      _$ClassroomStudentModelFromJson(json);
+  factory StudentModel.fromJson(Map<String, dynamic> json) =>
+      _$StudentModelFromJson(json);
 }
 
 @freezed

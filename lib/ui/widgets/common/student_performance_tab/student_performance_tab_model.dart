@@ -2,7 +2,7 @@ import 'package:mtihani_app/models/classroom.dart';
 import 'package:stacked/stacked.dart';
 
 class StudentPerformanceTabModel extends BaseViewModel {
-  final ClassroomStudentModel student;
+  final StudentModel student;
 
   StudentPerformanceTabModel(this.student);
 

@@ -8,7 +8,7 @@ import 'package:stacked/stacked.dart';
 import 'student_performance_tab_model.dart';
 
 class StudentPerformanceTab extends StackedView<StudentPerformanceTabModel> {
-  final ClassroomStudentModel student;
+  final StudentModel student;
   const StudentPerformanceTab({super.key, required this.student});
 
   @override

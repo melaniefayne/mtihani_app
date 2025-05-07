@@ -14,8 +14,13 @@ import 'student_edit_form_model.dart';
 ])
 class StudentEditForm extends StackedView<StudentEditFormModel>
     with $StudentEditForm {
-  final ClassroomStudentModel student;
-  const StudentEditForm({super.key, required this.student});
+  final StudentModel student;
+  final Function(Map<String, dynamic> updateBody) onApiUpdateStudent;
+  const StudentEditForm({
+    super.key,
+    required this.student,
+    required this.onApiUpdateStudent,
+  });
 
   @override
   Widget builder(
@@ -71,7 +76,7 @@ class StudentEditForm extends StackedView<StudentEditFormModel>
             theme: theme,
             iconPath: Icons.edit,
             btnTxt: "Update Student",
-            onAction: viewModel.onApiUpdateStudent,
+            onAction: viewModel.onUpdateStudent,
           ),
         ],
       ),
@@ -82,7 +87,7 @@ class StudentEditForm extends StackedView<StudentEditFormModel>
   StudentEditFormModel viewModelBuilder(
     BuildContext context,
   ) =>
-      StudentEditFormModel(student);
+      StudentEditFormModel(student, onApiUpdateStudent);
 
   @override
   void onViewModelReady(StudentEditFormModel viewModel) {

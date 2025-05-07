@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/common/student_edit_form/student_edit_form.form.dart';
-import 'package:mtihani_app/utils/api/api_calls.dart';
-import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class StudentEditFormModel extends BaseViewModel with FormStateHelper {
-  final ClassroomStudentModel student;
-  bool isLoading = false;
-  final _navigationService = locator<NavigationService>();
+  final StudentModel student;
   List<TermScoreEditModel> editableTermScores = [];
+  Function(Map<String, dynamic> updateBody) onApiUpdateStudent;
 
-  StudentEditFormModel(this.student);
+  StudentEditFormModel(this.student, this.onApiUpdateStudent);
 
   onStudentFormViewReady() {
     editableTermScores = buildEditableTermScores(student.term_scores ?? []);
@@ -43,7 +38,7 @@ class StudentEditFormModel extends BaseViewModel with FormStateHelper {
     });
   }
 
-  onApiUpdateStudent() async {
+  onUpdateStudent() async {
     validateForm();
     if (!isFormValid) {
       rebuildUi();
@@ -70,18 +65,7 @@ class StudentEditFormModel extends BaseViewModel with FormStateHelper {
       "name": studentNameValue,
       "updated_term_scores": validScores.map((e) => e.toJson()).toList(),
     };
-    var apiCallRes = await onApiPostCall(
-      postEndpoint: endPointEditStudent,
-      queryParams: {"student_id": student.id!},
-      dataMap: studentBody,
-    );
-    isLoading = false;
-    rebuildUi();
-    if (apiCallChecks(apiCallRes, "student update result",
-            showSuccessMessage: true) ==
-        true) {
-      // _navigationService.back();
-    }
+    onApiUpdateStudent(studentBody);
   }
 }
 
