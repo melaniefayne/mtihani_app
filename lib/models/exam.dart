@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mtihani_app/models/performance.dart';
 
 part 'exam.freezed.dart';
 part 'exam.g.dart';
@@ -40,6 +39,7 @@ class ExamModel with _$ExamModel {
     DateTime? created_at,
     DateTime? updated_at,
     ExamQuestionAnalysisModel? analysis,
+    int? student_session_id,
   }) = _ExamModel;
 
   factory ExamModel.fromJson(Map<String, dynamic> json) =>
@@ -97,18 +97,51 @@ class ExamQuestionModel with _$ExamQuestionModel {
 }
 
 @freezed
+class StudentExamSessionModel with _$StudentExamSessionModel {
+  factory StudentExamSessionModel({
+    int? id,
+    String? status,
+    bool? is_late_submission,
+    DateTime? start_date_time,
+    DateTime? end_date_time,
+    int? duration_min,
+    double? avg_score,
+    String? expectation_level,
+    int? exam_id,
+    int? student_id,
+  }) = _StudentExamSessionModel;
+
+  factory StudentExamSessionModel.fromJson(Map<String, dynamic> json) =>
+      _$StudentExamSessionModelFromJson(json);
+}
+
+@freezed
 class StudentAnswerModel with _$StudentAnswerModel {
   factory StudentAnswerModel({
     int? id,
+    int? question_id,
+    int? question_number,
+    String? question_description,
     String? description,
+    String? strand,
+    int? grade,
     double? score,
     double? tr_score,
     DateTime? created_at,
     DateTime? updated_at,
-    ExamQuestionModel? question,
-    StudentExamSessionModel? session,
   }) = _StudentAnswerModel;
 
   factory StudentAnswerModel.fromJson(Map<String, dynamic> json) =>
       _$StudentAnswerModelFromJson(json);
+}
+
+@freezed
+class StudentExamSessionDataModel with _$StudentExamSessionDataModel {
+  factory StudentExamSessionDataModel({
+    StudentExamSessionModel? session,
+    List<StudentAnswerModel>? answers,
+  }) = _StudentExamSessionDataModel;
+
+  factory StudentExamSessionDataModel.fromJson(Map<String, dynamic> json) =>
+      _$StudentExamSessionDataModelFromJson(json);
 }

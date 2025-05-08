@@ -32,6 +32,7 @@ _$ExamModelImpl _$$ExamModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : ExamQuestionAnalysisModel.fromJson(
               json['analysis'] as Map<String, dynamic>),
+      student_session_id: (json['student_session_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
@@ -49,6 +50,7 @@ Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
       'analysis': instance.analysis,
+      'student_session_id': instance.student_session_id,
     };
 
 const _$ExamStatusEnumMap = {
@@ -151,11 +153,50 @@ Map<String, dynamic> _$$ExamQuestionModelImplToJson(
       'tr_expected_answer': instance.tr_expected_answer,
     };
 
+_$StudentExamSessionModelImpl _$$StudentExamSessionModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$StudentExamSessionModelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      status: json['status'] as String?,
+      is_late_submission: json['is_late_submission'] as bool?,
+      start_date_time: json['start_date_time'] == null
+          ? null
+          : DateTime.parse(json['start_date_time'] as String),
+      end_date_time: json['end_date_time'] == null
+          ? null
+          : DateTime.parse(json['end_date_time'] as String),
+      duration_min: (json['duration_min'] as num?)?.toInt(),
+      avg_score: (json['avg_score'] as num?)?.toDouble(),
+      expectation_level: json['expectation_level'] as String?,
+      exam_id: (json['exam_id'] as num?)?.toInt(),
+      student_id: (json['student_id'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$StudentExamSessionModelImplToJson(
+        _$StudentExamSessionModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'status': instance.status,
+      'is_late_submission': instance.is_late_submission,
+      'start_date_time': instance.start_date_time?.toIso8601String(),
+      'end_date_time': instance.end_date_time?.toIso8601String(),
+      'duration_min': instance.duration_min,
+      'avg_score': instance.avg_score,
+      'expectation_level': instance.expectation_level,
+      'exam_id': instance.exam_id,
+      'student_id': instance.student_id,
+    };
+
 _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(
         Map<String, dynamic> json) =>
     _$StudentAnswerModelImpl(
       id: (json['id'] as num?)?.toInt(),
+      question_id: (json['question_id'] as num?)?.toInt(),
+      question_number: (json['question_number'] as num?)?.toInt(),
+      question_description: json['question_description'] as String?,
       description: json['description'] as String?,
+      strand: json['strand'] as String?,
+      grade: (json['grade'] as num?)?.toInt(),
       score: (json['score'] as num?)?.toDouble(),
       tr_score: (json['tr_score'] as num?)?.toDouble(),
       created_at: json['created_at'] == null
@@ -164,25 +205,39 @@ _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(
       updated_at: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-      question: json['question'] == null
-          ? null
-          : ExamQuestionModel.fromJson(
-              json['question'] as Map<String, dynamic>),
-      session: json['session'] == null
-          ? null
-          : StudentExamSessionModel.fromJson(
-              json['session'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$StudentAnswerModelImplToJson(
         _$StudentAnswerModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'question_id': instance.question_id,
+      'question_number': instance.question_number,
+      'question_description': instance.question_description,
       'description': instance.description,
+      'strand': instance.strand,
+      'grade': instance.grade,
       'score': instance.score,
       'tr_score': instance.tr_score,
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
-      'question': instance.question,
+    };
+
+_$StudentExamSessionDataModelImpl _$$StudentExamSessionDataModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$StudentExamSessionDataModelImpl(
+      session: json['session'] == null
+          ? null
+          : StudentExamSessionModel.fromJson(
+              json['session'] as Map<String, dynamic>),
+      answers: (json['answers'] as List<dynamic>?)
+          ?.map((e) => StudentAnswerModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$StudentExamSessionDataModelImplToJson(
+        _$StudentExamSessionDataModelImpl instance) =>
+    <String, dynamic>{
       'session': instance.session,
+      'answers': instance.answers,
     };

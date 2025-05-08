@@ -25,6 +25,7 @@ const String astImagesDarkLogo = "assets/images/mtihani_dark.png";
 const String astImagesTeacher = "assets/images/teacher.png";
 const String astImagesStudent = "assets/images/student.png";
 const String astImagesWaiting = "assets/images/waiting.png";
+const String astImagesReady = "assets/images/ready.png";
 const String astLottieAppLoader = "assets/lottie/app_loader.json";
 const String astLottieLoading = "assets/lottie/loading.json";
 const String astLottieNoItems = "assets/lottie/no_items.json";

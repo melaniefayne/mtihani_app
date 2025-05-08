@@ -31,6 +31,7 @@ import 'package:mtihani_app/ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart
 import 'package:mtihani_app/ui/dialogs/edit_exam_question/edit_exam_question_dialog.dart';
 import 'package:mtihani_app/ui/views/single_st_exam/single_st_exam_view.dart';
 import 'package:mtihani_app/ui/dialogs/start_exam/start_exam_dialog.dart';
+import 'package:mtihani_app/ui/views/st_exam_session/st_exam_session_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -53,6 +54,7 @@ import 'package:mtihani_app/ui/dialogs/start_exam/start_exam_dialog.dart';
     MaterialRoute(page: CbcView),
     MaterialRoute(page: SingleTrExamView),
     MaterialRoute(page: SingleStExamView),
+    MaterialRoute(page: StExamSessionView),
 // @stacked-route
   ],
   dependencies: [

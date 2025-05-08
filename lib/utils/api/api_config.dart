@@ -48,3 +48,7 @@ String get endPointEditClassroomExam => "$baseURL/exam/edit-classroom-exam";
 String get endPointGetExam => "$baseURL/exam/get-single-exam";
 String get endPointGetExamQuestions => "$baseURL/exam/get-exam-questions";
 String get endPointEditExamQuestions => "$baseURL/exam/edit-exam-questions";
+String get endPointStartExamSession => "$baseURL/exam/start-exam-session";
+String get endPointGetExamSession => "$baseURL/exam/get-exam-session";
+String get endPointUpdateExamAnswer => "$baseURL/exam/update-exam-answer";
+String get endPointEndExamSession => "$baseURL/exam/end-exam-session";

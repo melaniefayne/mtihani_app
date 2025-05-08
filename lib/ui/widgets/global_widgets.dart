@@ -129,6 +129,8 @@ buildPriBtn({
   bool isLoading = false,
   IconData? iconPath,
   bool isFullWidth = false,
+  Color? bgColor,
+  Color? fgColor,
 }) {
   return SizedBox(
     width: isFullWidth ? double.infinity : null,
@@ -154,8 +156,9 @@ buildPriBtn({
             ),
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-        backgroundColor: isEnabled ? theme.primaryColor : Colors.grey,
-        foregroundColor: theme.colorScheme.onPrimary,
+        backgroundColor:
+            isEnabled ? bgColor ?? theme.primaryColor : Colors.grey,
+        foregroundColor: fgColor ?? theme.colorScheme.onPrimary,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
     ),
@@ -807,5 +810,33 @@ Widget metaIconText(
           color: theme.colorScheme.outlineVariant,
         ),
     ],
+  );
+}
+
+Widget buildSideBarScaffold({
+  required ThemeData theme,
+  required Size pageSize,
+  required List<Widget> children,
+  Color? bgColor,
+  double? width,
+  CrossAxisAlignment? crossAxisAlignment,
+}) {
+  return Container(
+    width: width ?? pageSize.width * 0.15,
+    color: bgColor ?? theme.primaryColor,
+    padding: const EdgeInsets.symmetric(vertical: 24),
+    child: Column(
+      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: pageSize.height * 0.02),
+            child: buildAppLogo(localImgPath: astImagesLightLogo, height: 45),
+          ),
+        ),
+        Divider(color: theme.colorScheme.onPrimary, height: 1),
+        ...children,
+      ],
+    ),
   );
 }

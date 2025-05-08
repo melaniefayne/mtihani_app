@@ -33,6 +33,7 @@ mixin _$ExamModel {
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
   ExamQuestionAnalysisModel? get analysis => throw _privateConstructorUsedError;
+  int? get student_session_id => throw _privateConstructorUsedError;
 
   /// Serializes this ExamModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -62,7 +63,8 @@ abstract class $ExamModelCopyWith<$Res> {
       String? classroom_name,
       DateTime? created_at,
       DateTime? updated_at,
-      ExamQuestionAnalysisModel? analysis});
+      ExamQuestionAnalysisModel? analysis,
+      int? student_session_id});
 
   $ExamQuestionAnalysisModelCopyWith<$Res>? get analysis;
 }
@@ -95,6 +97,7 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
     Object? created_at = freezed,
     Object? updated_at = freezed,
     Object? analysis = freezed,
+    Object? student_session_id = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -149,6 +152,10 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
           ? _value.analysis
           : analysis // ignore: cast_nullable_to_non_nullable
               as ExamQuestionAnalysisModel?,
+      student_session_id: freezed == student_session_id
+          ? _value.student_session_id
+          : student_session_id // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -188,7 +195,8 @@ abstract class _$$ExamModelImplCopyWith<$Res>
       String? classroom_name,
       DateTime? created_at,
       DateTime? updated_at,
-      ExamQuestionAnalysisModel? analysis});
+      ExamQuestionAnalysisModel? analysis,
+      int? student_session_id});
 
   @override
   $ExamQuestionAnalysisModelCopyWith<$Res>? get analysis;
@@ -220,6 +228,7 @@ class __$$ExamModelImplCopyWithImpl<$Res>
     Object? created_at = freezed,
     Object? updated_at = freezed,
     Object? analysis = freezed,
+    Object? student_session_id = freezed,
   }) {
     return _then(_$ExamModelImpl(
       id: freezed == id
@@ -274,6 +283,10 @@ class __$$ExamModelImplCopyWithImpl<$Res>
           ? _value.analysis
           : analysis // ignore: cast_nullable_to_non_nullable
               as ExamQuestionAnalysisModel?,
+      student_session_id: freezed == student_session_id
+          ? _value.student_session_id
+          : student_session_id // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -294,7 +307,8 @@ class _$ExamModelImpl implements _ExamModel {
       this.classroom_name,
       this.created_at,
       this.updated_at,
-      this.analysis});
+      this.analysis,
+      this.student_session_id});
 
   factory _$ExamModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExamModelImplFromJson(json);
@@ -325,10 +339,12 @@ class _$ExamModelImpl implements _ExamModel {
   final DateTime? updated_at;
   @override
   final ExamQuestionAnalysisModel? analysis;
+  @override
+  final int? student_session_id;
 
   @override
   String toString() {
-    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis)';
+    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis, student_session_id: $student_session_id)';
   }
 
   @override
@@ -358,7 +374,9 @@ class _$ExamModelImpl implements _ExamModel {
             (identical(other.updated_at, updated_at) ||
                 other.updated_at == updated_at) &&
             (identical(other.analysis, analysis) ||
-                other.analysis == analysis));
+                other.analysis == analysis) &&
+            (identical(other.student_session_id, student_session_id) ||
+                other.student_session_id == student_session_id));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -377,7 +395,8 @@ class _$ExamModelImpl implements _ExamModel {
       classroom_name,
       created_at,
       updated_at,
-      analysis);
+      analysis,
+      student_session_id);
 
   /// Create a copy of ExamModel
   /// with the given fields replaced by the non-null parameter values.
@@ -409,7 +428,8 @@ abstract class _ExamModel implements ExamModel {
       final String? classroom_name,
       final DateTime? created_at,
       final DateTime? updated_at,
-      final ExamQuestionAnalysisModel? analysis}) = _$ExamModelImpl;
+      final ExamQuestionAnalysisModel? analysis,
+      final int? student_session_id}) = _$ExamModelImpl;
 
   factory _ExamModel.fromJson(Map<String, dynamic> json) =
       _$ExamModelImpl.fromJson;
@@ -440,6 +460,8 @@ abstract class _ExamModel implements ExamModel {
   DateTime? get updated_at;
   @override
   ExamQuestionAnalysisModel? get analysis;
+  @override
+  int? get student_session_id;
 
   /// Create a copy of ExamModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1426,6 +1448,363 @@ abstract class _ExamQuestionModel implements ExamQuestionModel {
       throw _privateConstructorUsedError;
 }
 
+StudentExamSessionModel _$StudentExamSessionModelFromJson(
+    Map<String, dynamic> json) {
+  return _StudentExamSessionModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$StudentExamSessionModel {
+  int? get id => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
+  bool? get is_late_submission => throw _privateConstructorUsedError;
+  DateTime? get start_date_time => throw _privateConstructorUsedError;
+  DateTime? get end_date_time => throw _privateConstructorUsedError;
+  int? get duration_min => throw _privateConstructorUsedError;
+  double? get avg_score => throw _privateConstructorUsedError;
+  String? get expectation_level => throw _privateConstructorUsedError;
+  int? get exam_id => throw _privateConstructorUsedError;
+  int? get student_id => throw _privateConstructorUsedError;
+
+  /// Serializes this StudentExamSessionModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of StudentExamSessionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $StudentExamSessionModelCopyWith<StudentExamSessionModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StudentExamSessionModelCopyWith<$Res> {
+  factory $StudentExamSessionModelCopyWith(StudentExamSessionModel value,
+          $Res Function(StudentExamSessionModel) then) =
+      _$StudentExamSessionModelCopyWithImpl<$Res, StudentExamSessionModel>;
+  @useResult
+  $Res call(
+      {int? id,
+      String? status,
+      bool? is_late_submission,
+      DateTime? start_date_time,
+      DateTime? end_date_time,
+      int? duration_min,
+      double? avg_score,
+      String? expectation_level,
+      int? exam_id,
+      int? student_id});
+}
+
+/// @nodoc
+class _$StudentExamSessionModelCopyWithImpl<$Res,
+        $Val extends StudentExamSessionModel>
+    implements $StudentExamSessionModelCopyWith<$Res> {
+  _$StudentExamSessionModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of StudentExamSessionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? status = freezed,
+    Object? is_late_submission = freezed,
+    Object? start_date_time = freezed,
+    Object? end_date_time = freezed,
+    Object? duration_min = freezed,
+    Object? avg_score = freezed,
+    Object? expectation_level = freezed,
+    Object? exam_id = freezed,
+    Object? student_id = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      is_late_submission: freezed == is_late_submission
+          ? _value.is_late_submission
+          : is_late_submission // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      start_date_time: freezed == start_date_time
+          ? _value.start_date_time
+          : start_date_time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      end_date_time: freezed == end_date_time
+          ? _value.end_date_time
+          : end_date_time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      duration_min: freezed == duration_min
+          ? _value.duration_min
+          : duration_min // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expectation_level: freezed == expectation_level
+          ? _value.expectation_level
+          : expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exam_id: freezed == exam_id
+          ? _value.exam_id
+          : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      student_id: freezed == student_id
+          ? _value.student_id
+          : student_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$StudentExamSessionModelImplCopyWith<$Res>
+    implements $StudentExamSessionModelCopyWith<$Res> {
+  factory _$$StudentExamSessionModelImplCopyWith(
+          _$StudentExamSessionModelImpl value,
+          $Res Function(_$StudentExamSessionModelImpl) then) =
+      __$$StudentExamSessionModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      String? status,
+      bool? is_late_submission,
+      DateTime? start_date_time,
+      DateTime? end_date_time,
+      int? duration_min,
+      double? avg_score,
+      String? expectation_level,
+      int? exam_id,
+      int? student_id});
+}
+
+/// @nodoc
+class __$$StudentExamSessionModelImplCopyWithImpl<$Res>
+    extends _$StudentExamSessionModelCopyWithImpl<$Res,
+        _$StudentExamSessionModelImpl>
+    implements _$$StudentExamSessionModelImplCopyWith<$Res> {
+  __$$StudentExamSessionModelImplCopyWithImpl(
+      _$StudentExamSessionModelImpl _value,
+      $Res Function(_$StudentExamSessionModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of StudentExamSessionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? status = freezed,
+    Object? is_late_submission = freezed,
+    Object? start_date_time = freezed,
+    Object? end_date_time = freezed,
+    Object? duration_min = freezed,
+    Object? avg_score = freezed,
+    Object? expectation_level = freezed,
+    Object? exam_id = freezed,
+    Object? student_id = freezed,
+  }) {
+    return _then(_$StudentExamSessionModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      is_late_submission: freezed == is_late_submission
+          ? _value.is_late_submission
+          : is_late_submission // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      start_date_time: freezed == start_date_time
+          ? _value.start_date_time
+          : start_date_time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      end_date_time: freezed == end_date_time
+          ? _value.end_date_time
+          : end_date_time // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      duration_min: freezed == duration_min
+          ? _value.duration_min
+          : duration_min // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expectation_level: freezed == expectation_level
+          ? _value.expectation_level
+          : expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exam_id: freezed == exam_id
+          ? _value.exam_id
+          : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      student_id: freezed == student_id
+          ? _value.student_id
+          : student_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StudentExamSessionModelImpl implements _StudentExamSessionModel {
+  _$StudentExamSessionModelImpl(
+      {this.id,
+      this.status,
+      this.is_late_submission,
+      this.start_date_time,
+      this.end_date_time,
+      this.duration_min,
+      this.avg_score,
+      this.expectation_level,
+      this.exam_id,
+      this.student_id});
+
+  factory _$StudentExamSessionModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$StudentExamSessionModelImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? status;
+  @override
+  final bool? is_late_submission;
+  @override
+  final DateTime? start_date_time;
+  @override
+  final DateTime? end_date_time;
+  @override
+  final int? duration_min;
+  @override
+  final double? avg_score;
+  @override
+  final String? expectation_level;
+  @override
+  final int? exam_id;
+  @override
+  final int? student_id;
+
+  @override
+  String toString() {
+    return 'StudentExamSessionModel(id: $id, status: $status, is_late_submission: $is_late_submission, start_date_time: $start_date_time, end_date_time: $end_date_time, duration_min: $duration_min, avg_score: $avg_score, expectation_level: $expectation_level, exam_id: $exam_id, student_id: $student_id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StudentExamSessionModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.is_late_submission, is_late_submission) ||
+                other.is_late_submission == is_late_submission) &&
+            (identical(other.start_date_time, start_date_time) ||
+                other.start_date_time == start_date_time) &&
+            (identical(other.end_date_time, end_date_time) ||
+                other.end_date_time == end_date_time) &&
+            (identical(other.duration_min, duration_min) ||
+                other.duration_min == duration_min) &&
+            (identical(other.avg_score, avg_score) ||
+                other.avg_score == avg_score) &&
+            (identical(other.expectation_level, expectation_level) ||
+                other.expectation_level == expectation_level) &&
+            (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
+            (identical(other.student_id, student_id) ||
+                other.student_id == student_id));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      status,
+      is_late_submission,
+      start_date_time,
+      end_date_time,
+      duration_min,
+      avg_score,
+      expectation_level,
+      exam_id,
+      student_id);
+
+  /// Create a copy of StudentExamSessionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StudentExamSessionModelImplCopyWith<_$StudentExamSessionModelImpl>
+      get copyWith => __$$StudentExamSessionModelImplCopyWithImpl<
+          _$StudentExamSessionModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StudentExamSessionModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _StudentExamSessionModel implements StudentExamSessionModel {
+  factory _StudentExamSessionModel(
+      {final int? id,
+      final String? status,
+      final bool? is_late_submission,
+      final DateTime? start_date_time,
+      final DateTime? end_date_time,
+      final int? duration_min,
+      final double? avg_score,
+      final String? expectation_level,
+      final int? exam_id,
+      final int? student_id}) = _$StudentExamSessionModelImpl;
+
+  factory _StudentExamSessionModel.fromJson(Map<String, dynamic> json) =
+      _$StudentExamSessionModelImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  String? get status;
+  @override
+  bool? get is_late_submission;
+  @override
+  DateTime? get start_date_time;
+  @override
+  DateTime? get end_date_time;
+  @override
+  int? get duration_min;
+  @override
+  double? get avg_score;
+  @override
+  String? get expectation_level;
+  @override
+  int? get exam_id;
+  @override
+  int? get student_id;
+
+  /// Create a copy of StudentExamSessionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StudentExamSessionModelImplCopyWith<_$StudentExamSessionModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 StudentAnswerModel _$StudentAnswerModelFromJson(Map<String, dynamic> json) {
   return _StudentAnswerModel.fromJson(json);
 }
@@ -1433,13 +1812,16 @@ StudentAnswerModel _$StudentAnswerModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$StudentAnswerModel {
   int? get id => throw _privateConstructorUsedError;
+  int? get question_id => throw _privateConstructorUsedError;
+  int? get question_number => throw _privateConstructorUsedError;
+  String? get question_description => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get strand => throw _privateConstructorUsedError;
+  int? get grade => throw _privateConstructorUsedError;
   double? get score => throw _privateConstructorUsedError;
   double? get tr_score => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
-  ExamQuestionModel? get question => throw _privateConstructorUsedError;
-  StudentExamSessionModel? get session => throw _privateConstructorUsedError;
 
   /// Serializes this StudentAnswerModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1459,16 +1841,16 @@ abstract class $StudentAnswerModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
+      int? question_id,
+      int? question_number,
+      String? question_description,
       String? description,
+      String? strand,
+      int? grade,
       double? score,
       double? tr_score,
       DateTime? created_at,
-      DateTime? updated_at,
-      ExamQuestionModel? question,
-      StudentExamSessionModel? session});
-
-  $ExamQuestionModelCopyWith<$Res>? get question;
-  $StudentExamSessionModelCopyWith<$Res>? get session;
+      DateTime? updated_at});
 }
 
 /// @nodoc
@@ -1487,23 +1869,46 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
   @override
   $Res call({
     Object? id = freezed,
+    Object? question_id = freezed,
+    Object? question_number = freezed,
+    Object? question_description = freezed,
     Object? description = freezed,
+    Object? strand = freezed,
+    Object? grade = freezed,
     Object? score = freezed,
     Object? tr_score = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
-    Object? question = freezed,
-    Object? session = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      question_id: freezed == question_id
+          ? _value.question_id
+          : question_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      question_number: freezed == question_number
+          ? _value.question_number
+          : question_number // ignore: cast_nullable_to_non_nullable
+              as int?,
+      question_description: freezed == question_description
+          ? _value.question_description
+          : question_description // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      strand: freezed == strand
+          ? _value.strand
+          : strand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      grade: freezed == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int?,
       score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -1520,43 +1925,7 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      question: freezed == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as ExamQuestionModel?,
-      session: freezed == session
-          ? _value.session
-          : session // ignore: cast_nullable_to_non_nullable
-              as StudentExamSessionModel?,
     ) as $Val);
-  }
-
-  /// Create a copy of StudentAnswerModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ExamQuestionModelCopyWith<$Res>? get question {
-    if (_value.question == null) {
-      return null;
-    }
-
-    return $ExamQuestionModelCopyWith<$Res>(_value.question!, (value) {
-      return _then(_value.copyWith(question: value) as $Val);
-    });
-  }
-
-  /// Create a copy of StudentAnswerModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $StudentExamSessionModelCopyWith<$Res>? get session {
-    if (_value.session == null) {
-      return null;
-    }
-
-    return $StudentExamSessionModelCopyWith<$Res>(_value.session!, (value) {
-      return _then(_value.copyWith(session: value) as $Val);
-    });
   }
 }
 
@@ -1570,18 +1939,16 @@ abstract class _$$StudentAnswerModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
+      int? question_id,
+      int? question_number,
+      String? question_description,
       String? description,
+      String? strand,
+      int? grade,
       double? score,
       double? tr_score,
       DateTime? created_at,
-      DateTime? updated_at,
-      ExamQuestionModel? question,
-      StudentExamSessionModel? session});
-
-  @override
-  $ExamQuestionModelCopyWith<$Res>? get question;
-  @override
-  $StudentExamSessionModelCopyWith<$Res>? get session;
+      DateTime? updated_at});
 }
 
 /// @nodoc
@@ -1598,23 +1965,46 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? question_id = freezed,
+    Object? question_number = freezed,
+    Object? question_description = freezed,
     Object? description = freezed,
+    Object? strand = freezed,
+    Object? grade = freezed,
     Object? score = freezed,
     Object? tr_score = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
-    Object? question = freezed,
-    Object? session = freezed,
   }) {
     return _then(_$StudentAnswerModelImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      question_id: freezed == question_id
+          ? _value.question_id
+          : question_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      question_number: freezed == question_number
+          ? _value.question_number
+          : question_number // ignore: cast_nullable_to_non_nullable
+              as int?,
+      question_description: freezed == question_description
+          ? _value.question_description
+          : question_description // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      strand: freezed == strand
+          ? _value.strand
+          : strand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      grade: freezed == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int?,
       score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -1631,14 +2021,6 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      question: freezed == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as ExamQuestionModel?,
-      session: freezed == session
-          ? _value.session
-          : session // ignore: cast_nullable_to_non_nullable
-              as StudentExamSessionModel?,
     ));
   }
 }
@@ -1648,13 +2030,16 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
 class _$StudentAnswerModelImpl implements _StudentAnswerModel {
   _$StudentAnswerModelImpl(
       {this.id,
+      this.question_id,
+      this.question_number,
+      this.question_description,
       this.description,
+      this.strand,
+      this.grade,
       this.score,
       this.tr_score,
       this.created_at,
-      this.updated_at,
-      this.question,
-      this.session});
+      this.updated_at});
 
   factory _$StudentAnswerModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$StudentAnswerModelImplFromJson(json);
@@ -1662,7 +2047,17 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
   @override
   final int? id;
   @override
+  final int? question_id;
+  @override
+  final int? question_number;
+  @override
+  final String? question_description;
+  @override
   final String? description;
+  @override
+  final String? strand;
+  @override
+  final int? grade;
   @override
   final double? score;
   @override
@@ -1671,14 +2066,10 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
   final DateTime? created_at;
   @override
   final DateTime? updated_at;
-  @override
-  final ExamQuestionModel? question;
-  @override
-  final StudentExamSessionModel? session;
 
   @override
   String toString() {
-    return 'StudentAnswerModel(id: $id, description: $description, score: $score, tr_score: $tr_score, created_at: $created_at, updated_at: $updated_at, question: $question, session: $session)';
+    return 'StudentAnswerModel(id: $id, question_id: $question_id, question_number: $question_number, question_description: $question_description, description: $description, strand: $strand, grade: $grade, score: $score, tr_score: $tr_score, created_at: $created_at, updated_at: $updated_at)';
   }
 
   @override
@@ -1687,24 +2078,40 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
         (other.runtimeType == runtimeType &&
             other is _$StudentAnswerModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.question_id, question_id) ||
+                other.question_id == question_id) &&
+            (identical(other.question_number, question_number) ||
+                other.question_number == question_number) &&
+            (identical(other.question_description, question_description) ||
+                other.question_description == question_description) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.strand, strand) || other.strand == strand) &&
+            (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.score, score) || other.score == score) &&
             (identical(other.tr_score, tr_score) ||
                 other.tr_score == tr_score) &&
             (identical(other.created_at, created_at) ||
                 other.created_at == created_at) &&
             (identical(other.updated_at, updated_at) ||
-                other.updated_at == updated_at) &&
-            (identical(other.question, question) ||
-                other.question == question) &&
-            (identical(other.session, session) || other.session == session));
+                other.updated_at == updated_at));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, description, score, tr_score,
-      created_at, updated_at, question, session);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      question_id,
+      question_number,
+      question_description,
+      description,
+      strand,
+      grade,
+      score,
+      tr_score,
+      created_at,
+      updated_at);
 
   /// Create a copy of StudentAnswerModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1726,13 +2133,16 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
 abstract class _StudentAnswerModel implements StudentAnswerModel {
   factory _StudentAnswerModel(
       {final int? id,
+      final int? question_id,
+      final int? question_number,
+      final String? question_description,
       final String? description,
+      final String? strand,
+      final int? grade,
       final double? score,
       final double? tr_score,
       final DateTime? created_at,
-      final DateTime? updated_at,
-      final ExamQuestionModel? question,
-      final StudentExamSessionModel? session}) = _$StudentAnswerModelImpl;
+      final DateTime? updated_at}) = _$StudentAnswerModelImpl;
 
   factory _StudentAnswerModel.fromJson(Map<String, dynamic> json) =
       _$StudentAnswerModelImpl.fromJson;
@@ -1740,7 +2150,17 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
   @override
   int? get id;
   @override
+  int? get question_id;
+  @override
+  int? get question_number;
+  @override
+  String? get question_description;
+  @override
   String? get description;
+  @override
+  String? get strand;
+  @override
+  int? get grade;
   @override
   double? get score;
   @override
@@ -1749,10 +2169,6 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
   DateTime? get created_at;
   @override
   DateTime? get updated_at;
-  @override
-  ExamQuestionModel? get question;
-  @override
-  StudentExamSessionModel? get session;
 
   /// Create a copy of StudentAnswerModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1760,4 +2176,214 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StudentAnswerModelImplCopyWith<_$StudentAnswerModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+StudentExamSessionDataModel _$StudentExamSessionDataModelFromJson(
+    Map<String, dynamic> json) {
+  return _StudentExamSessionDataModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$StudentExamSessionDataModel {
+  StudentExamSessionModel? get session => throw _privateConstructorUsedError;
+  List<StudentAnswerModel>? get answers => throw _privateConstructorUsedError;
+
+  /// Serializes this StudentExamSessionDataModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of StudentExamSessionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $StudentExamSessionDataModelCopyWith<StudentExamSessionDataModel>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StudentExamSessionDataModelCopyWith<$Res> {
+  factory $StudentExamSessionDataModelCopyWith(
+          StudentExamSessionDataModel value,
+          $Res Function(StudentExamSessionDataModel) then) =
+      _$StudentExamSessionDataModelCopyWithImpl<$Res,
+          StudentExamSessionDataModel>;
+  @useResult
+  $Res call(
+      {StudentExamSessionModel? session, List<StudentAnswerModel>? answers});
+
+  $StudentExamSessionModelCopyWith<$Res>? get session;
+}
+
+/// @nodoc
+class _$StudentExamSessionDataModelCopyWithImpl<$Res,
+        $Val extends StudentExamSessionDataModel>
+    implements $StudentExamSessionDataModelCopyWith<$Res> {
+  _$StudentExamSessionDataModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of StudentExamSessionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? session = freezed,
+    Object? answers = freezed,
+  }) {
+    return _then(_value.copyWith(
+      session: freezed == session
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
+              as StudentExamSessionModel?,
+      answers: freezed == answers
+          ? _value.answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<StudentAnswerModel>?,
+    ) as $Val);
+  }
+
+  /// Create a copy of StudentExamSessionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $StudentExamSessionModelCopyWith<$Res>? get session {
+    if (_value.session == null) {
+      return null;
+    }
+
+    return $StudentExamSessionModelCopyWith<$Res>(_value.session!, (value) {
+      return _then(_value.copyWith(session: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$StudentExamSessionDataModelImplCopyWith<$Res>
+    implements $StudentExamSessionDataModelCopyWith<$Res> {
+  factory _$$StudentExamSessionDataModelImplCopyWith(
+          _$StudentExamSessionDataModelImpl value,
+          $Res Function(_$StudentExamSessionDataModelImpl) then) =
+      __$$StudentExamSessionDataModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {StudentExamSessionModel? session, List<StudentAnswerModel>? answers});
+
+  @override
+  $StudentExamSessionModelCopyWith<$Res>? get session;
+}
+
+/// @nodoc
+class __$$StudentExamSessionDataModelImplCopyWithImpl<$Res>
+    extends _$StudentExamSessionDataModelCopyWithImpl<$Res,
+        _$StudentExamSessionDataModelImpl>
+    implements _$$StudentExamSessionDataModelImplCopyWith<$Res> {
+  __$$StudentExamSessionDataModelImplCopyWithImpl(
+      _$StudentExamSessionDataModelImpl _value,
+      $Res Function(_$StudentExamSessionDataModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of StudentExamSessionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? session = freezed,
+    Object? answers = freezed,
+  }) {
+    return _then(_$StudentExamSessionDataModelImpl(
+      session: freezed == session
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
+              as StudentExamSessionModel?,
+      answers: freezed == answers
+          ? _value._answers
+          : answers // ignore: cast_nullable_to_non_nullable
+              as List<StudentAnswerModel>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$StudentExamSessionDataModelImpl
+    implements _StudentExamSessionDataModel {
+  _$StudentExamSessionDataModelImpl(
+      {this.session, final List<StudentAnswerModel>? answers})
+      : _answers = answers;
+
+  factory _$StudentExamSessionDataModelImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$StudentExamSessionDataModelImplFromJson(json);
+
+  @override
+  final StudentExamSessionModel? session;
+  final List<StudentAnswerModel>? _answers;
+  @override
+  List<StudentAnswerModel>? get answers {
+    final value = _answers;
+    if (value == null) return null;
+    if (_answers is EqualUnmodifiableListView) return _answers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'StudentExamSessionDataModel(session: $session, answers: $answers)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StudentExamSessionDataModelImpl &&
+            (identical(other.session, session) || other.session == session) &&
+            const DeepCollectionEquality().equals(other._answers, _answers));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, session, const DeepCollectionEquality().hash(_answers));
+
+  /// Create a copy of StudentExamSessionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StudentExamSessionDataModelImplCopyWith<_$StudentExamSessionDataModelImpl>
+      get copyWith => __$$StudentExamSessionDataModelImplCopyWithImpl<
+          _$StudentExamSessionDataModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$StudentExamSessionDataModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _StudentExamSessionDataModel
+    implements StudentExamSessionDataModel {
+  factory _StudentExamSessionDataModel(
+          {final StudentExamSessionModel? session,
+          final List<StudentAnswerModel>? answers}) =
+      _$StudentExamSessionDataModelImpl;
+
+  factory _StudentExamSessionDataModel.fromJson(Map<String, dynamic> json) =
+      _$StudentExamSessionDataModelImpl.fromJson;
+
+  @override
+  StudentExamSessionModel? get session;
+  @override
+  List<StudentAnswerModel>? get answers;
+
+  /// Create a copy of StudentExamSessionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$StudentExamSessionDataModelImplCopyWith<_$StudentExamSessionDataModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

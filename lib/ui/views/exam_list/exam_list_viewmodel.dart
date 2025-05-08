@@ -114,8 +114,25 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
     if (isStudent &&
         [ExamStatus.ongoing, ExamStatus.complete].contains(exam.status)) {
       bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
-      if (canNavigate) _navigationService.navigateToSingleStExamView();
-      return;
+
+      if (canNavigate) {
+        if (exam.status == ExamStatus.ongoing) {
+          var dialogRes = await _dialogService.showCustomDialog(
+            variant: DialogType.startExam,
+            data: {"currentExam": exam},
+          );
+          bool? isConfirmed = dialogRes?.data;
+          if (isConfirmed == true) {
+            _navigationService.navigateToStExamSessionView();
+          }
+          return;
+        }
+
+        if (exam.status == ExamStatus.complete) {
+          _navigationService.navigateToSingleStExamView();
+          return;
+        }
+      }
     }
 
     if (isTeacher) {

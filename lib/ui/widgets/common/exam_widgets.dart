@@ -31,17 +31,14 @@ class ExamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     final dateStr = exam.start_date_time != null
         ? shortDayDateFormat.format(exam.start_date_time!)
         : '--';
     final localStart = exam.start_date_time!.toLocal();
     final localEnd = exam.end_date_time!.toLocal();
-
     final timeStr =
         "${timeDateFormat.format(localStart)} to ${timeDateFormat.format(localEnd)}";
-    // final durationStr = exam.duration_min != null
-    //     ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
-    //     : '--';
 
     final bool isFailedGen = exam.status == ExamStatus.failed;
     final bool isGenerating = exam.status == ExamStatus.generating;
