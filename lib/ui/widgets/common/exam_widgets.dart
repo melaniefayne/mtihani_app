@@ -17,6 +17,7 @@ class ExamCard extends StatelessWidget {
   final Function(ExamModel) onViewExam;
   final Function(ExamModel) onRetryExamGen;
   final Function() onRefresh;
+  final bool isStudent;
 
   const ExamCard({
     super.key,
@@ -24,21 +25,32 @@ class ExamCard extends StatelessWidget {
     required this.onViewExam,
     required this.onRetryExamGen,
     required this.onRefresh,
+    required this.isStudent,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final dateStr = exam.start_date_time != null
-        ? shortDayDateFormat.format(exam.end_date_time!)
+        ? shortDayDateFormat.format(exam.start_date_time!)
         : '--';
-    final durationStr = exam.duration_min != null
-        ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
-        : '--';
+    final localStart = exam.start_date_time!.toLocal();
+    final localEnd = exam.end_date_time!.toLocal();
+
+    final timeStr =
+        "${timeDateFormat.format(localStart)} to ${timeDateFormat.format(localEnd)}";
+    // final durationStr = exam.duration_min != null
+    //     ? '${exam.duration_min! ~/ 60}hr ${exam.duration_min! % 60} minutes'
+    //     : '--';
+
     final bool isFailedGen = exam.status == ExamStatus.failed;
     final bool isGenerating = exam.status == ExamStatus.generating;
+    final bool hideActionBtn = isStudent &&
+        ![ExamStatus.ongoing, ExamStatus.complete].contains(exam.status);
 
     onExamAction() {
+      if (hideActionBtn) return;
+
       if (isGenerating) {
         onRefresh();
         return;
@@ -98,31 +110,33 @@ class ExamCard extends StatelessWidget {
                               ))
                           : Text(
                               '${exam.analysis?.question_count ?? "--"} Questions'),
-                    Text("$dateStr • $durationStr"),
+                    Text("$dateStr • $timeStr"),
                   ],
                 ),
               ],
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 buildExamStatusDot(theme, exam.status!),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: buildSecBtn(
-                    theme: theme,
-                    btnTxt: isGenerating
-                        ? "Refresh"
-                        : isFailedGen
-                            ? "Retry"
-                            : "View",
-                    iconPath: isGenerating
-                        ? Icons.refresh
-                        : isFailedGen
-                            ? Icons.repeat
-                            : Icons.open_in_new,
-                    onAction: onExamAction,
+                if (!hideActionBtn)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: buildSecBtn(
+                      theme: theme,
+                      btnTxt: isGenerating
+                          ? "Refresh"
+                          : isFailedGen
+                              ? "Retry"
+                              : "View",
+                      iconPath: isGenerating
+                          ? Icons.refresh
+                          : isFailedGen
+                              ? Icons.repeat
+                              : Icons.open_in_new,
+                      onAction: onExamAction,
+                    ),
                   ),
-                ),
               ],
             ),
           ],
@@ -160,8 +174,22 @@ const List<String> allExamPublishStatuses = [
   examIsPublishedKw,
   examIsUnpublishedKw
 ];
-List<String> allExamStatuses = ExamStatus.values
-    .map((e) => e.name.replaceFirst(e.name[0], e.name[0].toUpperCase()))
+List<ExamStatus> teacherOnlyStatuses = [
+  ExamStatus.generating,
+  ExamStatus.failed
+];
+List<String> allTrExamStatuses = ExamStatus.values
+    .where((f) => f != ExamStatus.archived)
+    .map((e) => getExamStatusStr(e))
+    .toList();
+
+String getExamStatusStr(ExamStatus status) {
+  return status.name.replaceFirst(status.name[0], status.name[0].toUpperCase());
+}
+
+List<String> allStExamStatuses = ExamStatus.values
+    .where((f) => !teacherOnlyStatuses.contains(f) && f != ExamStatus.archived)
+    .map((e) => getExamStatusStr(e))
     .toList();
 
 Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {

@@ -83,7 +83,9 @@ class ExamListView extends DashPage<ExamListViewModel> {
                   onChanged: (val) {
                     viewModel.onChangeExamStatus(val);
                   },
-                  items: allExamStatuses
+                  items: (viewModel.isTeacher
+                          ? allTrExamStatuses
+                          : allStExamStatuses)
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -121,6 +123,7 @@ class ExamListView extends DashPage<ExamListViewModel> {
                       itemCount: viewModel.examList.length,
                       itemBuilder: (context, idx) => ExamCard(
                         exam: viewModel.examList[idx],
+                        isStudent: viewModel.isStudent,
                         onViewExam: viewModel.onViewExam,
                         onRetryExamGen: viewModel.onRetryExamGeneration,
                         onRefresh: viewModel.initialise,

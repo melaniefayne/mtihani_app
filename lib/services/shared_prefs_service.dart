@@ -144,4 +144,30 @@ class SharedPrefsService {
   Future<bool> clearSingleTrExamNavArg() async {
     return await sharedPrefsDoDeleteValue(strCurrentTrExam);
   }
+
+  // ========== Student Exam
+
+  Future<bool> setSingleStExamNavArg(ExamModel stExam) async {
+    return await sharedPrefsDoSetValue<String>(
+      prefsKey: strCurrentStExam,
+      value: jsonEncode(stExam.toJson()),
+    );
+  }
+
+  Future<ExamModel?> getSingleStExamNavArg() async {
+    String? stExamStr =
+        await sharedPrefsDoGetValue<String>(prefsKey: strCurrentStExam);
+    if (stExamStr != null) {
+      try {
+        return ExamModel.fromJson(jsonDecode(stExamStr));
+      } catch (e) {
+        log("Error parsing stExam: $e");
+      }
+    }
+    return null;
+  }
+
+  Future<bool> clearSingleStExamNavArg() async {
+    return await sharedPrefsDoDeleteValue(strCurrentStExam);
+  }
 }

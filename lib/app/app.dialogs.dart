@@ -14,6 +14,7 @@ import '../ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/dialogs/join_class/join_class_dialog.dart';
 import '../ui/dialogs/role_signup/role_signup_dialog.dart';
+import '../ui/dialogs/start_exam/start_exam_dialog.dart';
 
 enum DialogType {
   infoAlert,
@@ -23,6 +24,7 @@ enum DialogType {
   joinClass,
   editExamTime,
   editExamQuestion,
+  startExam,
 }
 
 void setupDialogUi() {
@@ -43,6 +45,8 @@ void setupDialogUi() {
         EditExamTimeDialog(request: request, completer: completer),
     DialogType.editExamQuestion: (context, request, completer) =>
         EditExamQuestionDialog(request: request, completer: completer),
+    DialogType.startExam: (context, request, completer) =>
+        StartExamDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

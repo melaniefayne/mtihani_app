@@ -29,6 +29,8 @@ import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
 import 'package:mtihani_app/ui/views/single_tr_exam/single_tr_exam_view.dart';
 import 'package:mtihani_app/ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart';
 import 'package:mtihani_app/ui/dialogs/edit_exam_question/edit_exam_question_dialog.dart';
+import 'package:mtihani_app/ui/views/single_st_exam/single_st_exam_view.dart';
+import 'package:mtihani_app/ui/dialogs/start_exam/start_exam_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -50,6 +52,7 @@ import 'package:mtihani_app/ui/dialogs/edit_exam_question/edit_exam_question_dia
     MaterialRoute(page: ExamListView),
     MaterialRoute(page: CbcView),
     MaterialRoute(page: SingleTrExamView),
+    MaterialRoute(page: SingleStExamView),
 // @stacked-route
   ],
   dependencies: [
@@ -74,6 +77,7 @@ import 'package:mtihani_app/ui/dialogs/edit_exam_question/edit_exam_question_dia
     StackedDialog(classType: JoinClassDialog),
     StackedDialog(classType: EditExamTimeDialog),
     StackedDialog(classType: EditExamQuestionDialog),
+    StackedDialog(classType: StartExamDialog),
 // @stacked-dialog
   ],
 )

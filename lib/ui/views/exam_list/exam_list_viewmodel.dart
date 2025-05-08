@@ -78,8 +78,10 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   // ===== FILTERS
 
   onChangeClass(ClassroomModel classroom) {
-    selectedClass = classroom;
-    initialise();
+    if (!isSingleClassView) {
+      selectedClass = classroom;
+      initialise();
+    }
   }
 
   onChangeExamStatus(String examStatus) {
@@ -109,8 +111,18 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   }
 
   onViewExam(ExamModel exam) async {
-    bool canNavigate = await _sharedPrefsService.setSingleTrExamNavArg(exam);
-    if (canNavigate) _navigationService.navigateToSingleTrExamView();
+    if (isStudent &&
+        [ExamStatus.ongoing, ExamStatus.complete].contains(exam.status)) {
+      bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
+      if (canNavigate) _navigationService.navigateToSingleStExamView();
+      return;
+    }
+
+    if (isTeacher) {
+      bool canNavigate = await _sharedPrefsService.setSingleTrExamNavArg(exam);
+      if (canNavigate) _navigationService.navigateToSingleTrExamView();
+      return;
+    }
   }
 
   onRetryExamGeneration(ExamModel exam) async {

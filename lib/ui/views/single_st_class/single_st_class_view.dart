@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/models/user.dart';
+import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:mtihani_app/ui/widgets/common/student_edit_form/student_edit_form.dart';
 import 'package:mtihani_app/ui/widgets/common/student_performance_tab/student_performance_tab.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_st_class_viewmodel.dart';
@@ -32,8 +36,14 @@ class SingleStClassView extends StackedView<SingleStClassViewModel> {
         TabViewItem(
           label: "Exams",
           icon: Icons.list_alt,
-          widget: const Center(
-            child: Text("Exam listing"),
+          widget: ExamListView(
+            userClassrooms: [
+              ClassroomModel(
+                id: viewModel.stClassroom!.classroom_id,
+                name: viewModel.stClassroom!.classroom_name,
+              )
+            ],
+            loggedInUser: UserModel(role: appStudentRoleKw),
           ),
         ),
         if (viewModel.isTeacher)
