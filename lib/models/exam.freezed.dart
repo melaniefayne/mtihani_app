@@ -1465,6 +1465,7 @@ mixin _$StudentExamSessionModel {
   String? get expectation_level => throw _privateConstructorUsedError;
   int? get exam_id => throw _privateConstructorUsedError;
   int? get student_id => throw _privateConstructorUsedError;
+  String? get student_name => throw _privateConstructorUsedError;
 
   /// Serializes this StudentExamSessionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1492,7 +1493,8 @@ abstract class $StudentExamSessionModelCopyWith<$Res> {
       double? avg_score,
       String? expectation_level,
       int? exam_id,
-      int? student_id});
+      int? student_id,
+      String? student_name});
 }
 
 /// @nodoc
@@ -1521,6 +1523,7 @@ class _$StudentExamSessionModelCopyWithImpl<$Res,
     Object? expectation_level = freezed,
     Object? exam_id = freezed,
     Object? student_id = freezed,
+    Object? student_name = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -1563,6 +1566,10 @@ class _$StudentExamSessionModelCopyWithImpl<$Res,
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      student_name: freezed == student_name
+          ? _value.student_name
+          : student_name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -1586,7 +1593,8 @@ abstract class _$$StudentExamSessionModelImplCopyWith<$Res>
       double? avg_score,
       String? expectation_level,
       int? exam_id,
-      int? student_id});
+      int? student_id,
+      String? student_name});
 }
 
 /// @nodoc
@@ -1614,6 +1622,7 @@ class __$$StudentExamSessionModelImplCopyWithImpl<$Res>
     Object? expectation_level = freezed,
     Object? exam_id = freezed,
     Object? student_id = freezed,
+    Object? student_name = freezed,
   }) {
     return _then(_$StudentExamSessionModelImpl(
       id: freezed == id
@@ -1656,6 +1665,10 @@ class __$$StudentExamSessionModelImplCopyWithImpl<$Res>
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      student_name: freezed == student_name
+          ? _value.student_name
+          : student_name // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -1673,7 +1686,8 @@ class _$StudentExamSessionModelImpl implements _StudentExamSessionModel {
       this.avg_score,
       this.expectation_level,
       this.exam_id,
-      this.student_id});
+      this.student_id,
+      this.student_name});
 
   factory _$StudentExamSessionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$StudentExamSessionModelImplFromJson(json);
@@ -1698,10 +1712,12 @@ class _$StudentExamSessionModelImpl implements _StudentExamSessionModel {
   final int? exam_id;
   @override
   final int? student_id;
+  @override
+  final String? student_name;
 
   @override
   String toString() {
-    return 'StudentExamSessionModel(id: $id, status: $status, is_late_submission: $is_late_submission, start_date_time: $start_date_time, end_date_time: $end_date_time, duration_min: $duration_min, avg_score: $avg_score, expectation_level: $expectation_level, exam_id: $exam_id, student_id: $student_id)';
+    return 'StudentExamSessionModel(id: $id, status: $status, is_late_submission: $is_late_submission, start_date_time: $start_date_time, end_date_time: $end_date_time, duration_min: $duration_min, avg_score: $avg_score, expectation_level: $expectation_level, exam_id: $exam_id, student_id: $student_id, student_name: $student_name)';
   }
 
   @override
@@ -1725,7 +1741,9 @@ class _$StudentExamSessionModelImpl implements _StudentExamSessionModel {
                 other.expectation_level == expectation_level) &&
             (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
             (identical(other.student_id, student_id) ||
-                other.student_id == student_id));
+                other.student_id == student_id) &&
+            (identical(other.student_name, student_name) ||
+                other.student_name == student_name));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1741,7 +1759,8 @@ class _$StudentExamSessionModelImpl implements _StudentExamSessionModel {
       avg_score,
       expectation_level,
       exam_id,
-      student_id);
+      student_id,
+      student_name);
 
   /// Create a copy of StudentExamSessionModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1771,7 +1790,8 @@ abstract class _StudentExamSessionModel implements StudentExamSessionModel {
       final double? avg_score,
       final String? expectation_level,
       final int? exam_id,
-      final int? student_id}) = _$StudentExamSessionModelImpl;
+      final int? student_id,
+      final String? student_name}) = _$StudentExamSessionModelImpl;
 
   factory _StudentExamSessionModel.fromJson(Map<String, dynamic> json) =
       _$StudentExamSessionModelImpl.fromJson;
@@ -1796,6 +1816,8 @@ abstract class _StudentExamSessionModel implements StudentExamSessionModel {
   int? get exam_id;
   @override
   int? get student_id;
+  @override
+  String? get student_name;
 
   /// Create a copy of StudentExamSessionModel
   /// with the given fields replaced by the non-null parameter values.

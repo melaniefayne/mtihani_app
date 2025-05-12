@@ -112,7 +112,8 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
 
   onViewExam(ExamModel exam) async {
     if (isStudent &&
-        [ExamStatus.ongoing, ExamStatus.complete].contains(exam.status)) {
+        [ExamStatus.ongoing, ExamStatus.grading, ExamStatus.complete]
+            .contains(exam.status)) {
       bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
 
       if (canNavigate) {
@@ -128,10 +129,8 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
           return;
         }
 
-        if (exam.status == ExamStatus.complete) {
-          _navigationService.navigateToSingleStExamView();
-          return;
-        }
+        _navigationService.navigateToSingleStExamView();
+        return;
       }
     }
 

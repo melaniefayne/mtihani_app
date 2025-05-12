@@ -109,6 +109,7 @@ class StudentExamSessionModel with _$StudentExamSessionModel {
     String? expectation_level,
     int? exam_id,
     int? student_id,
+    String? student_name,
   }) = _StudentExamSessionModel;
 
   factory StudentExamSessionModel.fromJson(Map<String, dynamic> json) =>

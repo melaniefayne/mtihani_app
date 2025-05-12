@@ -131,7 +131,10 @@ class ExamQuestionList extends StackedView<ExamQuestionListModel> {
                       children: viewModel.questionsList
                           .map((e) => ExamQuestionCard(
                                 question: e,
-                                onEditQuestion: viewModel.onEditQuestion,
+                                onEditQuestion:
+                                    exam.status == ExamStatus.upcoming
+                                        ? viewModel.onEditQuestion
+                                        : null,
                               ))
                           .toList(),
                     ),

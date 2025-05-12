@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 
 DateFormat shortDateFormat = DateFormat('dd/MM/yy');
+DateFormat shortDateTimeFormat = DateFormat('dd/MM/yy HH:mm');
 DateFormat fullDayDateFormat = DateFormat("EEEE, dd/MMM/yyyy");
 DateFormat timeDateFormat = DateFormat("hh:mm a");
 final DateFormat shortDayDateFormat = DateFormat('EEE, dd/MM/yy');

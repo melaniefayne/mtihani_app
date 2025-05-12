@@ -3,6 +3,7 @@ import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_question_list/exam_question_list.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_responses_list/exam_responses_list.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
@@ -55,7 +56,7 @@ class SingleTrExamView extends StackedView<SingleTrExamViewModel> {
         TabViewItem(
           label: "Responses",
           icon: Icons.group,
-          widget: const Center(child: Text("Coming Soon ...")),
+          widget: ExamResponsesList(exam: viewModel.trClassroomExam!),
         ),
         TabViewItem(
           label: "Questions",

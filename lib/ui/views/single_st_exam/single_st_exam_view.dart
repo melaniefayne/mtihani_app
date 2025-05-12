@@ -17,14 +17,14 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
   ) {
     final theme = Theme.of(context);
 
-    if (viewModel.stExam == null) {
+    if (viewModel.exam == null) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return AppSideBarScaffold(
       pageTitle:
-          "Exam ${viewModel.stExam?.code ?? '--'} (Grade ${viewModel.stExam?.classroom_name ?? "--"})",
-      trailingWidget: buildExamStatusDot(theme, viewModel.stExam!.status!),
+          "Exam ${viewModel.exam?.code ?? '--'} (Grade ${viewModel.exam?.classroom_name ?? "--"})",
+      trailingWidget: buildExamStatusDot(theme, viewModel.exam!.status!),
       tabItems: [
         TabViewItem(
           label: "Performance",

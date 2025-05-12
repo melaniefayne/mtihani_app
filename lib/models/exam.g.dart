@@ -170,6 +170,7 @@ _$StudentExamSessionModelImpl _$$StudentExamSessionModelImplFromJson(
       expectation_level: json['expectation_level'] as String?,
       exam_id: (json['exam_id'] as num?)?.toInt(),
       student_id: (json['student_id'] as num?)?.toInt(),
+      student_name: json['student_name'] as String?,
     );
 
 Map<String, dynamic> _$$StudentExamSessionModelImplToJson(
@@ -185,6 +186,7 @@ Map<String, dynamic> _$$StudentExamSessionModelImplToJson(
       'expectation_level': instance.expectation_level,
       'exam_id': instance.exam_id,
       'student_id': instance.student_id,
+      'student_name': instance.student_name,
     };
 
 _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(

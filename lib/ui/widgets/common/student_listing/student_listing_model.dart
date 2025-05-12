@@ -56,10 +56,12 @@ class StudentListingModel extends FutureViewModel<List<StudentModel>> {
       List<StudentModel> resStudents = studentApiRes.$1?.listData ?? [];
       studentList = isLoadMore ? [...studentList, ...resStudents] : resStudents;
       nextPageUrl = studentApiRes.$1?.next;
+
       List<Map<String, dynamic>> res = studentList
           .map((e) => {"id": e.id, "avg_score": e.avg_score})
           .toList();
       log(jsonEncode(res));
+
       return studentList;
     }
     return [];

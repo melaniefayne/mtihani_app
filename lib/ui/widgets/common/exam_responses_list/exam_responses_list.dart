@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/ui/widgets/app_filters.dart';
+import 'package:mtihani_app/ui/widgets/app_search_table.dart';
+import 'package:mtihani_app/ui/widgets/common/student_listing/student_listing_model.dart';
+import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
 
 import 'exam_responses_list_model.dart';
 
 class ExamResponsesList extends StackedView<ExamResponsesListModel> {
-  const ExamResponsesList({super.key});
+  final ExamModel exam;
+  const ExamResponsesList({super.key, required this.exam});
 
   @override
   Widget builder(
@@ -12,12 +19,108 @@ class ExamResponsesList extends StackedView<ExamResponsesListModel> {
     ExamResponsesListModel viewModel,
     Widget? child,
   ) {
-    return const SizedBox.shrink();
+    final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (viewModel.isExamComplete)
+            Padding(
+              padding: EdgeInsets.only(bottom: pageSize.height * 0.01),
+              child: AppPageFilters(
+                fullWidth: pageSize.width * 0.75,
+                filters: [
+                  AppFilterItem(
+                    label: "Expectation Level",
+                    selectedValue: viewModel.selectedStudentExpectation,
+                    onChanged: (val) {
+                      viewModel.onChangeStudentExpectation(val);
+                    },
+                    items: allExpectationLevels
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          if (viewModel.isBusy)
+            buildLoadingWidget(theme, "Fetching student responses",
+                isLinear: true),
+          if (viewModel.data != null)
+            if (viewModel.data != null)
+              AppSearchTable(
+                isSearchActive: viewModel.isSearchActive,
+                onSearchCanceled: viewModel.onSearchCanceled,
+                onSearchTermChanged: viewModel.onSearchTermChanged,
+                hintText: "Search by student name",
+                searchTxtCtrl: viewModel.searchTxtCtrl,
+                tableHeight: pageSize.height * 0.7,
+                tableHeaders: viewModel.isExamComplete
+                    ? const [
+                        "Name",
+                        "Start",
+                        "End",
+                        "Duration",
+                        "Avg. Score",
+                        "Expectation Level",
+                        "Action",
+                      ]
+                    : const ["Name", "Start", "End", "Duration", "Action"],
+                tableRows: List.generate(viewModel.data!.length, (int idx) {
+                  StudentExamSessionModel session = viewModel.data![idx];
+                  onViewStudent() => viewModel.onViewExamSession(session);
+
+                  return DataRow(
+                    cells: [
+                      buildCellTxt(
+                        session.student_name,
+                        useLeftAlign: true,
+                        onAction: onViewStudent,
+                      ),
+                      buildCellTxt(
+                          getFormattedDate(
+                              session.start_date_time, shortDateTimeFormat),
+                          onAction: onViewStudent),
+                      buildCellTxt(
+                          getFormattedDate(
+                              session.end_date_time, shortDateTimeFormat),
+                          onAction: onViewStudent),
+                      buildCellTxt("${session.duration_min ?? '--'} min",
+                          onAction: onViewStudent),
+                      if (viewModel.isExamComplete) ...[
+                        buildCellTxt("${session.avg_score ?? 0.0}%",
+                            onAction: onViewStudent),
+                        buildCellTxt(session.expectation_level,
+                            onAction: onViewStudent),
+                      ],
+                      buildCellViewAction(
+                          theme: theme, onAction: onViewStudent),
+                    ],
+                  );
+                }),
+                itemsText: "No responses available",
+              ),
+          const SizedBox(height: 10),
+          if (viewModel.nextPageUrl != null)
+            buildPriBtn(
+              theme: theme,
+              btnTxt: "Load More",
+              onAction: viewModel.onViewMore,
+            ),
+        ],
+      ),
+    );
   }
 
   @override
   ExamResponsesListModel viewModelBuilder(
     BuildContext context,
   ) =>
-      ExamResponsesListModel();
+      ExamResponsesListModel(exam);
 }

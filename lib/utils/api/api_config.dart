@@ -52,3 +52,5 @@ String get endPointStartExamSession => "$baseURL/exam/start-exam-session";
 String get endPointGetExamSession => "$baseURL/exam/get-exam-session";
 String get endPointUpdateExamAnswer => "$baseURL/exam/update-exam-answer";
 String get endPointEndExamSession => "$baseURL/exam/end-exam-session";
+String get endPointGetStudentExamSessions =>
+    "$baseURL/exam/get-student-exam-sessions";
