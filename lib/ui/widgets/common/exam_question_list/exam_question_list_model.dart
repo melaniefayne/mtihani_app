@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/app/app.dialogs.dart';
@@ -72,6 +74,14 @@ class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
           isLoadMore ? [...questionsList, ...resQuestions] : resQuestions;
       nextPageUrl = examQuestionsApiRes.$1?.next;
       questionsOgList = [...questionsList];
+      // List<Map<String, dynamic>> res = questionsOgList
+      //     .map((e) => {
+      //           "id": e.id,
+      //           "question": e.description,
+      //           "expected_answer": e.expected_answer
+      //         })
+      //     .toList();
+      // log(jsonEncode(res));
       return questionsList;
     }
     return [];

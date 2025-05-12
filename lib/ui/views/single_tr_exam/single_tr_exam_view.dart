@@ -105,6 +105,8 @@ class ExamConfigTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final localStart = exam.start_date_time!.toLocal();
+    final localEnd = exam.end_date_time!.toLocal();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +128,7 @@ class ExamConfigTab extends StatelessWidget {
               children: [
                 const TextSpan(text: "Day: "),
                 TextSpan(
-                  text: fullDayDateFormat.format(exam.start_date_time!),
+                  text: fullDayDateFormat.format(localStart),
                   style: theme.textTheme.titleMedium,
                 ),
               ],
@@ -138,12 +140,12 @@ class ExamConfigTab extends StatelessWidget {
               children: [
                 const TextSpan(text: "Time: "),
                 TextSpan(
-                  text: timeDateFormat.format(exam.start_date_time!),
+                  text: timeDateFormat.format(localStart),
                   style: theme.textTheme.titleMedium,
                 ),
                 const TextSpan(text: " to "),
                 TextSpan(
-                  text: timeDateFormat.format(exam.end_date_time!),
+                  text: timeDateFormat.format(localEnd),
                   style: theme.textTheme.titleMedium,
                 ),
               ],

@@ -206,6 +206,7 @@ class _AppBarChartState extends State<AppBarChart> {
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
+                    reservedSize: 48,
                     getTitlesWidget: getXAxisTitles,
                   ),
                 ),
@@ -333,9 +334,15 @@ class _AppBarChartState extends State<AppBarChart> {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      child: Text(
-        text,
-        style: TextStyle(color: widget.textColor, fontSize: 11),
+      child: SizedBox(
+        width: 120,
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: widget.textColor, fontSize: 11),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
       ),
     );
   }
