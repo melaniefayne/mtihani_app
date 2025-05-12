@@ -32,6 +32,7 @@ import 'package:mtihani_app/ui/dialogs/edit_exam_question/edit_exam_question_dia
 import 'package:mtihani_app/ui/views/single_st_exam/single_st_exam_view.dart';
 import 'package:mtihani_app/ui/dialogs/start_exam/start_exam_dialog.dart';
 import 'package:mtihani_app/ui/views/st_exam_session/st_exam_session_view.dart';
+import 'package:mtihani_app/ui/dialogs/edit_exam_score/edit_exam_score_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -80,6 +81,7 @@ import 'package:mtihani_app/ui/views/st_exam_session/st_exam_session_view.dart';
     StackedDialog(classType: EditExamTimeDialog),
     StackedDialog(classType: EditExamQuestionDialog),
     StackedDialog(classType: StartExamDialog),
+    StackedDialog(classType: EditExamScoreDialog),
 // @stacked-dialog
   ],
 )

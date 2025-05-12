@@ -43,7 +43,9 @@ class SingleStClassView extends StackedView<SingleStClassViewModel> {
                 name: viewModel.stClassroom!.classroom_name,
               )
             ],
-            loggedInUser: UserModel(role: appStudentRoleKw),
+            loggedInUser: UserModel(
+                role:
+                    viewModel.isTeacher ? appTeacherRoleKw : appStudentRoleKw),
           ),
         ),
         if (viewModel.isTeacher)

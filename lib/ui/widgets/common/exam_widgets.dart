@@ -11,6 +11,7 @@ import 'package:mtihani_app/ui/widgets/charts/app_linear_percent_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_pie_donut_chart.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
+import 'package:mtihani_app/utils/helpers/validators.dart';
 
 class ExamCard extends StatelessWidget {
   final ExamModel exam;
@@ -43,7 +44,8 @@ class ExamCard extends StatelessWidget {
     final bool isFailedGen = exam.status == ExamStatus.failed;
     final bool isGenerating = exam.status == ExamStatus.generating;
     final bool hideActionBtn = isStudent &&
-        ![ExamStatus.ongoing, ExamStatus.complete].contains(exam.status);
+        ![ExamStatus.ongoing, ExamStatus.grading, ExamStatus.complete]
+            .contains(exam.status);
 
     onExamAction() {
       if (hideActionBtn) return;
@@ -212,22 +214,63 @@ Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
   return theme.primaryColor;
 }
 
+Color getAnswerColor(double? score, ThemeData theme) {
+  switch (score) {
+    case 0:
+      return appRed;
+    case 1:
+      return appPeach;
+    case 2:
+      return appPurple;
+    case 3:
+      return appBlue;
+    case 4:
+      return appGreen;
+
+    default:
+      break;
+  }
+
+  return theme.primaryColor;
+}
+
 class ExamQuestionCard extends StatelessWidget {
   final ExamQuestionModel question;
   final Function(ExamQuestionModel question)? onEditQuestion;
+  final StudentAnswerModel? answer;
+  final Function(StudentAnswerModel answer)? onEditAnswerScore;
 
   const ExamQuestionCard({
     super.key,
     required this.question,
     this.onEditQuestion,
+    this.answer,
+    this.onEditAnswerScore,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
+
+    final bool hasStudentAnswer = answer != null;
+    final bool canEditAnswerScore =
+        hasStudentAnswer && onEditAnswerScore != null;
+    final bool canEditQuestion = !hasStudentAnswer && onEditQuestion != null;
+    Color answerColor = getAnswerColor(answer?.score, theme);
+
     return GestureDetector(
-      onTap: onEditQuestion != null ? () => onEditQuestion!(question) : null,
+      onTap: () {
+        if (canEditQuestion) {
+          onEditQuestion!(question);
+          return;
+        }
+
+        if (canEditAnswerScore) {
+          onEditAnswerScore!(answer!);
+          return;
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
           color: theme.cardColor,
@@ -270,7 +313,7 @@ class ExamQuestionCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  if (onEditQuestion != null)
+                  if (canEditQuestion)
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: buildIconBtn(
@@ -278,14 +321,43 @@ class ExamQuestionCard extends StatelessWidget {
                         iconPath: Icons.edit,
                       ),
                     ),
+                  if (answer?.score != null)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Container(
+                        color: answerColor.withOpacity(0.1),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              answer!.score?.toString() ?? "--",
+                              style: theme.textTheme.titleMedium!.copyWith(
+                                color: answerColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (canEditAnswerScore)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: buildIconBtn(
+                                  theme: theme,
+                                  iconPath: Icons.edit,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
 
-            // Answer
+            // Answers
             Container(
               color: Colors.white,
-              margin: const EdgeInsets.only(bottom: 10),
+              width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: RichText(
                 text: TextSpan(
@@ -296,13 +368,39 @@ class ExamQuestionCard extends StatelessWidget {
                       style: TextStyle(color: appGreen),
                     ),
                     TextSpan(
-                      text: question.expected_answer ?? 'No answer provided.',
+                      text: question.expected_answer ??
+                          'No expected answer provided.',
                       style: const TextStyle(fontStyle: FontStyle.italic),
                     ),
                   ],
                 ),
               ),
             ),
+            if (hasStudentAnswer)
+              Container(
+                width: double.infinity,
+                color: answerColor.withOpacity(0.2),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: RichText(
+                  text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: [
+                      TextSpan(
+                          text: '=> ', style: TextStyle(color: answerColor)),
+                      TextSpan(
+                        text: isStringEmptyOrNull(answer?.description)
+                            ? 'No student answer provided.'
+                            : answer!.description,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic, color: answerColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            const SizedBox(height: 10),
 
             // Metadata footer
             Center(

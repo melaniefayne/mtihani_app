@@ -33,7 +33,7 @@ mixin _$ExamModel {
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
   ExamQuestionAnalysisModel? get analysis => throw _privateConstructorUsedError;
-  int? get student_session_id => throw _privateConstructorUsedError;
+  int? get student_id => throw _privateConstructorUsedError;
 
   /// Serializes this ExamModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,7 +64,7 @@ abstract class $ExamModelCopyWith<$Res> {
       DateTime? created_at,
       DateTime? updated_at,
       ExamQuestionAnalysisModel? analysis,
-      int? student_session_id});
+      int? student_id});
 
   $ExamQuestionAnalysisModelCopyWith<$Res>? get analysis;
 }
@@ -97,7 +97,7 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
     Object? created_at = freezed,
     Object? updated_at = freezed,
     Object? analysis = freezed,
-    Object? student_session_id = freezed,
+    Object? student_id = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -152,9 +152,9 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
           ? _value.analysis
           : analysis // ignore: cast_nullable_to_non_nullable
               as ExamQuestionAnalysisModel?,
-      student_session_id: freezed == student_session_id
-          ? _value.student_session_id
-          : student_session_id // ignore: cast_nullable_to_non_nullable
+      student_id: freezed == student_id
+          ? _value.student_id
+          : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
     ) as $Val);
   }
@@ -196,7 +196,7 @@ abstract class _$$ExamModelImplCopyWith<$Res>
       DateTime? created_at,
       DateTime? updated_at,
       ExamQuestionAnalysisModel? analysis,
-      int? student_session_id});
+      int? student_id});
 
   @override
   $ExamQuestionAnalysisModelCopyWith<$Res>? get analysis;
@@ -228,7 +228,7 @@ class __$$ExamModelImplCopyWithImpl<$Res>
     Object? created_at = freezed,
     Object? updated_at = freezed,
     Object? analysis = freezed,
-    Object? student_session_id = freezed,
+    Object? student_id = freezed,
   }) {
     return _then(_$ExamModelImpl(
       id: freezed == id
@@ -283,9 +283,9 @@ class __$$ExamModelImplCopyWithImpl<$Res>
           ? _value.analysis
           : analysis // ignore: cast_nullable_to_non_nullable
               as ExamQuestionAnalysisModel?,
-      student_session_id: freezed == student_session_id
-          ? _value.student_session_id
-          : student_session_id // ignore: cast_nullable_to_non_nullable
+      student_id: freezed == student_id
+          ? _value.student_id
+          : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
     ));
   }
@@ -308,7 +308,7 @@ class _$ExamModelImpl implements _ExamModel {
       this.created_at,
       this.updated_at,
       this.analysis,
-      this.student_session_id});
+      this.student_id});
 
   factory _$ExamModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExamModelImplFromJson(json);
@@ -340,11 +340,11 @@ class _$ExamModelImpl implements _ExamModel {
   @override
   final ExamQuestionAnalysisModel? analysis;
   @override
-  final int? student_session_id;
+  final int? student_id;
 
   @override
   String toString() {
-    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis, student_session_id: $student_session_id)';
+    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis, student_id: $student_id)';
   }
 
   @override
@@ -375,8 +375,8 @@ class _$ExamModelImpl implements _ExamModel {
                 other.updated_at == updated_at) &&
             (identical(other.analysis, analysis) ||
                 other.analysis == analysis) &&
-            (identical(other.student_session_id, student_session_id) ||
-                other.student_session_id == student_session_id));
+            (identical(other.student_id, student_id) ||
+                other.student_id == student_id));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -396,7 +396,7 @@ class _$ExamModelImpl implements _ExamModel {
       created_at,
       updated_at,
       analysis,
-      student_session_id);
+      student_id);
 
   /// Create a copy of ExamModel
   /// with the given fields replaced by the non-null parameter values.
@@ -429,7 +429,7 @@ abstract class _ExamModel implements ExamModel {
       final DateTime? created_at,
       final DateTime? updated_at,
       final ExamQuestionAnalysisModel? analysis,
-      final int? student_session_id}) = _$ExamModelImpl;
+      final int? student_id}) = _$ExamModelImpl;
 
   factory _ExamModel.fromJson(Map<String, dynamic> json) =
       _$ExamModelImpl.fromJson;
@@ -461,7 +461,7 @@ abstract class _ExamModel implements ExamModel {
   @override
   ExamQuestionAnalysisModel? get analysis;
   @override
-  int? get student_session_id;
+  int? get student_id;
 
   /// Create a copy of ExamModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1837,13 +1837,17 @@ mixin _$StudentAnswerModel {
   int? get question_id => throw _privateConstructorUsedError;
   int? get question_number => throw _privateConstructorUsedError;
   String? get question_description => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
   String? get strand => throw _privateConstructorUsedError;
+  String? get sub_strand => throw _privateConstructorUsedError;
+  String? get bloom_skill => throw _privateConstructorUsedError;
   int? get grade => throw _privateConstructorUsedError;
+  String? get expected_answer => throw _privateConstructorUsedError; //
+  String? get description => throw _privateConstructorUsedError;
   double? get score => throw _privateConstructorUsedError;
   double? get tr_score => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
+  ExamQuestionModel? get question => throw _privateConstructorUsedError;
 
   /// Serializes this StudentAnswerModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1866,13 +1870,19 @@ abstract class $StudentAnswerModelCopyWith<$Res> {
       int? question_id,
       int? question_number,
       String? question_description,
-      String? description,
       String? strand,
+      String? sub_strand,
+      String? bloom_skill,
       int? grade,
+      String? expected_answer,
+      String? description,
       double? score,
       double? tr_score,
       DateTime? created_at,
-      DateTime? updated_at});
+      DateTime? updated_at,
+      ExamQuestionModel? question});
+
+  $ExamQuestionModelCopyWith<$Res>? get question;
 }
 
 /// @nodoc
@@ -1894,13 +1904,17 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
     Object? question_id = freezed,
     Object? question_number = freezed,
     Object? question_description = freezed,
-    Object? description = freezed,
     Object? strand = freezed,
+    Object? sub_strand = freezed,
+    Object? bloom_skill = freezed,
     Object? grade = freezed,
+    Object? expected_answer = freezed,
+    Object? description = freezed,
     Object? score = freezed,
     Object? tr_score = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
+    Object? question = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -1919,18 +1933,30 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
           ? _value.question_description
           : question_description // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       strand: freezed == strand
           ? _value.strand
           : strand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sub_strand: freezed == sub_strand
+          ? _value.sub_strand
+          : sub_strand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bloom_skill: freezed == bloom_skill
+          ? _value.bloom_skill
+          : bloom_skill // ignore: cast_nullable_to_non_nullable
               as String?,
       grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int?,
+      expected_answer: freezed == expected_answer
+          ? _value.expected_answer
+          : expected_answer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -1947,7 +1973,25 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as ExamQuestionModel?,
     ) as $Val);
+  }
+
+  /// Create a copy of StudentAnswerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ExamQuestionModelCopyWith<$Res>? get question {
+    if (_value.question == null) {
+      return null;
+    }
+
+    return $ExamQuestionModelCopyWith<$Res>(_value.question!, (value) {
+      return _then(_value.copyWith(question: value) as $Val);
+    });
   }
 }
 
@@ -1964,13 +2008,20 @@ abstract class _$$StudentAnswerModelImplCopyWith<$Res>
       int? question_id,
       int? question_number,
       String? question_description,
-      String? description,
       String? strand,
+      String? sub_strand,
+      String? bloom_skill,
       int? grade,
+      String? expected_answer,
+      String? description,
       double? score,
       double? tr_score,
       DateTime? created_at,
-      DateTime? updated_at});
+      DateTime? updated_at,
+      ExamQuestionModel? question});
+
+  @override
+  $ExamQuestionModelCopyWith<$Res>? get question;
 }
 
 /// @nodoc
@@ -1990,13 +2041,17 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
     Object? question_id = freezed,
     Object? question_number = freezed,
     Object? question_description = freezed,
-    Object? description = freezed,
     Object? strand = freezed,
+    Object? sub_strand = freezed,
+    Object? bloom_skill = freezed,
     Object? grade = freezed,
+    Object? expected_answer = freezed,
+    Object? description = freezed,
     Object? score = freezed,
     Object? tr_score = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
+    Object? question = freezed,
   }) {
     return _then(_$StudentAnswerModelImpl(
       id: freezed == id
@@ -2015,18 +2070,30 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
           ? _value.question_description
           : question_description // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
       strand: freezed == strand
           ? _value.strand
           : strand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sub_strand: freezed == sub_strand
+          ? _value.sub_strand
+          : sub_strand // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bloom_skill: freezed == bloom_skill
+          ? _value.bloom_skill
+          : bloom_skill // ignore: cast_nullable_to_non_nullable
               as String?,
       grade: freezed == grade
           ? _value.grade
           : grade // ignore: cast_nullable_to_non_nullable
               as int?,
+      expected_answer: freezed == expected_answer
+          ? _value.expected_answer
+          : expected_answer // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
       score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
@@ -2043,6 +2110,10 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      question: freezed == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as ExamQuestionModel?,
     ));
   }
 }
@@ -2055,13 +2126,17 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
       this.question_id,
       this.question_number,
       this.question_description,
-      this.description,
       this.strand,
+      this.sub_strand,
+      this.bloom_skill,
       this.grade,
+      this.expected_answer,
+      this.description,
       this.score,
       this.tr_score,
       this.created_at,
-      this.updated_at});
+      this.updated_at,
+      this.question});
 
   factory _$StudentAnswerModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$StudentAnswerModelImplFromJson(json);
@@ -2075,11 +2150,18 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
   @override
   final String? question_description;
   @override
-  final String? description;
-  @override
   final String? strand;
   @override
+  final String? sub_strand;
+  @override
+  final String? bloom_skill;
+  @override
   final int? grade;
+  @override
+  final String? expected_answer;
+//
+  @override
+  final String? description;
   @override
   final double? score;
   @override
@@ -2088,10 +2170,12 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
   final DateTime? created_at;
   @override
   final DateTime? updated_at;
+  @override
+  final ExamQuestionModel? question;
 
   @override
   String toString() {
-    return 'StudentAnswerModel(id: $id, question_id: $question_id, question_number: $question_number, question_description: $question_description, description: $description, strand: $strand, grade: $grade, score: $score, tr_score: $tr_score, created_at: $created_at, updated_at: $updated_at)';
+    return 'StudentAnswerModel(id: $id, question_id: $question_id, question_number: $question_number, question_description: $question_description, strand: $strand, sub_strand: $sub_strand, bloom_skill: $bloom_skill, grade: $grade, expected_answer: $expected_answer, description: $description, score: $score, tr_score: $tr_score, created_at: $created_at, updated_at: $updated_at, question: $question)';
   }
 
   @override
@@ -2106,17 +2190,25 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
                 other.question_number == question_number) &&
             (identical(other.question_description, question_description) ||
                 other.question_description == question_description) &&
+            (identical(other.strand, strand) || other.strand == strand) &&
+            (identical(other.sub_strand, sub_strand) ||
+                other.sub_strand == sub_strand) &&
+            (identical(other.bloom_skill, bloom_skill) ||
+                other.bloom_skill == bloom_skill) &&
+            (identical(other.grade, grade) || other.grade == grade) &&
+            (identical(other.expected_answer, expected_answer) ||
+                other.expected_answer == expected_answer) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.strand, strand) || other.strand == strand) &&
-            (identical(other.grade, grade) || other.grade == grade) &&
             (identical(other.score, score) || other.score == score) &&
             (identical(other.tr_score, tr_score) ||
                 other.tr_score == tr_score) &&
             (identical(other.created_at, created_at) ||
                 other.created_at == created_at) &&
             (identical(other.updated_at, updated_at) ||
-                other.updated_at == updated_at));
+                other.updated_at == updated_at) &&
+            (identical(other.question, question) ||
+                other.question == question));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2127,13 +2219,17 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
       question_id,
       question_number,
       question_description,
-      description,
       strand,
+      sub_strand,
+      bloom_skill,
       grade,
+      expected_answer,
+      description,
       score,
       tr_score,
       created_at,
-      updated_at);
+      updated_at,
+      question);
 
   /// Create a copy of StudentAnswerModel
   /// with the given fields replaced by the non-null parameter values.
@@ -2158,13 +2254,17 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
       final int? question_id,
       final int? question_number,
       final String? question_description,
-      final String? description,
       final String? strand,
+      final String? sub_strand,
+      final String? bloom_skill,
       final int? grade,
+      final String? expected_answer,
+      final String? description,
       final double? score,
       final double? tr_score,
       final DateTime? created_at,
-      final DateTime? updated_at}) = _$StudentAnswerModelImpl;
+      final DateTime? updated_at,
+      final ExamQuestionModel? question}) = _$StudentAnswerModelImpl;
 
   factory _StudentAnswerModel.fromJson(Map<String, dynamic> json) =
       _$StudentAnswerModelImpl.fromJson;
@@ -2178,11 +2278,17 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
   @override
   String? get question_description;
   @override
-  String? get description;
-  @override
   String? get strand;
   @override
+  String? get sub_strand;
+  @override
+  String? get bloom_skill;
+  @override
   int? get grade;
+  @override
+  String? get expected_answer; //
+  @override
+  String? get description;
   @override
   double? get score;
   @override
@@ -2191,6 +2297,8 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
   DateTime? get created_at;
   @override
   DateTime? get updated_at;
+  @override
+  ExamQuestionModel? get question;
 
   /// Create a copy of StudentAnswerModel
   /// with the given fields replaced by the non-null parameter values.

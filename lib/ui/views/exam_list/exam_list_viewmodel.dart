@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
@@ -23,6 +25,8 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   ClassroomModel? selectedClass;
   String? selectedExamStatus;
   String? selectedExamIsPublished;
+  int? studentId;
+  final Completer<void> _studentIdLoaded = Completer<void>();
 
   ExamListViewModel(super.userClassrooms, super.loggedInUser) {
     isTeacher = loggedInUser.role == appTeacherRoleKw;
@@ -30,14 +34,25 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
     selectedClass = isSingleClassView ? userClassrooms.first : null;
   }
 
+  onViewModelReady() async {
+    studentId = await getStudentId();
+    _studentIdLoaded.complete();
+  }
+
   bool get isSingleClassView => userClassrooms.length == 1;
 
   @override
   Future<List<ExamModel>> futureToRun() async {
+    await _studentIdLoaded.future; // wait until student is loaded
+
     Map<String, dynamic> queryParams = {};
 
     if (selectedClass != null) {
       queryParams["classroom_id"] = selectedClass!.id;
+    }
+
+    if (studentId != null) {
+      queryParams["student_id"] = studentId;
     }
 
     if (selectedExamStatus != null) {
@@ -134,6 +149,12 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
       }
     }
 
+    if (studentId != null) {
+      bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
+      if (canNavigate) _navigationService.navigateToSingleStExamView();
+      return;
+    }
+
     if (isTeacher) {
       bool canNavigate = await _sharedPrefsService.setSingleTrExamNavArg(exam);
       if (canNavigate) _navigationService.navigateToSingleTrExamView();
@@ -151,5 +172,11 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
         true) {
       await initialise();
     }
+  }
+
+  Future<int?> getStudentId() async {
+    StudentModel? student =
+        await _sharedPrefsService.getSingleStClassroomNavArg();
+    return student?.id;
   }
 }

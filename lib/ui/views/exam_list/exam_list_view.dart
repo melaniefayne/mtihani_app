@@ -147,4 +147,10 @@ class ExamListView extends DashPage<ExamListViewModel> {
     BuildContext context,
   ) =>
       ExamListViewModel(userClassrooms, loggedInUser);
+
+  @override
+  void onViewModelReady(ExamListViewModel viewModel) {
+    viewModel.onViewModelReady();
+    super.onViewModelReady(viewModel);
+  }
 }

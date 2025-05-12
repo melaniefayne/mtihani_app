@@ -177,7 +177,7 @@ class StExamSessionViewModel
   }
 
   Map<String, dynamic> get queryParams {
-    return {"exam_id": exam!.id, "student_id": exam!.student_session_id};
+    return {"exam_id": exam!.id, "student_id": exam!.student_id};
   }
 
   onDispose() async {

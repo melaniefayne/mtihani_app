@@ -220,4 +220,6 @@ class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
       }
     }
   }
+
+  onEditStudentScore(ExamQuestionModel examQuestion) async {}
 }

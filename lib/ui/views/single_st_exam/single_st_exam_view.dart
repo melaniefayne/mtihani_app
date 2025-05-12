@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
+import 'package:mtihani_app/ui/widgets/common/st_exam_answers_list/st_exam_answers_list.dart';
+import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_st_exam_viewmodel.dart';
@@ -22,8 +24,9 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
     }
 
     return AppSideBarScaffold(
-      pageTitle:
-          "Exam ${viewModel.exam?.code ?? '--'} (Grade ${viewModel.exam?.classroom_name ?? "--"})",
+      pageTitle: viewModel.isStudent
+          ? "Exam ${viewModel.exam?.code ?? '--'}"
+          : "Exam ${viewModel.exam?.code ?? '--'}: ${viewModel.examSession?.session?.student_name ?? "--"}",
       trailingWidget: buildExamStatusDot(theme, viewModel.exam!.status!),
       tabItems: [
         TabViewItem(
@@ -34,7 +37,12 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
         TabViewItem(
           label: "Answer Sheet",
           icon: Icons.list_alt,
-          widget: const Center(child: Text("Coming Soon ...")),
+          widget: viewModel.isFetchingExamSession
+              ? buildLoadingWidget(theme, "Fetching answers ...")
+              : StExamAnswersList(
+                  answers: viewModel.sessionQAList,
+                  onEditAnswerScore: viewModel.onEditStudentScore,
+                ),
         ),
         TabViewItem(
           label: "Follow Up",

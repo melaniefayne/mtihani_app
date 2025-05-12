@@ -105,6 +105,6 @@ class ExamResponsesListModel
   bool get isExamComplete => exam.status == ExamStatus.complete;
 
   ExamModel getExamFromSession(StudentExamSessionModel session) {
-    return exam.copyWith(student_session_id: session.student_id);
+    return exam.copyWith(student_id: session.student_id);
   }
 }

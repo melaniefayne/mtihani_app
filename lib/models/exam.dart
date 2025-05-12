@@ -39,7 +39,7 @@ class ExamModel with _$ExamModel {
     DateTime? created_at,
     DateTime? updated_at,
     ExamQuestionAnalysisModel? analysis,
-    int? student_session_id,
+    int? student_id,
   }) = _ExamModel;
 
   factory ExamModel.fromJson(Map<String, dynamic> json) =>
@@ -123,13 +123,18 @@ class StudentAnswerModel with _$StudentAnswerModel {
     int? question_id,
     int? question_number,
     String? question_description,
-    String? description,
     String? strand,
+    String? sub_strand,
+    String? bloom_skill,
     int? grade,
+    String? expected_answer,
+    //
+    String? description,
     double? score,
     double? tr_score,
     DateTime? created_at,
     DateTime? updated_at,
+    ExamQuestionModel? question,
   }) = _StudentAnswerModel;
 
   factory StudentAnswerModel.fromJson(Map<String, dynamic> json) =>

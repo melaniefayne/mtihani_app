@@ -32,7 +32,7 @@ _$ExamModelImpl _$$ExamModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : ExamQuestionAnalysisModel.fromJson(
               json['analysis'] as Map<String, dynamic>),
-      student_session_id: (json['student_session_id'] as num?)?.toInt(),
+      student_id: (json['student_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
@@ -50,7 +50,7 @@ Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
       'analysis': instance.analysis,
-      'student_session_id': instance.student_session_id,
+      'student_id': instance.student_id,
     };
 
 const _$ExamStatusEnumMap = {
@@ -196,9 +196,12 @@ _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(
       question_id: (json['question_id'] as num?)?.toInt(),
       question_number: (json['question_number'] as num?)?.toInt(),
       question_description: json['question_description'] as String?,
-      description: json['description'] as String?,
       strand: json['strand'] as String?,
+      sub_strand: json['sub_strand'] as String?,
+      bloom_skill: json['bloom_skill'] as String?,
       grade: (json['grade'] as num?)?.toInt(),
+      expected_answer: json['expected_answer'] as String?,
+      description: json['description'] as String?,
       score: (json['score'] as num?)?.toDouble(),
       tr_score: (json['tr_score'] as num?)?.toDouble(),
       created_at: json['created_at'] == null
@@ -207,6 +210,10 @@ _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(
       updated_at: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
+      question: json['question'] == null
+          ? null
+          : ExamQuestionModel.fromJson(
+              json['question'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$StudentAnswerModelImplToJson(
@@ -216,13 +223,17 @@ Map<String, dynamic> _$$StudentAnswerModelImplToJson(
       'question_id': instance.question_id,
       'question_number': instance.question_number,
       'question_description': instance.question_description,
-      'description': instance.description,
       'strand': instance.strand,
+      'sub_strand': instance.sub_strand,
+      'bloom_skill': instance.bloom_skill,
       'grade': instance.grade,
+      'expected_answer': instance.expected_answer,
+      'description': instance.description,
       'score': instance.score,
       'tr_score': instance.tr_score,
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
+      'question': instance.question,
     };
 
 _$StudentExamSessionDataModelImpl _$$StudentExamSessionDataModelImplFromJson(
