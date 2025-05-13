@@ -27,13 +27,14 @@ const Color appBlue = Color(0xFF0292B7);
 const Color appPeach = Color(0xFFDF7A57);
 const Color appRed = Color(0xFFF54D3D);
 const Color appPurple = Color(0xFF7A77E9);
+const Color appYellow = Color(0xFFF9E56A);
 
 // chart constants
 List<Color> defaultChartColors = const [
   appBlue,
   appGreen,
   Color(0xFFE59349),
-  Color(0xFFF9E56A),
+  appYellow,
   appRed,
   appPurple,
   Color(0xFF84D3C5),
@@ -51,7 +52,7 @@ Map<Color, Color> defaultTextChartColors = {
   appGreen: Colors.white, // Green
   const Color(0xFFE59349): Colors.white, // Orange
   appRed: Colors.white, // Red
-  const Color(0xFFF9E56A): Colors.black, // Yellow
+  appYellow: Colors.black, // Yellow
   appPurple: Colors.white, // Purple
   const Color(0xFF84D3C5): Colors.black, // Light teal
   const Color(0xFF5C99F0): Colors.white, // Sky blue

@@ -27,6 +27,7 @@ class StartExamDialog extends StackedView<StartExamDialogModel> {
     final pageSize = MediaQuery.sizeOf(context);
     final widgetConfig = request.data as Map<String, dynamic>?;
     ExamModel currentExam = widgetConfig!['currentExam'];
+    bool isStartExamDialog = widgetConfig['isStartExamDialog'];
     final durationStr = currentExam.duration_min != null
         ? '${currentExam.duration_min! ~/ 60}hr ${currentExam.duration_min! % 60} minutes'
         : '--';
@@ -34,7 +35,7 @@ class StartExamDialog extends StackedView<StartExamDialogModel> {
     return buildDialogScaffold(
       theme: theme,
       pageSize: pageSize,
-      title: "Ready to Start",
+      title: isStartExamDialog ? "Ready to Start" : "Are you Sure?",
       children: [
         SizedBox(
           width: pageSize.width * 0.4,
@@ -44,10 +45,12 @@ class StartExamDialog extends StackedView<StartExamDialogModel> {
                 astImagesReady,
                 height: pageSize.height * 0.3,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  "You’re about to start a Science exam set by your teacher. Ensure you’re in a conducive environment to do the exam. All the best.",
+                  isStartExamDialog
+                      ? "You’re about to start a Science exam set by your teacher. Ensure you’re in a conducive environment to do the exam. All the best."
+                      : "Once you submit the exam you will not be able to edit your answers again!",
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -61,7 +64,7 @@ class StartExamDialog extends StackedView<StartExamDialogModel> {
               SizedBox(height: pageSize.height * 0.02),
               buildPriBtn(
                 theme: theme,
-                btnTxt: "Start Exam",
+                btnTxt: isStartExamDialog ? "Start Exam" : "End Exam",
                 iconPath: Icons.start,
                 isFullWidth: true,
                 onAction: () {

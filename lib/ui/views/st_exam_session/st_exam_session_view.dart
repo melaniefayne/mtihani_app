@@ -110,21 +110,22 @@ class StExamSessionView extends StackedView<StExamSessionViewModel> {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: pageSize.width * horizPadding,
-            vertical: pageSize.width * 0.01,
+        if (viewModel.examIsActive)
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: pageSize.width * horizPadding,
+              vertical: pageSize.width * 0.01,
+            ),
+            child: buildPriBtn(
+              theme: theme,
+              btnTxt: "Submit",
+              iconPath: Icons.send,
+              bgColor: viewModel.timerColor,
+              fgColor: Colors.white,
+              isFullWidth: true,
+              onAction: viewModel.endExamSession,
+            ),
           ),
-          child: buildPriBtn(
-            theme: theme,
-            btnTxt: "Submit",
-            iconPath: Icons.send,
-            bgColor: viewModel.timerColor,
-            fgColor: Colors.white,
-            isFullWidth: true,
-            onAction: viewModel.endExamSession,
-          ),
-        ),
         Center(
           child: Text(
             _formatTime(viewModel.timeRemaining),
@@ -251,41 +252,43 @@ class StExamSessionView extends StackedView<StExamSessionViewModel> {
           ),
         ),
         const Spacer(),
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: pageSize.width * horizPadding),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Answer",
-              style: theme.textTheme.titleMedium!
-                  .copyWith(fontWeight: FontWeight.w500),
+        if (viewModel.examIsActive) ...[
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: pageSize.width * horizPadding),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Answer",
+                style: theme.textTheme.titleMedium!
+                    .copyWith(fontWeight: FontWeight.w500),
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: pageSize.width * horizPadding),
-          child: Row(
-            children: [
-              Expanded(
-                child: AppTextFormField(
-                  controller: q.descTxtCtrl,
-                  hintText: "Type Answer here",
-                  maxLines: 5,
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: pageSize.width * horizPadding),
+            child: Row(
+              children: [
+                Expanded(
+                  child: AppTextFormField(
+                    controller: q.descTxtCtrl,
+                    hintText: "Type Answer here",
+                    maxLines: 5,
+                  ),
                 ),
-              ),
-              SizedBox(width: pageSize.width * 0.01),
-              buildSecBtn(
-                theme: theme,
-                btnTxt: "Confirm",
-                onAction: () {
-                  viewModel.updateQuestionAnswer(q.answer?.id, q.descTxtCtrl);
-                },
-              ),
-            ],
+                SizedBox(width: pageSize.width * 0.01),
+                buildSecBtn(
+                  theme: theme,
+                  btnTxt: "Confirm",
+                  onAction: () {
+                    viewModel.updateQuestionAnswer(q.answer?.id, q.descTxtCtrl);
+                  },
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
         SizedBox(height: pageSize.height * 0.03),
       ],
     );

@@ -17,6 +17,8 @@ enum ExamStatus {
   ongoing,
   @JsonValue('Grading')
   grading,
+  @JsonValue('Analysing')
+  analysing,
   @JsonValue('Complete')
   complete,
   @JsonValue('Archived')

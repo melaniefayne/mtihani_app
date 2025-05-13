@@ -43,9 +43,8 @@ class ExamCard extends StatelessWidget {
 
     final bool isFailedGen = exam.status == ExamStatus.failed;
     final bool isGenerating = exam.status == ExamStatus.generating;
-    final bool hideActionBtn = isStudent &&
-        ![ExamStatus.ongoing, ExamStatus.grading, ExamStatus.complete]
-            .contains(exam.status);
+    final bool hideActionBtn =
+        isStudent && !studentViewExamStatuses.contains(exam.status);
 
     onExamAction() {
       if (hideActionBtn) return;
@@ -173,10 +172,19 @@ const List<String> allExamPublishStatuses = [
   examIsPublishedKw,
   examIsUnpublishedKw
 ];
+
 List<ExamStatus> teacherOnlyStatuses = [
   ExamStatus.generating,
   ExamStatus.failed
 ];
+
+List<ExamStatus> studentViewExamStatuses = [
+  ExamStatus.ongoing,
+  ExamStatus.grading,
+  ExamStatus.analysing,
+  ExamStatus.complete
+];
+
 List<String> allTrExamStatuses = ExamStatus.values
     .where((f) => f != ExamStatus.archived)
     .map((e) => getExamStatusStr(e))
@@ -203,6 +211,8 @@ Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
       return appGreen;
     case ExamStatus.grading:
       return appPurple;
+    case ExamStatus.analysing:
+      return appYellow;
     case ExamStatus.complete:
       return theme.primaryColor;
     case ExamStatus.archived:
@@ -234,6 +244,26 @@ Color getAnswerColor(double? score, ThemeData theme) {
   return theme.primaryColor;
 }
 
+String getAnswerExpecTationLevel(double? score) {
+  switch (score) {
+    case 0:
+      return "B.E";
+    case 1:
+      return "B.E";
+    case 2:
+      return "A.E";
+    case 3:
+      return "M.E";
+    case 4:
+      return "E.E";
+
+    default:
+      break;
+  }
+
+  return "--";
+}
+
 class ExamQuestionCard extends StatelessWidget {
   final ExamQuestionModel question;
   final Function(ExamQuestionModel question)? onEditQuestion;
@@ -257,7 +287,9 @@ class ExamQuestionCard extends StatelessWidget {
     final bool canEditAnswerScore =
         hasStudentAnswer && onEditAnswerScore != null;
     final bool canEditQuestion = !hasStudentAnswer && onEditQuestion != null;
-    Color answerColor = getAnswerColor(answer?.score, theme);
+    final double? answerScore = answer?.tr_score ?? answer?.score;
+    Color answerColor = getAnswerColor(answerScore, theme);
+    String answerLevel = getAnswerExpecTationLevel(answerScore);
 
     return GestureDetector(
       onTap: () {
@@ -321,33 +353,34 @@ class ExamQuestionCard extends StatelessWidget {
                         iconPath: Icons.edit,
                       ),
                     ),
-                  if (answer?.score != null)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Container(
-                        color: answerColor.withOpacity(0.1),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              answer!.score?.toString() ?? "--",
-                              style: theme.textTheme.titleMedium!.copyWith(
-                                color: answerColor,
-                                fontWeight: FontWeight.bold,
+                  if (answerScore != null)
+                    Container(
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.onPrimary,
+                        border: Border.all(color: answerColor, width: 1),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      margin: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "$answerScore • $answerLevel",
+                            style: theme.textTheme.titleMedium!.copyWith(
+                              color: answerColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          if (canEditAnswerScore)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: buildIconBtn(
+                                theme: theme,
+                                iconPath: Icons.edit,
                               ),
                             ),
-                            if (canEditAnswerScore)
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: buildIconBtn(
-                                  theme: theme,
-                                  iconPath: Icons.edit,
-                                ),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
                 ],

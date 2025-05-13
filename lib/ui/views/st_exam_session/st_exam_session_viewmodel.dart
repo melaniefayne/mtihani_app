@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/exam.dart';
@@ -16,6 +17,7 @@ import 'package:stacked_services/stacked_services.dart';
 class StExamSessionViewModel
     extends FutureViewModel<StudentExamSessionDataModel?> {
   final _snackbarService = locator<SnackbarService>();
+  final _dialogService = locator<DialogService>();
   final _navigationService = locator<NavigationService>();
   final _sharedPrefsService = locator<SharedPrefsService>();
   ExamModel? exam;
@@ -115,13 +117,20 @@ class StExamSessionViewModel
   }
 
   endExamSession() async {
-    var stExamSessionRes = await onApiPostCall(
-      postEndpoint: endPointEndExamSession,
-      queryParams: queryParams,
+    var dialogRes = await _dialogService.showCustomDialog(
+      variant: DialogType.startExam,
+      data: {"currentExam": exam, "isStartExamDialog": false},
     );
-    if (apiCallChecks(stExamSessionRes, 'start student exam session',
-        showSuccessMessage: true)) {
-      _navigationService.clearStackAndShow(Routes.dashboardView);
+    bool? isConfirmed = dialogRes?.data;
+    if (isConfirmed == true) {
+      var stExamSessionRes = await onApiPostCall(
+        postEndpoint: endPointEndExamSession,
+        queryParams: queryParams,
+      );
+      if (apiCallChecks(stExamSessionRes, 'start student exam session',
+          showSuccessMessage: true)) {
+        _navigationService.clearStackAndShow(Routes.dashboardView);
+      }
     }
   }
 
@@ -188,6 +197,8 @@ class StExamSessionViewModel
       e.dispose();
     }
   }
+
+  bool get examIsActive => data?.session?.status == "Ongoing";
 }
 
 class StudentAnswerEditModel {

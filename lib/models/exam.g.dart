@@ -59,6 +59,7 @@ const _$ExamStatusEnumMap = {
   ExamStatus.upcoming: 'Upcoming',
   ExamStatus.ongoing: 'Ongoing',
   ExamStatus.grading: 'Grading',
+  ExamStatus.analysing: 'Analysing',
   ExamStatus.complete: 'Complete',
   ExamStatus.archived: 'Archived',
 };

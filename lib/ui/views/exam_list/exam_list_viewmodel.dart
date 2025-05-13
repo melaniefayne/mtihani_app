@@ -126,16 +126,14 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
   }
 
   onViewExam(ExamModel exam) async {
-    if (isStudent &&
-        [ExamStatus.ongoing, ExamStatus.grading, ExamStatus.complete]
-            .contains(exam.status)) {
+    if (isStudent && studentViewExamStatuses.contains(exam.status)) {
       bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
 
       if (canNavigate) {
         if (exam.status == ExamStatus.ongoing) {
           var dialogRes = await _dialogService.showCustomDialog(
             variant: DialogType.startExam,
-            data: {"currentExam": exam},
+            data: {"currentExam": exam, "isStartExamDialog": true},
           );
           bool? isConfirmed = dialogRes?.data;
           if (isConfirmed == true) {

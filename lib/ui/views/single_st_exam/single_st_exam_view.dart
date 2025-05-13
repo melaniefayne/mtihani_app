@@ -37,11 +37,12 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
         TabViewItem(
           label: "Answer Sheet",
           icon: Icons.list_alt,
-          widget: viewModel.isFetchingExamSession
+          widget: viewModel.isFetchingExamSession || viewModel.isLoading
               ? buildLoadingWidget(theme, "Fetching answers ...")
               : StExamAnswersList(
                   answers: viewModel.sessionQAList,
-                  onEditAnswerScore: viewModel.onEditStudentScore,
+                  onEditAnswerScore:
+                      viewModel.isTeacher ? viewModel.onEditStudentScore : null,
                 ),
         ),
         TabViewItem(

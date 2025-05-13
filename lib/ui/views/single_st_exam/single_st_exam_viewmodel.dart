@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/services/auth_service.dart';
@@ -14,10 +15,12 @@ const String sessionFetch = 'sessionFetch';
 class SingleStExamViewModel extends MultipleFutureViewModel {
   final _navigationService = locator<NavigationService>();
   final _sharedPrefsService = locator<SharedPrefsService>();
+  final _dialogService = locator<DialogService>();
   final _authService = locator<AuthService>();
   bool isStudent = false;
   bool isTeacher = false;
   ExamModel? exam;
+  bool isLoading = false;
 
   final Completer<void> _examLoaded = Completer<void>();
 
@@ -76,7 +79,31 @@ class SingleStExamViewModel extends MultipleFutureViewModel {
         .toList();
   }
 
-  onEditStudentScore(StudentAnswerModel answer) async {}
+  onEditStudentScore(StudentAnswerModel studentAnswer) async {
+    var dialogRes = await _dialogService.showCustomDialog(
+      variant: DialogType.editAnswerScore,
+      data: {'studentAnswer': studentAnswer},
+    );
+    double? trScore = dialogRes?.data;
+
+    if (trScore != null) {
+      isLoading = true;
+      rebuildUi();
+      var examApiRes = await onApiPostCall(
+        queryParams: {"answer_id": studentAnswer.id},
+        postEndpoint: endPointUpdateExamScore,
+        dataMap: {"tr_score": trScore},
+      );
+      isLoading = false;
+      rebuildUi();
+
+      if (apiCallChecks(examApiRes, "exam answer update result",
+              showSuccessMessage: true) ==
+          true) {
+        await initialise();
+      }
+    }
+  }
 
   onDispose() async {
     await _sharedPrefsService.clearSingleStExamNavArg();

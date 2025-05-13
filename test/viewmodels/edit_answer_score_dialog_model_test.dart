@@ -4,7 +4,7 @@ import 'package:mtihani_app/app/app.locator.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  group('EditExamScoreDialogModel Tests -', () {
+  group('EditAnswerScoreDialogModel Tests -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

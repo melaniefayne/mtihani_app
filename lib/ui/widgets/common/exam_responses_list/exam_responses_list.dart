@@ -4,6 +4,7 @@ import 'package:mtihani_app/ui/widgets/app_filters.dart';
 import 'package:mtihani_app/ui/widgets/app_search_table.dart';
 import 'package:mtihani_app/ui/widgets/common/student_listing/student_listing_model.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
 
@@ -21,6 +22,24 @@ class ExamResponsesList extends StackedView<ExamResponsesListModel> {
   ) {
     final theme = Theme.of(context);
     final pageSize = MediaQuery.sizeOf(context);
+
+    if ([ExamStatus.upcoming, ExamStatus.ongoing].contains(exam.status)) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              astImagesWaiting,
+              height: pageSize.height * 0.3,
+            ),
+            SizedBox(height: pageSize.height * 0.01),
+            const Text(
+              "The responses will be ready to view as soon as they come in :)",
+            ),
+          ],
+        ),
+      );
+    }
     return SingleChildScrollView(
       padding: const EdgeInsets.all(10),
       child: Column(
