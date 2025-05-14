@@ -204,6 +204,8 @@ _$StudentAnswerModelImpl _$$StudentAnswerModelImplFromJson(
       expected_answer: json['expected_answer'] as String?,
       description: json['description'] as String?,
       score: (json['score'] as num?)?.toDouble(),
+      expectation_level: json['expectation_level'] as String?,
+      ai_score: (json['ai_score'] as num?)?.toDouble(),
       tr_score: (json['tr_score'] as num?)?.toDouble(),
       created_at: json['created_at'] == null
           ? null
@@ -231,6 +233,8 @@ Map<String, dynamic> _$$StudentAnswerModelImplToJson(
       'expected_answer': instance.expected_answer,
       'description': instance.description,
       'score': instance.score,
+      'expectation_level': instance.expectation_level,
+      'ai_score': instance.ai_score,
       'tr_score': instance.tr_score,
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),

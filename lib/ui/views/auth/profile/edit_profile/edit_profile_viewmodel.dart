@@ -6,11 +6,9 @@ import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class EditProfileViewModel extends BaseViewModel with FormStateHelper {
   final _authService = locator<AuthService>();
-  final _navigationService = locator<NavigationService>();
   bool isLoading = false;
   bool isTeacherProfile = false;
 

@@ -133,6 +133,8 @@ class StudentAnswerModel with _$StudentAnswerModel {
     //
     String? description,
     double? score,
+    String? expectation_level,
+    double? ai_score,
     double? tr_score,
     DateTime? created_at,
     DateTime? updated_at,

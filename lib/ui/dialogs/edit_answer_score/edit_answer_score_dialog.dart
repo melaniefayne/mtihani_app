@@ -71,7 +71,7 @@ class EditAnswerScoreDialog extends StackedView<EditAnswerScoreDialogModel> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        "Current Score: ${studentAnswer.tr_score ?? studentAnswer.score ?? "--"}",
+                        "Current Score: ${studentAnswer.score ?? "--"}",
                         style: theme.textTheme.titleMedium!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),

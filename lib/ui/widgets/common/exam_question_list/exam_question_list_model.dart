@@ -75,14 +75,14 @@ class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
       nextPageUrl = examQuestionsApiRes.$1?.next;
       questionsOgList = [...questionsList];
 
-      List<Map<String, dynamic>> res = questionsOgList
-          .map((e) => {
-                "id": e.id,
-                "question": e.description,
-                "expected_answer": e.expected_answer
-              })
-          .toList();
-      log(jsonEncode(res));
+      // List<Map<String, dynamic>> res = questionsOgList
+      //     .map((e) => {
+      //           "id": e.id,
+      //           "question": e.description,
+      //           "expected_answer": e.expected_answer
+      //         })
+      //     .toList();
+      // log(jsonEncode(res));
 
       return questionsList;
     }

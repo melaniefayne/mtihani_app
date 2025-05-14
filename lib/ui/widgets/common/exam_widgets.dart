@@ -244,24 +244,9 @@ Color getAnswerColor(double? score, ThemeData theme) {
   return theme.primaryColor;
 }
 
-String getAnswerExpecTationLevel(double? score) {
-  switch (score) {
-    case 0:
-      return "B.E";
-    case 1:
-      return "B.E";
-    case 2:
-      return "A.E";
-    case 3:
-      return "M.E";
-    case 4:
-      return "E.E";
-
-    default:
-      break;
-  }
-
-  return "--";
+String getShortExpectationLevel(String? level) {
+  if (isStringEmptyOrNull(level)) return "--";
+  return "${level![0].toUpperCase()}.E";
 }
 
 class ExamQuestionCard extends StatelessWidget {
@@ -287,9 +272,8 @@ class ExamQuestionCard extends StatelessWidget {
     final bool canEditAnswerScore =
         hasStudentAnswer && onEditAnswerScore != null;
     final bool canEditQuestion = !hasStudentAnswer && onEditQuestion != null;
-    final double? answerScore = answer?.tr_score ?? answer?.score;
-    Color answerColor = getAnswerColor(answerScore, theme);
-    String answerLevel = getAnswerExpecTationLevel(answerScore);
+    Color answerColor = getAnswerColor(answer?.score, theme);
+    String answerLevel = getShortExpectationLevel(answer?.expectation_level);
 
     return GestureDetector(
       onTap: () {
@@ -353,7 +337,7 @@ class ExamQuestionCard extends StatelessWidget {
                         iconPath: Icons.edit,
                       ),
                     ),
-                  if (answerScore != null)
+                  if (answer?.score != null)
                     Container(
                       decoration: BoxDecoration(
                         color: theme.colorScheme.onPrimary,
@@ -366,7 +350,7 @@ class ExamQuestionCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "$answerScore • $answerLevel",
+                            "${answer?.score} • $answerLevel",
                             style: theme.textTheme.titleMedium!.copyWith(
                               color: answerColor,
                               fontWeight: FontWeight.bold,

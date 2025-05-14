@@ -1844,6 +1844,8 @@ mixin _$StudentAnswerModel {
   String? get expected_answer => throw _privateConstructorUsedError; //
   String? get description => throw _privateConstructorUsedError;
   double? get score => throw _privateConstructorUsedError;
+  String? get expectation_level => throw _privateConstructorUsedError;
+  double? get ai_score => throw _privateConstructorUsedError;
   double? get tr_score => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
@@ -1877,6 +1879,8 @@ abstract class $StudentAnswerModelCopyWith<$Res> {
       String? expected_answer,
       String? description,
       double? score,
+      String? expectation_level,
+      double? ai_score,
       double? tr_score,
       DateTime? created_at,
       DateTime? updated_at,
@@ -1911,6 +1915,8 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
     Object? expected_answer = freezed,
     Object? description = freezed,
     Object? score = freezed,
+    Object? expectation_level = freezed,
+    Object? ai_score = freezed,
     Object? tr_score = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
@@ -1960,6 +1966,14 @@ class _$StudentAnswerModelCopyWithImpl<$Res, $Val extends StudentAnswerModel>
       score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expectation_level: freezed == expectation_level
+          ? _value.expectation_level
+          : expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ai_score: freezed == ai_score
+          ? _value.ai_score
+          : ai_score // ignore: cast_nullable_to_non_nullable
               as double?,
       tr_score: freezed == tr_score
           ? _value.tr_score
@@ -2015,6 +2029,8 @@ abstract class _$$StudentAnswerModelImplCopyWith<$Res>
       String? expected_answer,
       String? description,
       double? score,
+      String? expectation_level,
+      double? ai_score,
       double? tr_score,
       DateTime? created_at,
       DateTime? updated_at,
@@ -2048,6 +2064,8 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
     Object? expected_answer = freezed,
     Object? description = freezed,
     Object? score = freezed,
+    Object? expectation_level = freezed,
+    Object? ai_score = freezed,
     Object? tr_score = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
@@ -2098,6 +2116,14 @@ class __$$StudentAnswerModelImplCopyWithImpl<$Res>
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
               as double?,
+      expectation_level: freezed == expectation_level
+          ? _value.expectation_level
+          : expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ai_score: freezed == ai_score
+          ? _value.ai_score
+          : ai_score // ignore: cast_nullable_to_non_nullable
+              as double?,
       tr_score: freezed == tr_score
           ? _value.tr_score
           : tr_score // ignore: cast_nullable_to_non_nullable
@@ -2133,6 +2159,8 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
       this.expected_answer,
       this.description,
       this.score,
+      this.expectation_level,
+      this.ai_score,
       this.tr_score,
       this.created_at,
       this.updated_at,
@@ -2165,6 +2193,10 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
   @override
   final double? score;
   @override
+  final String? expectation_level;
+  @override
+  final double? ai_score;
+  @override
   final double? tr_score;
   @override
   final DateTime? created_at;
@@ -2175,7 +2207,7 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
 
   @override
   String toString() {
-    return 'StudentAnswerModel(id: $id, question_id: $question_id, question_number: $question_number, question_description: $question_description, strand: $strand, sub_strand: $sub_strand, bloom_skill: $bloom_skill, grade: $grade, expected_answer: $expected_answer, description: $description, score: $score, tr_score: $tr_score, created_at: $created_at, updated_at: $updated_at, question: $question)';
+    return 'StudentAnswerModel(id: $id, question_id: $question_id, question_number: $question_number, question_description: $question_description, strand: $strand, sub_strand: $sub_strand, bloom_skill: $bloom_skill, grade: $grade, expected_answer: $expected_answer, description: $description, score: $score, expectation_level: $expectation_level, ai_score: $ai_score, tr_score: $tr_score, created_at: $created_at, updated_at: $updated_at, question: $question)';
   }
 
   @override
@@ -2201,6 +2233,10 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.score, score) || other.score == score) &&
+            (identical(other.expectation_level, expectation_level) ||
+                other.expectation_level == expectation_level) &&
+            (identical(other.ai_score, ai_score) ||
+                other.ai_score == ai_score) &&
             (identical(other.tr_score, tr_score) ||
                 other.tr_score == tr_score) &&
             (identical(other.created_at, created_at) ||
@@ -2226,6 +2262,8 @@ class _$StudentAnswerModelImpl implements _StudentAnswerModel {
       expected_answer,
       description,
       score,
+      expectation_level,
+      ai_score,
       tr_score,
       created_at,
       updated_at,
@@ -2261,6 +2299,8 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
       final String? expected_answer,
       final String? description,
       final double? score,
+      final String? expectation_level,
+      final double? ai_score,
       final double? tr_score,
       final DateTime? created_at,
       final DateTime? updated_at,
@@ -2291,6 +2331,10 @@ abstract class _StudentAnswerModel implements StudentAnswerModel {
   String? get description;
   @override
   double? get score;
+  @override
+  String? get expectation_level;
+  @override
+  double? get ai_score;
   @override
   double? get tr_score;
   @override

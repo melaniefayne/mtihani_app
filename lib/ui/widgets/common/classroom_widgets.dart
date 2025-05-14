@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
@@ -91,8 +92,8 @@ class ClassroomCard extends StatelessWidget {
                       children: [
                         const Text('Avg Term Score'),
                         Text(
-                          '${(classroom.avg_term_score ?? 0.0).toStringAsFixed(1)}%',
-                          style: theme.textTheme.headlineMedium!.copyWith(
+                          '${(classroom.avg_term_score ?? 0.0).toStringAsFixed(1)}% • ${getShortExpectationLevel(classroom.avg_term_expectation_level)}',
+                          style: theme.textTheme.titleLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
