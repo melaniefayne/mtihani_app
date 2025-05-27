@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/app/app.locator.dart';
@@ -22,6 +24,14 @@ class StExamAnswersListModel extends BaseViewModel {
   List<StudentAnswerModel> answers;
   StExamAnswersListModel(this.answers) {
     answersList = [...answers];
+
+    // List<Map<String, dynamic>> res = answersList
+    //     .map((e) => {
+    //           "question_id": e.question_id,
+    //           "answer": e.description,
+    //         })
+    //     .toList();
+    // log(jsonEncode(res));
   }
 
   onLocalFilter() {

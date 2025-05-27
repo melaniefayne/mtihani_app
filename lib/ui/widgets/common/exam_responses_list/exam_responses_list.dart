@@ -72,59 +72,64 @@ class ExamResponsesList extends StackedView<ExamResponsesListModel> {
             buildLoadingWidget(theme, "Fetching student responses",
                 isLinear: true),
           if (viewModel.data != null)
-            if (viewModel.data != null)
-              AppSearchTable(
-                isSearchActive: viewModel.isSearchActive,
-                onSearchCanceled: viewModel.onSearchCanceled,
-                onSearchTermChanged: viewModel.onSearchTermChanged,
-                hintText: "Search by student name",
-                searchTxtCtrl: viewModel.searchTxtCtrl,
-                tableHeight: pageSize.height * 0.7,
-                tableHeaders: viewModel.isExamComplete
-                    ? const [
-                        "Name",
-                        "Start",
-                        "End",
-                        "Duration",
-                        "Avg. Score",
-                        "Expectation Level",
-                        "Action",
-                      ]
-                    : const ["Name", "Start", "End", "Duration", "Action"],
-                tableRows: List.generate(viewModel.data!.length, (int idx) {
-                  StudentExamSessionModel session = viewModel.data![idx];
-                  onViewStudent() => viewModel.onViewExamSession(session);
+            AppSearchTable(
+              isSearchActive: viewModel.isSearchActive,
+              onSearchCanceled: viewModel.onSearchCanceled,
+              onSearchTermChanged: viewModel.onSearchTermChanged,
+              hintText: "Search by student name",
+              searchTxtCtrl: viewModel.searchTxtCtrl,
+              tableHeight: pageSize.height * 0.7,
+              tableHeaders: viewModel.isExamComplete
+                  ? const [
+                      "Name",
+                      "Start",
+                      "End",
+                      "Duration",
+                      "Avg. Score",
+                      "Expectation Level",
+                      "Action",
+                    ]
+                  : const ["Name", "Start", "End", "Duration", "Action"],
+              tableRows: List.generate(viewModel.data!.length, (int idx) {
+                StudentExamSessionModel session = viewModel.data![idx];
+                onViewStudent() => viewModel.onViewExamSession(session);
+                final localStart = session.start_date_time?.toLocal();
+                final localEnd = session.end_date_time?.toLocal();
 
-                  return DataRow(
-                    cells: [
-                      buildCellTxt(
-                        session.student_name,
-                        useLeftAlign: true,
-                        onAction: onViewStudent,
-                      ),
-                      buildCellTxt(
-                          getFormattedDate(
-                              session.start_date_time, shortDateTimeFormat),
+                return DataRow(
+                  cells: [
+                    buildCellTxt(
+                      session.student_name,
+                      useLeftAlign: true,
+                      onAction: onViewStudent,
+                    ),
+                    buildCellTxt(
+                        localStart != null
+                            ? shortDateTimeFormat.format(localStart)
+                            : '--',
+                        onAction: onViewStudent),
+                    buildCellTxt(
+                        localEnd != null
+                            ? shortDateTimeFormat.format(localEnd)
+                            : '--',
+                        onAction: onViewStudent),
+                    buildCellTxt("${session.duration_min ?? '--'} min",
+                        onAction: onViewStudent),
+                    if (viewModel.isExamComplete) ...[
+                      buildCellTxt("${session.avg_score ?? 0.0}%",
                           onAction: onViewStudent),
-                      buildCellTxt(
-                          getFormattedDate(
-                              session.end_date_time, shortDateTimeFormat),
+                      buildCellTxt(session.expectation_level,
                           onAction: onViewStudent),
-                      buildCellTxt("${session.duration_min ?? '--'} min",
-                          onAction: onViewStudent),
-                      if (viewModel.isExamComplete) ...[
-                        buildCellTxt("${session.avg_score ?? 0.0}%",
-                            onAction: onViewStudent),
-                        buildCellTxt(session.expectation_level,
-                            onAction: onViewStudent),
-                      ],
-                      buildCellViewAction(
-                          theme: theme, onAction: onViewStudent),
                     ],
-                  );
-                }),
-                itemsText: "No responses available",
-              ),
+                    localStart != null && localEnd != null
+                        ? buildCellViewAction(
+                            theme: theme, onAction: onViewStudent)
+                        : buildCellTxt("--"),
+                  ],
+                );
+              }),
+              itemsText: "No responses available",
+            ),
           const SizedBox(height: 10),
           if (viewModel.nextPageUrl != null)
             buildPriBtn(
