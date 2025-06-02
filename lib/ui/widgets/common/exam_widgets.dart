@@ -32,6 +32,7 @@ class ExamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
 
     final dateStr = exam.start_date_time != null
         ? shortDayDateFormat.format(exam.start_date_time!)
@@ -101,11 +102,16 @@ class ExamCard extends StatelessWidget {
                     ),
                     if (!isGenerating)
                       isFailedGen
-                          ? Text(
-                              exam.generation_error ?? "Please contact support",
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                color: theme.colorScheme.error,
-                              ))
+                          ? SizedBox(
+                              width: pageSize.width * 0.7,
+                              child: Text(
+                                  exam.generation_error ??
+                                      "Please contact support",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: theme.textTheme.bodyMedium!.copyWith(
+                                    color: theme.colorScheme.error,
+                                  )))
                           : Text(
                               '${exam.analysis?.question_count ?? "--"} Questions'),
                     Text("$dateStr • $timeStr"),

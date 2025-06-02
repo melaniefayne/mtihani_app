@@ -112,7 +112,7 @@ class StrandSelectionCard extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 15),
                           child: buildScoreCard(
                             theme: theme,
-                            score: strandScore.score ?? 0.0,
+                            score: strandScore.percentage ?? 0.0,
                           ),
                         ),
                     ],

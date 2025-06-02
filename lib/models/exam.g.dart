@@ -99,7 +99,7 @@ _$ScoreModelImpl _$$ScoreModelImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num?)?.toInt(),
       name: json['name'],
       count: (json['count'] as num?)?.toInt(),
-      score: (json['score'] as num?)?.toDouble(),
+      percentage: (json['percentage'] as num?)?.toDouble(),
       expectation_level: json['expectation_level'] as String?,
     );
 
@@ -108,7 +108,7 @@ Map<String, dynamic> _$$ScoreModelImplToJson(_$ScoreModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'count': instance.count,
-      'score': instance.score,
+      'percentage': instance.percentage,
       'expectation_level': instance.expectation_level,
     };
 

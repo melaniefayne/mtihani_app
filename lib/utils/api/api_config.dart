@@ -54,6 +54,6 @@ String get endPointUpdateExamAnswer => "$baseURL/exam/update-exam-answer";
 String get endPointEndExamSession => "$baseURL/exam/end-exam-session";
 String get endPointGetStudentExamSessions =>
     "$baseURL/exam/get-student-exam-sessions";
+String get endPointUpdateExamScore => "$baseURL/exam/edit-answer-score";
 
 // PERFORMANCE =================================================
-String get endPointUpdateExamScore => "$baseURL/performance/edit-answer-score";

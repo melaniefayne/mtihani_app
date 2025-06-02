@@ -68,13 +68,15 @@ class ScoreModel with _$ScoreModel {
     int? id,
     dynamic name, // String or int
     int? count,
-    double? score,
+    double? percentage,
     String? expectation_level,
   }) = _ScoreModel;
 
   factory ScoreModel.fromJson(Map<String, dynamic> json) =>
       _$ScoreModelFromJson(json);
 }
+
+// percentage: “Of the maximum points they could have earned for this skill, this is what they achieved”
 
 @freezed
 class ExamQuestionModel with _$ExamQuestionModel {

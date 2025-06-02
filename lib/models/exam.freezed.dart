@@ -774,7 +774,7 @@ mixin _$ScoreModel {
   int? get id => throw _privateConstructorUsedError;
   dynamic get name => throw _privateConstructorUsedError; // String or int
   int? get count => throw _privateConstructorUsedError;
-  double? get score => throw _privateConstructorUsedError;
+  double? get percentage => throw _privateConstructorUsedError;
   String? get expectation_level => throw _privateConstructorUsedError;
 
   /// Serializes this ScoreModel to a JSON map.
@@ -797,7 +797,7 @@ abstract class $ScoreModelCopyWith<$Res> {
       {int? id,
       dynamic name,
       int? count,
-      double? score,
+      double? percentage,
       String? expectation_level});
 }
 
@@ -819,7 +819,7 @@ class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
     Object? id = freezed,
     Object? name = freezed,
     Object? count = freezed,
-    Object? score = freezed,
+    Object? percentage = freezed,
     Object? expectation_level = freezed,
   }) {
     return _then(_value.copyWith(
@@ -835,9 +835,9 @@ class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int?,
-      score: freezed == score
-          ? _value.score
-          : score // ignore: cast_nullable_to_non_nullable
+      percentage: freezed == percentage
+          ? _value.percentage
+          : percentage // ignore: cast_nullable_to_non_nullable
               as double?,
       expectation_level: freezed == expectation_level
           ? _value.expectation_level
@@ -859,7 +859,7 @@ abstract class _$$ScoreModelImplCopyWith<$Res>
       {int? id,
       dynamic name,
       int? count,
-      double? score,
+      double? percentage,
       String? expectation_level});
 }
 
@@ -879,7 +879,7 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? count = freezed,
-    Object? score = freezed,
+    Object? percentage = freezed,
     Object? expectation_level = freezed,
   }) {
     return _then(_$ScoreModelImpl(
@@ -895,9 +895,9 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int?,
-      score: freezed == score
-          ? _value.score
-          : score // ignore: cast_nullable_to_non_nullable
+      percentage: freezed == percentage
+          ? _value.percentage
+          : percentage // ignore: cast_nullable_to_non_nullable
               as double?,
       expectation_level: freezed == expectation_level
           ? _value.expectation_level
@@ -911,7 +911,11 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ScoreModelImpl implements _ScoreModel {
   _$ScoreModelImpl(
-      {this.id, this.name, this.count, this.score, this.expectation_level});
+      {this.id,
+      this.name,
+      this.count,
+      this.percentage,
+      this.expectation_level});
 
   factory _$ScoreModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ScoreModelImplFromJson(json);
@@ -924,13 +928,13 @@ class _$ScoreModelImpl implements _ScoreModel {
   @override
   final int? count;
   @override
-  final double? score;
+  final double? percentage;
   @override
   final String? expectation_level;
 
   @override
   String toString() {
-    return 'ScoreModel(id: $id, name: $name, count: $count, score: $score, expectation_level: $expectation_level)';
+    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level)';
   }
 
   @override
@@ -941,7 +945,8 @@ class _$ScoreModelImpl implements _ScoreModel {
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             (identical(other.count, count) || other.count == count) &&
-            (identical(other.score, score) || other.score == score) &&
+            (identical(other.percentage, percentage) ||
+                other.percentage == percentage) &&
             (identical(other.expectation_level, expectation_level) ||
                 other.expectation_level == expectation_level));
   }
@@ -953,7 +958,7 @@ class _$ScoreModelImpl implements _ScoreModel {
       id,
       const DeepCollectionEquality().hash(name),
       count,
-      score,
+      percentage,
       expectation_level);
 
   /// Create a copy of ScoreModel
@@ -977,7 +982,7 @@ abstract class _ScoreModel implements ScoreModel {
       {final int? id,
       final dynamic name,
       final int? count,
-      final double? score,
+      final double? percentage,
       final String? expectation_level}) = _$ScoreModelImpl;
 
   factory _ScoreModel.fromJson(Map<String, dynamic> json) =
@@ -990,7 +995,7 @@ abstract class _ScoreModel implements ScoreModel {
   @override
   int? get count;
   @override
-  double? get score;
+  double? get percentage;
   @override
   String? get expectation_level;
 
