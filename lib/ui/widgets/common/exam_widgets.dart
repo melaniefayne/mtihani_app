@@ -65,23 +65,9 @@ class ExamCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onExamAction,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
-          border: Border.all(color: theme.primaryColor),
-          boxShadow: [
-            BoxShadow(
-              color: theme.primaryColor,
-              offset: const Offset(4, 4),
-              spreadRadius: -1,
-              blurRadius: 0,
-            ),
-          ],
-        ),
-        child: Row(
+      child: buildWhiteCard(
+        theme,
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
@@ -223,11 +209,7 @@ Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
       return theme.primaryColor;
     case ExamStatus.archived:
       return Colors.grey;
-    default:
-      break;
   }
-
-  return theme.primaryColor;
 }
 
 Color getAnswerColor(double? score, ThemeData theme) {
@@ -402,7 +384,7 @@ class ExamQuestionCard extends StatelessWidget {
             if (hasStudentAnswer)
               Container(
                 width: double.infinity,
-                color: answerColor.withOpacity(0.2),
+                color: answerColor.withValues(alpha: 0.2),
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: RichText(

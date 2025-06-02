@@ -840,3 +840,24 @@ Widget buildSideBarScaffold({
     ),
   );
 }
+
+buildWhiteCard(ThemeData theme, Widget child) {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    margin: const EdgeInsets.symmetric(vertical: 5),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(12),
+      color: Colors.white,
+      border: Border.all(color: theme.primaryColor),
+      boxShadow: [
+        BoxShadow(
+          color: theme.primaryColor,
+          offset: const Offset(4, 4),
+          spreadRadius: -1,
+          blurRadius: 0,
+        ),
+      ],
+    ),
+    child: child,
+  );
+}

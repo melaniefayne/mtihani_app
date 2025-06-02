@@ -32,8 +32,13 @@ mixin _$ExamModel {
   String? get classroom_name => throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
-  ExamQuestionAnalysisModel? get analysis => throw _privateConstructorUsedError;
+  ExamQuestionAnalysisModel? get analysis =>
+      throw _privateConstructorUsedError; //
   int? get student_id => throw _privateConstructorUsedError;
+  String? get student_name => throw _privateConstructorUsedError;
+  int? get exam_id => throw _privateConstructorUsedError;
+  double? get avg_score => throw _privateConstructorUsedError;
+  String? get avg_expectation_level => throw _privateConstructorUsedError;
 
   /// Serializes this ExamModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,7 +69,11 @@ abstract class $ExamModelCopyWith<$Res> {
       DateTime? created_at,
       DateTime? updated_at,
       ExamQuestionAnalysisModel? analysis,
-      int? student_id});
+      int? student_id,
+      String? student_name,
+      int? exam_id,
+      double? avg_score,
+      String? avg_expectation_level});
 
   $ExamQuestionAnalysisModelCopyWith<$Res>? get analysis;
 }
@@ -98,6 +107,10 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
     Object? updated_at = freezed,
     Object? analysis = freezed,
     Object? student_id = freezed,
+    Object? student_name = freezed,
+    Object? exam_id = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -156,6 +169,22 @@ class _$ExamModelCopyWithImpl<$Res, $Val extends ExamModel>
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      student_name: freezed == student_name
+          ? _value.student_name
+          : student_name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exam_id: freezed == exam_id
+          ? _value.exam_id
+          : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -196,7 +225,11 @@ abstract class _$$ExamModelImplCopyWith<$Res>
       DateTime? created_at,
       DateTime? updated_at,
       ExamQuestionAnalysisModel? analysis,
-      int? student_id});
+      int? student_id,
+      String? student_name,
+      int? exam_id,
+      double? avg_score,
+      String? avg_expectation_level});
 
   @override
   $ExamQuestionAnalysisModelCopyWith<$Res>? get analysis;
@@ -229,6 +262,10 @@ class __$$ExamModelImplCopyWithImpl<$Res>
     Object? updated_at = freezed,
     Object? analysis = freezed,
     Object? student_id = freezed,
+    Object? student_name = freezed,
+    Object? exam_id = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
   }) {
     return _then(_$ExamModelImpl(
       id: freezed == id
@@ -287,6 +324,22 @@ class __$$ExamModelImplCopyWithImpl<$Res>
           ? _value.student_id
           : student_id // ignore: cast_nullable_to_non_nullable
               as int?,
+      student_name: freezed == student_name
+          ? _value.student_name
+          : student_name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exam_id: freezed == exam_id
+          ? _value.exam_id
+          : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -308,7 +361,11 @@ class _$ExamModelImpl implements _ExamModel {
       this.created_at,
       this.updated_at,
       this.analysis,
-      this.student_id});
+      this.student_id,
+      this.student_name,
+      this.exam_id,
+      this.avg_score,
+      this.avg_expectation_level});
 
   factory _$ExamModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExamModelImplFromJson(json);
@@ -339,12 +396,21 @@ class _$ExamModelImpl implements _ExamModel {
   final DateTime? updated_at;
   @override
   final ExamQuestionAnalysisModel? analysis;
+//
   @override
   final int? student_id;
+  @override
+  final String? student_name;
+  @override
+  final int? exam_id;
+  @override
+  final double? avg_score;
+  @override
+  final String? avg_expectation_level;
 
   @override
   String toString() {
-    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis, student_id: $student_id)';
+    return 'ExamModel(id: $id, start_date_time: $start_date_time, end_date_time: $end_date_time, status: $status, is_published: $is_published, code: $code, duration_min: $duration_min, generation_error: $generation_error, classroom_id: $classroom_id, classroom_name: $classroom_name, created_at: $created_at, updated_at: $updated_at, analysis: $analysis, student_id: $student_id, student_name: $student_name, exam_id: $exam_id, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level)';
   }
 
   @override
@@ -376,7 +442,14 @@ class _$ExamModelImpl implements _ExamModel {
             (identical(other.analysis, analysis) ||
                 other.analysis == analysis) &&
             (identical(other.student_id, student_id) ||
-                other.student_id == student_id));
+                other.student_id == student_id) &&
+            (identical(other.student_name, student_name) ||
+                other.student_name == student_name) &&
+            (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
+            (identical(other.avg_score, avg_score) ||
+                other.avg_score == avg_score) &&
+            (identical(other.avg_expectation_level, avg_expectation_level) ||
+                other.avg_expectation_level == avg_expectation_level));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -396,7 +469,11 @@ class _$ExamModelImpl implements _ExamModel {
       created_at,
       updated_at,
       analysis,
-      student_id);
+      student_id,
+      student_name,
+      exam_id,
+      avg_score,
+      avg_expectation_level);
 
   /// Create a copy of ExamModel
   /// with the given fields replaced by the non-null parameter values.
@@ -429,7 +506,11 @@ abstract class _ExamModel implements ExamModel {
       final DateTime? created_at,
       final DateTime? updated_at,
       final ExamQuestionAnalysisModel? analysis,
-      final int? student_id}) = _$ExamModelImpl;
+      final int? student_id,
+      final String? student_name,
+      final int? exam_id,
+      final double? avg_score,
+      final String? avg_expectation_level}) = _$ExamModelImpl;
 
   factory _ExamModel.fromJson(Map<String, dynamic> json) =
       _$ExamModelImpl.fromJson;
@@ -459,9 +540,17 @@ abstract class _ExamModel implements ExamModel {
   @override
   DateTime? get updated_at;
   @override
-  ExamQuestionAnalysisModel? get analysis;
+  ExamQuestionAnalysisModel? get analysis; //
   @override
   int? get student_id;
+  @override
+  String? get student_name;
+  @override
+  int? get exam_id;
+  @override
+  double? get avg_score;
+  @override
+  String? get avg_expectation_level;
 
   /// Create a copy of ExamModel
   /// with the given fields replaced by the non-null parameter values.
@@ -763,248 +852,6 @@ abstract class _ExamQuestionAnalysisModel implements ExamQuestionAnalysisModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ExamQuestionAnalysisModelImplCopyWith<_$ExamQuestionAnalysisModelImpl>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-ScoreModel _$ScoreModelFromJson(Map<String, dynamic> json) {
-  return _ScoreModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ScoreModel {
-  int? get id => throw _privateConstructorUsedError;
-  dynamic get name => throw _privateConstructorUsedError; // String or int
-  int? get count => throw _privateConstructorUsedError;
-  double? get percentage => throw _privateConstructorUsedError;
-  String? get expectation_level => throw _privateConstructorUsedError;
-
-  /// Serializes this ScoreModel to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of ScoreModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ScoreModelCopyWith<ScoreModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ScoreModelCopyWith<$Res> {
-  factory $ScoreModelCopyWith(
-          ScoreModel value, $Res Function(ScoreModel) then) =
-      _$ScoreModelCopyWithImpl<$Res, ScoreModel>;
-  @useResult
-  $Res call(
-      {int? id,
-      dynamic name,
-      int? count,
-      double? percentage,
-      String? expectation_level});
-}
-
-/// @nodoc
-class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
-    implements $ScoreModelCopyWith<$Res> {
-  _$ScoreModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of ScoreModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? count = freezed,
-    Object? percentage = freezed,
-    Object? expectation_level = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      count: freezed == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int?,
-      percentage: freezed == percentage
-          ? _value.percentage
-          : percentage // ignore: cast_nullable_to_non_nullable
-              as double?,
-      expectation_level: freezed == expectation_level
-          ? _value.expectation_level
-          : expectation_level // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ScoreModelImplCopyWith<$Res>
-    implements $ScoreModelCopyWith<$Res> {
-  factory _$$ScoreModelImplCopyWith(
-          _$ScoreModelImpl value, $Res Function(_$ScoreModelImpl) then) =
-      __$$ScoreModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {int? id,
-      dynamic name,
-      int? count,
-      double? percentage,
-      String? expectation_level});
-}
-
-/// @nodoc
-class __$$ScoreModelImplCopyWithImpl<$Res>
-    extends _$ScoreModelCopyWithImpl<$Res, _$ScoreModelImpl>
-    implements _$$ScoreModelImplCopyWith<$Res> {
-  __$$ScoreModelImplCopyWithImpl(
-      _$ScoreModelImpl _value, $Res Function(_$ScoreModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of ScoreModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? count = freezed,
-    Object? percentage = freezed,
-    Object? expectation_level = freezed,
-  }) {
-    return _then(_$ScoreModelImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      count: freezed == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int?,
-      percentage: freezed == percentage
-          ? _value.percentage
-          : percentage // ignore: cast_nullable_to_non_nullable
-              as double?,
-      expectation_level: freezed == expectation_level
-          ? _value.expectation_level
-          : expectation_level // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ScoreModelImpl implements _ScoreModel {
-  _$ScoreModelImpl(
-      {this.id,
-      this.name,
-      this.count,
-      this.percentage,
-      this.expectation_level});
-
-  factory _$ScoreModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ScoreModelImplFromJson(json);
-
-  @override
-  final int? id;
-  @override
-  final dynamic name;
-// String or int
-  @override
-  final int? count;
-  @override
-  final double? percentage;
-  @override
-  final String? expectation_level;
-
-  @override
-  String toString() {
-    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ScoreModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            (identical(other.count, count) || other.count == count) &&
-            (identical(other.percentage, percentage) ||
-                other.percentage == percentage) &&
-            (identical(other.expectation_level, expectation_level) ||
-                other.expectation_level == expectation_level));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      const DeepCollectionEquality().hash(name),
-      count,
-      percentage,
-      expectation_level);
-
-  /// Create a copy of ScoreModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ScoreModelImplCopyWith<_$ScoreModelImpl> get copyWith =>
-      __$$ScoreModelImplCopyWithImpl<_$ScoreModelImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ScoreModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ScoreModel implements ScoreModel {
-  factory _ScoreModel(
-      {final int? id,
-      final dynamic name,
-      final int? count,
-      final double? percentage,
-      final String? expectation_level}) = _$ScoreModelImpl;
-
-  factory _ScoreModel.fromJson(Map<String, dynamic> json) =
-      _$ScoreModelImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  dynamic get name; // String or int
-  @override
-  int? get count;
-  @override
-  double? get percentage;
-  @override
-  String? get expectation_level;
-
-  /// Create a copy of ScoreModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ScoreModelImplCopyWith<_$ScoreModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 ExamQuestionModel _$ExamQuestionModelFromJson(Map<String, dynamic> json) {
@@ -2565,4 +2412,382 @@ abstract class _StudentExamSessionDataModel
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$StudentExamSessionDataModelImplCopyWith<_$StudentExamSessionDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+ScoreModel _$ScoreModelFromJson(Map<String, dynamic> json) {
+  return _ScoreModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ScoreModel {
+  int? get id => throw _privateConstructorUsedError;
+  dynamic get name => throw _privateConstructorUsedError; // String or int
+  int? get count => throw _privateConstructorUsedError;
+  double? get percentage => throw _privateConstructorUsedError;
+  String? get expectation_level => throw _privateConstructorUsedError;
+  double? get min => throw _privateConstructorUsedError;
+  double? get max => throw _privateConstructorUsedError;
+  double? get std_dev => throw _privateConstructorUsedError;
+  double? get difference => throw _privateConstructorUsedError;
+  String? get difference_desc => throw _privateConstructorUsedError;
+  List<double>? get scores => throw _privateConstructorUsedError;
+
+  /// Serializes this ScoreModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ScoreModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ScoreModelCopyWith<ScoreModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ScoreModelCopyWith<$Res> {
+  factory $ScoreModelCopyWith(
+          ScoreModel value, $Res Function(ScoreModel) then) =
+      _$ScoreModelCopyWithImpl<$Res, ScoreModel>;
+  @useResult
+  $Res call(
+      {int? id,
+      dynamic name,
+      int? count,
+      double? percentage,
+      String? expectation_level,
+      double? min,
+      double? max,
+      double? std_dev,
+      double? difference,
+      String? difference_desc,
+      List<double>? scores});
+}
+
+/// @nodoc
+class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
+    implements $ScoreModelCopyWith<$Res> {
+  _$ScoreModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ScoreModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? count = freezed,
+    Object? percentage = freezed,
+    Object? expectation_level = freezed,
+    Object? min = freezed,
+    Object? max = freezed,
+    Object? std_dev = freezed,
+    Object? difference = freezed,
+    Object? difference_desc = freezed,
+    Object? scores = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      count: freezed == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int?,
+      percentage: freezed == percentage
+          ? _value.percentage
+          : percentage // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expectation_level: freezed == expectation_level
+          ? _value.expectation_level
+          : expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      min: freezed == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as double?,
+      max: freezed == max
+          ? _value.max
+          : max // ignore: cast_nullable_to_non_nullable
+              as double?,
+      std_dev: freezed == std_dev
+          ? _value.std_dev
+          : std_dev // ignore: cast_nullable_to_non_nullable
+              as double?,
+      difference: freezed == difference
+          ? _value.difference
+          : difference // ignore: cast_nullable_to_non_nullable
+              as double?,
+      difference_desc: freezed == difference_desc
+          ? _value.difference_desc
+          : difference_desc // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scores: freezed == scores
+          ? _value.scores
+          : scores // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ScoreModelImplCopyWith<$Res>
+    implements $ScoreModelCopyWith<$Res> {
+  factory _$$ScoreModelImplCopyWith(
+          _$ScoreModelImpl value, $Res Function(_$ScoreModelImpl) then) =
+      __$$ScoreModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      dynamic name,
+      int? count,
+      double? percentage,
+      String? expectation_level,
+      double? min,
+      double? max,
+      double? std_dev,
+      double? difference,
+      String? difference_desc,
+      List<double>? scores});
+}
+
+/// @nodoc
+class __$$ScoreModelImplCopyWithImpl<$Res>
+    extends _$ScoreModelCopyWithImpl<$Res, _$ScoreModelImpl>
+    implements _$$ScoreModelImplCopyWith<$Res> {
+  __$$ScoreModelImplCopyWithImpl(
+      _$ScoreModelImpl _value, $Res Function(_$ScoreModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ScoreModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? count = freezed,
+    Object? percentage = freezed,
+    Object? expectation_level = freezed,
+    Object? min = freezed,
+    Object? max = freezed,
+    Object? std_dev = freezed,
+    Object? difference = freezed,
+    Object? difference_desc = freezed,
+    Object? scores = freezed,
+  }) {
+    return _then(_$ScoreModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+      count: freezed == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int?,
+      percentage: freezed == percentage
+          ? _value.percentage
+          : percentage // ignore: cast_nullable_to_non_nullable
+              as double?,
+      expectation_level: freezed == expectation_level
+          ? _value.expectation_level
+          : expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      min: freezed == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as double?,
+      max: freezed == max
+          ? _value.max
+          : max // ignore: cast_nullable_to_non_nullable
+              as double?,
+      std_dev: freezed == std_dev
+          ? _value.std_dev
+          : std_dev // ignore: cast_nullable_to_non_nullable
+              as double?,
+      difference: freezed == difference
+          ? _value.difference
+          : difference // ignore: cast_nullable_to_non_nullable
+              as double?,
+      difference_desc: freezed == difference_desc
+          ? _value.difference_desc
+          : difference_desc // ignore: cast_nullable_to_non_nullable
+              as String?,
+      scores: freezed == scores
+          ? _value._scores
+          : scores // ignore: cast_nullable_to_non_nullable
+              as List<double>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ScoreModelImpl implements _ScoreModel {
+  _$ScoreModelImpl(
+      {this.id,
+      this.name,
+      this.count,
+      this.percentage,
+      this.expectation_level,
+      this.min,
+      this.max,
+      this.std_dev,
+      this.difference,
+      this.difference_desc,
+      final List<double>? scores})
+      : _scores = scores;
+
+  factory _$ScoreModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ScoreModelImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final dynamic name;
+// String or int
+  @override
+  final int? count;
+  @override
+  final double? percentage;
+  @override
+  final String? expectation_level;
+  @override
+  final double? min;
+  @override
+  final double? max;
+  @override
+  final double? std_dev;
+  @override
+  final double? difference;
+  @override
+  final String? difference_desc;
+  final List<double>? _scores;
+  @override
+  List<double>? get scores {
+    final value = _scores;
+    if (value == null) return null;
+    if (_scores is EqualUnmodifiableListView) return _scores;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level, min: $min, max: $max, std_dev: $std_dev, difference: $difference, difference_desc: $difference_desc, scores: $scores)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ScoreModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.percentage, percentage) ||
+                other.percentage == percentage) &&
+            (identical(other.expectation_level, expectation_level) ||
+                other.expectation_level == expectation_level) &&
+            (identical(other.min, min) || other.min == min) &&
+            (identical(other.max, max) || other.max == max) &&
+            (identical(other.std_dev, std_dev) || other.std_dev == std_dev) &&
+            (identical(other.difference, difference) ||
+                other.difference == difference) &&
+            (identical(other.difference_desc, difference_desc) ||
+                other.difference_desc == difference_desc) &&
+            const DeepCollectionEquality().equals(other._scores, _scores));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(name),
+      count,
+      percentage,
+      expectation_level,
+      min,
+      max,
+      std_dev,
+      difference,
+      difference_desc,
+      const DeepCollectionEquality().hash(_scores));
+
+  /// Create a copy of ScoreModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ScoreModelImplCopyWith<_$ScoreModelImpl> get copyWith =>
+      __$$ScoreModelImplCopyWithImpl<_$ScoreModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ScoreModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ScoreModel implements ScoreModel {
+  factory _ScoreModel(
+      {final int? id,
+      final dynamic name,
+      final int? count,
+      final double? percentage,
+      final String? expectation_level,
+      final double? min,
+      final double? max,
+      final double? std_dev,
+      final double? difference,
+      final String? difference_desc,
+      final List<double>? scores}) = _$ScoreModelImpl;
+
+  factory _ScoreModel.fromJson(Map<String, dynamic> json) =
+      _$ScoreModelImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  dynamic get name; // String or int
+  @override
+  int? get count;
+  @override
+  double? get percentage;
+  @override
+  String? get expectation_level;
+  @override
+  double? get min;
+  @override
+  double? get max;
+  @override
+  double? get std_dev;
+  @override
+  double? get difference;
+  @override
+  String? get difference_desc;
+  @override
+  List<double>? get scores;
+
+  /// Create a copy of ScoreModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ScoreModelImplCopyWith<_$ScoreModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
