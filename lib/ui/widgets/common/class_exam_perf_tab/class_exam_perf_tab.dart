@@ -3,12 +3,13 @@ import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/models/performance.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
 import 'package:mtihani_app/ui/icon_mapper.dart';
-import 'package:mtihani_app/ui/widgets/app_animated_counter.dart';
+import 'package:mtihani_app/ui/widgets/app_filters.dart';
 import 'package:mtihani_app/ui/widgets/app_text_carousel.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_grid_chart.dart';
-import 'package:mtihani_app/ui/widgets/charts/app_percent_charts.dart';
+import 'package:mtihani_app/ui/widgets/charts/app_heat_map.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_pie_donut_chart.dart';
+import 'package:mtihani_app/ui/widgets/common/performance_widget.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
@@ -90,7 +91,9 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
           buildAvgScoreSection(
             theme: theme,
             pageSize: pageSize,
-            classPerf: classPerf,
+            avgScore: classPerf.avg_score,
+            avgExpectationLevel: classPerf.avg_expectation_level,
+            otherScores: classPerf.bloom_skill_scores,
           ),
 
           //
@@ -101,59 +104,69 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
           ),
 
           //
-          buildStrandPerfSection(
+          buildStrandOverviewSection(
             theme: theme,
             pageSize: pageSize,
             classPerf: classPerf,
           ),
+
+          //
+          if ((viewModel.data!.strand_analysis ?? []).isNotEmpty)
+            buildPerfSection(
+              theme: theme,
+              pageSize: pageSize,
+              children: [
+                AppPageFilters(
+                  fullWidth: pageSize.width * 0.8,
+                  filters: [
+                    AppFilterItem(
+                      label: "Strand",
+                      selectedValue: viewModel.selectedStrand,
+                      onChanged: (val) {
+                        viewModel.onChangeStrand(val);
+                      },
+                      items: viewModel.data!.strand_analysis!
+                          .map<DropdownMenuItem<StrandPerformanceModel>>(
+                              (StrandPerformanceModel value) {
+                        return DropdownMenuItem<StrandPerformanceModel>(
+                          value: value,
+                          child: Text(value.name ?? '--'),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+                Container(
+                  color: theme.colorScheme.primaryContainer,
+                  padding: const EdgeInsets.all(16),
+                  child: viewModel.selectedStrand == null
+                      ? const Center(
+                          child: Text("Select a strand to view it's analysis",
+                              textAlign: TextAlign.center),
+                        )
+                      : StrandPerformanceWidget(
+                          key: ValueKey(viewModel.selectedStrand!.name),
+                          strandData: viewModel.selectedStrand!,
+                          onInfoItemTap: () {},
+                        ),
+                ),
+              ],
+            ),
+
+          if ((viewModel.data!.flagged_sub_strands ?? []).isNotEmpty)
+            buildPerfSection(
+              theme: theme,
+              pageSize: pageSize,
+              title: "Interesting correlations",
+              iconPath: Icons.compare_arrows,
+              children: viewModel.data!.flagged_sub_strands!
+                  .map(
+                    (e) => FlaggedSubStrandCard(model: e),
+                  )
+                  .toList(),
+            ),
         ],
       ),
-    );
-  }
-
-  Widget buildAvgScoreSection({
-    required ThemeData theme,
-    required Size pageSize,
-    required ClassExamPerformanceModel classPerf,
-  }) {
-    return buildSection(
-      theme: theme,
-      pageSize: pageSize,
-      children: [
-        AppHalfArcPercentChart(
-          percent: classPerf.avg_score ?? 0.0,
-          center: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text("Average Score"),
-              AppAnimatedCounter(
-                valueToAnimate: classPerf.avg_score?.toInt() ?? 0,
-                startValue: 0,
-                postTexts: [
-                  TextSpan(text: "%", style: theme.textTheme.titleMedium),
-                ],
-              ),
-              Text(
-                '${classPerf.avg_expectation_level ?? "--"} Expectations',
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: pageSize.height * 0.02),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: (classPerf.bloom_skill_scores ?? [])
-              .map(
-                (e) => AppCircularPercentChart(
-                  percent: e.percentage ?? 0.0,
-                  title: e.name,
-                ),
-              )
-              .toList(),
-        ),
-      ],
     );
   }
 
@@ -185,7 +198,7 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
     List<IconData> gradeIcons =
         gradeNames.map((e) => (appIconMapper[e] ?? Icons.category)).toList();
 
-    return buildSection(
+    return buildPerfSection(
       theme: theme,
       pageSize: pageSize,
       title: "Average Score Analysis",
@@ -207,7 +220,6 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
         AppTextCarousel(
           title: 'Insights',
           texts: classPerf.general_insights ?? [],
-          width: pageSize.width * 0.7,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -244,11 +256,12 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
     );
   }
 
-  Widget buildStrandPerfSection({
+  Widget buildStrandOverviewSection({
     required ThemeData theme,
     required Size pageSize,
     required ClassExamPerformanceModel classPerf,
   }) {
+    const double spacing = 0.04;
     List<double> strandScores = (classPerf.strand_analysis ?? [])
         .map((e) => (e.avg_score ?? 0).toDouble())
         .toList();
@@ -260,7 +273,7 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
             (e) => (appIconMapper[e.split('(').first.trim()] ?? Icons.category))
         .toList();
 
-    return buildSection(
+    return buildPerfSection(
       theme: theme,
       pageSize: pageSize,
       title: "Strand Performance",
@@ -279,7 +292,9 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
           crossCount: 3,
           valuePostfix: '%',
         ),
-        SizedBox(height: pageSize.height * 0.02),
+
+        //
+        SizedBox(height: pageSize.height * spacing),
         buildSubTitle(
           theme: theme,
           title: "Student Mastery",
@@ -297,60 +312,6 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
           yTitle: 'Students',
         ),
       ],
-    );
-  }
-
-  Widget buildSection({
-    required ThemeData theme,
-    required Size pageSize,
-    required List<Widget> children,
-    IconData? iconPath,
-    String? title,
-  }) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: pageSize.height * 0.02),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (iconPath != null && title != null)
-            buildHeaderWidget(
-              theme: theme,
-              title: title,
-              leadingWidget: Icon(iconPath),
-            ),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  buildSubTitle({
-    required ThemeData theme,
-    required String title,
-    String? subtitle,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: theme.textTheme.titleMedium!.copyWith(
-              decoration: TextDecoration.underline,
-            ),
-          ),
-          if (subtitle != null)
-            Text(
-              subtitle,
-              style: theme.textTheme.labelMedium!.copyWith(
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-        ],
-      ),
     );
   }
 

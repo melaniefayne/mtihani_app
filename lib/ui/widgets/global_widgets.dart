@@ -861,3 +861,32 @@ buildWhiteCard(ThemeData theme, Widget child) {
     child: child,
   );
 }
+
+buildSubTitle({
+  required ThemeData theme,
+  required String title,
+  String? subtitle,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: theme.textTheme.titleMedium!.copyWith(
+            decoration: TextDecoration.underline,
+          ),
+        ),
+        if (subtitle != null)
+          Text(
+            subtitle,
+            style: theme.textTheme.labelMedium!.copyWith(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+      ],
+    ),
+  );
+}

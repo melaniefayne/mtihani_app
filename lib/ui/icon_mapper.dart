@@ -14,6 +14,7 @@ final Map<String, IconData> appIconMapper = {
   "Mixtures": Icons.waves_outlined,
   "Acids, Bases and Indicators": Icons.water_drop_outlined,
   "Living Things and Their Environment": Icons.eco_outlined,
+  "Living Things and the Environment": Icons.eco_outlined,
   "Human Reproductive System": Icons.favorite_outline,
   "Human Excretory System": Icons.wc_outlined,
   "Force and Energy": Icons.flash_on_outlined,
@@ -22,7 +23,6 @@ final Map<String, IconData> appIconMapper = {
   "Elements and Compounds": Icons.widgets_outlined,
   "Physical and Chemical Changes": Icons.change_circle_outlined,
   "Classes of Fire": Icons.local_fire_department_outlined,
-  "Living Things and the Environment": Icons.nature_outlined,
   "The Cell": Icons.device_hub_outlined,
   "Movement of Materials In and Out of the Cell":
       Icons.swap_vert_circle_outlined,

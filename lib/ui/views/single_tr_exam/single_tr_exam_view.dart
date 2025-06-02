@@ -54,16 +54,16 @@ class SingleTrExamView extends StackedView<SingleTrExamViewModel> {
           icon: Icons.trending_up,
           widget: ClassExamPerfTab(exam: viewModel.trClassroomExam!),
         ),
-        // TabViewItem(
-        //   label: "Responses",
-        //   icon: Icons.group,
-        //   widget: ExamResponsesList(exam: viewModel.trClassroomExam!),
-        // ),
-        // TabViewItem(
-        //   label: "Questions",
-        //   icon: Icons.list_alt,
-        //   widget: ExamQuestionList(exam: viewModel.trClassroomExam!),
-        // ),
+        TabViewItem(
+          label: "Responses",
+          icon: Icons.group,
+          widget: ExamResponsesList(exam: viewModel.trClassroomExam!),
+        ),
+        TabViewItem(
+          label: "Questions",
+          icon: Icons.list_alt,
+          widget: ExamQuestionList(exam: viewModel.trClassroomExam!),
+        ),
         TabViewItem(
           label: "Settings",
           icon: Icons.settings,

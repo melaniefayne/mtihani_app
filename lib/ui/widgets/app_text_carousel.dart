@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mtihani_app/ui/common/app_colors.dart';
 
 class AppTextCarousel extends StatefulWidget {
   final List<String> texts;
@@ -66,51 +67,55 @@ class _AppTextCarouselState extends State<AppTextCarousel> {
     final pageSize = MediaQuery.sizeOf(context);
 
     if (widget.texts.isEmpty) return const SizedBox();
+    Color bgColor = widget.bgColor ?? kcLightGrey;
+    Color fgColor = widget.textColor ?? theme.colorScheme.primary;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: widget.bgColor ?? theme.colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      width: widget.width ?? pageSize.width * 0.8,
-      height: widget.height ?? pageSize.height * 0.1,
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (widget.title != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: Text(
-                widget.title!,
-                style: theme.textTheme.bodyMedium!.copyWith(
-                  color: theme.colorScheme.primary,
-                  decoration: TextDecoration.underline,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
+    return Center(
+      child: Container(
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: theme.primaryColor),
+        ),
+        width: widget.width ?? pageSize.width * 0.7,
+        height: widget.height ?? pageSize.height * 0.11,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (widget.title != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Text(
+                  widget.title!,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    color: fgColor,
+                    decoration: TextDecoration.underline,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  widget.icon ?? FontAwesomeIcons.lightbulb,
+                  color: fgColor,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: FadeInDownText(
+                    key: ValueKey(widget.texts[currentIndex]),
+                    currentText: widget.texts[currentIndex],
+                    textColor: fgColor,
+                    textStyle: widget.textStyle,
+                  ),
+                ),
+              ],
             ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                widget.icon ?? FontAwesomeIcons.lightbulb,
-                color: widget.textColor ?? theme.colorScheme.onPrimaryContainer,
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: FadeInDownText(
-                  key: ValueKey(widget.texts[currentIndex]),
-                  currentText: widget.texts[currentIndex],
-                  textColor:
-                      widget.textColor ?? theme.colorScheme.onPrimaryContainer,
-                  textStyle: widget.textStyle,
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -199,7 +204,7 @@ class _FadeInDownTextState extends State<FadeInDownText>
       },
       child: Text(
         widget.currentText,
-        maxLines: 5,
+        maxLines: 3,
         overflow: TextOverflow.ellipsis,
         style: widget.textStyle ??
             theme.textTheme.bodyMedium!.copyWith(

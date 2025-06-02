@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 class ClassExamPerfTabModel
     extends FutureViewModel<ClassExamPerformanceModel?> {
   final ExamModel exam;
+  StrandPerformanceModel? selectedStrand;
   ClassExamPerfTabModel(this.exam);
 
   @override
@@ -18,9 +19,16 @@ class ClassExamPerfTabModel
     );
 
     if (apiCallChecks(classExamPerfRes, 'class exam performance')) {
-      return classExamPerfRes.$1?.data;
+      ClassExamPerformanceModel? classPerf = classExamPerfRes.$1?.data;
+      selectedStrand = classPerf?.strand_analysis?.firstOrNull;
+      return classPerf;
     }
 
     return null;
+  }
+
+  onChangeStrand(StrandPerformanceModel strandData) {
+    selectedStrand = strandData;
+    rebuildUi();
   }
 }
