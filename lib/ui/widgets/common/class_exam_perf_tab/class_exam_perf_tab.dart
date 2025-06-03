@@ -9,7 +9,7 @@ import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_grid_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_heat_map.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_pie_donut_chart.dart';
-import 'package:mtihani_app/ui/widgets/common/performance_widget.dart';
+import 'package:mtihani_app/ui/widgets/common/performance_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
@@ -147,7 +147,7 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
                       : StrandPerformanceWidget(
                           key: ValueKey(viewModel.selectedStrand!.name),
                           strandData: viewModel.selectedStrand!,
-                          onInfoItemTap: () {},
+                          onInfoItemTap: viewModel.onStrandStudentItemTap,
                         ),
                 ),
               ],

@@ -95,7 +95,7 @@ class CompactInfoCard extends StatelessWidget {
   final IconData iconPath;
   final List<Map<String, String>> infoItems;
   final VoidCallback? onTap;
-  final VoidCallback? onInfoItemTap;
+  final Function(Map<String, String> item)? onInfoItemTap;
   final Color? bgColor;
   final Color? fgColor;
 
@@ -146,11 +146,14 @@ class CompactInfoCard extends StatelessWidget {
               // Info rows
               for (final item in infoItems)
                 GestureDetector(
-                  onTap: onInfoItemTap,
+                  onTap: () {
+                    if (onInfoItemTap != null) {
+                      onInfoItemTap!(item);
+                    }
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           item['name'] ?? '',
@@ -163,10 +166,28 @@ class CompactInfoCard extends StatelessWidget {
                             child: Divider(color: fgColor),
                           ),
                         ),
-                        Text(
-                          item['value'] ?? '',
-                          style: theme.textTheme.bodyMedium!.copyWith(
-                              color: fgColor, fontWeight: FontWeight.w500),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              item['value'] ?? '',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                  color: fgColor, fontWeight: FontWeight.w500),
+                            ),
+                            if (onInfoItemTap != null)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3),
+                                child: CircleAvatar(
+                                  backgroundColor: fgColor,
+                                  foregroundColor: bgColor,
+                                  radius: theme.textTheme.bodySmall!.fontSize,
+                                  child: Icon(
+                                    Icons.call_made,
+                                    size: theme.textTheme.bodySmall!.fontSize,
+                                  ),
+                                ),
+                              )
+                          ],
                         ),
                       ],
                     ),
@@ -259,7 +280,7 @@ Widget buildAvgScoreSection({
 
 class StrandPerformanceWidget extends StatefulWidget {
   final StrandPerformanceModel strandData;
-  final VoidCallback onInfoItemTap;
+  final Function(Map<String, String> item)? onInfoItemTap;
   const StrandPerformanceWidget({
     super.key,
     required this.strandData,
@@ -332,6 +353,7 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
                 title: "Top Percentile",
                 iconPath: FontAwesomeIcons.userGroup,
                 bgColor: kcLightGrey,
+                fgColor: theme.primaryColor,
                 onInfoItemTap: widget.onInfoItemTap,
                 infoItems: (widget.strandData.top_students ?? [])
                     .map((e) => {
@@ -382,6 +404,8 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
                     style: theme.textTheme.bodySmall,
                   ),
                   AppLinearPercentChart(
+                    showPercentages: false,
+                    indicatorPostfix: '%',
                     dataSeries: (widget.strandData.sub_strand_scores ?? [])
                         .map((e) => e.percentage?.toDouble() ?? 0.0)
                         .toList(),

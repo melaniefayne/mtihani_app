@@ -23,6 +23,8 @@ class AppLinearPercentChart extends StatelessWidget {
   final double tileHeight;
   final List<Color>? textColors;
   final String? indicatorPrefix;
+  final String? indicatorPostfix;
+  final bool showPercentages;
 
   const AppLinearPercentChart({
     required this.dataSeries,
@@ -37,6 +39,8 @@ class AppLinearPercentChart extends StatelessWidget {
     this.tileHeight = 42.0,
     this.textColors,
     this.indicatorPrefix = "",
+    this.indicatorPostfix = "",
+    this.showPercentages = false,
     Key? key,
   }) : super(key: key);
 
@@ -163,11 +167,22 @@ class AppLinearPercentChart extends StatelessWidget {
                               percent < 0.6 ? colorScheme.onSurface : fgColor,
                         ),
                       ),
-                      Text(
-                        "$indicatorPrefix${addThousandSeparators(value)} • ${(percent * 100).toStringAsFixed(1)}%",
-                        style: TextStyle(
-                          color:
-                              percent < 0.6 ? colorScheme.onSurface : fgColor,
+                      Text.rich(
+                        TextSpan(
+                          style: TextStyle(
+                            color:
+                                percent < 0.6 ? colorScheme.onSurface : fgColor,
+                          ),
+                          children: [
+                            TextSpan(text: indicatorPrefix),
+                            TextSpan(text: addThousandSeparators(value)),
+                            TextSpan(text: indicatorPostfix),
+                            if (showPercentages)
+                              TextSpan(
+                                text:
+                                    " • ${(percent * 100).toStringAsFixed(1)}%",
+                              ),
+                          ],
                         ),
                       ),
                     ],
