@@ -59,3 +59,10 @@ String get endPointUpdateExamScore => "$baseURL/exam/edit-answer-score";
 // PERFORMANCE =================================================
 String get endPointGetClassExamPerformance =>
     "$baseURL/exam/get-class-exam-performance";
+String get endPointGetClassExamClusters =>
+    "$baseURL/exam/get-class-exam-clusters";
+String get endPointGetClusterQuiz => "$baseURL/exam/get-cluster-quiz";
+String get endPointDownloadClusterQuizPdf =>
+    "$baseURL/exam/download-cluster-quiz-pdf";
+String get endPointGetPercentilePerformances =>
+    "$baseURL/exam/get-percentile-performances";

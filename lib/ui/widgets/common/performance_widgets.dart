@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/models/performance.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
@@ -351,7 +350,7 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
             Expanded(
               child: CompactInfoCard(
                 title: "Top Percentile",
-                iconPath: FontAwesomeIcons.userGroup,
+                iconPath: Icons.arrow_upward,
                 bgColor: kcLightGrey,
                 fgColor: theme.primaryColor,
                 onInfoItemTap: widget.onInfoItemTap,
@@ -368,7 +367,7 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
             Expanded(
               child: CompactInfoCard(
                 title: "Bottom Percentile",
-                iconPath: FontAwesomeIcons.userGroup,
+                iconPath: Icons.arrow_downward,
                 onInfoItemTap: widget.onInfoItemTap,
                 bgColor: kcMediumGrey,
                 fgColor: Colors.white,

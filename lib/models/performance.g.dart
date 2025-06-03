@@ -155,36 +155,6 @@ Map<String, dynamic> _$$FlaggedSubStrandModelImplToJson(
       'suggestion': instance.suggestion,
     };
 
-_$StudentExamSessionModelImpl _$$StudentExamSessionModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$StudentExamSessionModelImpl(
-      student_id: (json['student_id'] as num?)?.toInt(),
-      exam: json['exam'] == null
-          ? null
-          : ExamModel.fromJson(json['exam'] as Map<String, dynamic>),
-      start_date_time: json['start_date_time'] == null
-          ? null
-          : DateTime.parse(json['start_date_time'] as String),
-      end_date_time: json['end_date_time'] == null
-          ? null
-          : DateTime.parse(json['end_date_time'] as String),
-      duration_min: (json['duration_min'] as num?)?.toInt(),
-      avg_score: (json['avg_score'] as num?)?.toDouble(),
-      expectation_level: json['expectation_level'] as String?,
-    );
-
-Map<String, dynamic> _$$StudentExamSessionModelImplToJson(
-        _$StudentExamSessionModelImpl instance) =>
-    <String, dynamic>{
-      'student_id': instance.student_id,
-      'exam': instance.exam,
-      'start_date_time': instance.start_date_time?.toIso8601String(),
-      'end_date_time': instance.end_date_time?.toIso8601String(),
-      'duration_min': instance.duration_min,
-      'avg_score': instance.avg_score,
-      'expectation_level': instance.expectation_level,
-    };
-
 _$StudentExamSessionPerformanceModelImpl
     _$$StudentExamSessionPerformanceModelImplFromJson(
             Map<String, dynamic> json) =>

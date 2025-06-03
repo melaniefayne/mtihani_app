@@ -76,22 +76,6 @@ class FlaggedSubStrandModel with _$FlaggedSubStrandModel {
 }
 
 @freezed
-class StudentExamSessionModel with _$StudentExamSessionModel {
-  factory StudentExamSessionModel({
-    int? student_id,
-    ExamModel? exam,
-    DateTime? start_date_time,
-    DateTime? end_date_time,
-    int? duration_min,
-    double? avg_score,
-    String? expectation_level,
-  }) = _StudentExamSessionModel;
-
-  factory StudentExamSessionModel.fromJson(Map<String, dynamic> json) =>
-      _$StudentExamSessionModelFromJson(json);
-}
-
-@freezed
 class StudentExamSessionPerformanceModel
     with _$StudentExamSessionPerformanceModel {
   factory StudentExamSessionPerformanceModel({
