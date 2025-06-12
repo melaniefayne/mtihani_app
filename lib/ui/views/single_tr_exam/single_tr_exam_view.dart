@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
+import 'package:mtihani_app/ui/widgets/common/class_exam_clusters_tab/class_exam_clusters_tab.dart';
 import 'package:mtihani_app/ui/widgets/common/class_exam_perf_tab/class_exam_perf_tab.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_question_list/exam_question_list.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_responses_list/exam_responses_list.dart';
@@ -58,6 +59,11 @@ class SingleTrExamView extends StackedView<SingleTrExamViewModel> {
           label: "Responses",
           icon: Icons.group,
           widget: ExamResponsesList(exam: viewModel.trClassroomExam!),
+        ),
+        TabViewItem(
+          label: "Clusters",
+          icon: Icons.group,
+          widget: ClassExamClustersTab(exam: viewModel.trClassroomExam!),
         ),
         TabViewItem(
           label: "Questions",

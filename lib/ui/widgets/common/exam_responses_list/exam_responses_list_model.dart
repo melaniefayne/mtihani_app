@@ -103,6 +103,7 @@ class ExamResponsesListModel extends MultipleFutureViewModel {
       nextPageUrl = sessionsApiRes.$1?.next;
       return sessionsList;
     }
+
     return [];
   }
 

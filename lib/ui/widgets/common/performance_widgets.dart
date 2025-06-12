@@ -97,6 +97,7 @@ class CompactInfoCard extends StatelessWidget {
   final Function(Map<String, String> item)? onInfoItemTap;
   final Color? bgColor;
   final Color? fgColor;
+  final double? width;
 
   const CompactInfoCard({
     super.key,
@@ -107,92 +108,96 @@ class CompactInfoCard extends StatelessWidget {
     this.onInfoItemTap,
     this.bgColor,
     this.fgColor,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Material(
-      elevation: 2,
-      borderRadius: BorderRadius.circular(12),
-      color: bgColor ?? Colors.grey.shade200,
-      child: InkWell(
+    return SizedBox(
+      width: width,
+      child: Material(
+        elevation: 2,
         borderRadius: BorderRadius.circular(12),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title and Icon Row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(fontWeight: FontWeight.w600, color: fgColor),
-                  ),
-                  Icon(iconPath, size: 24, color: fgColor),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Divider(thickness: 1, color: fgColor),
-              const SizedBox(height: 4),
+        color: bgColor ?? Colors.grey.shade200,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title and Icon Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600, color: fgColor),
+                    ),
+                    Icon(iconPath, size: 24, color: fgColor),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Divider(thickness: 1, color: fgColor),
+                const SizedBox(height: 4),
 
-              // Info rows
-              for (final item in infoItems)
-                GestureDetector(
-                  onTap: () {
-                    if (onInfoItemTap != null) {
-                      onInfoItemTap!(item);
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      children: [
-                        Text(
-                          item['name'] ?? '',
-                          style: theme.textTheme.bodyMedium!
-                              .copyWith(color: fgColor),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Divider(color: fgColor),
+                // Info rows
+                for (final item in infoItems)
+                  GestureDetector(
+                    onTap: () {
+                      if (onInfoItemTap != null) {
+                        onInfoItemTap!(item);
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        children: [
+                          Text(
+                            item['name'] ?? '',
+                            style: theme.textTheme.bodySmall!
+                                .copyWith(color: fgColor),
                           ),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              item['value'] ?? '',
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                  color: fgColor, fontWeight: FontWeight.w500),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Divider(color: fgColor),
                             ),
-                            if (onInfoItemTap != null)
-                              Padding(
-                                padding: const EdgeInsets.only(left: 3),
-                                child: CircleAvatar(
-                                  backgroundColor: fgColor,
-                                  foregroundColor: bgColor,
-                                  radius: theme.textTheme.bodySmall!.fontSize,
-                                  child: Icon(
-                                    Icons.call_made,
-                                    size: theme.textTheme.bodySmall!.fontSize,
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                item['value'] ?? '',
+                                style: theme.textTheme.bodyMedium!.copyWith(
+                                    color: fgColor,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              if (onInfoItemTap != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 3),
+                                  child: CircleAvatar(
+                                    backgroundColor: fgColor,
+                                    foregroundColor: bgColor,
+                                    radius: theme.textTheme.bodySmall!.fontSize,
+                                    child: Icon(
+                                      Icons.call_made,
+                                      size: theme.textTheme.bodySmall!.fontSize,
+                                    ),
                                   ),
-                                ),
-                              )
-                          ],
-                        ),
-                      ],
+                                )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

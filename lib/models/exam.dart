@@ -161,6 +161,7 @@ class ScoreModel with _$ScoreModel {
     double? difference,
     String? difference_desc,
     List<double>? scores,
+    List<ScoreModel>? sub_strands,
   }) = _ScoreModel;
 
   factory ScoreModel.fromJson(Map<String, dynamic> json) =>

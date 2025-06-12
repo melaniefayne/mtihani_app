@@ -1898,3 +1898,542 @@ abstract class _StudentExamSessionPerformanceModel
           _$StudentExamSessionPerformanceModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ClassExamPerfClusterModel _$ClassExamPerfClusterModelFromJson(
+    Map<String, dynamic> json) {
+  return _ClassExamPerfClusterModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClassExamPerfClusterModel {
+  int? get id => throw _privateConstructorUsedError;
+  int? get exam => throw _privateConstructorUsedError;
+  String? get cluster_label => throw _privateConstructorUsedError;
+  int? get cluster_size => throw _privateConstructorUsedError;
+  double? get avg_score => throw _privateConstructorUsedError;
+  String? get avg_expectation_level => throw _privateConstructorUsedError;
+  List<ExamModel>? get student_sessions => throw _privateConstructorUsedError;
+  ScoreModel? get score_variance => throw _privateConstructorUsedError;
+  List<ScoreModel>? get bloom_skill_scores =>
+      throw _privateConstructorUsedError;
+  List<ScoreModel>? get strand_scores => throw _privateConstructorUsedError;
+  List<ScoreModel>? get top_best_questions =>
+      throw _privateConstructorUsedError;
+  List<ScoreModel>? get top_worst_questions =>
+      throw _privateConstructorUsedError;
+  DateTime? get created_at => throw _privateConstructorUsedError;
+  DateTime? get updated_at => throw _privateConstructorUsedError;
+  int? get follow_up_exam_id => throw _privateConstructorUsedError;
+
+  /// Serializes this ClassExamPerfClusterModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ClassExamPerfClusterModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ClassExamPerfClusterModelCopyWith<ClassExamPerfClusterModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClassExamPerfClusterModelCopyWith<$Res> {
+  factory $ClassExamPerfClusterModelCopyWith(ClassExamPerfClusterModel value,
+          $Res Function(ClassExamPerfClusterModel) then) =
+      _$ClassExamPerfClusterModelCopyWithImpl<$Res, ClassExamPerfClusterModel>;
+  @useResult
+  $Res call(
+      {int? id,
+      int? exam,
+      String? cluster_label,
+      int? cluster_size,
+      double? avg_score,
+      String? avg_expectation_level,
+      List<ExamModel>? student_sessions,
+      ScoreModel? score_variance,
+      List<ScoreModel>? bloom_skill_scores,
+      List<ScoreModel>? strand_scores,
+      List<ScoreModel>? top_best_questions,
+      List<ScoreModel>? top_worst_questions,
+      DateTime? created_at,
+      DateTime? updated_at,
+      int? follow_up_exam_id});
+
+  $ScoreModelCopyWith<$Res>? get score_variance;
+}
+
+/// @nodoc
+class _$ClassExamPerfClusterModelCopyWithImpl<$Res,
+        $Val extends ClassExamPerfClusterModel>
+    implements $ClassExamPerfClusterModelCopyWith<$Res> {
+  _$ClassExamPerfClusterModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ClassExamPerfClusterModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? exam = freezed,
+    Object? cluster_label = freezed,
+    Object? cluster_size = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
+    Object? student_sessions = freezed,
+    Object? score_variance = freezed,
+    Object? bloom_skill_scores = freezed,
+    Object? strand_scores = freezed,
+    Object? top_best_questions = freezed,
+    Object? top_worst_questions = freezed,
+    Object? created_at = freezed,
+    Object? updated_at = freezed,
+    Object? follow_up_exam_id = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exam: freezed == exam
+          ? _value.exam
+          : exam // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cluster_label: freezed == cluster_label
+          ? _value.cluster_label
+          : cluster_label // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cluster_size: freezed == cluster_size
+          ? _value.cluster_size
+          : cluster_size // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      student_sessions: freezed == student_sessions
+          ? _value.student_sessions
+          : student_sessions // ignore: cast_nullable_to_non_nullable
+              as List<ExamModel>?,
+      score_variance: freezed == score_variance
+          ? _value.score_variance
+          : score_variance // ignore: cast_nullable_to_non_nullable
+              as ScoreModel?,
+      bloom_skill_scores: freezed == bloom_skill_scores
+          ? _value.bloom_skill_scores
+          : bloom_skill_scores // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      strand_scores: freezed == strand_scores
+          ? _value.strand_scores
+          : strand_scores // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      top_best_questions: freezed == top_best_questions
+          ? _value.top_best_questions
+          : top_best_questions // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      top_worst_questions: freezed == top_worst_questions
+          ? _value.top_worst_questions
+          : top_worst_questions // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      created_at: freezed == created_at
+          ? _value.created_at
+          : created_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updated_at: freezed == updated_at
+          ? _value.updated_at
+          : updated_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      follow_up_exam_id: freezed == follow_up_exam_id
+          ? _value.follow_up_exam_id
+          : follow_up_exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+
+  /// Create a copy of ClassExamPerfClusterModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ScoreModelCopyWith<$Res>? get score_variance {
+    if (_value.score_variance == null) {
+      return null;
+    }
+
+    return $ScoreModelCopyWith<$Res>(_value.score_variance!, (value) {
+      return _then(_value.copyWith(score_variance: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$ClassExamPerfClusterModelImplCopyWith<$Res>
+    implements $ClassExamPerfClusterModelCopyWith<$Res> {
+  factory _$$ClassExamPerfClusterModelImplCopyWith(
+          _$ClassExamPerfClusterModelImpl value,
+          $Res Function(_$ClassExamPerfClusterModelImpl) then) =
+      __$$ClassExamPerfClusterModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      int? exam,
+      String? cluster_label,
+      int? cluster_size,
+      double? avg_score,
+      String? avg_expectation_level,
+      List<ExamModel>? student_sessions,
+      ScoreModel? score_variance,
+      List<ScoreModel>? bloom_skill_scores,
+      List<ScoreModel>? strand_scores,
+      List<ScoreModel>? top_best_questions,
+      List<ScoreModel>? top_worst_questions,
+      DateTime? created_at,
+      DateTime? updated_at,
+      int? follow_up_exam_id});
+
+  @override
+  $ScoreModelCopyWith<$Res>? get score_variance;
+}
+
+/// @nodoc
+class __$$ClassExamPerfClusterModelImplCopyWithImpl<$Res>
+    extends _$ClassExamPerfClusterModelCopyWithImpl<$Res,
+        _$ClassExamPerfClusterModelImpl>
+    implements _$$ClassExamPerfClusterModelImplCopyWith<$Res> {
+  __$$ClassExamPerfClusterModelImplCopyWithImpl(
+      _$ClassExamPerfClusterModelImpl _value,
+      $Res Function(_$ClassExamPerfClusterModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ClassExamPerfClusterModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? exam = freezed,
+    Object? cluster_label = freezed,
+    Object? cluster_size = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
+    Object? student_sessions = freezed,
+    Object? score_variance = freezed,
+    Object? bloom_skill_scores = freezed,
+    Object? strand_scores = freezed,
+    Object? top_best_questions = freezed,
+    Object? top_worst_questions = freezed,
+    Object? created_at = freezed,
+    Object? updated_at = freezed,
+    Object? follow_up_exam_id = freezed,
+  }) {
+    return _then(_$ClassExamPerfClusterModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exam: freezed == exam
+          ? _value.exam
+          : exam // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cluster_label: freezed == cluster_label
+          ? _value.cluster_label
+          : cluster_label // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cluster_size: freezed == cluster_size
+          ? _value.cluster_size
+          : cluster_size // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      student_sessions: freezed == student_sessions
+          ? _value._student_sessions
+          : student_sessions // ignore: cast_nullable_to_non_nullable
+              as List<ExamModel>?,
+      score_variance: freezed == score_variance
+          ? _value.score_variance
+          : score_variance // ignore: cast_nullable_to_non_nullable
+              as ScoreModel?,
+      bloom_skill_scores: freezed == bloom_skill_scores
+          ? _value._bloom_skill_scores
+          : bloom_skill_scores // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      strand_scores: freezed == strand_scores
+          ? _value._strand_scores
+          : strand_scores // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      top_best_questions: freezed == top_best_questions
+          ? _value._top_best_questions
+          : top_best_questions // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      top_worst_questions: freezed == top_worst_questions
+          ? _value._top_worst_questions
+          : top_worst_questions // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      created_at: freezed == created_at
+          ? _value.created_at
+          : created_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updated_at: freezed == updated_at
+          ? _value.updated_at
+          : updated_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      follow_up_exam_id: freezed == follow_up_exam_id
+          ? _value.follow_up_exam_id
+          : follow_up_exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ClassExamPerfClusterModelImpl implements _ClassExamPerfClusterModel {
+  _$ClassExamPerfClusterModelImpl(
+      {this.id,
+      this.exam,
+      this.cluster_label,
+      this.cluster_size,
+      this.avg_score,
+      this.avg_expectation_level,
+      final List<ExamModel>? student_sessions,
+      this.score_variance,
+      final List<ScoreModel>? bloom_skill_scores,
+      final List<ScoreModel>? strand_scores,
+      final List<ScoreModel>? top_best_questions,
+      final List<ScoreModel>? top_worst_questions,
+      this.created_at,
+      this.updated_at,
+      this.follow_up_exam_id})
+      : _student_sessions = student_sessions,
+        _bloom_skill_scores = bloom_skill_scores,
+        _strand_scores = strand_scores,
+        _top_best_questions = top_best_questions,
+        _top_worst_questions = top_worst_questions;
+
+  factory _$ClassExamPerfClusterModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClassExamPerfClusterModelImplFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final int? exam;
+  @override
+  final String? cluster_label;
+  @override
+  final int? cluster_size;
+  @override
+  final double? avg_score;
+  @override
+  final String? avg_expectation_level;
+  final List<ExamModel>? _student_sessions;
+  @override
+  List<ExamModel>? get student_sessions {
+    final value = _student_sessions;
+    if (value == null) return null;
+    if (_student_sessions is EqualUnmodifiableListView)
+      return _student_sessions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final ScoreModel? score_variance;
+  final List<ScoreModel>? _bloom_skill_scores;
+  @override
+  List<ScoreModel>? get bloom_skill_scores {
+    final value = _bloom_skill_scores;
+    if (value == null) return null;
+    if (_bloom_skill_scores is EqualUnmodifiableListView)
+      return _bloom_skill_scores;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<ScoreModel>? _strand_scores;
+  @override
+  List<ScoreModel>? get strand_scores {
+    final value = _strand_scores;
+    if (value == null) return null;
+    if (_strand_scores is EqualUnmodifiableListView) return _strand_scores;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<ScoreModel>? _top_best_questions;
+  @override
+  List<ScoreModel>? get top_best_questions {
+    final value = _top_best_questions;
+    if (value == null) return null;
+    if (_top_best_questions is EqualUnmodifiableListView)
+      return _top_best_questions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<ScoreModel>? _top_worst_questions;
+  @override
+  List<ScoreModel>? get top_worst_questions {
+    final value = _top_worst_questions;
+    if (value == null) return null;
+    if (_top_worst_questions is EqualUnmodifiableListView)
+      return _top_worst_questions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final DateTime? created_at;
+  @override
+  final DateTime? updated_at;
+  @override
+  final int? follow_up_exam_id;
+
+  @override
+  String toString() {
+    return 'ClassExamPerfClusterModel(id: $id, exam: $exam, cluster_label: $cluster_label, cluster_size: $cluster_size, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, student_sessions: $student_sessions, score_variance: $score_variance, bloom_skill_scores: $bloom_skill_scores, strand_scores: $strand_scores, top_best_questions: $top_best_questions, top_worst_questions: $top_worst_questions, created_at: $created_at, updated_at: $updated_at, follow_up_exam_id: $follow_up_exam_id)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClassExamPerfClusterModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.exam, exam) || other.exam == exam) &&
+            (identical(other.cluster_label, cluster_label) ||
+                other.cluster_label == cluster_label) &&
+            (identical(other.cluster_size, cluster_size) ||
+                other.cluster_size == cluster_size) &&
+            (identical(other.avg_score, avg_score) ||
+                other.avg_score == avg_score) &&
+            (identical(other.avg_expectation_level, avg_expectation_level) ||
+                other.avg_expectation_level == avg_expectation_level) &&
+            const DeepCollectionEquality()
+                .equals(other._student_sessions, _student_sessions) &&
+            (identical(other.score_variance, score_variance) ||
+                other.score_variance == score_variance) &&
+            const DeepCollectionEquality()
+                .equals(other._bloom_skill_scores, _bloom_skill_scores) &&
+            const DeepCollectionEquality()
+                .equals(other._strand_scores, _strand_scores) &&
+            const DeepCollectionEquality()
+                .equals(other._top_best_questions, _top_best_questions) &&
+            const DeepCollectionEquality()
+                .equals(other._top_worst_questions, _top_worst_questions) &&
+            (identical(other.created_at, created_at) ||
+                other.created_at == created_at) &&
+            (identical(other.updated_at, updated_at) ||
+                other.updated_at == updated_at) &&
+            (identical(other.follow_up_exam_id, follow_up_exam_id) ||
+                other.follow_up_exam_id == follow_up_exam_id));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      exam,
+      cluster_label,
+      cluster_size,
+      avg_score,
+      avg_expectation_level,
+      const DeepCollectionEquality().hash(_student_sessions),
+      score_variance,
+      const DeepCollectionEquality().hash(_bloom_skill_scores),
+      const DeepCollectionEquality().hash(_strand_scores),
+      const DeepCollectionEquality().hash(_top_best_questions),
+      const DeepCollectionEquality().hash(_top_worst_questions),
+      created_at,
+      updated_at,
+      follow_up_exam_id);
+
+  /// Create a copy of ClassExamPerfClusterModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClassExamPerfClusterModelImplCopyWith<_$ClassExamPerfClusterModelImpl>
+      get copyWith => __$$ClassExamPerfClusterModelImplCopyWithImpl<
+          _$ClassExamPerfClusterModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClassExamPerfClusterModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClassExamPerfClusterModel implements ClassExamPerfClusterModel {
+  factory _ClassExamPerfClusterModel(
+      {final int? id,
+      final int? exam,
+      final String? cluster_label,
+      final int? cluster_size,
+      final double? avg_score,
+      final String? avg_expectation_level,
+      final List<ExamModel>? student_sessions,
+      final ScoreModel? score_variance,
+      final List<ScoreModel>? bloom_skill_scores,
+      final List<ScoreModel>? strand_scores,
+      final List<ScoreModel>? top_best_questions,
+      final List<ScoreModel>? top_worst_questions,
+      final DateTime? created_at,
+      final DateTime? updated_at,
+      final int? follow_up_exam_id}) = _$ClassExamPerfClusterModelImpl;
+
+  factory _ClassExamPerfClusterModel.fromJson(Map<String, dynamic> json) =
+      _$ClassExamPerfClusterModelImpl.fromJson;
+
+  @override
+  int? get id;
+  @override
+  int? get exam;
+  @override
+  String? get cluster_label;
+  @override
+  int? get cluster_size;
+  @override
+  double? get avg_score;
+  @override
+  String? get avg_expectation_level;
+  @override
+  List<ExamModel>? get student_sessions;
+  @override
+  ScoreModel? get score_variance;
+  @override
+  List<ScoreModel>? get bloom_skill_scores;
+  @override
+  List<ScoreModel>? get strand_scores;
+  @override
+  List<ScoreModel>? get top_best_questions;
+  @override
+  List<ScoreModel>? get top_worst_questions;
+  @override
+  DateTime? get created_at;
+  @override
+  DateTime? get updated_at;
+  @override
+  int? get follow_up_exam_id;
+
+  /// Create a copy of ClassExamPerfClusterModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ClassExamPerfClusterModelImplCopyWith<_$ClassExamPerfClusterModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

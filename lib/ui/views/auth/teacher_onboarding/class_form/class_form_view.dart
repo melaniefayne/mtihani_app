@@ -115,7 +115,8 @@ class ClassFormView extends StackedView<ClassFormViewModel>
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.errorContainer.withOpacity(0.1),
+                  color:
+                      theme.colorScheme.errorContainer.withValues(alpha: 0.1),
                   border: Border.all(
                       width: 1.0, color: theme.colorScheme.errorContainer),
                 ),

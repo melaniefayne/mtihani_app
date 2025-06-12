@@ -40,7 +40,7 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
             ),
             SizedBox(height: pageSize.height * 0.02),
             const Text(
-              "Exam Analysis will be available after grading :)",
+              "Exam Analysis will be available after analysis :)",
             ),
           ],
         ),
@@ -54,9 +54,10 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
     if (viewModel.data == null) {
       return const Center(
         child: Text(
-            "Oops, something went wrong on our side! Pleasw try again later"),
+            "Oops, something went wrong on our side! Please try again later"),
       );
     }
+
     ClassExamPerformanceModel classPerf = viewModel.data!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(10),

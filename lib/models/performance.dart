@@ -94,3 +94,27 @@ class StudentExamSessionPerformanceModel
           Map<String, dynamic> json) =>
       _$StudentExamSessionPerformanceModelFromJson(json);
 }
+
+@freezed
+class ClassExamPerfClusterModel with _$ClassExamPerfClusterModel {
+  factory ClassExamPerfClusterModel({
+    int? id,
+    int? exam,
+    String? cluster_label,
+    int? cluster_size,
+    double? avg_score,
+    String? avg_expectation_level,
+    List<ExamModel>? student_sessions,
+    ScoreModel? score_variance,
+    List<ScoreModel>? bloom_skill_scores,
+    List<ScoreModel>? strand_scores,
+    List<ScoreModel>? top_best_questions,
+    List<ScoreModel>? top_worst_questions,
+    DateTime? created_at,
+    DateTime? updated_at,
+    int? follow_up_exam_id,
+  }) = _ClassExamPerfClusterModel;
+
+  factory ClassExamPerfClusterModel.fromJson(Map<String, dynamic> json) =>
+      _$ClassExamPerfClusterModelFromJson(json);
+}

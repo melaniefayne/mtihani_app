@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+import 'package:universal_html/html.dart' as html;
 import 'package:intl/intl.dart';
 
 DateFormat shortDateFormat = DateFormat('dd/MM/yy');
@@ -67,4 +69,13 @@ String gradeText(int? grade) {
     default:
       return '$grade';
   }
+}
+
+void downloadBytesAsFile(Uint8List bytes, String fileName) {
+  final blob = html.Blob([bytes]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  final anchor = html.AnchorElement(href: url)
+    ..setAttribute('download', '$fileName.pdf')
+    ..click();
+  html.Url.revokeObjectUrl(url);
 }

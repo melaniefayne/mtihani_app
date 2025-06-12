@@ -2431,6 +2431,7 @@ mixin _$ScoreModel {
   double? get difference => throw _privateConstructorUsedError;
   String? get difference_desc => throw _privateConstructorUsedError;
   List<double>? get scores => throw _privateConstructorUsedError;
+  List<ScoreModel>? get sub_strands => throw _privateConstructorUsedError;
 
   /// Serializes this ScoreModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -2459,7 +2460,8 @@ abstract class $ScoreModelCopyWith<$Res> {
       double? std_dev,
       double? difference,
       String? difference_desc,
-      List<double>? scores});
+      List<double>? scores,
+      List<ScoreModel>? sub_strands});
 }
 
 /// @nodoc
@@ -2488,6 +2490,7 @@ class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
     Object? difference = freezed,
     Object? difference_desc = freezed,
     Object? scores = freezed,
+    Object? sub_strands = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -2534,6 +2537,10 @@ class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
           ? _value.scores
           : scores // ignore: cast_nullable_to_non_nullable
               as List<double>?,
+      sub_strands: freezed == sub_strands
+          ? _value.sub_strands
+          : sub_strands // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
     ) as $Val);
   }
 }
@@ -2557,7 +2564,8 @@ abstract class _$$ScoreModelImplCopyWith<$Res>
       double? std_dev,
       double? difference,
       String? difference_desc,
-      List<double>? scores});
+      List<double>? scores,
+      List<ScoreModel>? sub_strands});
 }
 
 /// @nodoc
@@ -2584,6 +2592,7 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
     Object? difference = freezed,
     Object? difference_desc = freezed,
     Object? scores = freezed,
+    Object? sub_strands = freezed,
   }) {
     return _then(_$ScoreModelImpl(
       id: freezed == id
@@ -2630,6 +2639,10 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
           ? _value._scores
           : scores // ignore: cast_nullable_to_non_nullable
               as List<double>?,
+      sub_strands: freezed == sub_strands
+          ? _value._sub_strands
+          : sub_strands // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
     ));
   }
 }
@@ -2648,8 +2661,10 @@ class _$ScoreModelImpl implements _ScoreModel {
       this.std_dev,
       this.difference,
       this.difference_desc,
-      final List<double>? scores})
-      : _scores = scores;
+      final List<double>? scores,
+      final List<ScoreModel>? sub_strands})
+      : _scores = scores,
+        _sub_strands = sub_strands;
 
   factory _$ScoreModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ScoreModelImplFromJson(json);
@@ -2685,9 +2700,19 @@ class _$ScoreModelImpl implements _ScoreModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<ScoreModel>? _sub_strands;
+  @override
+  List<ScoreModel>? get sub_strands {
+    final value = _sub_strands;
+    if (value == null) return null;
+    if (_sub_strands is EqualUnmodifiableListView) return _sub_strands;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level, min: $min, max: $max, std_dev: $std_dev, difference: $difference, difference_desc: $difference_desc, scores: $scores)';
+    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level, min: $min, max: $max, std_dev: $std_dev, difference: $difference, difference_desc: $difference_desc, scores: $scores, sub_strands: $sub_strands)';
   }
 
   @override
@@ -2709,7 +2734,9 @@ class _$ScoreModelImpl implements _ScoreModel {
                 other.difference == difference) &&
             (identical(other.difference_desc, difference_desc) ||
                 other.difference_desc == difference_desc) &&
-            const DeepCollectionEquality().equals(other._scores, _scores));
+            const DeepCollectionEquality().equals(other._scores, _scores) &&
+            const DeepCollectionEquality()
+                .equals(other._sub_strands, _sub_strands));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2726,7 +2753,8 @@ class _$ScoreModelImpl implements _ScoreModel {
       std_dev,
       difference,
       difference_desc,
-      const DeepCollectionEquality().hash(_scores));
+      const DeepCollectionEquality().hash(_scores),
+      const DeepCollectionEquality().hash(_sub_strands));
 
   /// Create a copy of ScoreModel
   /// with the given fields replaced by the non-null parameter values.
@@ -2756,7 +2784,8 @@ abstract class _ScoreModel implements ScoreModel {
       final double? std_dev,
       final double? difference,
       final String? difference_desc,
-      final List<double>? scores}) = _$ScoreModelImpl;
+      final List<double>? scores,
+      final List<ScoreModel>? sub_strands}) = _$ScoreModelImpl;
 
   factory _ScoreModel.fromJson(Map<String, dynamic> json) =
       _$ScoreModelImpl.fromJson;
@@ -2783,6 +2812,8 @@ abstract class _ScoreModel implements ScoreModel {
   String? get difference_desc;
   @override
   List<double>? get scores;
+  @override
+  List<ScoreModel>? get sub_strands;
 
   /// Create a copy of ScoreModel
   /// with the given fields replaced by the non-null parameter values.

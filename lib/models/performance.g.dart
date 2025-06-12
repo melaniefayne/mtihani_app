@@ -199,3 +199,59 @@ Map<String, dynamic> _$$StudentExamSessionPerformanceModelImplToJson(
       'session': instance.session,
       'answers': instance.answers,
     };
+
+_$ClassExamPerfClusterModelImpl _$$ClassExamPerfClusterModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClassExamPerfClusterModelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      exam: (json['exam'] as num?)?.toInt(),
+      cluster_label: json['cluster_label'] as String?,
+      cluster_size: (json['cluster_size'] as num?)?.toInt(),
+      avg_score: (json['avg_score'] as num?)?.toDouble(),
+      avg_expectation_level: json['avg_expectation_level'] as String?,
+      student_sessions: (json['student_sessions'] as List<dynamic>?)
+          ?.map((e) => ExamModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      score_variance: json['score_variance'] == null
+          ? null
+          : ScoreModel.fromJson(json['score_variance'] as Map<String, dynamic>),
+      bloom_skill_scores: (json['bloom_skill_scores'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      strand_scores: (json['strand_scores'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      top_best_questions: (json['top_best_questions'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      top_worst_questions: (json['top_worst_questions'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      created_at: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updated_at: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+      follow_up_exam_id: (json['follow_up_exam_id'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$ClassExamPerfClusterModelImplToJson(
+        _$ClassExamPerfClusterModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'exam': instance.exam,
+      'cluster_label': instance.cluster_label,
+      'cluster_size': instance.cluster_size,
+      'avg_score': instance.avg_score,
+      'avg_expectation_level': instance.avg_expectation_level,
+      'student_sessions': instance.student_sessions,
+      'score_variance': instance.score_variance,
+      'bloom_skill_scores': instance.bloom_skill_scores,
+      'strand_scores': instance.strand_scores,
+      'top_best_questions': instance.top_best_questions,
+      'top_worst_questions': instance.top_worst_questions,
+      'created_at': instance.created_at?.toIso8601String(),
+      'updated_at': instance.updated_at?.toIso8601String(),
+      'follow_up_exam_id': instance.follow_up_exam_id,
+    };
