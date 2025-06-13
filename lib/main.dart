@@ -13,10 +13,15 @@ Future<void> main() async {
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
+  setupSnackBarService();
 
   await EncryptedSharedPreferences.initialize(strDefSharedPrefKey);
 
   runApp(const MainApp());
+}
+
+setupSnackBarService() {
+  locator.registerLazySingleton(() => SnackbarService());
 }
 
 class MainApp extends StatelessWidget {

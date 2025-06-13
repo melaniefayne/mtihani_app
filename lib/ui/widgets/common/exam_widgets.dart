@@ -460,7 +460,8 @@ class _ExamQuestionAnalysisSectionState
   onStrandTap(String strandName) {
     if (strandName == selectedStrandName) return;
 
-    StrandModel? selectedStrand = _cbcService.getStrandByName(strandName);
+    StrandModel? selectedStrand =
+        _cbcService.getStrandByName(strandName.split('(').first.trim());
     if (selectedStrand != null) {
       setState(() {
         selectedStrandName = strandName;
@@ -557,7 +558,7 @@ class _ExamQuestionAnalysisSectionState
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Divider(),
         ),
-        AppCarousel(
+        Row(
           children: [
             buildAnalysisSection(
               theme: theme,
@@ -608,6 +609,16 @@ class _ExamQuestionAnalysisSectionState
             )
           ],
         ),
+        if ((widget.questionAnalysis.untested_strands ?? []).isNotEmpty)
+          buildAnalysisSection(
+            theme: theme,
+            title: "Untested Strands",
+            mainWidget: Text(
+              widget.questionAnalysis.untested_strands!.join(', '),
+              style: theme.textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+          ),
       ],
     );
   }

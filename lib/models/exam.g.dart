@@ -90,6 +90,9 @@ _$ExamQuestionAnalysisModelImpl _$$ExamQuestionAnalysisModelImplFromJson(
           (json['sub_strand_distribution'] as List<dynamic>?)
               ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
               .toList(),
+      untested_strands: (json['untested_strands'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$ExamQuestionAnalysisModelImplToJson(
@@ -100,6 +103,7 @@ Map<String, dynamic> _$$ExamQuestionAnalysisModelImplToJson(
       'bloom_skill_distribution': instance.bloom_skill_distribution,
       'strand_distribution': instance.strand_distribution,
       'sub_strand_distribution': instance.sub_strand_distribution,
+      'untested_strands': instance.untested_strands,
     };
 
 _$ExamQuestionModelImpl _$$ExamQuestionModelImplFromJson(

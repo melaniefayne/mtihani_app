@@ -61,6 +61,7 @@ class ExamQuestionAnalysisModel with _$ExamQuestionAnalysisModel {
     List<ScoreModel>? bloom_skill_distribution,
     List<ScoreModel>? strand_distribution,
     List<ScoreModel>? sub_strand_distribution,
+    List<String>? untested_strands,
   }) = _ExamQuestionAnalysisModel;
 
   factory ExamQuestionAnalysisModel.fromJson(Map<String, dynamic> json) =>

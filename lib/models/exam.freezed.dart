@@ -576,6 +576,7 @@ mixin _$ExamQuestionAnalysisModel {
       throw _privateConstructorUsedError;
   List<ScoreModel>? get sub_strand_distribution =>
       throw _privateConstructorUsedError;
+  List<String>? get untested_strands => throw _privateConstructorUsedError;
 
   /// Serializes this ExamQuestionAnalysisModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -598,7 +599,8 @@ abstract class $ExamQuestionAnalysisModelCopyWith<$Res> {
       List<ScoreModel>? grade_distribution,
       List<ScoreModel>? bloom_skill_distribution,
       List<ScoreModel>? strand_distribution,
-      List<ScoreModel>? sub_strand_distribution});
+      List<ScoreModel>? sub_strand_distribution,
+      List<String>? untested_strands});
 }
 
 /// @nodoc
@@ -622,6 +624,7 @@ class _$ExamQuestionAnalysisModelCopyWithImpl<$Res,
     Object? bloom_skill_distribution = freezed,
     Object? strand_distribution = freezed,
     Object? sub_strand_distribution = freezed,
+    Object? untested_strands = freezed,
   }) {
     return _then(_value.copyWith(
       question_count: freezed == question_count
@@ -644,6 +647,10 @@ class _$ExamQuestionAnalysisModelCopyWithImpl<$Res,
           ? _value.sub_strand_distribution
           : sub_strand_distribution // ignore: cast_nullable_to_non_nullable
               as List<ScoreModel>?,
+      untested_strands: freezed == untested_strands
+          ? _value.untested_strands
+          : untested_strands // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -662,7 +669,8 @@ abstract class _$$ExamQuestionAnalysisModelImplCopyWith<$Res>
       List<ScoreModel>? grade_distribution,
       List<ScoreModel>? bloom_skill_distribution,
       List<ScoreModel>? strand_distribution,
-      List<ScoreModel>? sub_strand_distribution});
+      List<ScoreModel>? sub_strand_distribution,
+      List<String>? untested_strands});
 }
 
 /// @nodoc
@@ -685,6 +693,7 @@ class __$$ExamQuestionAnalysisModelImplCopyWithImpl<$Res>
     Object? bloom_skill_distribution = freezed,
     Object? strand_distribution = freezed,
     Object? sub_strand_distribution = freezed,
+    Object? untested_strands = freezed,
   }) {
     return _then(_$ExamQuestionAnalysisModelImpl(
       question_count: freezed == question_count
@@ -707,6 +716,10 @@ class __$$ExamQuestionAnalysisModelImplCopyWithImpl<$Res>
           ? _value._sub_strand_distribution
           : sub_strand_distribution // ignore: cast_nullable_to_non_nullable
               as List<ScoreModel>?,
+      untested_strands: freezed == untested_strands
+          ? _value._untested_strands
+          : untested_strands // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -719,11 +732,13 @@ class _$ExamQuestionAnalysisModelImpl implements _ExamQuestionAnalysisModel {
       final List<ScoreModel>? grade_distribution,
       final List<ScoreModel>? bloom_skill_distribution,
       final List<ScoreModel>? strand_distribution,
-      final List<ScoreModel>? sub_strand_distribution})
+      final List<ScoreModel>? sub_strand_distribution,
+      final List<String>? untested_strands})
       : _grade_distribution = grade_distribution,
         _bloom_skill_distribution = bloom_skill_distribution,
         _strand_distribution = strand_distribution,
-        _sub_strand_distribution = sub_strand_distribution;
+        _sub_strand_distribution = sub_strand_distribution,
+        _untested_strands = untested_strands;
 
   factory _$ExamQuestionAnalysisModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ExamQuestionAnalysisModelImplFromJson(json);
@@ -774,9 +789,20 @@ class _$ExamQuestionAnalysisModelImpl implements _ExamQuestionAnalysisModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _untested_strands;
+  @override
+  List<String>? get untested_strands {
+    final value = _untested_strands;
+    if (value == null) return null;
+    if (_untested_strands is EqualUnmodifiableListView)
+      return _untested_strands;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'ExamQuestionAnalysisModel(question_count: $question_count, grade_distribution: $grade_distribution, bloom_skill_distribution: $bloom_skill_distribution, strand_distribution: $strand_distribution, sub_strand_distribution: $sub_strand_distribution)';
+    return 'ExamQuestionAnalysisModel(question_count: $question_count, grade_distribution: $grade_distribution, bloom_skill_distribution: $bloom_skill_distribution, strand_distribution: $strand_distribution, sub_strand_distribution: $sub_strand_distribution, untested_strands: $untested_strands)';
   }
 
   @override
@@ -793,7 +819,9 @@ class _$ExamQuestionAnalysisModelImpl implements _ExamQuestionAnalysisModel {
             const DeepCollectionEquality()
                 .equals(other._strand_distribution, _strand_distribution) &&
             const DeepCollectionEquality().equals(
-                other._sub_strand_distribution, _sub_strand_distribution));
+                other._sub_strand_distribution, _sub_strand_distribution) &&
+            const DeepCollectionEquality()
+                .equals(other._untested_strands, _untested_strands));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -804,7 +832,8 @@ class _$ExamQuestionAnalysisModelImpl implements _ExamQuestionAnalysisModel {
       const DeepCollectionEquality().hash(_grade_distribution),
       const DeepCollectionEquality().hash(_bloom_skill_distribution),
       const DeepCollectionEquality().hash(_strand_distribution),
-      const DeepCollectionEquality().hash(_sub_strand_distribution));
+      const DeepCollectionEquality().hash(_sub_strand_distribution),
+      const DeepCollectionEquality().hash(_untested_strands));
 
   /// Create a copy of ExamQuestionAnalysisModel
   /// with the given fields replaced by the non-null parameter values.
@@ -825,12 +854,12 @@ class _$ExamQuestionAnalysisModelImpl implements _ExamQuestionAnalysisModel {
 
 abstract class _ExamQuestionAnalysisModel implements ExamQuestionAnalysisModel {
   factory _ExamQuestionAnalysisModel(
-          {final int? question_count,
-          final List<ScoreModel>? grade_distribution,
-          final List<ScoreModel>? bloom_skill_distribution,
-          final List<ScoreModel>? strand_distribution,
-          final List<ScoreModel>? sub_strand_distribution}) =
-      _$ExamQuestionAnalysisModelImpl;
+      {final int? question_count,
+      final List<ScoreModel>? grade_distribution,
+      final List<ScoreModel>? bloom_skill_distribution,
+      final List<ScoreModel>? strand_distribution,
+      final List<ScoreModel>? sub_strand_distribution,
+      final List<String>? untested_strands}) = _$ExamQuestionAnalysisModelImpl;
 
   factory _ExamQuestionAnalysisModel.fromJson(Map<String, dynamic> json) =
       _$ExamQuestionAnalysisModelImpl.fromJson;
@@ -845,6 +874,8 @@ abstract class _ExamQuestionAnalysisModel implements ExamQuestionAnalysisModel {
   List<ScoreModel>? get strand_distribution;
   @override
   List<ScoreModel>? get sub_strand_distribution;
+  @override
+  List<String>? get untested_strands;
 
   /// Create a copy of ExamQuestionAnalysisModel
   /// with the given fields replaced by the non-null parameter values.
