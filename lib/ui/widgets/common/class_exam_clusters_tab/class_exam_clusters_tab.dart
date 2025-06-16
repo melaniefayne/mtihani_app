@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/models/performance.dart';
-import 'package:mtihani_app/ui/common/app_colors.dart';
 import 'package:mtihani_app/ui/widgets/app_carousel.dart';
 import 'package:mtihani_app/ui/widgets/app_filters.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_linear_percent_chart.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_question_list/exam_question_list.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/common/performance_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
@@ -72,41 +72,9 @@ class ClassExamClustersTab extends StackedView<ClassExamClustersTabModel> {
                 .map(
                   (e) => Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: CompactInfoCard(
-                      title: e.cluster_label ?? "--",
-                      iconPath: Icons.group_outlined,
+                    child: buildClusterCard(
+                      cluster: e,
                       width: pageSize.width / 3.3,
-                      bgColor: kcLightGrey,
-                      infoItems: [
-                        {
-                          "name": "Student Count",
-                          "value": "${e.cluster_size ?? 0}",
-                        },
-                        {
-                          "name": "Avg. Score",
-                          "value": "${e.avg_score ?? 0.0}%",
-                        },
-                        {
-                          "name": "Best Strand",
-                          "value":
-                              "${e.strand_scores?.first.name ?? "--"}: ${e.strand_scores?.first.percentage ?? "--"}%",
-                        },
-                        {
-                          "name": "Worst Strand",
-                          "value":
-                              "${e.strand_scores?.last.name ?? "--"}: ${e.strand_scores?.last.percentage ?? "--"}%",
-                        },
-                        {
-                          "name": "Best Skill",
-                          "value":
-                              "${e.bloom_skill_scores?.first.name ?? "--"}: ${e.bloom_skill_scores?.first.percentage ?? "--"}%",
-                        },
-                        {
-                          "name": "Worst Skill",
-                          "value":
-                              "${e.bloom_skill_scores?.last.name ?? "--"}: ${e.bloom_skill_scores?.last.percentage ?? "--"}%",
-                        },
-                      ],
                     ),
                   ),
                 )
@@ -249,7 +217,7 @@ class ClassExamClustersTab extends StackedView<ClassExamClustersTabModel> {
 
                 //
                 SizedBox(height: pageSize.height * 0.01),
-                if (viewModel.selectedCluster?.follow_up_exam_id != null) ...[
+                if (viewModel.selectedCluster?.follow_up_exam_id != null)
                   ExamQuestionList(
                     key: ValueKey(viewModel.selectedCluster?.follow_up_exam_id),
                     exam: ExamModel(
@@ -258,7 +226,6 @@ class ClassExamClustersTab extends StackedView<ClassExamClustersTabModel> {
                     title: "Follow Up Quiz",
                     downloadAction: viewModel.onDownloadClusterQuiz,
                   ),
-                ],
               ],
             ),
         ],

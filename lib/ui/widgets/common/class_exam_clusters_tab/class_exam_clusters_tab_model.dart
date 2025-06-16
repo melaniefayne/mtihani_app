@@ -77,11 +77,13 @@ class ClassExamClustersTabModel
         "cluster_id": selectedCluster!.id,
       },
     );
-    Uint8List? file = clusterPdfApiRes.$1?.data;
-    String fileName =
-        "CLUSTER_${selectedCluster!.cluster_label}_FOLLOW_UP_QUIZ";
-    if (file != null) {
-      downloadBytesAsFile(file, fileName);
+    if (apiCallChecks(clusterPdfApiRes, 'cluster follow up quiz')) {
+      Uint8List? file = clusterPdfApiRes.$1?.data;
+      String fileName =
+          "CLUSTER_${selectedCluster!.cluster_label}_FOLLOW_UP_QUIZ";
+      if (file != null) {
+        downloadBytesAsFile(file, fileName);
+      }
     }
   }
 }

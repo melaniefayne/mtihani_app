@@ -3,12 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/models/performance.dart';
 import 'package:mtihani_app/services/cbc_service.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
 import 'package:mtihani_app/ui/widgets/app_carousel.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_linear_percent_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_pie_donut_chart.dart';
+import 'package:mtihani_app/ui/widgets/common/performance_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
@@ -710,6 +712,46 @@ Widget buildQuestionSummary({
             style: const TextStyle(fontStyle: FontStyle.italic),
           ),
         ),
+    ],
+  );
+}
+
+Widget buildClusterCard(
+    {required ClassExamPerfClusterModel cluster, double? width}) {
+  return CompactInfoCard(
+    title: cluster.cluster_label ?? "--",
+    iconPath: Icons.group_outlined,
+    width: width,
+    bgColor: kcLightGrey,
+    infoItems: [
+      {
+        "name": "Student Count",
+        "value": "${cluster.cluster_size ?? 0}",
+      },
+      {
+        "name": "Avg. Score",
+        "value": "${cluster.avg_score ?? 0.0}%",
+      },
+      {
+        "name": "Best Strand",
+        "value":
+            "${cluster.strand_scores?.first.name ?? "--"}: ${cluster.strand_scores?.first.percentage ?? "--"}%",
+      },
+      {
+        "name": "Worst Strand",
+        "value":
+            "${cluster.strand_scores?.last.name ?? "--"}: ${cluster.strand_scores?.last.percentage ?? "--"}%",
+      },
+      {
+        "name": "Best Skill",
+        "value":
+            "${cluster.bloom_skill_scores?.first.name ?? "--"}: ${cluster.bloom_skill_scores?.first.percentage ?? "--"}%",
+      },
+      {
+        "name": "Worst Skill",
+        "value":
+            "${cluster.bloom_skill_scores?.last.name ?? "--"}: ${cluster.bloom_skill_scores?.last.percentage ?? "--"}%",
+      },
     ],
   );
 }

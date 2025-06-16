@@ -42,7 +42,8 @@ String apiContentTypeFormData = "multipart/form-data";
 // -----------------------
 const String errorMsgNoInternet =
     "No internet. Check your connectio and try again";
-
+const String errorOopsie =
+    "Oops, something went wrong on our side! Please try again later";
 // DATETIME
 // -----------------------
 final DateTime today = DateTime.now();

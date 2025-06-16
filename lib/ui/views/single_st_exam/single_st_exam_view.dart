@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/ui/widgets/app_side_bar.dart';
 import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
+import 'package:mtihani_app/ui/widgets/common/single_cluster_tab/single_cluster_tab.dart';
 import 'package:mtihani_app/ui/widgets/common/st_exam_answers_list/st_exam_answers_list.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
+import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
 
 import 'single_st_exam_viewmodel.dart';
@@ -48,7 +50,13 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
         TabViewItem(
           label: "Follow Up",
           icon: Icons.reply,
-          widget: const Center(child: Text("Coming Soon ...")),
+          widget: viewModel.isLoading
+              ? buildLoadingWidget(theme, "Fetching answers ...")
+              : viewModel.examSession?.session == null
+                  ? const Center(child: Text(errorOopsie))
+                  : SingleClusterTab(
+                      examSession: viewModel.examSession!.session!,
+                    ),
         ),
       ],
     );
