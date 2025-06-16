@@ -11,6 +11,7 @@ const String strCurrentTrClass = "strCurrentTrClass";
 const String strCurrentStClass = "strCurrentStClass";
 const String strCurrentTrExam = "strCurrentTrExam";
 const String strCurrentStExam = "strCurrentStExam";
+const String strCurrentExamQuestion = "strCurrentExamQuestion";
 
 // ROLES
 //

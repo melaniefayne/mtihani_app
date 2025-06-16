@@ -14,15 +14,20 @@ String? getFormattedDate(DateTime? dateTime, DateFormat dtFormat) {
   return dtFormat.format(dateTime);
 }
 
-String addThousandSeparators(double value) {
-  String formattedValue = value.toStringAsFixed(0);
+String addThousandSeparators(double value,
+    {int decimalPlaces = 2, bool showDecimals = false}) {
+  String formattedValue = value.toStringAsFixed(decimalPlaces);
   List<String> parts = formattedValue.split('.');
   String integerPart = parts[0];
   String decimalPart = parts.length > 1 ? '.${parts[1]}' : '';
 
-  final regExp = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-  return integerPart.replaceAllMapped(regExp, (Match match) => '${match[1]},') +
-      decimalPart;
+  final regExp = RegExp(r'\B(?=(\d{3})+(?!\d))');
+  String formattedIntegerPart =
+      integerPart.replaceAllMapped(regExp, (match) => ',');
+
+  return showDecimals
+      ? '$formattedIntegerPart$decimalPart'
+      : formattedIntegerPart;
 }
 
 String getThousandsNumber(double number) {

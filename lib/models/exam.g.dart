@@ -37,6 +37,10 @@ _$ExamModelImpl _$$ExamModelImplFromJson(Map<String, dynamic> json) =>
       exam_id: (json['exam_id'] as num?)?.toInt(),
       avg_score: (json['avg_score'] as num?)?.toDouble(),
       avg_expectation_level: json['avg_expectation_level'] as String?,
+      answer_id: (json['answer_id'] as num?)?.toInt(),
+      answer_description: json['answer_description'] as String?,
+      answer_score: (json['answer_score'] as num?)?.toDouble(),
+      answer_expectation_level: json['answer_expectation_level'] as String?,
     );
 
 Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
@@ -59,6 +63,10 @@ Map<String, dynamic> _$$ExamModelImplToJson(_$ExamModelImpl instance) =>
       'exam_id': instance.exam_id,
       'avg_score': instance.avg_score,
       'avg_expectation_level': instance.avg_expectation_level,
+      'answer_id': instance.answer_id,
+      'answer_description': instance.answer_description,
+      'answer_score': instance.answer_score,
+      'answer_expectation_level': instance.answer_expectation_level,
     };
 
 const _$ExamStatusEnumMap = {
@@ -269,6 +277,9 @@ _$ScoreModelImpl _$$ScoreModelImplFromJson(Map<String, dynamic> json) =>
       scores: (json['scores'] as List<dynamic>?)
           ?.map((e) => (e as num).toDouble())
           .toList(),
+      ids: (json['ids'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       sub_strands: (json['sub_strands'] as List<dynamic>?)
           ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -287,5 +298,6 @@ Map<String, dynamic> _$$ScoreModelImplToJson(_$ScoreModelImpl instance) =>
       'difference': instance.difference,
       'difference_desc': instance.difference_desc,
       'scores': instance.scores,
+      'ids': instance.ids,
       'sub_strands': instance.sub_strands,
     };

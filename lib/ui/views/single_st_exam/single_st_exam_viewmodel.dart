@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:mtihani_app/app/app.dialogs.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/exam.dart';
@@ -10,9 +8,7 @@ import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-const String sessionFetch = 'sessionFetch';
-
-class SingleStExamViewModel extends MultipleFutureViewModel {
+class SingleStExamViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _sharedPrefsService = locator<SharedPrefsService>();
   final _dialogService = locator<DialogService>();
@@ -20,17 +16,8 @@ class SingleStExamViewModel extends MultipleFutureViewModel {
   bool isStudent = false;
   bool isTeacher = false;
   ExamModel? exam;
+  StudentExamSessionDataModel? examSession;
   bool isLoading = false;
-
-  final Completer<void> _examLoaded = Completer<void>();
-
-  StudentExamSessionDataModel? get examSession => dataMap?[sessionFetch];
-  bool get isFetchingExamSession => busy(sessionFetch);
-
-  @override
-  Map<String, Future Function()> get futuresMap => {
-        sessionFetch: fetchExamSession,
-      };
 
   onSingleStExamViewReady() async {
     exam = await _sharedPrefsService.getSingleStExamNavArg();
@@ -38,14 +25,16 @@ class SingleStExamViewModel extends MultipleFutureViewModel {
       _navigationService.back();
       return;
     }
-    _examLoaded.complete();
+
     isStudent = await _authService.isLoggedInStudent;
     isTeacher = await _authService.isLoggedInTeacher;
     rebuildUi();
+    await fetchExamSession();
   }
 
-  Future<StudentExamSessionDataModel?> fetchExamSession() async {
-    await _examLoaded.future; // wait until exam is loaded
+  fetchExamSession() async {
+    isLoading = true;
+    rebuildUi();
 
     var stExamSessionRes = await onApiGetCall<StudentExamSessionDataModel>(
       getEndpoint: endPointGetExamSession,
@@ -58,9 +47,11 @@ class SingleStExamViewModel extends MultipleFutureViewModel {
     );
 
     if (apiCallChecks(stExamSessionRes, 'student exam session')) {
-      return stExamSessionRes.$1?.data;
+      examSession = stExamSessionRes.$1?.data;
     }
-    return null;
+
+    isLoading = false;
+    rebuildUi();
   }
 
   List<StudentAnswerModel> get sessionQAList {
@@ -100,7 +91,7 @@ class SingleStExamViewModel extends MultipleFutureViewModel {
       if (apiCallChecks(examApiRes, "exam answer update result",
               showSuccessMessage: true) ==
           true) {
-        await initialise();
+        await fetchExamSession();
       }
     }
   }

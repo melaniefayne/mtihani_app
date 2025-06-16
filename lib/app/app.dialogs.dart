@@ -12,6 +12,7 @@ import '../ui/dialogs/class_selector/class_selector_dialog.dart';
 import '../ui/dialogs/edit_answer_score/edit_answer_score_dialog.dart';
 import '../ui/dialogs/edit_exam_question/edit_exam_question_dialog.dart';
 import '../ui/dialogs/edit_exam_time/edit_exam_time_dialog.dart';
+import '../ui/dialogs/exam_question_perf/exam_question_perf_dialog.dart';
 import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/dialogs/join_class/join_class_dialog.dart';
 import '../ui/dialogs/role_signup/role_signup_dialog.dart';
@@ -27,6 +28,7 @@ enum DialogType {
   editExamQuestion,
   startExam,
   editAnswerScore,
+  examQuestionPerf,
 }
 
 void setupDialogUi() {
@@ -51,6 +53,8 @@ void setupDialogUi() {
         StartExamDialog(request: request, completer: completer),
     DialogType.editAnswerScore: (context, request, completer) =>
         EditAnswerScoreDialog(request: request, completer: completer),
+    DialogType.examQuestionPerf: (context, request, completer) =>
+        ExamQuestionPerfDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

@@ -37,7 +37,7 @@ class StudentPerformanceTab extends StackedView<StudentPerformanceTabModel> {
                     ],
                     postTexts: const [TextSpan(text: "%")],
                     startValue: 0,
-                    valueToAnimate: (student.avg_score ?? 0.0).toInt(),
+                    valueToAnimate: student.avg_score ?? 0.0,
                   ),
                   children: [
                     AppLineChart(

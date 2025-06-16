@@ -240,6 +240,7 @@ String getShortExpectationLevel(String? level) {
 class ExamQuestionCard extends StatelessWidget {
   final ExamQuestionModel question;
   final Function(ExamQuestionModel question)? onEditQuestion;
+  final Function(ExamQuestionModel question)? onViewPerformance;
   final StudentAnswerModel? answer;
   final Function(StudentAnswerModel answer)? onEditAnswerScore;
 
@@ -247,6 +248,7 @@ class ExamQuestionCard extends StatelessWidget {
     super.key,
     required this.question,
     this.onEditQuestion,
+    this.onViewPerformance,
     this.answer,
     this.onEditAnswerScore,
   });
@@ -260,11 +262,18 @@ class ExamQuestionCard extends StatelessWidget {
     final bool canEditAnswerScore =
         hasStudentAnswer && onEditAnswerScore != null;
     final bool canEditQuestion = !hasStudentAnswer && onEditQuestion != null;
+    final bool canViewPerformance =
+        !hasStudentAnswer && onViewPerformance != null;
     Color answerColor = getAnswerColor(answer?.score, theme);
     String answerLevel = getShortExpectationLevel(answer?.expectation_level);
 
     return GestureDetector(
       onTap: () {
+        if (canViewPerformance) {
+          onViewPerformance!(question);
+          return;
+        }
+
         if (canEditQuestion) {
           onEditQuestion!(question);
           return;
@@ -317,12 +326,13 @@ class ExamQuestionCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  if (canEditQuestion)
+                  if (canEditQuestion || canViewPerformance)
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: buildIconBtn(
                         theme: theme,
-                        iconPath: Icons.edit,
+                        iconPath:
+                            canViewPerformance ? Icons.read_more : Icons.edit,
                       ),
                     ),
                   if (answer?.score != null)
@@ -563,7 +573,7 @@ class _ExamQuestionAnalysisSectionState
             buildAnalysisSection(
               theme: theme,
               title: "Strand Distribution",
-              width: pageSize.width * 0.25,
+              width: pageSize.width * 0.3,
               mainWidget: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -587,7 +597,9 @@ class _ExamQuestionAnalysisSectionState
                 ],
               ),
             ),
+            SizedBox(width: pageSize.width * 0.01),
             buildVerticalDivider(pageSize),
+            SizedBox(width: pageSize.width * 0.01),
             buildAnalysisSection(
               theme: theme,
               title:
@@ -633,7 +645,7 @@ class _ExamQuestionAnalysisSectionState
     return Container(
       width: width,
       color: isSubSection ? theme.colorScheme.primaryContainer : null,
-      padding: const EdgeInsets.all(3),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -659,4 +671,45 @@ class _ExamQuestionAnalysisSectionState
       margin: const EdgeInsets.symmetric(horizontal: 10),
     );
   }
+}
+
+Widget buildQuestionSummary({
+  required ThemeData theme,
+  required Size pageSize,
+  required ExamQuestionModel examQuestion,
+  bool hideDescription = false,
+}) {
+  double metaSize = pageSize.width * 0.024;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      AppCarousel(
+        waitTime: 5,
+        children: [
+          metaIconText(theme, pageSize, Icons.onetwothree, 'Question Number',
+              examQuestion.number?.toString(),
+              spacing: metaSize),
+          metaIconText(theme, pageSize, Icons.star, 'Grade',
+              gradeText(examQuestion.grade),
+              spacing: metaSize),
+          metaIconText(
+              theme, pageSize, Icons.folder_copy, 'Strand', examQuestion.strand,
+              spacing: metaSize),
+          metaIconText(theme, pageSize, Icons.folder_open, 'Sub-Strand',
+              examQuestion.sub_strand,
+              isLast: true, spacing: metaSize),
+        ],
+      ),
+      const Divider(),
+      if (!hideDescription)
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(
+            examQuestion.description ?? "--",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+    ],
+  );
 }

@@ -39,8 +39,7 @@ class ClassPerformanceTab extends StackedView<ClassPerformanceTabModel> {
                         ],
                         postTexts: const [TextSpan(text: "%")],
                         startValue: 0,
-                        valueToAnimate:
-                            (classroom.avg_term_score ?? 0.0).toInt(),
+                        valueToAnimate: classroom.avg_term_score ?? 0.0,
                       ),
                       children: [
                         AppLineChart(

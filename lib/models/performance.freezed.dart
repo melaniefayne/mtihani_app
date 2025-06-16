@@ -2437,3 +2437,325 @@ abstract class _ClassExamPerfClusterModel implements ClassExamPerfClusterModel {
   _$$ClassExamPerfClusterModelImplCopyWith<_$ClassExamPerfClusterModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+ExamQuestionPerformanceModel _$ExamQuestionPerformanceModelFromJson(
+    Map<String, dynamic> json) {
+  return _ExamQuestionPerformanceModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ExamQuestionPerformanceModel {
+  int? get question_id => throw _privateConstructorUsedError;
+  double? get avg_score => throw _privateConstructorUsedError;
+  String? get avg_expectation_level => throw _privateConstructorUsedError;
+  List<ScoreModel>? get score_distribution =>
+      throw _privateConstructorUsedError;
+  List<ScoreModel>? get answers_by_level => throw _privateConstructorUsedError;
+  DateTime? get created_at => throw _privateConstructorUsedError;
+  DateTime? get updated_at => throw _privateConstructorUsedError;
+
+  /// Serializes this ExamQuestionPerformanceModel to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ExamQuestionPerformanceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ExamQuestionPerformanceModelCopyWith<ExamQuestionPerformanceModel>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ExamQuestionPerformanceModelCopyWith<$Res> {
+  factory $ExamQuestionPerformanceModelCopyWith(
+          ExamQuestionPerformanceModel value,
+          $Res Function(ExamQuestionPerformanceModel) then) =
+      _$ExamQuestionPerformanceModelCopyWithImpl<$Res,
+          ExamQuestionPerformanceModel>;
+  @useResult
+  $Res call(
+      {int? question_id,
+      double? avg_score,
+      String? avg_expectation_level,
+      List<ScoreModel>? score_distribution,
+      List<ScoreModel>? answers_by_level,
+      DateTime? created_at,
+      DateTime? updated_at});
+}
+
+/// @nodoc
+class _$ExamQuestionPerformanceModelCopyWithImpl<$Res,
+        $Val extends ExamQuestionPerformanceModel>
+    implements $ExamQuestionPerformanceModelCopyWith<$Res> {
+  _$ExamQuestionPerformanceModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ExamQuestionPerformanceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? question_id = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
+    Object? score_distribution = freezed,
+    Object? answers_by_level = freezed,
+    Object? created_at = freezed,
+    Object? updated_at = freezed,
+  }) {
+    return _then(_value.copyWith(
+      question_id: freezed == question_id
+          ? _value.question_id
+          : question_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      score_distribution: freezed == score_distribution
+          ? _value.score_distribution
+          : score_distribution // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      answers_by_level: freezed == answers_by_level
+          ? _value.answers_by_level
+          : answers_by_level // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      created_at: freezed == created_at
+          ? _value.created_at
+          : created_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updated_at: freezed == updated_at
+          ? _value.updated_at
+          : updated_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ExamQuestionPerformanceModelImplCopyWith<$Res>
+    implements $ExamQuestionPerformanceModelCopyWith<$Res> {
+  factory _$$ExamQuestionPerformanceModelImplCopyWith(
+          _$ExamQuestionPerformanceModelImpl value,
+          $Res Function(_$ExamQuestionPerformanceModelImpl) then) =
+      __$$ExamQuestionPerformanceModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {int? question_id,
+      double? avg_score,
+      String? avg_expectation_level,
+      List<ScoreModel>? score_distribution,
+      List<ScoreModel>? answers_by_level,
+      DateTime? created_at,
+      DateTime? updated_at});
+}
+
+/// @nodoc
+class __$$ExamQuestionPerformanceModelImplCopyWithImpl<$Res>
+    extends _$ExamQuestionPerformanceModelCopyWithImpl<$Res,
+        _$ExamQuestionPerformanceModelImpl>
+    implements _$$ExamQuestionPerformanceModelImplCopyWith<$Res> {
+  __$$ExamQuestionPerformanceModelImplCopyWithImpl(
+      _$ExamQuestionPerformanceModelImpl _value,
+      $Res Function(_$ExamQuestionPerformanceModelImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ExamQuestionPerformanceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? question_id = freezed,
+    Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
+    Object? score_distribution = freezed,
+    Object? answers_by_level = freezed,
+    Object? created_at = freezed,
+    Object? updated_at = freezed,
+  }) {
+    return _then(_$ExamQuestionPerformanceModelImpl(
+      question_id: freezed == question_id
+          ? _value.question_id
+          : question_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      avg_score: freezed == avg_score
+          ? _value.avg_score
+          : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      score_distribution: freezed == score_distribution
+          ? _value._score_distribution
+          : score_distribution // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      answers_by_level: freezed == answers_by_level
+          ? _value._answers_by_level
+          : answers_by_level // ignore: cast_nullable_to_non_nullable
+              as List<ScoreModel>?,
+      created_at: freezed == created_at
+          ? _value.created_at
+          : created_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updated_at: freezed == updated_at
+          ? _value.updated_at
+          : updated_at // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$ExamQuestionPerformanceModelImpl
+    implements _ExamQuestionPerformanceModel {
+  _$ExamQuestionPerformanceModelImpl(
+      {this.question_id,
+      this.avg_score,
+      this.avg_expectation_level,
+      final List<ScoreModel>? score_distribution,
+      final List<ScoreModel>? answers_by_level,
+      this.created_at,
+      this.updated_at})
+      : _score_distribution = score_distribution,
+        _answers_by_level = answers_by_level;
+
+  factory _$ExamQuestionPerformanceModelImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$ExamQuestionPerformanceModelImplFromJson(json);
+
+  @override
+  final int? question_id;
+  @override
+  final double? avg_score;
+  @override
+  final String? avg_expectation_level;
+  final List<ScoreModel>? _score_distribution;
+  @override
+  List<ScoreModel>? get score_distribution {
+    final value = _score_distribution;
+    if (value == null) return null;
+    if (_score_distribution is EqualUnmodifiableListView)
+      return _score_distribution;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<ScoreModel>? _answers_by_level;
+  @override
+  List<ScoreModel>? get answers_by_level {
+    final value = _answers_by_level;
+    if (value == null) return null;
+    if (_answers_by_level is EqualUnmodifiableListView)
+      return _answers_by_level;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final DateTime? created_at;
+  @override
+  final DateTime? updated_at;
+
+  @override
+  String toString() {
+    return 'ExamQuestionPerformanceModel(question_id: $question_id, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, score_distribution: $score_distribution, answers_by_level: $answers_by_level, created_at: $created_at, updated_at: $updated_at)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ExamQuestionPerformanceModelImpl &&
+            (identical(other.question_id, question_id) ||
+                other.question_id == question_id) &&
+            (identical(other.avg_score, avg_score) ||
+                other.avg_score == avg_score) &&
+            (identical(other.avg_expectation_level, avg_expectation_level) ||
+                other.avg_expectation_level == avg_expectation_level) &&
+            const DeepCollectionEquality()
+                .equals(other._score_distribution, _score_distribution) &&
+            const DeepCollectionEquality()
+                .equals(other._answers_by_level, _answers_by_level) &&
+            (identical(other.created_at, created_at) ||
+                other.created_at == created_at) &&
+            (identical(other.updated_at, updated_at) ||
+                other.updated_at == updated_at));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      question_id,
+      avg_score,
+      avg_expectation_level,
+      const DeepCollectionEquality().hash(_score_distribution),
+      const DeepCollectionEquality().hash(_answers_by_level),
+      created_at,
+      updated_at);
+
+  /// Create a copy of ExamQuestionPerformanceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ExamQuestionPerformanceModelImplCopyWith<
+          _$ExamQuestionPerformanceModelImpl>
+      get copyWith => __$$ExamQuestionPerformanceModelImplCopyWithImpl<
+          _$ExamQuestionPerformanceModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ExamQuestionPerformanceModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ExamQuestionPerformanceModel
+    implements ExamQuestionPerformanceModel {
+  factory _ExamQuestionPerformanceModel(
+      {final int? question_id,
+      final double? avg_score,
+      final String? avg_expectation_level,
+      final List<ScoreModel>? score_distribution,
+      final List<ScoreModel>? answers_by_level,
+      final DateTime? created_at,
+      final DateTime? updated_at}) = _$ExamQuestionPerformanceModelImpl;
+
+  factory _ExamQuestionPerformanceModel.fromJson(Map<String, dynamic> json) =
+      _$ExamQuestionPerformanceModelImpl.fromJson;
+
+  @override
+  int? get question_id;
+  @override
+  double? get avg_score;
+  @override
+  String? get avg_expectation_level;
+  @override
+  List<ScoreModel>? get score_distribution;
+  @override
+  List<ScoreModel>? get answers_by_level;
+  @override
+  DateTime? get created_at;
+  @override
+  DateTime? get updated_at;
+
+  /// Create a copy of ExamQuestionPerformanceModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ExamQuestionPerformanceModelImplCopyWith<
+          _$ExamQuestionPerformanceModelImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

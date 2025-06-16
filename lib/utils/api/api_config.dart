@@ -68,3 +68,7 @@ String get endPointGetPercentilePerformances =>
     "$baseURL/exam/get-percentile-performances";
 String get endPointDownloadClusterPdf =>
     "$baseURL/exam/download-cluster-quiz-pdf";
+String get endPointGetStudentExamAnswers =>
+    "$baseURL/exam/get-student-exam-answers";
+String get endPointGetExamQuestionPerformance =>
+    "$baseURL/exam/get-question-performance";

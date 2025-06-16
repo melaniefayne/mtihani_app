@@ -255,3 +255,35 @@ Map<String, dynamic> _$$ClassExamPerfClusterModelImplToJson(
       'updated_at': instance.updated_at?.toIso8601String(),
       'follow_up_exam_id': instance.follow_up_exam_id,
     };
+
+_$ExamQuestionPerformanceModelImpl _$$ExamQuestionPerformanceModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ExamQuestionPerformanceModelImpl(
+      question_id: (json['question_id'] as num?)?.toInt(),
+      avg_score: (json['avg_score'] as num?)?.toDouble(),
+      avg_expectation_level: json['avg_expectation_level'] as String?,
+      score_distribution: (json['score_distribution'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      answers_by_level: (json['answers_by_level'] as List<dynamic>?)
+          ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      created_at: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updated_at: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+    );
+
+Map<String, dynamic> _$$ExamQuestionPerformanceModelImplToJson(
+        _$ExamQuestionPerformanceModelImpl instance) =>
+    <String, dynamic>{
+      'question_id': instance.question_id,
+      'avg_score': instance.avg_score,
+      'avg_expectation_level': instance.avg_expectation_level,
+      'score_distribution': instance.score_distribution,
+      'answers_by_level': instance.answers_by_level,
+      'created_at': instance.created_at?.toIso8601String(),
+      'updated_at': instance.updated_at?.toIso8601String(),
+    };

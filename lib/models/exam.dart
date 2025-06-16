@@ -47,6 +47,12 @@ class ExamModel with _$ExamModel {
     int? exam_id,
     double? avg_score,
     String? avg_expectation_level,
+
+    //
+    int? answer_id,
+    String? answer_description,
+    double? answer_score,
+    String? answer_expectation_level,
   }) = _ExamModel;
 
   factory ExamModel.fromJson(Map<String, dynamic> json) =>
@@ -162,6 +168,7 @@ class ScoreModel with _$ScoreModel {
     double? difference,
     String? difference_desc,
     List<double>? scores,
+    List<int>? ids,
     List<ScoreModel>? sub_strands,
   }) = _ScoreModel;
 

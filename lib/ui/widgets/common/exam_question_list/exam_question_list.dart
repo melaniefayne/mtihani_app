@@ -165,6 +165,10 @@ class ExamQuestionList extends StackedView<ExamQuestionListModel> {
                                     exam.status == ExamStatus.upcoming
                                         ? viewModel.onEditQuestion
                                         : null,
+                                onViewPerformance:
+                                    exam.status == ExamStatus.complete
+                                        ? viewModel.onViewQuestionPerformance
+                                        : null,
                               ))
                           .toList(),
                     ),

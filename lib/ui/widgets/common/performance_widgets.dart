@@ -78,7 +78,7 @@ class ScoreVarianceCard extends StatelessWidget {
           Icon(icon, size: 28, color: mainColor),
           Text(label, style: labelStyle),
           AppAnimatedCounter(
-            valueToAnimate: value.toInt(),
+            valueToAnimate: value,
             postTexts: [
               TextSpan(text: "%", style: labelStyle),
             ],
@@ -251,7 +251,7 @@ Widget buildAvgScoreSection({
           children: [
             const Text("Average Score"),
             AppAnimatedCounter(
-              valueToAnimate: avgScore?.toInt() ?? 0,
+              valueToAnimate: avgScore ?? 0,
               startValue: 0,
               postTexts: [
                 TextSpan(text: "%", style: theme.textTheme.titleMedium),
@@ -439,8 +439,7 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
                           style: theme.textTheme.titleMedium,
                         ),
                         AppAnimatedCounter(
-                          valueToAnimate:
-                              (selectedSubStrand!.percentage ?? 0.0).toInt(),
+                          valueToAnimate: selectedSubStrand!.percentage ?? 0.0,
                           startValue: 0,
                           textStyle: theme.textTheme.displayLarge,
                           postTexts: [
