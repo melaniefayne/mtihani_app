@@ -6,6 +6,7 @@ import 'package:mtihani_app/ui/widgets/app_animated_counter.dart';
 import 'package:mtihani_app/ui/widgets/app_text_carousel.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_linear_percent_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_percent_charts.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 
 class ScoreVarianceCard extends StatelessWidget {
@@ -238,6 +239,7 @@ Widget buildAvgScoreSection({
   List<ScoreModel>? otherScores,
   double? bigRadius,
   double? smallRadius,
+  double? classAvgDiff,
 }) {
   return buildPerfSection(
     theme: theme,
@@ -255,13 +257,20 @@ Widget buildAvgScoreSection({
               startValue: 0,
               postTexts: [
                 TextSpan(text: "%", style: theme.textTheme.titleMedium),
+                const TextSpan(text: ' • '),
+                TextSpan(
+                  text: getShortExpectationLevel(avgExpectationLevel),
+                  style: theme.textTheme.titleLarge,
+                ),
               ],
             ),
-            Text(
-              '${avgExpectationLevel ?? "--"} Expectations',
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.w500),
-            ),
+            if (classAvgDiff != null)
+              Text(
+                classAvgDiff == 0
+                    ? 'Equal to Class Average'
+                    : '$classAvgDiff% ${classAvgDiff < 0 ? 'Below' : 'Above'} Class Average',
+                style: theme.textTheme.bodySmall,
+              ),
           ],
         ),
       ),

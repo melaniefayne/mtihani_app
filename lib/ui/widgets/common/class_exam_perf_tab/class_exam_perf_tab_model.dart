@@ -47,6 +47,7 @@ class ClassExamPerfTabModel
     studentExam = studentExam.copyWith(
       id: studentExam.exam_id,
       status: ExamStatus.complete,
+      code: exam.code,
     );
 
     bool canNavigate =

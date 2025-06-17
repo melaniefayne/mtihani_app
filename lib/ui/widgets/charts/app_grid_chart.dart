@@ -132,7 +132,8 @@ class AppGridChart extends StatelessWidget {
                                 textTheme.labelSmall!.copyWith(color: fgColor),
                           ),
                           TextSpan(
-                            text: getThousandsNumber(value),
+                            text: addThousandSeparators(value,
+                                showDecimals: true),
                             style: textTheme.titleLarge!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: fgColor,

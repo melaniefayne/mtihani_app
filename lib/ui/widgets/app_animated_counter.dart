@@ -27,6 +27,7 @@ class AppAnimatedCounter extends StatefulWidget {
 
 class _AppAnimatedCounterState extends State<AppAnimatedCounter>
     with AutomaticKeepAliveClientMixin {
+  bool _isAnimating = true;
   double currentVal = 0;
 
   @override
@@ -46,16 +47,30 @@ class _AppAnimatedCounterState extends State<AppAnimatedCounter>
 
   void runAnimation() async {
     int start = widget.startValue ?? (widget.valueToAnimate * 0.99).ceil();
+    if (!_isAnimating || !mounted) return;
+
     setState(() {
       currentVal = start.toDouble();
     });
+
     for (int i = start; i <= widget.valueToAnimate; i++) {
       await Future.delayed(Duration(microseconds: widget.durationInUs));
       setState(() {
         currentVal = i.toDouble();
       });
     }
-    currentVal = widget.valueToAnimate;
+
+    if (_isAnimating && mounted) {
+      setState(() {
+        currentVal = widget.valueToAnimate.toDouble();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _isAnimating = false;
+    super.dispose();
   }
 
   @override

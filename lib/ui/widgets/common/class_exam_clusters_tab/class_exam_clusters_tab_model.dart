@@ -59,9 +59,7 @@ class ClassExamClustersTabModel
     ExamModel studentExam = (selectedCluster?.student_sessions ?? [])
         .firstWhere((e) => e.student_name == item['name']);
     studentExam = studentExam.copyWith(
-      id: studentExam.exam_id,
-      status: ExamStatus.complete,
-    );
+        id: studentExam.exam_id, status: exam.status, code: exam.code);
 
     bool canNavigate =
         await _sharedPrefsService.setSingleStExamNavArg(studentExam);

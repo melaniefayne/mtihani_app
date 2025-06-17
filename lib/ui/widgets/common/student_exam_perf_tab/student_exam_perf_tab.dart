@@ -90,6 +90,7 @@ class StudentExamPerfTab extends StackedView<StudentExamPerfTabModel> {
             avgScore: studentPerf.avg_score,
             avgExpectationLevel: studentPerf.avg_expectation_level,
             otherScores: studentPerf.bloom_skill_scores,
+            classAvgDiff: studentPerf.class_avg_difference,
           ),
 
           //
