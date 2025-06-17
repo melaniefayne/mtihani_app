@@ -152,6 +152,7 @@ buildPriBtn({
               child: Icon(
                 iconPath,
                 size: theme.textTheme.bodyLarge!.fontSize,
+                color: fgColor ?? theme.colorScheme.onPrimary,
               ),
             ),
       style: ElevatedButton.styleFrom(

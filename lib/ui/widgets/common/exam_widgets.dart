@@ -458,6 +458,10 @@ class ExamQuestionAnalysisSection extends StatefulWidget {
 class _ExamQuestionAnalysisSectionState
     extends State<ExamQuestionAnalysisSection> {
   final _cbcService = locator<CbcService>();
+  List<double> strandValues = [];
+  List<String> strandLabels = [];
+  List<IconData> strandIcons = [];
+
   List<double> subStrandValues = [];
   List<String> subStrandLabels = [];
   String? selectedStrandName;
@@ -467,6 +471,11 @@ class _ExamQuestionAnalysisSectionState
     super.initState();
     List<ScoreModel> strandDist =
         widget.questionAnalysis.strand_distribution ?? [];
+    strandValues = strandDist.map((e) => e.count?.toDouble() ?? 0.0).toList();
+    strandLabels = strandDist.map((e) => e.name.toString()).toList();
+    strandIcons = strandLabels
+        .map((e) => appIconMapper[e.split(' (').first] ?? Icons.category)
+        .toList();
     if (strandDist.isNotEmpty) onStrandTap(strandDist.first.name);
   }
 
@@ -586,19 +595,9 @@ class _ExamQuestionAnalysisSectionState
                     style: theme.textTheme.bodySmall,
                   ),
                   AppLinearPercentChart(
-                    dataSeries:
-                        (widget.questionAnalysis.strand_distribution ?? [])
-                            .map((e) => e.count?.toDouble() ?? 0.0)
-                            .toList(),
-                    chartLabels:
-                        (widget.questionAnalysis.strand_distribution ?? [])
-                            .map((e) => e.name?.toString() ?? "--")
-                            .toList(),
-                    leadingWidgets: (widget
-                                .questionAnalysis.strand_distribution ??
-                            [])
-                        .map((e) => Icon((appIconMapper[e] ?? Icons.category)))
-                        .toList(),
+                    dataSeries: strandValues,
+                    chartLabels: strandLabels,
+                    leadingWidgets: strandIcons.map((e) => Icon(e)).toList(),
                     onChartTileTap: onStrandTap,
                     selectedTile: selectedStrandName,
                   ),
@@ -633,10 +632,16 @@ class _ExamQuestionAnalysisSectionState
           buildAnalysisSection(
             theme: theme,
             title: "Untested Strands",
-            mainWidget: Text(
-              widget.questionAnalysis.untested_strands!.join(', '),
-              style: theme.textTheme.bodyMedium!
-                  .copyWith(fontWeight: FontWeight.w500),
+            mainWidget: Card(
+              color: kcLightGrey,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  widget.questionAnalysis.untested_strands!.join(', '),
+                  style: theme.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
           ),
       ],

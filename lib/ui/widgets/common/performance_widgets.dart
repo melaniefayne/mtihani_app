@@ -264,11 +264,13 @@ Widget buildAvgScoreSection({
               startValue: 0,
               postTexts: [
                 TextSpan(text: "%", style: theme.textTheme.titleMedium),
-                const TextSpan(text: ' • '),
-                TextSpan(
-                  text: getShortExpectationLevel(avgExpectationLevel),
-                  style: theme.textTheme.titleLarge,
-                ),
+                if (avgExpectationLevel != null) ...[
+                  const TextSpan(text: ' • '),
+                  TextSpan(
+                    text: getShortExpectationLevel(avgExpectationLevel),
+                    style: theme.textTheme.titleLarge,
+                  ),
+                ],
               ],
             ),
             if (classAvgDiff != null)
@@ -415,6 +417,7 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
             subtitle: '',
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: pageSize.width * 0.4,
@@ -468,23 +471,25 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
                                   style: theme.textTheme.titleMedium),
                             ],
                           ),
-                          const Divider(),
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "${selectedSubStrand!.difference}% ",
-                                  style: theme.textTheme.bodyLarge!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: theme.primaryColor),
-                                ),
-                                TextSpan(
-                                  text: selectedSubStrand!.difference_desc ??
-                                      "--",
-                                ),
-                              ],
+                          if (selectedSubStrand?.difference != null) ...[
+                            const Divider(),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "${selectedSubStrand!.difference}% ",
+                                    style: theme.textTheme.bodyLarge!.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: theme.primaryColor),
+                                  ),
+                                  TextSpan(
+                                    text: selectedSubStrand!.difference_desc ??
+                                        "--",
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ],
                       ),
               ),
@@ -641,6 +646,7 @@ class _StudentExamPerformanceWidgetState
 
   @override
   void initState() {
+    super.initState();
     gradeScores = (widget.studentPerf.grade_scores ?? [])
         .map((e) => (e.percentage ?? 0).toDouble())
         .toList();
@@ -660,7 +666,9 @@ class _StudentExamPerformanceWidgetState
         .map((e) => (appIconMapper[e.split(' (').first] ?? Icons.category))
         .toList();
 
-    super.initState();
+    print(strandNames);
+
+    if (strandNames.isNotEmpty) onStrandTap(strandNames.first);
   }
 
   onStrandTap(String strandName) {
@@ -680,6 +688,10 @@ class _StudentExamPerformanceWidgetState
       subStrandLabels = [];
       subStrandValues = [];
     }
+
+    print(subStrandLabels);
+    print(subStrandValues);
+
     setState(() {});
   }
 

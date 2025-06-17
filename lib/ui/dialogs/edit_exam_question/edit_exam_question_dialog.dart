@@ -113,7 +113,7 @@ class EditExamQuestionDialog extends StackedView<EditExamQuestionDialogModel> {
                                       TextSpan(
                                         children: [
                                           TextSpan(
-                                              text: "❔: ",
+                                              text: "🔵: ",
                                               style: theme.textTheme.labelSmall!
                                                   .copyWith(
                                                       fontWeight:

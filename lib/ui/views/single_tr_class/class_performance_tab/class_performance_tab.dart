@@ -56,6 +56,13 @@ class ClassPerformanceTab extends StackedView<ClassPerformanceTabModel> {
                         ),
                       ],
                     ),
+          //
+          SizedBox(height: pageSize.height * 0.01),
+          buildHeaderWidget(
+            theme: theme,
+            title: "Mtihani Average Performance",
+            leadingWidget: const Icon(Icons.insights),
+          ),
           viewModel.isFetchingClassAvgPerf
               ? buildLoadingWidget(
                   theme, "Fetching average class performance ...")

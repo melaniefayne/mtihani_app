@@ -147,15 +147,15 @@ class ExamListViewModel extends DashPageModel<List<ExamModel>> {
       }
     }
 
-    if (studentId != null) {
-      bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
-      if (canNavigate) _navigationService.navigateToSingleStExamView();
-      return;
-    }
-
     if (isTeacher) {
       bool canNavigate = await _sharedPrefsService.setSingleTrExamNavArg(exam);
       if (canNavigate) _navigationService.navigateToSingleTrExamView();
+      return;
+    }
+
+    if (studentId != null) {
+      bool canNavigate = await _sharedPrefsService.setSingleStExamNavArg(exam);
+      if (canNavigate) _navigationService.navigateToSingleStExamView();
       return;
     }
   }

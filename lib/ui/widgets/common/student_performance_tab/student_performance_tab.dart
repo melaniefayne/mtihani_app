@@ -19,6 +19,7 @@ class StudentPerformanceTab extends StackedView<StudentPerformanceTabModel> {
     Widget? child,
   ) {
     final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(10),
@@ -49,6 +50,14 @@ class StudentPerformanceTab extends StackedView<StudentPerformanceTabModel> {
                     ),
                   ],
                 ),
+
+          //
+          SizedBox(height: pageSize.height * 0.01),
+          buildHeaderWidget(
+            theme: theme,
+            title: "Mtihani Average Performance",
+            leadingWidget: const Icon(Icons.insights),
+          ),
           viewModel.isFetchingStudentAvgPerf
               ? buildLoadingWidget(
                   theme, "Fetching average student performance ...")

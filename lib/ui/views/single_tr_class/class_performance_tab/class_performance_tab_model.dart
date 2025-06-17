@@ -61,7 +61,8 @@ class ClassPerformanceTabModel extends MultipleFutureViewModel {
       dataFromJson: ClassExamPerformanceModel.fromJson,
     );
 
-    if (apiCallChecks(classExamPerfRes, 'average class exam performance')) {
+    if (apiCallChecks(classExamPerfRes, 'average class exam performance',
+        hideAllMsgs: true)) {
       ClassExamPerformanceModel? classPerf = classExamPerfRes.$1?.data;
       selectedStrand = classPerf?.strand_analysis?.firstOrNull;
       return classPerf;

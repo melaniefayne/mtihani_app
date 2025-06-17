@@ -42,7 +42,8 @@ class StudentPerformanceTabModel extends MultipleFutureViewModel {
       dataFromJson: StudentExamSessionPerformanceModel.fromJson,
     );
 
-    if (apiCallChecks(studentAvgPerfRes, 'average student exam performance')) {
+    if (apiCallChecks(studentAvgPerfRes, 'average student exam performance',
+        hideAllMsgs: true)) {
       return studentAvgPerfRes.$1?.data;
     }
 

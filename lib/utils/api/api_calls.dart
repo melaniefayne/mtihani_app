@@ -228,16 +228,22 @@ Future<(ApiDataModel<T>?, bool, bool, bool, Map<String, dynamic>)>
 }
 
 ///[apiCallChecks] returns isSuccess
-bool apiCallChecks(dynamic apiCallRes, String title,
-    {bool showSuccessMessage = false}) {
+bool apiCallChecks(
+  dynamic apiCallRes,
+  String title, {
+  bool showSuccessMessage = false,
+  bool hideAllMsgs = false,
+}) {
   final snackbarService = locator<SnackbarService>();
   final authService = locator<AuthService>();
   if (!apiCallRes.$4) {
-    snackbarService.showSnackbar(
-      title: 'No Internet!',
-      message: errorMsgNoInternet,
-      duration: const Duration(seconds: appSnackbarDuration),
-    );
+    if (!hideAllMsgs) {
+      snackbarService.showSnackbar(
+        title: 'No Internet!',
+        message: errorMsgNoInternet,
+        duration: const Duration(seconds: appSnackbarDuration),
+      );
+    }
 
     return false;
   }
@@ -252,15 +258,17 @@ bool apiCallChecks(dynamic apiCallRes, String title,
       apiCallRes.$1?.apiError?.detail;
 
   if (!apiCallRes.$2) {
-    snackbarService.showSnackbar(
-      title: "Error",
-      message: apiMsg ?? "Failed to fetch $title",
-      duration: const Duration(seconds: appSnackbarDuration),
-    );
+    if (!hideAllMsgs) {
+      snackbarService.showSnackbar(
+        title: "Error",
+        message: apiMsg ?? "Failed to fetch $title",
+        duration: const Duration(seconds: appSnackbarDuration),
+      );
+    }
     return false;
   }
 
-  if (showSuccessMessage) {
+  if (showSuccessMessage && !hideAllMsgs) {
     snackbarService.showSnackbar(
       title: "Success",
       message: apiMsg ?? "Success fetching $title",

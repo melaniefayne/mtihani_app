@@ -130,7 +130,7 @@ class ExamSetupViewModel extends BaseViewModel {
       "start_date_time": selectedTimes.first.toIso8601String(),
       "end_date_time": selectedTimes.last.toIso8601String(),
       "strand_ids": selectedStrandsIds,
-      "question_count": 3,
+      "question_count": 10,
       "bloom_skill_count": 2,
     };
     if (selectedFiles.isNotEmpty) {
