@@ -2554,6 +2554,7 @@ mixin _$ScoreModel {
   String? get difference_desc => throw _privateConstructorUsedError;
   List<double>? get scores => throw _privateConstructorUsedError;
   List<int>? get ids => throw _privateConstructorUsedError;
+  int? get grade => throw _privateConstructorUsedError;
   List<ScoreModel>? get sub_strands => throw _privateConstructorUsedError;
 
   /// Serializes this ScoreModel to a JSON map.
@@ -2585,6 +2586,7 @@ abstract class $ScoreModelCopyWith<$Res> {
       String? difference_desc,
       List<double>? scores,
       List<int>? ids,
+      int? grade,
       List<ScoreModel>? sub_strands});
 }
 
@@ -2615,6 +2617,7 @@ class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
     Object? difference_desc = freezed,
     Object? scores = freezed,
     Object? ids = freezed,
+    Object? grade = freezed,
     Object? sub_strands = freezed,
   }) {
     return _then(_value.copyWith(
@@ -2666,6 +2669,10 @@ class _$ScoreModelCopyWithImpl<$Res, $Val extends ScoreModel>
           ? _value.ids
           : ids // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      grade: freezed == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int?,
       sub_strands: freezed == sub_strands
           ? _value.sub_strands
           : sub_strands // ignore: cast_nullable_to_non_nullable
@@ -2695,6 +2702,7 @@ abstract class _$$ScoreModelImplCopyWith<$Res>
       String? difference_desc,
       List<double>? scores,
       List<int>? ids,
+      int? grade,
       List<ScoreModel>? sub_strands});
 }
 
@@ -2723,6 +2731,7 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
     Object? difference_desc = freezed,
     Object? scores = freezed,
     Object? ids = freezed,
+    Object? grade = freezed,
     Object? sub_strands = freezed,
   }) {
     return _then(_$ScoreModelImpl(
@@ -2774,6 +2783,10 @@ class __$$ScoreModelImplCopyWithImpl<$Res>
           ? _value._ids
           : ids // ignore: cast_nullable_to_non_nullable
               as List<int>?,
+      grade: freezed == grade
+          ? _value.grade
+          : grade // ignore: cast_nullable_to_non_nullable
+              as int?,
       sub_strands: freezed == sub_strands
           ? _value._sub_strands
           : sub_strands // ignore: cast_nullable_to_non_nullable
@@ -2798,6 +2811,7 @@ class _$ScoreModelImpl implements _ScoreModel {
       this.difference_desc,
       final List<double>? scores,
       final List<int>? ids,
+      this.grade,
       final List<ScoreModel>? sub_strands})
       : _scores = scores,
         _ids = ids,
@@ -2847,6 +2861,8 @@ class _$ScoreModelImpl implements _ScoreModel {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final int? grade;
   final List<ScoreModel>? _sub_strands;
   @override
   List<ScoreModel>? get sub_strands {
@@ -2859,7 +2875,7 @@ class _$ScoreModelImpl implements _ScoreModel {
 
   @override
   String toString() {
-    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level, min: $min, max: $max, std_dev: $std_dev, difference: $difference, difference_desc: $difference_desc, scores: $scores, ids: $ids, sub_strands: $sub_strands)';
+    return 'ScoreModel(id: $id, name: $name, count: $count, percentage: $percentage, expectation_level: $expectation_level, min: $min, max: $max, std_dev: $std_dev, difference: $difference, difference_desc: $difference_desc, scores: $scores, ids: $ids, grade: $grade, sub_strands: $sub_strands)';
   }
 
   @override
@@ -2883,6 +2899,7 @@ class _$ScoreModelImpl implements _ScoreModel {
                 other.difference_desc == difference_desc) &&
             const DeepCollectionEquality().equals(other._scores, _scores) &&
             const DeepCollectionEquality().equals(other._ids, _ids) &&
+            (identical(other.grade, grade) || other.grade == grade) &&
             const DeepCollectionEquality()
                 .equals(other._sub_strands, _sub_strands));
   }
@@ -2903,6 +2920,7 @@ class _$ScoreModelImpl implements _ScoreModel {
       difference_desc,
       const DeepCollectionEquality().hash(_scores),
       const DeepCollectionEquality().hash(_ids),
+      grade,
       const DeepCollectionEquality().hash(_sub_strands));
 
   /// Create a copy of ScoreModel
@@ -2935,6 +2953,7 @@ abstract class _ScoreModel implements ScoreModel {
       final String? difference_desc,
       final List<double>? scores,
       final List<int>? ids,
+      final int? grade,
       final List<ScoreModel>? sub_strands}) = _$ScoreModelImpl;
 
   factory _ScoreModel.fromJson(Map<String, dynamic> json) =
@@ -2964,6 +2983,8 @@ abstract class _ScoreModel implements ScoreModel {
   List<double>? get scores;
   @override
   List<int>? get ids;
+  @override
+  int? get grade;
   @override
   List<ScoreModel>? get sub_strands;
 

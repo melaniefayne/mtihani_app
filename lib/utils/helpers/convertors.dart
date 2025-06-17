@@ -15,7 +15,7 @@ String? getFormattedDate(DateTime? dateTime, DateFormat dtFormat) {
 }
 
 String addThousandSeparators(double value,
-    {int decimalPlaces = 2, bool showDecimals = false}) {
+    {int decimalPlaces = 1, bool showDecimals = false}) {
   String formattedValue = value.toStringAsFixed(decimalPlaces);
   List<String> parts = formattedValue.split('.');
   String integerPart = parts[0];

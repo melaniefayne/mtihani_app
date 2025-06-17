@@ -140,7 +140,7 @@ class AppLinearPercentChart extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   padding: isSelected ? const EdgeInsets.all(4) : null,
-                  color: isSelected ? bgColor.withOpacity(0.4) : null,
+                  color: isSelected ? bgColor.withValues(alpha: 0.4) : null,
                   child: LinearPercentIndicator(
                     animation: true,
                     lineHeight: tileHeight,
@@ -175,7 +175,11 @@ class AppLinearPercentChart extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(text: indicatorPrefix),
-                            TextSpan(text: addThousandSeparators(value)),
+                            TextSpan(
+                                text: addThousandSeparators(
+                              value,
+                              showDecimals: true,
+                            )),
                             TextSpan(text: indicatorPostfix),
                             if (showPercentages)
                               TextSpan(

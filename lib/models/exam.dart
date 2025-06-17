@@ -169,6 +169,7 @@ class ScoreModel with _$ScoreModel {
     String? difference_desc,
     List<double>? scores,
     List<int>? ids,
+    int? grade,
     List<ScoreModel>? sub_strands,
   }) = _ScoreModel;
 

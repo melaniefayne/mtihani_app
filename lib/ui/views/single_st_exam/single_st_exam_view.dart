@@ -4,6 +4,7 @@ import 'package:mtihani_app/ui/widgets/app_tab_bar.dart';
 import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/common/single_cluster_tab/single_cluster_tab.dart';
 import 'package:mtihani_app/ui/widgets/common/st_exam_answers_list/st_exam_answers_list.dart';
+import 'package:mtihani_app/ui/widgets/common/student_exam_perf_tab/student_exam_perf_tab.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/constants/app_variables.dart';
 import 'package:stacked/stacked.dart';
@@ -20,6 +21,7 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
     Widget? child,
   ) {
     final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
 
     if (viewModel.exam == null) {
       return const Center(child: CircularProgressIndicator());
@@ -34,7 +36,16 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
         TabViewItem(
           label: "Performance",
           icon: Icons.trending_up,
-          widget: const Center(child: Text("Coming Soon ...")),
+          widget: viewModel.isExamComplete
+              ? viewModel.examSession?.session == null
+                  ? const Center(child: Text(errorOopsie))
+                  : StudentExamPerfTab(
+                      examSession: viewModel.examSession!.session!,
+                    )
+              : buildBeforeExamComplete(
+                  pageSize: pageSize,
+                  title: 'Student Performance Cluster',
+                ),
         ),
         TabViewItem(
           label: "Answer Sheet",
@@ -50,15 +61,41 @@ class SingleStExamView extends StackedView<SingleStExamViewModel> {
         TabViewItem(
           label: "Follow Up",
           icon: Icons.reply,
-          widget: viewModel.isLoading
-              ? buildLoadingWidget(theme, "Fetching answers ...")
-              : viewModel.examSession?.session == null
-                  ? const Center(child: Text(errorOopsie))
-                  : SingleClusterTab(
-                      examSession: viewModel.examSession!.session!,
-                    ),
+          widget: viewModel.isExamComplete
+              ? viewModel.isLoading
+                  ? buildLoadingWidget(theme, "Fetching answers ...")
+                  : viewModel.examSession?.session == null
+                      ? const Center(child: Text(errorOopsie))
+                      : SingleClusterTab(
+                          examSession: viewModel.examSession!.session!,
+                        )
+              : buildBeforeExamComplete(
+                  pageSize: pageSize,
+                  title: 'Student Follow Up Quiz',
+                ),
         ),
       ],
+    );
+  }
+
+  Widget buildBeforeExamComplete({
+    required Size pageSize,
+    required String title,
+  }) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            astImagesWaiting,
+            height: pageSize.height * 0.3,
+          ),
+          SizedBox(height: pageSize.height * 0.02),
+          Text(
+            "$title will be available after analysis :)",
+          ),
+        ],
+      ),
     );
   }
 

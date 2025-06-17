@@ -32,6 +32,8 @@ class SingleStExamViewModel extends BaseViewModel {
     await fetchExamSession();
   }
 
+  bool get isExamComplete => exam?.status == ExamStatus.complete;
+
   fetchExamSession() async {
     isLoading = true;
     rebuildUi();

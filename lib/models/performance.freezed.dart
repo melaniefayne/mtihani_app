@@ -1506,15 +1506,25 @@ StudentExamSessionPerformanceModel _$StudentExamSessionPerformanceModelFromJson(
 /// @nodoc
 mixin _$StudentExamSessionPerformanceModel {
   int? get id => throw _privateConstructorUsedError;
+  int? get exam_id => throw _privateConstructorUsedError;
+  int? get student_id => throw _privateConstructorUsedError;
+  String? get student_name => throw _privateConstructorUsedError;
   double? get avg_score => throw _privateConstructorUsedError;
+  String? get avg_expectation_level => throw _privateConstructorUsedError;
+  double? get class_avg_difference => throw _privateConstructorUsedError;
   List<ScoreModel>? get grade_scores => throw _privateConstructorUsedError;
   List<ScoreModel>? get bloom_skill_scores =>
       throw _privateConstructorUsedError;
   List<ScoreModel>? get strand_scores => throw _privateConstructorUsedError;
+  int? get questions_answered => throw _privateConstructorUsedError;
+  int? get questions_unanswered => throw _privateConstructorUsedError;
+  double? get completion_rate => throw _privateConstructorUsedError;
+  List<StudentAnswerModel>? get best_5_answers =>
+      throw _privateConstructorUsedError;
+  List<StudentAnswerModel>? get worst_5_answers =>
+      throw _privateConstructorUsedError;
   DateTime? get created_at => throw _privateConstructorUsedError;
   DateTime? get updated_at => throw _privateConstructorUsedError;
-  StudentExamSessionModel? get session => throw _privateConstructorUsedError;
-  List<StudentAnswerModel>? get answers => throw _privateConstructorUsedError;
 
   /// Serializes this StudentExamSessionPerformanceModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1537,16 +1547,22 @@ abstract class $StudentExamSessionPerformanceModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
+      int? exam_id,
+      int? student_id,
+      String? student_name,
       double? avg_score,
+      String? avg_expectation_level,
+      double? class_avg_difference,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
       List<ScoreModel>? strand_scores,
+      int? questions_answered,
+      int? questions_unanswered,
+      double? completion_rate,
+      List<StudentAnswerModel>? best_5_answers,
+      List<StudentAnswerModel>? worst_5_answers,
       DateTime? created_at,
-      DateTime? updated_at,
-      StudentExamSessionModel? session,
-      List<StudentAnswerModel>? answers});
-
-  $StudentExamSessionModelCopyWith<$Res>? get session;
+      DateTime? updated_at});
 }
 
 /// @nodoc
@@ -1566,23 +1582,51 @@ class _$StudentExamSessionPerformanceModelCopyWithImpl<$Res,
   @override
   $Res call({
     Object? id = freezed,
+    Object? exam_id = freezed,
+    Object? student_id = freezed,
+    Object? student_name = freezed,
     Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
+    Object? class_avg_difference = freezed,
     Object? grade_scores = freezed,
     Object? bloom_skill_scores = freezed,
     Object? strand_scores = freezed,
+    Object? questions_answered = freezed,
+    Object? questions_unanswered = freezed,
+    Object? completion_rate = freezed,
+    Object? best_5_answers = freezed,
+    Object? worst_5_answers = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
-    Object? session = freezed,
-    Object? answers = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      exam_id: freezed == exam_id
+          ? _value.exam_id
+          : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      student_id: freezed == student_id
+          ? _value.student_id
+          : student_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      student_name: freezed == student_name
+          ? _value.student_name
+          : student_name // ignore: cast_nullable_to_non_nullable
+              as String?,
       avg_score: freezed == avg_score
           ? _value.avg_score
           : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      class_avg_difference: freezed == class_avg_difference
+          ? _value.class_avg_difference
+          : class_avg_difference // ignore: cast_nullable_to_non_nullable
               as double?,
       grade_scores: freezed == grade_scores
           ? _value.grade_scores
@@ -1596,6 +1640,26 @@ class _$StudentExamSessionPerformanceModelCopyWithImpl<$Res,
           ? _value.strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
               as List<ScoreModel>?,
+      questions_answered: freezed == questions_answered
+          ? _value.questions_answered
+          : questions_answered // ignore: cast_nullable_to_non_nullable
+              as int?,
+      questions_unanswered: freezed == questions_unanswered
+          ? _value.questions_unanswered
+          : questions_unanswered // ignore: cast_nullable_to_non_nullable
+              as int?,
+      completion_rate: freezed == completion_rate
+          ? _value.completion_rate
+          : completion_rate // ignore: cast_nullable_to_non_nullable
+              as double?,
+      best_5_answers: freezed == best_5_answers
+          ? _value.best_5_answers
+          : best_5_answers // ignore: cast_nullable_to_non_nullable
+              as List<StudentAnswerModel>?,
+      worst_5_answers: freezed == worst_5_answers
+          ? _value.worst_5_answers
+          : worst_5_answers // ignore: cast_nullable_to_non_nullable
+              as List<StudentAnswerModel>?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -1604,29 +1668,7 @@ class _$StudentExamSessionPerformanceModelCopyWithImpl<$Res,
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      session: freezed == session
-          ? _value.session
-          : session // ignore: cast_nullable_to_non_nullable
-              as StudentExamSessionModel?,
-      answers: freezed == answers
-          ? _value.answers
-          : answers // ignore: cast_nullable_to_non_nullable
-              as List<StudentAnswerModel>?,
     ) as $Val);
-  }
-
-  /// Create a copy of StudentExamSessionPerformanceModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $StudentExamSessionModelCopyWith<$Res>? get session {
-    if (_value.session == null) {
-      return null;
-    }
-
-    return $StudentExamSessionModelCopyWith<$Res>(_value.session!, (value) {
-      return _then(_value.copyWith(session: value) as $Val);
-    });
   }
 }
 
@@ -1641,17 +1683,22 @@ abstract class _$$StudentExamSessionPerformanceModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {int? id,
+      int? exam_id,
+      int? student_id,
+      String? student_name,
       double? avg_score,
+      String? avg_expectation_level,
+      double? class_avg_difference,
       List<ScoreModel>? grade_scores,
       List<ScoreModel>? bloom_skill_scores,
       List<ScoreModel>? strand_scores,
+      int? questions_answered,
+      int? questions_unanswered,
+      double? completion_rate,
+      List<StudentAnswerModel>? best_5_answers,
+      List<StudentAnswerModel>? worst_5_answers,
       DateTime? created_at,
-      DateTime? updated_at,
-      StudentExamSessionModel? session,
-      List<StudentAnswerModel>? answers});
-
-  @override
-  $StudentExamSessionModelCopyWith<$Res>? get session;
+      DateTime? updated_at});
 }
 
 /// @nodoc
@@ -1670,23 +1717,51 @@ class __$$StudentExamSessionPerformanceModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? exam_id = freezed,
+    Object? student_id = freezed,
+    Object? student_name = freezed,
     Object? avg_score = freezed,
+    Object? avg_expectation_level = freezed,
+    Object? class_avg_difference = freezed,
     Object? grade_scores = freezed,
     Object? bloom_skill_scores = freezed,
     Object? strand_scores = freezed,
+    Object? questions_answered = freezed,
+    Object? questions_unanswered = freezed,
+    Object? completion_rate = freezed,
+    Object? best_5_answers = freezed,
+    Object? worst_5_answers = freezed,
     Object? created_at = freezed,
     Object? updated_at = freezed,
-    Object? session = freezed,
-    Object? answers = freezed,
   }) {
     return _then(_$StudentExamSessionPerformanceModelImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      exam_id: freezed == exam_id
+          ? _value.exam_id
+          : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      student_id: freezed == student_id
+          ? _value.student_id
+          : student_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      student_name: freezed == student_name
+          ? _value.student_name
+          : student_name // ignore: cast_nullable_to_non_nullable
+              as String?,
       avg_score: freezed == avg_score
           ? _value.avg_score
           : avg_score // ignore: cast_nullable_to_non_nullable
+              as double?,
+      avg_expectation_level: freezed == avg_expectation_level
+          ? _value.avg_expectation_level
+          : avg_expectation_level // ignore: cast_nullable_to_non_nullable
+              as String?,
+      class_avg_difference: freezed == class_avg_difference
+          ? _value.class_avg_difference
+          : class_avg_difference // ignore: cast_nullable_to_non_nullable
               as double?,
       grade_scores: freezed == grade_scores
           ? _value._grade_scores
@@ -1700,6 +1775,26 @@ class __$$StudentExamSessionPerformanceModelImplCopyWithImpl<$Res>
           ? _value._strand_scores
           : strand_scores // ignore: cast_nullable_to_non_nullable
               as List<ScoreModel>?,
+      questions_answered: freezed == questions_answered
+          ? _value.questions_answered
+          : questions_answered // ignore: cast_nullable_to_non_nullable
+              as int?,
+      questions_unanswered: freezed == questions_unanswered
+          ? _value.questions_unanswered
+          : questions_unanswered // ignore: cast_nullable_to_non_nullable
+              as int?,
+      completion_rate: freezed == completion_rate
+          ? _value.completion_rate
+          : completion_rate // ignore: cast_nullable_to_non_nullable
+              as double?,
+      best_5_answers: freezed == best_5_answers
+          ? _value._best_5_answers
+          : best_5_answers // ignore: cast_nullable_to_non_nullable
+              as List<StudentAnswerModel>?,
+      worst_5_answers: freezed == worst_5_answers
+          ? _value._worst_5_answers
+          : worst_5_answers // ignore: cast_nullable_to_non_nullable
+              as List<StudentAnswerModel>?,
       created_at: freezed == created_at
           ? _value.created_at
           : created_at // ignore: cast_nullable_to_non_nullable
@@ -1708,14 +1803,6 @@ class __$$StudentExamSessionPerformanceModelImplCopyWithImpl<$Res>
           ? _value.updated_at
           : updated_at // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      session: freezed == session
-          ? _value.session
-          : session // ignore: cast_nullable_to_non_nullable
-              as StudentExamSessionModel?,
-      answers: freezed == answers
-          ? _value._answers
-          : answers // ignore: cast_nullable_to_non_nullable
-              as List<StudentAnswerModel>?,
     ));
   }
 }
@@ -1726,18 +1813,27 @@ class _$StudentExamSessionPerformanceModelImpl
     implements _StudentExamSessionPerformanceModel {
   _$StudentExamSessionPerformanceModelImpl(
       {this.id,
+      this.exam_id,
+      this.student_id,
+      this.student_name,
       this.avg_score,
+      this.avg_expectation_level,
+      this.class_avg_difference,
       final List<ScoreModel>? grade_scores,
       final List<ScoreModel>? bloom_skill_scores,
       final List<ScoreModel>? strand_scores,
+      this.questions_answered,
+      this.questions_unanswered,
+      this.completion_rate,
+      final List<StudentAnswerModel>? best_5_answers,
+      final List<StudentAnswerModel>? worst_5_answers,
       this.created_at,
-      this.updated_at,
-      this.session,
-      final List<StudentAnswerModel>? answers})
+      this.updated_at})
       : _grade_scores = grade_scores,
         _bloom_skill_scores = bloom_skill_scores,
         _strand_scores = strand_scores,
-        _answers = answers;
+        _best_5_answers = best_5_answers,
+        _worst_5_answers = worst_5_answers;
 
   factory _$StudentExamSessionPerformanceModelImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -1746,7 +1842,17 @@ class _$StudentExamSessionPerformanceModelImpl
   @override
   final int? id;
   @override
+  final int? exam_id;
+  @override
+  final int? student_id;
+  @override
+  final String? student_name;
+  @override
   final double? avg_score;
+  @override
+  final String? avg_expectation_level;
+  @override
+  final double? class_avg_difference;
   final List<ScoreModel>? _grade_scores;
   @override
   List<ScoreModel>? get grade_scores {
@@ -1779,24 +1885,39 @@ class _$StudentExamSessionPerformanceModelImpl
   }
 
   @override
-  final DateTime? created_at;
+  final int? questions_answered;
   @override
-  final DateTime? updated_at;
+  final int? questions_unanswered;
   @override
-  final StudentExamSessionModel? session;
-  final List<StudentAnswerModel>? _answers;
+  final double? completion_rate;
+  final List<StudentAnswerModel>? _best_5_answers;
   @override
-  List<StudentAnswerModel>? get answers {
-    final value = _answers;
+  List<StudentAnswerModel>? get best_5_answers {
+    final value = _best_5_answers;
     if (value == null) return null;
-    if (_answers is EqualUnmodifiableListView) return _answers;
+    if (_best_5_answers is EqualUnmodifiableListView) return _best_5_answers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<StudentAnswerModel>? _worst_5_answers;
+  @override
+  List<StudentAnswerModel>? get worst_5_answers {
+    final value = _worst_5_answers;
+    if (value == null) return null;
+    if (_worst_5_answers is EqualUnmodifiableListView) return _worst_5_answers;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
+  final DateTime? created_at;
+  @override
+  final DateTime? updated_at;
+
+  @override
   String toString() {
-    return 'StudentExamSessionPerformanceModel(id: $id, avg_score: $avg_score, grade_scores: $grade_scores, bloom_skill_scores: $bloom_skill_scores, strand_scores: $strand_scores, created_at: $created_at, updated_at: $updated_at, session: $session, answers: $answers)';
+    return 'StudentExamSessionPerformanceModel(id: $id, exam_id: $exam_id, student_id: $student_id, student_name: $student_name, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, class_avg_difference: $class_avg_difference, grade_scores: $grade_scores, bloom_skill_scores: $bloom_skill_scores, strand_scores: $strand_scores, questions_answered: $questions_answered, questions_unanswered: $questions_unanswered, completion_rate: $completion_rate, best_5_answers: $best_5_answers, worst_5_answers: $worst_5_answers, created_at: $created_at, updated_at: $updated_at)';
   }
 
   @override
@@ -1805,20 +1926,37 @@ class _$StudentExamSessionPerformanceModelImpl
         (other.runtimeType == runtimeType &&
             other is _$StudentExamSessionPerformanceModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
+            (identical(other.student_id, student_id) ||
+                other.student_id == student_id) &&
+            (identical(other.student_name, student_name) ||
+                other.student_name == student_name) &&
             (identical(other.avg_score, avg_score) ||
                 other.avg_score == avg_score) &&
+            (identical(other.avg_expectation_level, avg_expectation_level) ||
+                other.avg_expectation_level == avg_expectation_level) &&
+            (identical(other.class_avg_difference, class_avg_difference) ||
+                other.class_avg_difference == class_avg_difference) &&
             const DeepCollectionEquality()
                 .equals(other._grade_scores, _grade_scores) &&
             const DeepCollectionEquality()
                 .equals(other._bloom_skill_scores, _bloom_skill_scores) &&
             const DeepCollectionEquality()
                 .equals(other._strand_scores, _strand_scores) &&
+            (identical(other.questions_answered, questions_answered) ||
+                other.questions_answered == questions_answered) &&
+            (identical(other.questions_unanswered, questions_unanswered) ||
+                other.questions_unanswered == questions_unanswered) &&
+            (identical(other.completion_rate, completion_rate) ||
+                other.completion_rate == completion_rate) &&
+            const DeepCollectionEquality()
+                .equals(other._best_5_answers, _best_5_answers) &&
+            const DeepCollectionEquality()
+                .equals(other._worst_5_answers, _worst_5_answers) &&
             (identical(other.created_at, created_at) ||
                 other.created_at == created_at) &&
             (identical(other.updated_at, updated_at) ||
-                other.updated_at == updated_at) &&
-            (identical(other.session, session) || other.session == session) &&
-            const DeepCollectionEquality().equals(other._answers, _answers));
+                other.updated_at == updated_at));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1826,14 +1964,22 @@ class _$StudentExamSessionPerformanceModelImpl
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      exam_id,
+      student_id,
+      student_name,
       avg_score,
+      avg_expectation_level,
+      class_avg_difference,
       const DeepCollectionEquality().hash(_grade_scores),
       const DeepCollectionEquality().hash(_bloom_skill_scores),
       const DeepCollectionEquality().hash(_strand_scores),
+      questions_answered,
+      questions_unanswered,
+      completion_rate,
+      const DeepCollectionEquality().hash(_best_5_answers),
+      const DeepCollectionEquality().hash(_worst_5_answers),
       created_at,
-      updated_at,
-      session,
-      const DeepCollectionEquality().hash(_answers));
+      updated_at);
 
   /// Create a copy of StudentExamSessionPerformanceModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1856,16 +2002,23 @@ class _$StudentExamSessionPerformanceModelImpl
 abstract class _StudentExamSessionPerformanceModel
     implements StudentExamSessionPerformanceModel {
   factory _StudentExamSessionPerformanceModel(
-          {final int? id,
-          final double? avg_score,
-          final List<ScoreModel>? grade_scores,
-          final List<ScoreModel>? bloom_skill_scores,
-          final List<ScoreModel>? strand_scores,
-          final DateTime? created_at,
-          final DateTime? updated_at,
-          final StudentExamSessionModel? session,
-          final List<StudentAnswerModel>? answers}) =
-      _$StudentExamSessionPerformanceModelImpl;
+      {final int? id,
+      final int? exam_id,
+      final int? student_id,
+      final String? student_name,
+      final double? avg_score,
+      final String? avg_expectation_level,
+      final double? class_avg_difference,
+      final List<ScoreModel>? grade_scores,
+      final List<ScoreModel>? bloom_skill_scores,
+      final List<ScoreModel>? strand_scores,
+      final int? questions_answered,
+      final int? questions_unanswered,
+      final double? completion_rate,
+      final List<StudentAnswerModel>? best_5_answers,
+      final List<StudentAnswerModel>? worst_5_answers,
+      final DateTime? created_at,
+      final DateTime? updated_at}) = _$StudentExamSessionPerformanceModelImpl;
 
   factory _StudentExamSessionPerformanceModel.fromJson(
           Map<String, dynamic> json) =
@@ -1874,7 +2027,17 @@ abstract class _StudentExamSessionPerformanceModel
   @override
   int? get id;
   @override
+  int? get exam_id;
+  @override
+  int? get student_id;
+  @override
+  String? get student_name;
+  @override
   double? get avg_score;
+  @override
+  String? get avg_expectation_level;
+  @override
+  double? get class_avg_difference;
   @override
   List<ScoreModel>? get grade_scores;
   @override
@@ -1882,13 +2045,19 @@ abstract class _StudentExamSessionPerformanceModel
   @override
   List<ScoreModel>? get strand_scores;
   @override
+  int? get questions_answered;
+  @override
+  int? get questions_unanswered;
+  @override
+  double? get completion_rate;
+  @override
+  List<StudentAnswerModel>? get best_5_answers;
+  @override
+  List<StudentAnswerModel>? get worst_5_answers;
+  @override
   DateTime? get created_at;
   @override
   DateTime? get updated_at;
-  @override
-  StudentExamSessionModel? get session;
-  @override
-  List<StudentAnswerModel>? get answers;
 
   /// Create a copy of StudentExamSessionPerformanceModel
   /// with the given fields replaced by the non-null parameter values.

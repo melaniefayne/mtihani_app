@@ -280,6 +280,7 @@ _$ScoreModelImpl _$$ScoreModelImplFromJson(Map<String, dynamic> json) =>
       ids: (json['ids'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
+      grade: (json['grade'] as num?)?.toInt(),
       sub_strands: (json['sub_strands'] as List<dynamic>?)
           ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -299,5 +300,6 @@ Map<String, dynamic> _$$ScoreModelImplToJson(_$ScoreModelImpl instance) =>
       'difference_desc': instance.difference_desc,
       'scores': instance.scores,
       'ids': instance.ids,
+      'grade': instance.grade,
       'sub_strands': instance.sub_strands,
     };

@@ -43,49 +43,53 @@ class ExamResponsesList extends StackedView<ExamResponsesListModel> {
       );
     }
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildHeaderWidget(
-            theme: theme,
-            title: "Highlights",
-            leadingWidget: const Icon(Icons.star),
-          ),
           viewModel.isFetchingExamResponses
               ? buildLoadingWidget(theme, "Fetching student highlights")
               : viewModel.examPercentiles != null
-                  ? Row(
+                  ? Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Expanded(
-                          child: CompactInfoCard(
-                            title: "Top Percentile",
-                            iconPath: Icons.arrow_upward,
-                            bgColor: kcLightGrey,
-                            fgColor: theme.primaryColor,
-                            onInfoItemTap:
-                                viewModel.onPercentileViewExamSession,
-                            infoItems:
-                                (viewModel.examPercentiles!.top_students ?? [])
-                                    .map((e) => {
-                                          "name": e.student_name ?? "--",
-                                          "value":
-                                              "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
-                                        })
-                                    .toList(),
-                          ),
+                        buildHeaderWidget(
+                          theme: theme,
+                          title: "Highlights",
+                          leadingWidget: const Icon(Icons.star),
                         ),
-                        SizedBox(width: pageSize.width * 0.01),
-                        Expanded(
-                          child: CompactInfoCard(
-                            title: "Bottom Percentile",
-                            iconPath: Icons.arrow_downward,
-                            onInfoItemTap:
-                                viewModel.onPercentileViewExamSession,
-                            bgColor: kcMediumGrey,
-                            fgColor: Colors.white,
-                            infoItems:
-                                (viewModel.examPercentiles!.bottom_students ??
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CompactInfoCard(
+                                title: "Top Percentile",
+                                iconPath: Icons.arrow_upward,
+                                bgColor: kcLightGrey,
+                                fgColor: theme.primaryColor,
+                                onInfoItemTap:
+                                    viewModel.onPercentileViewExamSession,
+                                infoItems:
+                                    (viewModel.examPercentiles!.top_students ??
+                                            [])
+                                        .map((e) => {
+                                              "name": e.student_name ?? "--",
+                                              "value":
+                                                  "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
+                                            })
+                                        .toList(),
+                              ),
+                            ),
+                            SizedBox(width: pageSize.width * 0.01),
+                            Expanded(
+                              child: CompactInfoCard(
+                                title: "Bottom Percentile",
+                                iconPath: Icons.arrow_downward,
+                                onInfoItemTap:
+                                    viewModel.onPercentileViewExamSession,
+                                bgColor: kcMediumGrey,
+                                fgColor: Colors.white,
+                                infoItems: (viewModel
+                                            .examPercentiles!.bottom_students ??
                                         [])
                                     .map((e) => {
                                           "name": e.student_name ?? "--",
@@ -93,14 +97,17 @@ class ExamResponsesList extends StackedView<ExamResponsesListModel> {
                                               "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
                                         })
                                     .toList(),
-                          ),
+                              ),
+                            ),
+                          ],
                         ),
+                        SizedBox(height: pageSize.height * 0.02),
                       ],
                     )
                   : const SizedBox.shrink(),
 
           //
-          SizedBox(height: pageSize.height * 0.02),
+
           buildHeaderWidget(
             theme: theme,
             title: "Listing",

@@ -664,15 +664,6 @@ class _ExamQuestionAnalysisSectionState
       ),
     );
   }
-
-  buildVerticalDivider(Size pageSize) {
-    return Container(
-      color: Colors.grey,
-      width: 1,
-      height: pageSize.height * 0.3,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-    );
-  }
 }
 
 Widget buildQuestionSummary({

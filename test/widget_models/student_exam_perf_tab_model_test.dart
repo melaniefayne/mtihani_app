@@ -4,7 +4,7 @@ import 'package:mtihani_app/app/app.locator.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  group('SingleClusterTabModel Tests -', () {
+  group('StudentExamPerfTabModel Tests -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

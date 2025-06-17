@@ -52,10 +52,7 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
     }
 
     if (viewModel.data == null) {
-      return const Center(
-        child: Text(
-            "Oops, something went wrong on our side! Please try again later"),
-      );
+      return const Center(child: Text(errorOopsie));
     }
 
     ClassExamPerformanceModel classPerf = viewModel.data!;
@@ -64,28 +61,24 @@ class ClassExamPerfTab extends StackedView<ClassExamPerfTabModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              buildWhiteCard(
-                theme,
-                Center(
-                  child: Text.rich(
+          //
+          buildWhiteCard(
+            theme,
+            Center(
+              child: Text.rich(
+                TextSpan(
+                  children: [
                     TextSpan(
-                      children: [
-                        TextSpan(
-                          text: classPerf.student_count?.toString() ?? "--",
-                          style: theme.textTheme.titleMedium!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: theme.primaryColor),
-                        ),
-                        const TextSpan(text: " Students"),
-                      ],
+                      text: classPerf.student_count?.toString() ?? "--",
+                      style: theme.textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.primaryColor),
                     ),
-                  ),
+                    const TextSpan(text: " Students"),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
 
           //

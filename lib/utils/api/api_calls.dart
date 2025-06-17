@@ -80,7 +80,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
 
     dev.log("$getEndpoint:::resp==${apiResponse.statusCode}");
     dev.log("$getEndpoint:::queryParams==${queryParams.toString()}");
-    // dev.log("$getEndpoint:::resp==${jsonEncode(apiResponse.data)}");
+    dev.log("$getEndpoint:::resp==${jsonEncode(apiResponse.data)}");
     if (isApiResponseSuccessful(apiResponse.statusCode)) {
       if (apiResponse.data != null) {
         ApiDataModel<T>? respData;

@@ -160,7 +160,13 @@ _$StudentExamSessionPerformanceModelImpl
             Map<String, dynamic> json) =>
         _$StudentExamSessionPerformanceModelImpl(
           id: (json['id'] as num?)?.toInt(),
+          exam_id: (json['exam_id'] as num?)?.toInt(),
+          student_id: (json['student_id'] as num?)?.toInt(),
+          student_name: json['student_name'] as String?,
           avg_score: (json['avg_score'] as num?)?.toDouble(),
+          avg_expectation_level: json['avg_expectation_level'] as String?,
+          class_avg_difference:
+              (json['class_avg_difference'] as num?)?.toDouble(),
           grade_scores: (json['grade_scores'] as List<dynamic>?)
               ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
               .toList(),
@@ -170,34 +176,45 @@ _$StudentExamSessionPerformanceModelImpl
           strand_scores: (json['strand_scores'] as List<dynamic>?)
               ?.map((e) => ScoreModel.fromJson(e as Map<String, dynamic>))
               .toList(),
+          questions_answered: (json['questions_answered'] as num?)?.toInt(),
+          questions_unanswered: (json['questions_unanswered'] as num?)?.toInt(),
+          completion_rate: (json['completion_rate'] as num?)?.toDouble(),
+          best_5_answers: (json['best_5_answers'] as List<dynamic>?)
+              ?.map(
+                  (e) => StudentAnswerModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+          worst_5_answers: (json['worst_5_answers'] as List<dynamic>?)
+              ?.map(
+                  (e) => StudentAnswerModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
           created_at: json['created_at'] == null
               ? null
               : DateTime.parse(json['created_at'] as String),
           updated_at: json['updated_at'] == null
               ? null
               : DateTime.parse(json['updated_at'] as String),
-          session: json['session'] == null
-              ? null
-              : StudentExamSessionModel.fromJson(
-                  json['session'] as Map<String, dynamic>),
-          answers: (json['answers'] as List<dynamic>?)
-              ?.map(
-                  (e) => StudentAnswerModel.fromJson(e as Map<String, dynamic>))
-              .toList(),
         );
 
 Map<String, dynamic> _$$StudentExamSessionPerformanceModelImplToJson(
         _$StudentExamSessionPerformanceModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'exam_id': instance.exam_id,
+      'student_id': instance.student_id,
+      'student_name': instance.student_name,
       'avg_score': instance.avg_score,
+      'avg_expectation_level': instance.avg_expectation_level,
+      'class_avg_difference': instance.class_avg_difference,
       'grade_scores': instance.grade_scores,
       'bloom_skill_scores': instance.bloom_skill_scores,
       'strand_scores': instance.strand_scores,
+      'questions_answered': instance.questions_answered,
+      'questions_unanswered': instance.questions_unanswered,
+      'completion_rate': instance.completion_rate,
+      'best_5_answers': instance.best_5_answers,
+      'worst_5_answers': instance.worst_5_answers,
       'created_at': instance.created_at?.toIso8601String(),
       'updated_at': instance.updated_at?.toIso8601String(),
-      'session': instance.session,
-      'answers': instance.answers,
     };
 
 _$ClassExamPerfClusterModelImpl _$$ClassExamPerfClusterModelImplFromJson(

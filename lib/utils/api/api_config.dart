@@ -74,3 +74,5 @@ String get endPointGetExamQuestionPerformance =>
     "$baseURL/exam/get-question-performance";
 String get endPointGetStudentExamCluster =>
     "$baseURL/exam/get-student-exam-cluster";
+String get endPointGetStudentExamPerformance =>
+    "$baseURL/exam/get-student-exam-performance";

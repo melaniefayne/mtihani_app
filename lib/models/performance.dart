@@ -80,14 +80,22 @@ class StudentExamSessionPerformanceModel
     with _$StudentExamSessionPerformanceModel {
   factory StudentExamSessionPerformanceModel({
     int? id,
+    int? exam_id,
+    int? student_id,
+    String? student_name,
     double? avg_score,
+    String? avg_expectation_level,
+    double? class_avg_difference,
     List<ScoreModel>? grade_scores,
     List<ScoreModel>? bloom_skill_scores,
     List<ScoreModel>? strand_scores,
+    int? questions_answered,
+    int? questions_unanswered,
+    double? completion_rate,
+    List<StudentAnswerModel>? best_5_answers,
+    List<StudentAnswerModel>? worst_5_answers,
     DateTime? created_at,
     DateTime? updated_at,
-    StudentExamSessionModel? session,
-    List<StudentAnswerModel>? answers,
   }) = _StudentExamSessionPerformanceModel;
 
   factory StudentExamSessionPerformanceModel.fromJson(
