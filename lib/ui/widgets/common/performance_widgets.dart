@@ -698,19 +698,30 @@ class _StudentExamPerformanceWidgetState
             Center(
               child: Text.rich(
                 TextSpan(
-                  children: [
-                    TextSpan(
-                      text:
-                          "${widget.studentPerf.completion_rate?.toString() ?? '--'}%",
-                      style: theme.textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: theme.primaryColor),
-                    ),
-                    const TextSpan(text: " Completion Rate"),
-                    TextSpan(
-                        text:
-                            " (${widget.studentPerf.questions_answered}/${(widget.studentPerf.questions_unanswered ?? 0) + (widget.studentPerf.questions_answered ?? 0)})"),
-                  ],
+                  children: widget.studentPerf.completion_rate == null
+                      ? [
+                          TextSpan(
+                            text: widget.studentPerf.exam_count?.toString() ??
+                                "--",
+                            style: theme.textTheme.titleMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.primaryColor),
+                          ),
+                          const TextSpan(text: " Exams"),
+                        ]
+                      : [
+                          TextSpan(
+                            text:
+                                "${widget.studentPerf.completion_rate?.toString() ?? '--'}%",
+                            style: theme.textTheme.titleMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: theme.primaryColor),
+                          ),
+                          const TextSpan(text: " Completion Rate"),
+                          TextSpan(
+                              text:
+                                  " (${widget.studentPerf.questions_answered}/${(widget.studentPerf.questions_unanswered ?? 0) + (widget.studentPerf.questions_answered ?? 0)})"),
+                        ],
                 ),
               ),
             ),
@@ -904,14 +915,26 @@ class _ClassExamPerformanceWidgetState
           Center(
             child: Text.rich(
               TextSpan(
-                children: [
-                  TextSpan(
-                    text: widget.classPerf.student_count?.toString() ?? "--",
-                    style: theme.textTheme.titleMedium!.copyWith(
-                        fontWeight: FontWeight.bold, color: theme.primaryColor),
-                  ),
-                  const TextSpan(text: " Students"),
-                ],
+                children: widget.classPerf.student_count == null
+                    ? [
+                        TextSpan(
+                          text: widget.classPerf.exam_count?.toString() ?? "--",
+                          style: theme.textTheme.titleMedium!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.primaryColor),
+                        ),
+                        const TextSpan(text: " Exams"),
+                      ]
+                    : [
+                        TextSpan(
+                          text: widget.classPerf.student_count?.toString() ??
+                              "--",
+                          style: theme.textTheme.titleMedium!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.primaryColor),
+                        ),
+                        const TextSpan(text: " Students"),
+                      ],
               ),
             ),
           ),

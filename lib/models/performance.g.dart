@@ -11,6 +11,7 @@ _$ClassExamPerformanceModelImpl _$$ClassExamPerformanceModelImplFromJson(
     _$ClassExamPerformanceModelImpl(
       id: (json['id'] as num?)?.toInt(),
       exam: (json['exam'] as num?)?.toInt(),
+      exam_count: (json['exam_count'] as num?)?.toInt(),
       avg_score: (json['avg_score'] as num?)?.toDouble(),
       avg_expectation_level: json['avg_expectation_level'] as String?,
       student_count: (json['student_count'] as num?)?.toInt(),
@@ -58,6 +59,7 @@ Map<String, dynamic> _$$ClassExamPerformanceModelImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'exam': instance.exam,
+      'exam_count': instance.exam_count,
       'avg_score': instance.avg_score,
       'avg_expectation_level': instance.avg_expectation_level,
       'student_count': instance.student_count,
@@ -161,6 +163,7 @@ _$StudentExamSessionPerformanceModelImpl
         _$StudentExamSessionPerformanceModelImpl(
           id: (json['id'] as num?)?.toInt(),
           exam_id: (json['exam_id'] as num?)?.toInt(),
+          exam_count: (json['exam_count'] as num?)?.toInt(),
           student_id: (json['student_id'] as num?)?.toInt(),
           student_name: json['student_name'] as String?,
           avg_score: (json['avg_score'] as num?)?.toDouble(),
@@ -200,6 +203,7 @@ Map<String, dynamic> _$$StudentExamSessionPerformanceModelImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'exam_id': instance.exam_id,
+      'exam_count': instance.exam_count,
       'student_id': instance.student_id,
       'student_name': instance.student_name,
       'avg_score': instance.avg_score,

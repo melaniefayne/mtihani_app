@@ -23,6 +23,7 @@ ClassExamPerformanceModel _$ClassExamPerformanceModelFromJson(
 mixin _$ClassExamPerformanceModel {
   int? get id => throw _privateConstructorUsedError;
   int? get exam => throw _privateConstructorUsedError;
+  int? get exam_count => throw _privateConstructorUsedError;
   double? get avg_score => throw _privateConstructorUsedError;
   String? get avg_expectation_level => throw _privateConstructorUsedError;
   int? get student_count => throw _privateConstructorUsedError;
@@ -63,6 +64,7 @@ abstract class $ClassExamPerformanceModelCopyWith<$Res> {
   $Res call(
       {int? id,
       int? exam,
+      int? exam_count,
       double? avg_score,
       String? avg_expectation_level,
       int? student_count,
@@ -100,6 +102,7 @@ class _$ClassExamPerformanceModelCopyWithImpl<$Res,
   $Res call({
     Object? id = freezed,
     Object? exam = freezed,
+    Object? exam_count = freezed,
     Object? avg_score = freezed,
     Object? avg_expectation_level = freezed,
     Object? student_count = freezed,
@@ -123,6 +126,10 @@ class _$ClassExamPerformanceModelCopyWithImpl<$Res,
       exam: freezed == exam
           ? _value.exam
           : exam // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exam_count: freezed == exam_count
+          ? _value.exam_count
+          : exam_count // ignore: cast_nullable_to_non_nullable
               as int?,
       avg_score: freezed == avg_score
           ? _value.avg_score
@@ -225,6 +232,7 @@ abstract class _$$ClassExamPerformanceModelImplCopyWith<$Res>
   $Res call(
       {int? id,
       int? exam,
+      int? exam_count,
       double? avg_score,
       String? avg_expectation_level,
       int? student_count,
@@ -263,6 +271,7 @@ class __$$ClassExamPerformanceModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? exam = freezed,
+    Object? exam_count = freezed,
     Object? avg_score = freezed,
     Object? avg_expectation_level = freezed,
     Object? student_count = freezed,
@@ -286,6 +295,10 @@ class __$$ClassExamPerformanceModelImplCopyWithImpl<$Res>
       exam: freezed == exam
           ? _value.exam
           : exam // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exam_count: freezed == exam_count
+          ? _value.exam_count
+          : exam_count // ignore: cast_nullable_to_non_nullable
               as int?,
       avg_score: freezed == avg_score
           ? _value.avg_score
@@ -353,6 +366,7 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
   _$ClassExamPerformanceModelImpl(
       {this.id,
       this.exam,
+      this.exam_count,
       this.avg_score,
       this.avg_expectation_level,
       this.student_count,
@@ -382,6 +396,8 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
   final int? id;
   @override
   final int? exam;
+  @override
+  final int? exam_count;
   @override
   final double? avg_score;
   @override
@@ -474,7 +490,7 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
 
   @override
   String toString() {
-    return 'ClassExamPerformanceModel(id: $id, exam: $exam, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, student_count: $student_count, expectation_level_distribution: $expectation_level_distribution, score_distribution: $score_distribution, score_variance: $score_variance, bloom_skill_scores: $bloom_skill_scores, general_insights: $general_insights, grade_scores: $grade_scores, strand_analysis: $strand_analysis, strand_student_mastery: $strand_student_mastery, flagged_sub_strands: $flagged_sub_strands, created_at: $created_at, updated_at: $updated_at)';
+    return 'ClassExamPerformanceModel(id: $id, exam: $exam, exam_count: $exam_count, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, student_count: $student_count, expectation_level_distribution: $expectation_level_distribution, score_distribution: $score_distribution, score_variance: $score_variance, bloom_skill_scores: $bloom_skill_scores, general_insights: $general_insights, grade_scores: $grade_scores, strand_analysis: $strand_analysis, strand_student_mastery: $strand_student_mastery, flagged_sub_strands: $flagged_sub_strands, created_at: $created_at, updated_at: $updated_at)';
   }
 
   @override
@@ -484,6 +500,8 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
             other is _$ClassExamPerformanceModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.exam, exam) || other.exam == exam) &&
+            (identical(other.exam_count, exam_count) ||
+                other.exam_count == exam_count) &&
             (identical(other.avg_score, avg_score) ||
                 other.avg_score == avg_score) &&
             (identical(other.avg_expectation_level, avg_expectation_level) ||
@@ -521,6 +539,7 @@ class _$ClassExamPerformanceModelImpl implements _ClassExamPerformanceModel {
       runtimeType,
       id,
       exam,
+      exam_count,
       avg_score,
       avg_expectation_level,
       student_count,
@@ -557,6 +576,7 @@ abstract class _ClassExamPerformanceModel implements ClassExamPerformanceModel {
   factory _ClassExamPerformanceModel(
       {final int? id,
       final int? exam,
+      final int? exam_count,
       final double? avg_score,
       final String? avg_expectation_level,
       final int? student_count,
@@ -579,6 +599,8 @@ abstract class _ClassExamPerformanceModel implements ClassExamPerformanceModel {
   int? get id;
   @override
   int? get exam;
+  @override
+  int? get exam_count;
   @override
   double? get avg_score;
   @override
@@ -1507,6 +1529,7 @@ StudentExamSessionPerformanceModel _$StudentExamSessionPerformanceModelFromJson(
 mixin _$StudentExamSessionPerformanceModel {
   int? get id => throw _privateConstructorUsedError;
   int? get exam_id => throw _privateConstructorUsedError;
+  int? get exam_count => throw _privateConstructorUsedError;
   int? get student_id => throw _privateConstructorUsedError;
   String? get student_name => throw _privateConstructorUsedError;
   double? get avg_score => throw _privateConstructorUsedError;
@@ -1548,6 +1571,7 @@ abstract class $StudentExamSessionPerformanceModelCopyWith<$Res> {
   $Res call(
       {int? id,
       int? exam_id,
+      int? exam_count,
       int? student_id,
       String? student_name,
       double? avg_score,
@@ -1583,6 +1607,7 @@ class _$StudentExamSessionPerformanceModelCopyWithImpl<$Res,
   $Res call({
     Object? id = freezed,
     Object? exam_id = freezed,
+    Object? exam_count = freezed,
     Object? student_id = freezed,
     Object? student_name = freezed,
     Object? avg_score = freezed,
@@ -1607,6 +1632,10 @@ class _$StudentExamSessionPerformanceModelCopyWithImpl<$Res,
       exam_id: freezed == exam_id
           ? _value.exam_id
           : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exam_count: freezed == exam_count
+          ? _value.exam_count
+          : exam_count // ignore: cast_nullable_to_non_nullable
               as int?,
       student_id: freezed == student_id
           ? _value.student_id
@@ -1684,6 +1713,7 @@ abstract class _$$StudentExamSessionPerformanceModelImplCopyWith<$Res>
   $Res call(
       {int? id,
       int? exam_id,
+      int? exam_count,
       int? student_id,
       String? student_name,
       double? avg_score,
@@ -1718,6 +1748,7 @@ class __$$StudentExamSessionPerformanceModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? exam_id = freezed,
+    Object? exam_count = freezed,
     Object? student_id = freezed,
     Object? student_name = freezed,
     Object? avg_score = freezed,
@@ -1742,6 +1773,10 @@ class __$$StudentExamSessionPerformanceModelImplCopyWithImpl<$Res>
       exam_id: freezed == exam_id
           ? _value.exam_id
           : exam_id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      exam_count: freezed == exam_count
+          ? _value.exam_count
+          : exam_count // ignore: cast_nullable_to_non_nullable
               as int?,
       student_id: freezed == student_id
           ? _value.student_id
@@ -1814,6 +1849,7 @@ class _$StudentExamSessionPerformanceModelImpl
   _$StudentExamSessionPerformanceModelImpl(
       {this.id,
       this.exam_id,
+      this.exam_count,
       this.student_id,
       this.student_name,
       this.avg_score,
@@ -1843,6 +1879,8 @@ class _$StudentExamSessionPerformanceModelImpl
   final int? id;
   @override
   final int? exam_id;
+  @override
+  final int? exam_count;
   @override
   final int? student_id;
   @override
@@ -1917,7 +1955,7 @@ class _$StudentExamSessionPerformanceModelImpl
 
   @override
   String toString() {
-    return 'StudentExamSessionPerformanceModel(id: $id, exam_id: $exam_id, student_id: $student_id, student_name: $student_name, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, class_avg_difference: $class_avg_difference, grade_scores: $grade_scores, bloom_skill_scores: $bloom_skill_scores, strand_scores: $strand_scores, questions_answered: $questions_answered, questions_unanswered: $questions_unanswered, completion_rate: $completion_rate, best_5_answers: $best_5_answers, worst_5_answers: $worst_5_answers, created_at: $created_at, updated_at: $updated_at)';
+    return 'StudentExamSessionPerformanceModel(id: $id, exam_id: $exam_id, exam_count: $exam_count, student_id: $student_id, student_name: $student_name, avg_score: $avg_score, avg_expectation_level: $avg_expectation_level, class_avg_difference: $class_avg_difference, grade_scores: $grade_scores, bloom_skill_scores: $bloom_skill_scores, strand_scores: $strand_scores, questions_answered: $questions_answered, questions_unanswered: $questions_unanswered, completion_rate: $completion_rate, best_5_answers: $best_5_answers, worst_5_answers: $worst_5_answers, created_at: $created_at, updated_at: $updated_at)';
   }
 
   @override
@@ -1927,6 +1965,8 @@ class _$StudentExamSessionPerformanceModelImpl
             other is _$StudentExamSessionPerformanceModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.exam_id, exam_id) || other.exam_id == exam_id) &&
+            (identical(other.exam_count, exam_count) ||
+                other.exam_count == exam_count) &&
             (identical(other.student_id, student_id) ||
                 other.student_id == student_id) &&
             (identical(other.student_name, student_name) ||
@@ -1965,6 +2005,7 @@ class _$StudentExamSessionPerformanceModelImpl
       runtimeType,
       id,
       exam_id,
+      exam_count,
       student_id,
       student_name,
       avg_score,
@@ -2004,6 +2045,7 @@ abstract class _StudentExamSessionPerformanceModel
   factory _StudentExamSessionPerformanceModel(
       {final int? id,
       final int? exam_id,
+      final int? exam_count,
       final int? student_id,
       final String? student_name,
       final double? avg_score,
@@ -2028,6 +2070,8 @@ abstract class _StudentExamSessionPerformanceModel
   int? get id;
   @override
   int? get exam_id;
+  @override
+  int? get exam_count;
   @override
   int? get student_id;
   @override

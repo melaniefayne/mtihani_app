@@ -11,6 +11,7 @@ class ClassExamPerformanceModel with _$ClassExamPerformanceModel {
   factory ClassExamPerformanceModel({
     int? id,
     int? exam,
+    int? exam_count,
     double? avg_score,
     String? avg_expectation_level,
     int? student_count,
@@ -81,6 +82,7 @@ class StudentExamSessionPerformanceModel
   factory StudentExamSessionPerformanceModel({
     int? id,
     int? exam_id,
+    int? exam_count,
     int? student_id,
     String? student_name,
     double? avg_score,
