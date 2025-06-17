@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/classroom.dart';
 import 'package:mtihani_app/ui/widgets/app_animated_counter.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_line_chart.dart';
+import 'package:mtihani_app/ui/widgets/common/performance_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -18,6 +19,7 @@ class StudentPerformanceTab extends StackedView<StudentPerformanceTabModel> {
     Widget? child,
   ) {
     final theme = Theme.of(context);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -47,6 +49,15 @@ class StudentPerformanceTab extends StackedView<StudentPerformanceTabModel> {
                     ),
                   ],
                 ),
+          viewModel.isFetchingStudentAvgPerf
+              ? buildLoadingWidget(
+                  theme, "Fetching average student performance ...")
+              : viewModel.studentAvgPerf == null
+                  ? buildNoItemsWidget(
+                      "No mtihani averages available. Create an exam to view in-depth insights!")
+                  : StudentExamPerformanceWidget(
+                      studentPerf: viewModel.studentAvgPerf!,
+                    ),
         ],
       ),
     );

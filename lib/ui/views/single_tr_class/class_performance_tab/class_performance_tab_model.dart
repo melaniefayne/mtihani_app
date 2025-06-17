@@ -7,7 +7,7 @@ import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 
 const String termScoresFetch = 'termScoresFetch';
-const String avgExamPerfFetch = 'avgExamPerfFetch';
+const String classAvgPerfFetch = 'classAvgPerfFetch';
 
 class ClassPerformanceTabModel extends MultipleFutureViewModel {
   final ClassroomModel classroom;
@@ -17,7 +17,7 @@ class ClassPerformanceTabModel extends MultipleFutureViewModel {
   @override
   Map<String, Future Function()> get futuresMap => {
         termScoresFetch: fetchClassTermScores,
-        avgExamPerfFetch: fetchAvgExamPerfFetch,
+        classAvgPerfFetch: fetchAvgClassPerf,
       };
 
   // fetchClassTermScores =====
@@ -49,12 +49,12 @@ class ClassPerformanceTabModel extends MultipleFutureViewModel {
         .toList();
   }
 
-  // fetchAvgExamPerfFetch =====
-  ClassExamPerformanceModel? get classAvgPerf => dataMap?[avgExamPerfFetch];
-  bool get isFetchingClassAvgPerf => busy(avgExamPerfFetch);
+  // fetchAvgClassPerf =====
+  ClassExamPerformanceModel? get classAvgPerf => dataMap?[classAvgPerfFetch];
+  bool get isFetchingClassAvgPerf => busy(classAvgPerfFetch);
   StrandPerformanceModel? selectedStrand;
 
-  Future<ClassExamPerformanceModel?> fetchAvgExamPerfFetch() async {
+  Future<ClassExamPerformanceModel?> fetchAvgClassPerf() async {
     var classExamPerfRes = await onApiGetCall<ClassExamPerformanceModel>(
       getEndpoint: endPointGetAvgClassPerformance,
       queryParams: {"classroom_id": classroom.id},

@@ -14,7 +14,6 @@ class ClassExamPerfTabModel
   final _sharedPrefsService = locator<SharedPrefsService>();
   final _navigationService = locator<NavigationService>();
 
-  StrandPerformanceModel? selectedStrand;
   ClassExamPerfTabModel(this.exam);
 
   @override
@@ -28,17 +27,10 @@ class ClassExamPerfTabModel
     );
 
     if (apiCallChecks(classExamPerfRes, 'class exam performance')) {
-      ClassExamPerformanceModel? classPerf = classExamPerfRes.$1?.data;
-      selectedStrand = classPerf?.strand_analysis?.firstOrNull;
-      return classPerf;
+      return classExamPerfRes.$1?.data;
     }
 
     return null;
-  }
-
-  onChangeStrand(StrandPerformanceModel strandData) {
-    selectedStrand = strandData;
-    rebuildUi();
   }
 
   onStrandStudentItemTap(Map<String, String> item) async {

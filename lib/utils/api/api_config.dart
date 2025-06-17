@@ -78,3 +78,5 @@ String get endPointGetStudentExamPerformance =>
     "$baseURL/exam/get-student-exam-performance";
 String get endPointGetAvgClassPerformance =>
     "$baseURL/exam/get-class-performance-aggregate";
+String get endPointGetAvgStudentPerformance =>
+    "$baseURL/exam/get-student-performance-aggregate";
