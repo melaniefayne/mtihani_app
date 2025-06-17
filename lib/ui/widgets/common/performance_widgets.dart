@@ -297,7 +297,7 @@ class StrandPerformanceWidget extends StatefulWidget {
   const StrandPerformanceWidget({
     super.key,
     required this.strandData,
-    required this.onInfoItemTap,
+    this.onInfoItemTap,
   });
 
   @override
@@ -346,144 +346,153 @@ class _StrandPerformanceWidgetState extends State<StrandPerformanceWidget> {
         ),
 
         //
-        SizedBox(height: pageSize.height * spacing),
-        AppTextCarousel(
-          title: 'Insights',
-          texts: widget.strandData.insights ?? [],
-        ),
+        if ((widget.strandData.insights ?? []).isNotEmpty) ...[
+          SizedBox(height: pageSize.height * spacing),
+          AppTextCarousel(
+              title: 'Insights', texts: widget.strandData.insights!),
+        ],
 
         //
-        SizedBox(height: pageSize.height * spacing),
-        buildSubTitle(
-          theme: theme,
-          title: 'Student Mastery',
-          subtitle: '',
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: CompactInfoCard(
-                title: "Top Percentile",
-                iconPath: Icons.arrow_upward,
-                bgColor: kcLightGrey,
-                fgColor: theme.primaryColor,
-                onInfoItemTap: widget.onInfoItemTap,
-                infoItems: (widget.strandData.top_students ?? [])
-                    .map((e) => {
-                          "name": e.student_name ?? "--",
-                          "value":
-                              "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
-                        })
-                    .toList(),
+        if ((widget.strandData.top_students ?? []).isNotEmpty) ...[
+          SizedBox(height: pageSize.height * spacing),
+          buildSubTitle(
+            theme: theme,
+            title: 'Student Mastery',
+            subtitle: '',
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: CompactInfoCard(
+                  title: "Top Percentile",
+                  iconPath: Icons.arrow_upward,
+                  bgColor: kcLightGrey,
+                  fgColor: theme.primaryColor,
+                  onInfoItemTap: widget.onInfoItemTap,
+                  infoItems: (widget.strandData.top_students ?? [])
+                      .map((e) => {
+                            "name": e.student_name ?? "--",
+                            "value":
+                                "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
+                          })
+                      .toList(),
+                ),
               ),
-            ),
-            SizedBox(width: pageSize.width * 0.01),
-            Expanded(
-              child: CompactInfoCard(
-                title: "Bottom Percentile",
-                iconPath: Icons.arrow_downward,
-                onInfoItemTap: widget.onInfoItemTap,
-                bgColor: kcMediumGrey,
-                fgColor: Colors.white,
-                infoItems: (widget.strandData.bottom_students ?? [])
-                    .map((e) => {
-                          "name": e.student_name ?? "--",
-                          "value":
-                              "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
-                        })
-                    .toList(),
+              SizedBox(width: pageSize.width * 0.01),
+              Expanded(
+                child: CompactInfoCard(
+                  title: "Bottom Percentile",
+                  iconPath: Icons.arrow_downward,
+                  onInfoItemTap: widget.onInfoItemTap,
+                  bgColor: kcMediumGrey,
+                  fgColor: Colors.white,
+                  infoItems: (widget.strandData.bottom_students ?? [])
+                      .map((e) => {
+                            "name": e.student_name ?? "--",
+                            "value":
+                                "${e.avg_score}% • ${(e.avg_expectation_level ?? "Below")[0].toUpperCase()}E",
+                          })
+                      .toList(),
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
 
         //
-        SizedBox(height: pageSize.height * spacing),
-        buildSubTitle(
-          theme: theme,
-          title: 'Sub-Strand Performance',
-          subtitle: '',
-        ),
-        Row(
-          children: [
-            SizedBox(
-              width: pageSize.width * 0.4,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Select a sub-strand to view it's analysis",
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  AppLinearPercentChart(
-                    showPercentages: false,
-                    indicatorPostfix: '%',
-                    dataSeries: (widget.strandData.sub_strand_scores ?? [])
-                        .map((e) => e.percentage?.toDouble() ?? 0.0)
-                        .toList(),
-                    chartLabels: (widget.strandData.sub_strand_scores ?? [])
-                        .map((e) => e.name?.toString() ?? "--")
-                        .toList(),
-                    onChartTileTap: onSubStrandTap,
-                    selectedTile: selectedSubStrand?.name,
-                  ),
-                ],
+        if ((widget.strandData.sub_strand_scores ?? []).isNotEmpty) ...[
+          SizedBox(height: pageSize.height * spacing),
+          buildSubTitle(
+            theme: theme,
+            title: 'Sub-Strand Performance',
+            subtitle: '',
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: pageSize.width * 0.4,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      "Select a sub-strand to view it's analysis",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodySmall,
+                    ),
+                    AppLinearPercentChart(
+                      showPercentages: false,
+                      indicatorPostfix: '%',
+                      dataSeries: (widget.strandData.sub_strand_scores ?? [])
+                          .map((e) => e.percentage?.toDouble() ?? 0.0)
+                          .toList(),
+                      chartLabels: (widget.strandData.sub_strand_scores ?? [])
+                          .map((e) => e.name?.toString() ?? "--")
+                          .toList(),
+                      onChartTileTap: onSubStrandTap,
+                      selectedTile: selectedSubStrand?.name,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              width: pageSize.width * 0.27,
-              child: selectedSubStrand == null
-                  ? const Center(
-                      child: Text(
-                        "Select a strand to view it's sub-strand distribution",
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          selectedSubStrand!.name,
-                          style: theme.textTheme.titleMedium,
+              SizedBox(
+                width: pageSize.width * 0.27,
+                child: selectedSubStrand == null
+                    ? const Center(
+                        child: Text(
+                          "Select a strand to view it's sub-strand distribution",
+                          textAlign: TextAlign.center,
                         ),
-                        AppAnimatedCounter(
-                          valueToAnimate: selectedSubStrand!.percentage ?? 0.0,
-                          startValue: 0,
-                          textStyle: theme.textTheme.displayLarge,
-                          postTexts: [
-                            TextSpan(
-                                text: "%", style: theme.textTheme.titleMedium),
-                          ],
-                        ),
-                        const Divider(),
-                        Text.rich(
-                          TextSpan(
-                            children: [
+                      )
+                    : Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            selectedSubStrand!.name,
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          AppAnimatedCounter(
+                            valueToAnimate:
+                                selectedSubStrand!.percentage ?? 0.0,
+                            startValue: 0,
+                            textStyle: theme.textTheme.displayLarge,
+                            postTexts: [
                               TextSpan(
-                                text: "${selectedSubStrand!.difference}% ",
-                                style: theme.textTheme.bodyLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.primaryColor),
-                              ),
-                              TextSpan(
-                                text:
-                                    selectedSubStrand!.difference_desc ?? "--",
-                              ),
+                                  text: "%",
+                                  style: theme.textTheme.titleMedium),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-            ),
-          ],
-        ),
+                          const Divider(),
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "${selectedSubStrand!.difference}% ",
+                                  style: theme.textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.primaryColor),
+                                ),
+                                TextSpan(
+                                  text: selectedSubStrand!.difference_desc ??
+                                      "--",
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ],
+          ),
+        ],
+
         //
-        SizedBox(height: pageSize.height * spacing),
-        AppTextCarousel(
-          title: 'Recommendations',
-          texts: widget.strandData.suggestions ?? [],
-        ),
+        if ((widget.strandData.suggestions ?? []).isNotEmpty) ...[
+          SizedBox(height: pageSize.height * spacing),
+          AppTextCarousel(
+            title: 'Recommendations',
+            texts: widget.strandData.suggestions ?? [],
+          ),
+        ],
 
         SizedBox(height: pageSize.height * spacing),
       ],

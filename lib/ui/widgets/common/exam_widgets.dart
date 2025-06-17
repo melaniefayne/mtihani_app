@@ -6,6 +6,7 @@ import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/models/performance.dart';
 import 'package:mtihani_app/services/cbc_service.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
+import 'package:mtihani_app/ui/icon_mapper.dart';
 import 'package:mtihani_app/ui/widgets/app_carousel.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_linear_percent_chart.dart';
@@ -593,6 +594,11 @@ class _ExamQuestionAnalysisSectionState
                         (widget.questionAnalysis.strand_distribution ?? [])
                             .map((e) => e.name?.toString() ?? "--")
                             .toList(),
+                    leadingWidgets: (widget
+                                .questionAnalysis.strand_distribution ??
+                            [])
+                        .map((e) => Icon((appIconMapper[e] ?? Icons.category)))
+                        .toList(),
                     onChartTileTap: onStrandTap,
                     selectedTile: selectedStrandName,
                   ),

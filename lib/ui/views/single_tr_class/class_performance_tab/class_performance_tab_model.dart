@@ -1,23 +1,28 @@
+import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/classroom.dart';
+import 'package:mtihani_app/models/performance.dart';
+import 'package:mtihani_app/ui/icon_mapper.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
 import 'package:stacked/stacked.dart';
 
 const String termScoresFetch = 'termScoresFetch';
+const String avgExamPerfFetch = 'avgExamPerfFetch';
 
 class ClassPerformanceTabModel extends MultipleFutureViewModel {
   final ClassroomModel classroom;
 
   ClassPerformanceTabModel(this.classroom);
 
-  List<TermScore> get classAvgTermScores => dataMap?[termScoresFetch] ?? [];
-
-  bool get isFetchingTermScores => busy(termScoresFetch);
-
   @override
   Map<String, Future Function()> get futuresMap => {
         termScoresFetch: fetchClassTermScores,
+        avgExamPerfFetch: fetchAvgExamPerfFetch,
       };
+
+  // fetchClassTermScores =====
+  List<TermScore> get classAvgTermScores => dataMap?[termScoresFetch] ?? [];
+  bool get isFetchingTermScores => busy(termScoresFetch);
 
   Future<List<TermScore>> fetchClassTermScores() async {
     var classroomTermScoresRes = await onApiGetCall<TermScore>(
@@ -42,5 +47,40 @@ class ClassPerformanceTabModel extends MultipleFutureViewModel {
     return (classAvgTermScores)
         .map((e) => "G${e.grade ?? '--'} T${e.term ?? '--'}")
         .toList();
+  }
+
+  // fetchAvgExamPerfFetch =====
+  ClassExamPerformanceModel? get classAvgPerf => dataMap?[avgExamPerfFetch];
+  bool get isFetchingClassAvgPerf => busy(avgExamPerfFetch);
+  StrandPerformanceModel? selectedStrand;
+
+  Future<ClassExamPerformanceModel?> fetchAvgExamPerfFetch() async {
+    var classExamPerfRes = await onApiGetCall<ClassExamPerformanceModel>(
+      getEndpoint: endPointGetAvgClassPerformance,
+      queryParams: {"classroom_id": classroom.id},
+      dataFromJson: ClassExamPerformanceModel.fromJson,
+    );
+
+    if (apiCallChecks(classExamPerfRes, 'average class exam performance')) {
+      ClassExamPerformanceModel? classPerf = classExamPerfRes.$1?.data;
+      selectedStrand = classPerf?.strand_analysis?.firstOrNull;
+      return classPerf;
+    }
+
+    return null;
+  }
+
+  List<double> get gradeScores => (classAvgPerf?.grade_scores ?? [])
+      .map((e) => (e.percentage ?? 0).toDouble())
+      .toList();
+  List<String> get gradeNames => (classAvgPerf?.grade_scores ?? [])
+      .map((e) => ("Grade ${e.name.toString()}"))
+      .toList();
+  List<IconData> get gradeIcons =>
+      gradeNames.map((e) => (appIconMapper[e] ?? Icons.category)).toList();
+
+  onChangeStrand(StrandPerformanceModel strandData) {
+    selectedStrand = strandData;
+    rebuildUi();
   }
 }
