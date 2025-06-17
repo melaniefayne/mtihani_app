@@ -220,4 +220,15 @@ class ExamQuestionListModel extends FutureViewModel<List<ExamQuestionModel>> {
       }
     }
   }
+
+  onViewQuestionPerformance(ExamQuestionModel examQuestion) async {
+    bool canNavigate =
+        await _sharedPrefsService.setSingleExamQuestionNavArg(examQuestion);
+    if (canNavigate) {
+      await _dialogService.showCustomDialog(
+        variant: DialogType.examQuestionPerf,
+        data: {'examQuestion': examQuestion},
+      );
+    }
+  }
 }

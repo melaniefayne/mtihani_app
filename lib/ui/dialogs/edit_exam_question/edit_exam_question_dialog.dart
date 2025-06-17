@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/exam.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
-import 'package:mtihani_app/ui/widgets/app_carousel.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -42,23 +41,12 @@ class EditExamQuestionDialog extends StackedView<EditExamQuestionDialogModel> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                AppCarousel(
-                  children: [
-                    metaIconText(theme, pageSize, Icons.onetwothree,
-                        'Question Number', examQuestion.number?.toString(),
-                        spacing: pageSize.width * 0.024),
-                    metaIconText(theme, pageSize, Icons.star, 'Grade',
-                        gradeText(examQuestion.grade),
-                        spacing: pageSize.width * 0.024),
-                    metaIconText(theme, pageSize, Icons.folder_copy, 'Strand',
-                        examQuestion.strand,
-                        spacing: pageSize.width * 0.024),
-                    metaIconText(theme, pageSize, Icons.folder_open,
-                        'Sub-Strand', examQuestion.sub_strand,
-                        isLast: true, spacing: pageSize.width * 0.024),
-                  ],
+                buildQuestionSummary(
+                  theme: theme,
+                  pageSize: pageSize,
+                  examQuestion: examQuestion,
+                  hideDescription: true,
                 ),
-                const Divider(),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 5),
                   child: Text(
@@ -96,7 +84,7 @@ class EditExamQuestionDialog extends StackedView<EditExamQuestionDialogModel> {
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: isSelected
-                                      ? appBlue.withOpacity(0.2)
+                                      ? appBlue.withValues(alpha: 0.2)
                                       : null,
                                   border: Border.all(
                                       color: isSelected

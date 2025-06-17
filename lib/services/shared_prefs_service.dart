@@ -170,4 +170,30 @@ class SharedPrefsService {
   Future<bool> clearSingleStExamNavArg() async {
     return await sharedPrefsDoDeleteValue(strCurrentStExam);
   }
+
+  // ========== Exam Question
+
+  Future<bool> setSingleExamQuestionNavArg(ExamQuestionModel examQue) async {
+    return await sharedPrefsDoSetValue<String>(
+      prefsKey: strCurrentExamQuestion,
+      value: jsonEncode(examQue.toJson()),
+    );
+  }
+
+  Future<ExamQuestionModel?> getSingleExamQuestionNavArg() async {
+    String? examQueStr =
+        await sharedPrefsDoGetValue<String>(prefsKey: strCurrentExamQuestion);
+    if (examQueStr != null) {
+      try {
+        return ExamQuestionModel.fromJson(jsonDecode(examQueStr));
+      } catch (e) {
+        log("Error parsing examQue: $e");
+      }
+    }
+    return null;
+  }
+
+  Future<bool> clearSingleExamQuestionNavArg() async {
+    return await sharedPrefsDoDeleteValue(strCurrentExamQuestion);
+  }
 }

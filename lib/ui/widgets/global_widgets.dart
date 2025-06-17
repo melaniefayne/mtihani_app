@@ -343,8 +343,7 @@ Widget buildHeaderWidget({
         Text(
           title,
           style: style ??
-              theme.textTheme.headlineSmall!
-                  .copyWith(fontWeight: FontWeight.bold),
+              theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
         ),
         Expanded(
           child: Padding(
@@ -838,5 +837,111 @@ Widget buildSideBarScaffold({
         ...children,
       ],
     ),
+  );
+}
+
+buildWhiteCard(ThemeData theme, Widget child) {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    margin: const EdgeInsets.symmetric(vertical: 5),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(12),
+      color: Colors.white,
+      border: Border.all(color: theme.primaryColor),
+      boxShadow: [
+        BoxShadow(
+          color: theme.primaryColor,
+          offset: const Offset(4, 4),
+          spreadRadius: -1,
+          blurRadius: 0,
+        ),
+      ],
+    ),
+    child: child,
+  );
+}
+
+buildSubTitle({
+  required ThemeData theme,
+  required String title,
+  String? subtitle,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: theme.textTheme.titleMedium!.copyWith(
+            decoration: TextDecoration.underline,
+          ),
+        ),
+        if (subtitle != null)
+          Text(
+            subtitle,
+            style: theme.textTheme.labelMedium!.copyWith(
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+      ],
+    ),
+  );
+}
+
+Widget buildSideDialogScaffold({
+  required ThemeData theme,
+  required Size pageSize,
+  required Widget child,
+  required IconData iconPath,
+  required String title,
+}) {
+  return Material(
+    color: Colors.transparent,
+    child: Container(
+      width: pageSize.width,
+      height: pageSize.height,
+      color: Colors.black12,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            height: pageSize.height,
+            width: pageSize.width / 2.2,
+            padding: const EdgeInsets.all(25),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surfaceContainerLowest,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(5),
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildPopupHeader(
+                    theme: theme,
+                    iconPath: iconPath,
+                    title: title,
+                  ),
+                  child,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+buildVerticalDivider(Size pageSize) {
+  return Container(
+    color: Colors.grey,
+    width: 1,
+    height: pageSize.height * 0.3,
+    margin: const EdgeInsets.symmetric(horizontal: 10),
   );
 }

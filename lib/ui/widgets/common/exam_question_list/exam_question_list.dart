@@ -12,7 +12,15 @@ import 'exam_question_list_model.dart';
 
 class ExamQuestionList extends StackedView<ExamQuestionListModel> {
   final ExamModel exam;
-  const ExamQuestionList({super.key, required this.exam});
+  final String title;
+  final Function? downloadAction;
+
+  const ExamQuestionList({
+    super.key,
+    required this.exam,
+    this.title = "Listing",
+    this.downloadAction,
+  });
 
   @override
   Widget builder(
@@ -27,24 +35,46 @@ class ExamQuestionList extends StackedView<ExamQuestionListModel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          buildHeaderWidget(
-            theme: theme,
-            title: "Analysis",
-            leadingWidget: const Icon(Icons.analytics_outlined),
-          ),
           viewModel.isLoading
               ? buildLoadingWidget(theme, "Fetching exam details ...")
-              : ExamQuestionAnalysisSection(
-                  questionAnalysis: viewModel.exam.analysis!,
-                ),
-          SizedBox(height: pageSize.height * 0.02),
+              : viewModel.exam.analysis != null
+                  ? Column(
+                      children: [
+                        buildHeaderWidget(
+                          theme: theme,
+                          title: "Analysis",
+                          leadingWidget: const Icon(Icons.analytics_outlined),
+                        ),
+                        ExamQuestionAnalysisSection(
+                          questionAnalysis: viewModel.exam.analysis!,
+                        )
+                      ],
+                    )
+                  : const SizedBox.shrink(),
+
           buildHeaderWidget(
             theme: theme,
-            title: "Listing",
+            title: title,
             leadingWidget: const Icon(Icons.help_outline),
           ),
+          if (downloadAction != null &&
+              !viewModel.isLoading &&
+              viewModel.questionsList.isNotEmpty)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                buildPriBtn(
+                  theme: theme,
+                  btnTxt: "Download PDF",
+                  onAction: () => downloadAction!(),
+                ),
+              ],
+            ),
+
+          //
+          SizedBox(height: pageSize.height * 0.02),
           viewModel.isLoading
-              ? buildLoadingWidget(theme, "Fetching exam details ...")
+              ? buildLoadingWidget(theme, "Fetching question details ...")
               : Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,6 +164,10 @@ class ExamQuestionList extends StackedView<ExamQuestionListModel> {
                                 onEditQuestion:
                                     exam.status == ExamStatus.upcoming
                                         ? viewModel.onEditQuestion
+                                        : null,
+                                onViewPerformance:
+                                    exam.status == ExamStatus.complete
+                                        ? viewModel.onViewQuestionPerformance
                                         : null,
                               ))
                           .toList(),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mtihani_app/models/exam.dart';
-import 'package:mtihani_app/ui/widgets/app_carousel.dart';
 import 'package:mtihani_app/ui/widgets/app_text_form_field.dart';
+import 'package:mtihani_app/ui/widgets/common/exam_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
-import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -42,42 +41,17 @@ class EditAnswerScoreDialog extends StackedView<EditAnswerScoreDialogModel> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                AppCarousel(
-                  children: [
-                    metaIconText(theme, pageSize, Icons.onetwothree,
-                        'Question Number', examQuestion.number?.toString(),
-                        spacing: pageSize.width * 0.024),
-                    metaIconText(theme, pageSize, Icons.star, 'Grade',
-                        gradeText(examQuestion.grade),
-                        spacing: pageSize.width * 0.024),
-                    metaIconText(theme, pageSize, Icons.folder_copy, 'Strand',
-                        examQuestion.strand,
-                        spacing: pageSize.width * 0.024),
-                    metaIconText(theme, pageSize, Icons.folder_open,
-                        'Sub-Strand', examQuestion.sub_strand,
-                        spacing: pageSize.width * 0.024),
-                  ],
+                buildQuestionSummary(
+                  theme: theme,
+                  pageSize: pageSize,
+                  examQuestion: examQuestion,
                 ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        examQuestion.description ?? "--",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontStyle: FontStyle.italic),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        "Current Score: ${studentAnswer.score ?? "--"}",
-                        style: theme.textTheme.titleMedium!
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                Text(
+                  "Current Score: ${studentAnswer.score ?? "--"}",
+                  style: theme.textTheme.titleMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

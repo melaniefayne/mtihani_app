@@ -166,9 +166,9 @@ class _AppBarChartState extends State<AppBarChart> {
         if (widget.chartTitle != null)
           Text(
             widget.chartTitle!,
-            style: textTheme.titleLarge!.copyWith(
+            style: textTheme.titleMedium!.copyWith(
               color: colorScheme.primary,
-              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
             ),
           ),
         if (widget.dataSeries.length > 1)

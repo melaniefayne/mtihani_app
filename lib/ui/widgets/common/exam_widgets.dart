@@ -3,12 +3,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/cbc.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/models/performance.dart';
 import 'package:mtihani_app/services/cbc_service.dart';
 import 'package:mtihani_app/ui/common/app_colors.dart';
+import 'package:mtihani_app/ui/icon_mapper.dart';
 import 'package:mtihani_app/ui/widgets/app_carousel.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_bar_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_linear_percent_chart.dart';
 import 'package:mtihani_app/ui/widgets/charts/app_pie_donut_chart.dart';
+import 'package:mtihani_app/ui/widgets/common/performance_widgets.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
 import 'package:mtihani_app/utils/helpers/validators.dart';
@@ -32,6 +35,7 @@ class ExamCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final pageSize = MediaQuery.sizeOf(context);
 
     final dateStr = exam.start_date_time != null
         ? shortDayDateFormat.format(exam.start_date_time!)
@@ -64,23 +68,9 @@ class ExamCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onExamAction,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.white,
-          border: Border.all(color: theme.primaryColor),
-          boxShadow: [
-            BoxShadow(
-              color: theme.primaryColor,
-              offset: const Offset(4, 4),
-              spreadRadius: -1,
-              blurRadius: 0,
-            ),
-          ],
-        ),
-        child: Row(
+      child: buildWhiteCard(
+        theme,
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
@@ -101,11 +91,16 @@ class ExamCard extends StatelessWidget {
                     ),
                     if (!isGenerating)
                       isFailedGen
-                          ? Text(
-                              exam.generation_error ?? "Please contact support",
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                color: theme.colorScheme.error,
-                              ))
+                          ? SizedBox(
+                              width: pageSize.width * 0.7,
+                              child: Text(
+                                  exam.generation_error ??
+                                      "Please contact support",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: theme.textTheme.bodyMedium!.copyWith(
+                                    color: theme.colorScheme.error,
+                                  )))
                           : Text(
                               '${exam.analysis?.question_count ?? "--"} Questions'),
                     Text("$dateStr • $timeStr"),
@@ -217,11 +212,7 @@ Color getExamStatusColor(ExamStatus statusEnum, ThemeData theme) {
       return theme.primaryColor;
     case ExamStatus.archived:
       return Colors.grey;
-    default:
-      break;
   }
-
-  return theme.primaryColor;
 }
 
 Color getAnswerColor(double? score, ThemeData theme) {
@@ -252,6 +243,7 @@ String getShortExpectationLevel(String? level) {
 class ExamQuestionCard extends StatelessWidget {
   final ExamQuestionModel question;
   final Function(ExamQuestionModel question)? onEditQuestion;
+  final Function(ExamQuestionModel question)? onViewPerformance;
   final StudentAnswerModel? answer;
   final Function(StudentAnswerModel answer)? onEditAnswerScore;
 
@@ -259,6 +251,7 @@ class ExamQuestionCard extends StatelessWidget {
     super.key,
     required this.question,
     this.onEditQuestion,
+    this.onViewPerformance,
     this.answer,
     this.onEditAnswerScore,
   });
@@ -272,11 +265,18 @@ class ExamQuestionCard extends StatelessWidget {
     final bool canEditAnswerScore =
         hasStudentAnswer && onEditAnswerScore != null;
     final bool canEditQuestion = !hasStudentAnswer && onEditQuestion != null;
+    final bool canViewPerformance =
+        !hasStudentAnswer && onViewPerformance != null;
     Color answerColor = getAnswerColor(answer?.score, theme);
     String answerLevel = getShortExpectationLevel(answer?.expectation_level);
 
     return GestureDetector(
       onTap: () {
+        if (canViewPerformance) {
+          onViewPerformance!(question);
+          return;
+        }
+
         if (canEditQuestion) {
           onEditQuestion!(question);
           return;
@@ -329,12 +329,13 @@ class ExamQuestionCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  if (canEditQuestion)
+                  if (canEditQuestion || canViewPerformance)
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: buildIconBtn(
                         theme: theme,
-                        iconPath: Icons.edit,
+                        iconPath:
+                            canViewPerformance ? Icons.read_more : Icons.edit,
                       ),
                     ),
                   if (answer?.score != null)
@@ -396,7 +397,7 @@ class ExamQuestionCard extends StatelessWidget {
             if (hasStudentAnswer)
               Container(
                 width: double.infinity,
-                color: answerColor.withOpacity(0.2),
+                color: answerColor.withValues(alpha: 0.2),
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: RichText(
@@ -472,7 +473,8 @@ class _ExamQuestionAnalysisSectionState
   onStrandTap(String strandName) {
     if (strandName == selectedStrandName) return;
 
-    StrandModel? selectedStrand = _cbcService.getStrandByName(strandName);
+    StrandModel? selectedStrand =
+        _cbcService.getStrandByName(strandName.split('(').first.trim());
     if (selectedStrand != null) {
       setState(() {
         selectedStrandName = strandName;
@@ -569,12 +571,12 @@ class _ExamQuestionAnalysisSectionState
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Divider(),
         ),
-        AppCarousel(
+        Row(
           children: [
             buildAnalysisSection(
               theme: theme,
               title: "Strand Distribution",
-              width: pageSize.width * 0.25,
+              width: pageSize.width * 0.3,
               mainWidget: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -592,13 +594,20 @@ class _ExamQuestionAnalysisSectionState
                         (widget.questionAnalysis.strand_distribution ?? [])
                             .map((e) => e.name?.toString() ?? "--")
                             .toList(),
+                    leadingWidgets: (widget
+                                .questionAnalysis.strand_distribution ??
+                            [])
+                        .map((e) => Icon((appIconMapper[e] ?? Icons.category)))
+                        .toList(),
                     onChartTileTap: onStrandTap,
                     selectedTile: selectedStrandName,
                   ),
                 ],
               ),
             ),
+            SizedBox(width: pageSize.width * 0.01),
             buildVerticalDivider(pageSize),
+            SizedBox(width: pageSize.width * 0.01),
             buildAnalysisSection(
               theme: theme,
               title:
@@ -620,6 +629,16 @@ class _ExamQuestionAnalysisSectionState
             )
           ],
         ),
+        if ((widget.questionAnalysis.untested_strands ?? []).isNotEmpty)
+          buildAnalysisSection(
+            theme: theme,
+            title: "Untested Strands",
+            mainWidget: Text(
+              widget.questionAnalysis.untested_strands!.join(', '),
+              style: theme.textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.w500),
+            ),
+          ),
       ],
     );
   }
@@ -634,7 +653,7 @@ class _ExamQuestionAnalysisSectionState
     return Container(
       width: width,
       color: isSubSection ? theme.colorScheme.primaryContainer : null,
-      padding: const EdgeInsets.all(3),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -651,13 +670,85 @@ class _ExamQuestionAnalysisSectionState
       ),
     );
   }
+}
 
-  buildVerticalDivider(Size pageSize) {
-    return Container(
-      color: Colors.grey,
-      width: 1,
-      height: pageSize.height * 0.3,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-    );
-  }
+Widget buildQuestionSummary({
+  required ThemeData theme,
+  required Size pageSize,
+  required ExamQuestionModel examQuestion,
+  bool hideDescription = false,
+}) {
+  double metaSize = pageSize.width * 0.024;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      AppCarousel(
+        waitTime: 5,
+        children: [
+          metaIconText(theme, pageSize, Icons.onetwothree, 'Question Number',
+              examQuestion.number?.toString(),
+              spacing: metaSize),
+          metaIconText(theme, pageSize, Icons.star, 'Grade',
+              gradeText(examQuestion.grade),
+              spacing: metaSize),
+          metaIconText(
+              theme, pageSize, Icons.folder_copy, 'Strand', examQuestion.strand,
+              spacing: metaSize),
+          metaIconText(theme, pageSize, Icons.folder_open, 'Sub-Strand',
+              examQuestion.sub_strand,
+              isLast: true, spacing: metaSize),
+        ],
+      ),
+      const Divider(),
+      if (!hideDescription)
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(
+            examQuestion.description ?? "--",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+    ],
+  );
+}
+
+Widget buildClusterCard(
+    {required ClassExamPerfClusterModel cluster, double? width}) {
+  return CompactInfoCard(
+    title: cluster.cluster_label ?? "--",
+    iconPath: Icons.group_outlined,
+    width: width,
+    bgColor: kcLightGrey,
+    infoItems: [
+      {
+        "name": "Student Count",
+        "value": "${cluster.cluster_size ?? 0}",
+      },
+      {
+        "name": "Avg. Score",
+        "value": "${cluster.avg_score ?? 0.0}%",
+      },
+      {
+        "name": "Best Strand",
+        "value":
+            "${cluster.strand_scores?.first.name ?? "--"}: ${cluster.strand_scores?.first.percentage ?? "--"}%",
+      },
+      {
+        "name": "Worst Strand",
+        "value":
+            "${cluster.strand_scores?.last.name ?? "--"}: ${cluster.strand_scores?.last.percentage ?? "--"}%",
+      },
+      {
+        "name": "Best Skill",
+        "value":
+            "${cluster.bloom_skill_scores?.first.name ?? "--"}: ${cluster.bloom_skill_scores?.first.percentage ?? "--"}%",
+      },
+      {
+        "name": "Worst Skill",
+        "value":
+            "${cluster.bloom_skill_scores?.last.name ?? "--"}: ${cluster.bloom_skill_scores?.last.percentage ?? "--"}%",
+      },
+    ],
+  );
 }

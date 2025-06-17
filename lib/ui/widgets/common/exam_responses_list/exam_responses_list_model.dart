@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/app/app.router.dart';
 import 'package:mtihani_app/models/exam.dart';
+import 'package:mtihani_app/models/performance.dart';
 import 'package:mtihani_app/services/shared_prefs_service.dart';
 import 'package:mtihani_app/utils/api/api_calls.dart';
 import 'package:mtihani_app/utils/api/api_config.dart';
@@ -11,13 +12,58 @@ import 'package:mtihani_app/utils/helpers/validators.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class ExamResponsesListModel
-    extends FutureViewModel<List<StudentExamSessionModel>> {
+class ExamResponsesListModel extends MultipleFutureViewModel {
   final ExamModel exam;
   ExamResponsesListModel(this.exam);
+  static const String percentilesFetch = 'percentilesFetch';
+  static const String responsesFetch = 'responsesFetch';
+  @override
+  Map<String, Future Function()> get futuresMap => {
+        percentilesFetch: fetchExamPerfPercentiles,
+        responsesFetch: fetchExamResponses,
+      };
 
   final _navigationService = locator<NavigationService>();
   final _sharedPrefsService = locator<SharedPrefsService>();
+
+  // Percentiles
+  StrandPerformanceModel? get examPercentiles => dataMap?[percentilesFetch];
+  bool get isFetchingExamPercentiles => busy(percentilesFetch);
+  Future<StrandPerformanceModel?> fetchExamPerfPercentiles() async {
+    if (!isExamComplete) return null;
+    var percentilesApiRes = await onApiGetCall<StrandPerformanceModel>(
+      getEndpoint: endPointGetPercentilePerformances,
+      queryParams: {"exam_id": exam.id},
+      dataFromJson: StrandPerformanceModel.fromJson,
+    );
+    if (apiCallChecks(percentilesApiRes, 'exam percentiles listing')) {
+      return percentilesApiRes.$1?.data;
+    }
+
+    return null;
+  }
+
+  onPercentileViewExamSession(Map<String, String> item) async {
+    ExamModel studentExam =
+        allStudentExams.firstWhere((e) => e.student_name == item['name']);
+    studentExam = studentExam.copyWith(
+        id: studentExam.exam_id, status: exam.status, code: exam.code);
+
+    bool canNavigate =
+        await _sharedPrefsService.setSingleStExamNavArg(studentExam);
+    if (canNavigate) {
+      _navigationService.navigateToSingleStExamView();
+    }
+  }
+
+  List<ExamModel> get allStudentExams {
+    return [
+      ...(examPercentiles?.top_students ?? <ExamModel>[]),
+      ...(examPercentiles?.bottom_students ?? <ExamModel>[]),
+    ].cast<ExamModel>().toList();
+  }
+
+  // Responses
   List<StudentExamSessionModel> sessionsList = [];
   bool isLoadMore = false;
   String? nextPageUrl;
@@ -26,8 +72,9 @@ class ExamResponsesListModel
   bool isSearchActive = false;
   String? searchTerm;
 
-  @override
-  Future<List<StudentExamSessionModel>> futureToRun() async {
+  List<StudentExamSessionModel>? get examResponses => dataMap?[responsesFetch];
+  bool get isFetchingExamResponses => busy(responsesFetch);
+  Future<List<StudentExamSessionModel>> fetchExamResponses() async {
     Map<String, dynamic> queryParams = {"exam_id": exam.id};
 
     if (!isStringEmptyOrNull(searchTerm)) {
@@ -54,6 +101,7 @@ class ExamResponsesListModel
       nextPageUrl = sessionsApiRes.$1?.next;
       return sessionsList;
     }
+
     return [];
   }
 
@@ -89,7 +137,11 @@ class ExamResponsesListModel
   }
 
   onChangeStudentExpectation(String expectation) {
-    selectedStudentExpectation = expectation;
+    if (expectation == 'All') {
+      selectedStudentExpectation = null;
+    } else {
+      selectedStudentExpectation = expectation;
+    }
     initialise();
   }
 

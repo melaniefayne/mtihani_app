@@ -54,6 +54,29 @@ String get endPointUpdateExamAnswer => "$baseURL/exam/update-exam-answer";
 String get endPointEndExamSession => "$baseURL/exam/end-exam-session";
 String get endPointGetStudentExamSessions =>
     "$baseURL/exam/get-student-exam-sessions";
+String get endPointUpdateExamScore => "$baseURL/exam/edit-answer-score";
 
 // PERFORMANCE =================================================
-String get endPointUpdateExamScore => "$baseURL/performance/edit-answer-score";
+String get endPointGetClassExamPerformance =>
+    "$baseURL/exam/get-class-exam-performance";
+String get endPointGetClassExamClusters =>
+    "$baseURL/exam/get-class-exam-clusters";
+String get endPointGetClusterQuiz => "$baseURL/exam/get-cluster-quiz";
+String get endPointDownloadClusterQuizPdf =>
+    "$baseURL/exam/download-cluster-quiz-pdf";
+String get endPointGetPercentilePerformances =>
+    "$baseURL/exam/get-percentile-performances";
+String get endPointDownloadClusterPdf =>
+    "$baseURL/exam/download-cluster-quiz-pdf";
+String get endPointGetStudentExamAnswers =>
+    "$baseURL/exam/get-student-exam-answers";
+String get endPointGetExamQuestionPerformance =>
+    "$baseURL/exam/get-question-performance";
+String get endPointGetStudentExamCluster =>
+    "$baseURL/exam/get-student-exam-cluster";
+String get endPointGetStudentExamPerformance =>
+    "$baseURL/exam/get-student-exam-performance";
+String get endPointGetAvgClassPerformance =>
+    "$baseURL/exam/get-class-performance-aggregate";
+String get endPointGetAvgStudentPerformance =>
+    "$baseURL/exam/get-student-performance-aggregate";

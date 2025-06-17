@@ -179,8 +179,10 @@ class AppPieDonutChart extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(
                 chartTitle!,
-                style: textTheme.titleLarge!.copyWith(
-                    color: colorScheme.primary, fontWeight: FontWeight.bold),
+                style: textTheme.titleMedium!.copyWith(
+                  color: colorScheme.primary,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
           isHorizFormat
@@ -197,7 +199,7 @@ class AppPieDonutChart extends StatelessWidget {
                         chartLabels: chartLabels,
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 5),
                     hideIndicators == true
                         ? const SizedBox()
                         : _getIndicatorsSection(

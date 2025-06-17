@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mtihani_app/utils/helpers/convertors.dart';
 
 class AppAnimatedCounter extends StatefulWidget {
-  final int valueToAnimate;
+  final double valueToAnimate;
   final TextStyle? textStyle;
   final int? startValue;
   final List<TextSpan>? preTexts;
@@ -27,7 +27,8 @@ class AppAnimatedCounter extends StatefulWidget {
 
 class _AppAnimatedCounterState extends State<AppAnimatedCounter>
     with AutomaticKeepAliveClientMixin {
-  int currentVal = 0;
+  bool _isAnimating = true;
+  double currentVal = 0;
 
   @override
   void initState() {
@@ -46,15 +47,30 @@ class _AppAnimatedCounterState extends State<AppAnimatedCounter>
 
   void runAnimation() async {
     int start = widget.startValue ?? (widget.valueToAnimate * 0.99).ceil();
+    if (!_isAnimating || !mounted) return;
+
     setState(() {
-      currentVal = start;
+      currentVal = start.toDouble();
     });
+
     for (int i = start; i <= widget.valueToAnimate; i++) {
       await Future.delayed(Duration(microseconds: widget.durationInUs));
       setState(() {
-        currentVal = i;
+        currentVal = i.toDouble();
       });
     }
+
+    if (_isAnimating && mounted) {
+      setState(() {
+        currentVal = widget.valueToAnimate.toDouble();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _isAnimating = false;
+    super.dispose();
   }
 
   @override
@@ -66,7 +82,11 @@ class _AppAnimatedCounterState extends State<AppAnimatedCounter>
         children: [
           if (widget.preTexts != null) ...widget.preTexts!,
           TextSpan(
-            text: addThousandSeparators(currentVal.toDouble()),
+            text: addThousandSeparators(
+              currentVal.toDouble(),
+              showDecimals: true,
+              decimalPlaces: 1,
+            ),
             style: widget.textStyle ??
                 theme.textTheme.titleLarge!.copyWith(
                   color: theme.colorScheme.secondary,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+import 'package:universal_html/html.dart' as html;
 import 'package:intl/intl.dart';
 
 DateFormat shortDateFormat = DateFormat('dd/MM/yy');
@@ -12,15 +14,20 @@ String? getFormattedDate(DateTime? dateTime, DateFormat dtFormat) {
   return dtFormat.format(dateTime);
 }
 
-String addThousandSeparators(double value) {
-  String formattedValue = value.toStringAsFixed(0);
+String addThousandSeparators(double value,
+    {int decimalPlaces = 1, bool showDecimals = false}) {
+  String formattedValue = value.toStringAsFixed(decimalPlaces);
   List<String> parts = formattedValue.split('.');
   String integerPart = parts[0];
   String decimalPart = parts.length > 1 ? '.${parts[1]}' : '';
 
-  final regExp = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-  return integerPart.replaceAllMapped(regExp, (Match match) => '${match[1]},') +
-      decimalPart;
+  final regExp = RegExp(r'\B(?=(\d{3})+(?!\d))');
+  String formattedIntegerPart =
+      integerPart.replaceAllMapped(regExp, (match) => ',');
+
+  return showDecimals
+      ? '$formattedIntegerPart$decimalPart'
+      : formattedIntegerPart;
 }
 
 String getThousandsNumber(double number) {
@@ -67,4 +74,13 @@ String gradeText(int? grade) {
     default:
       return '$grade';
   }
+}
+
+void downloadBytesAsFile(Uint8List bytes, String fileName) {
+  final blob = html.Blob([bytes]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+  final anchor = html.AnchorElement(href: url)
+    ..setAttribute('download', '$fileName.pdf')
+    ..click();
+  html.Url.revokeObjectUrl(url);
 }

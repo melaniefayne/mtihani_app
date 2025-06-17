@@ -11,6 +11,7 @@ const String strCurrentTrClass = "strCurrentTrClass";
 const String strCurrentStClass = "strCurrentStClass";
 const String strCurrentTrExam = "strCurrentTrExam";
 const String strCurrentStExam = "strCurrentStExam";
+const String strCurrentExamQuestion = "strCurrentExamQuestion";
 
 // ROLES
 //
@@ -41,7 +42,8 @@ String apiContentTypeFormData = "multipart/form-data";
 // -----------------------
 const String errorMsgNoInternet =
     "No internet. Check your connectio and try again";
-
+const String errorOopsie =
+    "Oops, something went wrong on our side! Please try again later";
 // DATETIME
 // -----------------------
 final DateTime today = DateTime.now();

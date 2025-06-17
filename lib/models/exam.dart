@@ -41,7 +41,18 @@ class ExamModel with _$ExamModel {
     DateTime? created_at,
     DateTime? updated_at,
     ExamQuestionAnalysisModel? analysis,
+    //
     int? student_id,
+    String? student_name,
+    int? exam_id,
+    double? avg_score,
+    String? avg_expectation_level,
+
+    //
+    int? answer_id,
+    String? answer_description,
+    double? answer_score,
+    String? answer_expectation_level,
   }) = _ExamModel;
 
   factory ExamModel.fromJson(Map<String, dynamic> json) =>
@@ -56,24 +67,11 @@ class ExamQuestionAnalysisModel with _$ExamQuestionAnalysisModel {
     List<ScoreModel>? bloom_skill_distribution,
     List<ScoreModel>? strand_distribution,
     List<ScoreModel>? sub_strand_distribution,
+    List<String>? untested_strands,
   }) = _ExamQuestionAnalysisModel;
 
   factory ExamQuestionAnalysisModel.fromJson(Map<String, dynamic> json) =>
       _$ExamQuestionAnalysisModelFromJson(json);
-}
-
-@freezed
-class ScoreModel with _$ScoreModel {
-  factory ScoreModel({
-    int? id,
-    dynamic name, // String or int
-    int? count,
-    double? score,
-    String? expectation_level,
-  }) = _ScoreModel;
-
-  factory ScoreModel.fromJson(Map<String, dynamic> json) =>
-      _$ScoreModelFromJson(json);
 }
 
 @freezed
@@ -155,3 +153,28 @@ class StudentExamSessionDataModel with _$StudentExamSessionDataModel {
   factory StudentExamSessionDataModel.fromJson(Map<String, dynamic> json) =>
       _$StudentExamSessionDataModelFromJson(json);
 }
+
+@freezed
+class ScoreModel with _$ScoreModel {
+  factory ScoreModel({
+    int? id,
+    dynamic name, // String or int
+    int? count,
+    double? percentage,
+    String? expectation_level,
+    double? min,
+    double? max,
+    double? std_dev,
+    double? difference,
+    String? difference_desc,
+    List<double>? scores,
+    List<int>? ids,
+    int? grade,
+    List<ScoreModel>? sub_strands,
+  }) = _ScoreModel;
+
+  factory ScoreModel.fromJson(Map<String, dynamic> json) =>
+      _$ScoreModelFromJson(json);
+}
+
+// percentage: “Of the maximum points they could have earned for this skill, this is what they achieved”

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:developer';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:mtihani_app/app/app.locator.dart';
 import 'package:mtihani_app/models/api_data.dart';
@@ -45,6 +46,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
   T Function(Map<String, dynamic>)? listDataFromJson,
   Map<String, dynamic>? queryParams,
   String? dataField,
+  String? contentType,
 }) async {
   try {
     var preCheckRes = await _preApiCallChecks<T>();
@@ -64,7 +66,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
       followRedirects: _dioGetOptions.followRedirects,
       validateStatus: _dioGetOptions.validateStatus,
       responseType: _dioGetOptions.responseType,
-      contentType: _dioGetOptions.contentType,
+      contentType: contentType ?? _dioGetOptions.contentType,
       headers: {
         ...?_dioGetOptions.headers,
         apiHeaderAuthorization: tokenTypeBearerWithSpace + tokenStr
@@ -78,7 +80,7 @@ Future<(ApiDataModel<T>?, bool, bool, bool)> onApiGetCall<T>({
 
     dev.log("$getEndpoint:::resp==${apiResponse.statusCode}");
     dev.log("$getEndpoint:::queryParams==${queryParams.toString()}");
-    // dev.log("$getEndpoint:::resp==${apiResponse.toString()}");
+    // dev.log("$getEndpoint:::resp==${jsonEncode(apiResponse.data)}");
     if (isApiResponseSuccessful(apiResponse.statusCode)) {
       if (apiResponse.data != null) {
         ApiDataModel<T>? respData;
@@ -266,4 +268,64 @@ bool apiCallChecks(dynamic apiCallRes, String title,
     );
   }
   return true;
+}
+
+///[onApiGetDocCall] generic function for basic api POST calls
+///return apiData, is-success, is-logged-out, is internet connected
+Future<(ApiDataModel<Uint8List?>?, bool, bool, bool)> onApiGetDocCall({
+  required String docFetchEndpoint,
+  required Map<String, dynamic> queryParams,
+}) async {
+  try {
+    String? tokenStr;
+    var preCheckRes = await _preApiCallChecks(isGetCall: false);
+    if (!preCheckRes.$2) {
+      return (null, false, true, true);
+    }
+    tokenStr = preCheckRes.$1;
+    if (tokenStr == null) return (null, false, true, true);
+
+    Dio dio = Dio();
+    Options dioPostOptions = Options(
+      contentType: Headers.multipartFormDataContentType,
+      responseType: ResponseType.bytes,
+      followRedirects: false,
+      headers: {apiHeaderAuthorization: tokenTypeBearerWithSpace + tokenStr},
+      validateStatus: (status) {
+        return true;
+      },
+    );
+
+    var apiResponse = await dio.get(
+      docFetchEndpoint,
+      queryParameters: queryParams,
+      options: dioPostOptions,
+    );
+
+    dev.log("$docFetchEndpoint:::queryParams==${queryParams.toString()}");
+    dev.log("$docFetchEndpoint:::respCode==${apiResponse.statusCode}");
+    // dev.log("$docFetchEndpoint:::data==${apiResponse.data}");
+
+    if (isApiResponseSuccessful(apiResponse.statusCode)) {
+      return (
+        ApiDataModel(data: apiResponse.data as Uint8List),
+        true,
+        false,
+        true
+      );
+    }
+
+    if (isApiResponse401Unauthorized(apiResponse.statusCode)) {
+      return (null, false, true, true);
+    }
+
+    if (apiResponse.data != null) {
+      ApiDataModel<Uint8List?> apiError =
+          ApiDataModel.fromJson(json: apiResponse.data);
+      return (apiError, false, false, true);
+    }
+  } catch (error) {
+    dev.log("onApiGetDocCall:::error2 == ${error.toString()}");
+  }
+  return (null, false, false, true);
 }
