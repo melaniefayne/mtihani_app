@@ -52,17 +52,17 @@ class ExamSetupView extends StackedView<ExamSetupViewModel> {
                       viewModel: viewModel,
                     ),
             ),
+            // TabViewItem(
+            //   label: " 2. Custom Content",
+            //   icon: Icons.file_upload,
+            //   widget: buildCustomFilesSection(
+            //     theme: theme,
+            //     pageSize: pageSize,
+            //     viewModel: viewModel,
+            //   ),
+            // ),
             TabViewItem(
-              label: " 2. Custom Content",
-              icon: Icons.file_upload,
-              widget: buildCustomFilesSection(
-                theme: theme,
-                pageSize: pageSize,
-                viewModel: viewModel,
-              ),
-            ),
-            TabViewItem(
-              label: " 3. Duration",
+              label: " 2. Duration",
               icon: Icons.timer,
               widget: buildDurationSection(
                 theme: theme,
