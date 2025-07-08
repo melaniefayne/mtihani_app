@@ -1,18 +1,24 @@
 #!/bin/bash
+set -e
 
-# Clone specific Flutter version only if not already cloned
+echo "🚀 STARTING CUSTOM BUILD.SH"
+
+# Clone Flutter SDK at your working commit if not already there
 if [ ! -d "flutter" ]; then
-  git clone https://github.com/flutter/flutter.git -b stable
+  echo "📦 Cloning Flutter SDK..."
+  git clone https://github.com/flutter/flutter.git
   cd flutter
-  git checkout ea121f8859  # same as local version
+  git checkout ea121f8859
   cd ..
 fi
 
-# Export flutter path
 export PATH="$PWD/flutter/bin:$PATH"
 
-# Enable web and build
 flutter doctor
 flutter config --enable-web
 flutter pub get
+
+echo "🛠️  Building Flutter Web app..."
 flutter build web --release
+
+echo "✅ DONE"
