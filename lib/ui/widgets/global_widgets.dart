@@ -216,12 +216,14 @@ buildIconBtn({
   required ThemeData theme,
   Function()? onAction,
   required IconData iconPath,
+  Color? bgColor,
+  Color? fgColor,
 }) {
   return GestureDetector(
     onTap: onAction,
     child: CircleAvatar(
-      backgroundColor: theme.primaryColor,
-      foregroundColor: theme.colorScheme.onPrimary,
+      backgroundColor: bgColor ?? theme.primaryColor,
+      foregroundColor: fgColor ?? theme.colorScheme.onPrimary,
       child: Icon(iconPath),
     ),
   );
@@ -841,10 +843,16 @@ Widget buildSideBarScaffold({
   );
 }
 
-buildWhiteCard(ThemeData theme, Widget child) {
+buildWhiteCard(
+  ThemeData theme,
+  Widget child, {
+  EdgeInsetsGeometry? margin,
+  double? height,
+}) {
   return Container(
     padding: const EdgeInsets.all(16),
-    margin: const EdgeInsets.symmetric(vertical: 5),
+    margin: margin ?? const EdgeInsets.symmetric(vertical: 5),
+    height: height,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
       color: Colors.white,

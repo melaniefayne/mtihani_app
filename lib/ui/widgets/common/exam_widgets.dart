@@ -640,6 +640,8 @@ class _ExamQuestionAnalysisSectionState
                   widget.questionAnalysis.untested_strands!.join(', '),
                   style: theme.textTheme.bodyMedium!
                       .copyWith(fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
                 ),
               ),
             ),
