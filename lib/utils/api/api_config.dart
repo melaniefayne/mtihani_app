@@ -5,15 +5,15 @@ const String appInstanceLOCAL = "APP_LOCAL";
 
 const String appInstanceDef =
 //
-// appInstanceLIVE;
-    appInstanceLOCAL;
+    appInstanceLIVE;
+// appInstanceLOCAL;
 
 String getAppDomainUrl() {
   switch (appInstanceDef) {
     case appInstanceLOCAL:
       return "http://127.0.0.1:8000";
     case appInstanceLIVE:
-      return "https://melaniefayne.pythonanywhere.com";
+      return "https://mtihani-api.loopy.co.ke";
     default:
       return "";
   }
