@@ -5,6 +5,7 @@ import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
 import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
 import 'package:mtihani_app/ui/views/classroom_list/classroom_list_view.dart';
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/views/tr_docs/tr_docs_view.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -23,6 +24,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
     final pageSize = MediaQuery.sizeOf(context);
 
     List<Widget> dashboardPages = [
+      const TrDocsView(),
       ClassroomListView(
         userClassrooms: viewModel.userClassrooms,
         loggedInUser: viewModel.loggedInUser,
@@ -107,7 +109,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
     required int profileTabIdx,
     required Function(int tabIdx) onSwitchTab,
   }) {
-    List<String> tabs = ["Dashboard", "Exams", "CBC"];
+    List<String> tabs = ["Dashboard", "Exams", "CBC", "Community"];
     bool isProfileSelected = currentIdx == profileTabIdx;
     Color bgColor = isProfileSelected ? theme.primaryColor : Colors.transparent;
     Color fgColor =
