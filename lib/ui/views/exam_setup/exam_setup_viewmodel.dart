@@ -132,6 +132,7 @@ class ExamSetupViewModel extends BaseViewModel {
       "strand_ids": selectedStrandsIds,
       // "question_count": 10,
       // "bloom_skill_count": 2,
+      "llm": claudeSonnet4,
     };
     if (selectedFiles.isNotEmpty) {
       examBody["selected_files"] = selectedFiles;
