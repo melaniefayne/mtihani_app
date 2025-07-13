@@ -24,7 +24,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
     final pageSize = MediaQuery.sizeOf(context);
 
     List<Widget> dashboardPages = [
-      const TrDocsView(),
       ClassroomListView(
         userClassrooms: viewModel.userClassrooms,
         loggedInUser: viewModel.loggedInUser,
@@ -34,7 +33,15 @@ class DashboardView extends StackedView<DashboardViewModel> {
         loggedInUser: viewModel.loggedInUser,
       ),
       const CbcView(),
+      if (viewModel.isTeacher) const TrDocsView(),
       ProfileView(loggedInUser: viewModel.loggedInUser)
+    ];
+
+    List<String> tabs = [
+      "Dashboard",
+      "Exams",
+      "CBC",
+      if (viewModel.isTeacher) "Community"
     ];
 
     return Scaffold(
@@ -51,6 +58,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
               currentIdx: viewModel.currentIndex,
               onSwitchTab: viewModel.setIndex,
               profileTabIdx: dashboardPages.length - 1,
+              tabs: tabs,
             ),
             SizedBox(height: pageSize.height * 0.02),
             Expanded(
@@ -108,8 +116,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
     required int currentIdx,
     required int profileTabIdx,
     required Function(int tabIdx) onSwitchTab,
+    required List<String> tabs,
   }) {
-    List<String> tabs = ["Dashboard", "Exams", "CBC", "Community"];
     bool isProfileSelected = currentIdx == profileTabIdx;
     Color bgColor = isProfileSelected ? theme.primaryColor : Colors.transparent;
     Color fgColor =

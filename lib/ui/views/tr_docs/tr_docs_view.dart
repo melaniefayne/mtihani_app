@@ -113,8 +113,8 @@ class TrDocsView extends StackedView<TrDocsViewModel> {
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 4,
+                      crossAxisCount: 5,
+                      childAspectRatio: 1.4,
                       crossAxisSpacing: 10.0,
                       mainAxisSpacing: 10.0,
                     ),
@@ -192,7 +192,7 @@ class DocumentCard extends StatelessWidget {
       child: buildWhiteCard(
         theme,
         margin: const EdgeInsets.all(10),
-        height: pageSize.height * 0.14,
+        height: pageSize.height * 0.18,
         Stack(
           children: [
             Column(
@@ -214,6 +214,7 @@ class DocumentCard extends StatelessWidget {
                 Text(
                   "Type: ${extension.toUpperCase()} | Uploaded: ${getFormattedDate(doc.uploaded_at?.toLocal(), shortDateTimeFormat)}",
                   style: theme.textTheme.bodySmall,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 7),
                 if (onDeleteDoc != null)
