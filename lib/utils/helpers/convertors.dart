@@ -9,8 +9,8 @@ DateFormat timeDateFormat = DateFormat("hh:mm a");
 final DateFormat shortDayDateFormat = DateFormat('EEE, dd/MM/yy');
 final DateFormat appShortDayDateFormat = DateFormat('EEE, dd/MM');
 
-String? getFormattedDate(DateTime? dateTime, DateFormat dtFormat) {
-  if (dateTime == null) return null;
+String getFormattedDate(DateTime? dateTime, DateFormat dtFormat) {
+  if (dateTime == null) return "--";
   return dtFormat.format(dateTime);
 }
 

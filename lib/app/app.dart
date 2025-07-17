@@ -34,6 +34,8 @@ import 'package:mtihani_app/ui/dialogs/start_exam/start_exam_dialog.dart';
 import 'package:mtihani_app/ui/views/st_exam_session/st_exam_session_view.dart';
 import 'package:mtihani_app/ui/dialogs/edit_answer_score/edit_answer_score_dialog.dart';
 import 'package:mtihani_app/ui/dialogs/exam_question_perf/exam_question_perf_dialog.dart';
+import 'package:mtihani_app/ui/views/tr_docs/tr_docs_view.dart';
+import 'package:mtihani_app/ui/dialogs/upload_tr_doc/upload_tr_doc_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -57,6 +59,7 @@ import 'package:mtihani_app/ui/dialogs/exam_question_perf/exam_question_perf_dia
     MaterialRoute(page: SingleTrExamView),
     MaterialRoute(page: SingleStExamView),
     MaterialRoute(page: StExamSessionView),
+    MaterialRoute(page: TrDocsView),
 // @stacked-route
   ],
   dependencies: [
@@ -84,6 +87,7 @@ import 'package:mtihani_app/ui/dialogs/exam_question_perf/exam_question_perf_dia
     StackedDialog(classType: StartExamDialog),
     StackedDialog(classType: EditAnswerScoreDialog),
     StackedDialog(classType: ExamQuestionPerfDialog),
+    StackedDialog(classType: UploadTrDocDialog),
 // @stacked-dialog
   ],
 )

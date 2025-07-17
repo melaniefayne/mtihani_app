@@ -5,6 +5,7 @@ import 'package:mtihani_app/ui/views/auth/profile/profile_view.dart';
 import 'package:mtihani_app/ui/views/cbc/cbc_view.dart';
 import 'package:mtihani_app/ui/views/classroom_list/classroom_list_view.dart';
 import 'package:mtihani_app/ui/views/exam_list/exam_list_view.dart';
+import 'package:mtihani_app/ui/views/tr_docs/tr_docs_view.dart';
 import 'package:mtihani_app/ui/widgets/global_widgets.dart';
 import 'package:stacked/stacked.dart';
 
@@ -32,7 +33,15 @@ class DashboardView extends StackedView<DashboardViewModel> {
         loggedInUser: viewModel.loggedInUser,
       ),
       const CbcView(),
+      if (viewModel.isTeacher) const TrDocsView(),
       ProfileView(loggedInUser: viewModel.loggedInUser)
+    ];
+
+    List<String> tabs = [
+      "Dashboard",
+      "Exams",
+      "CBC",
+      if (viewModel.isTeacher) "Community"
     ];
 
     return Scaffold(
@@ -49,6 +58,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
               currentIdx: viewModel.currentIndex,
               onSwitchTab: viewModel.setIndex,
               profileTabIdx: dashboardPages.length - 1,
+              tabs: tabs,
             ),
             SizedBox(height: pageSize.height * 0.02),
             Expanded(
@@ -106,8 +116,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
     required int currentIdx,
     required int profileTabIdx,
     required Function(int tabIdx) onSwitchTab,
+    required List<String> tabs,
   }) {
-    List<String> tabs = ["Dashboard", "Exams", "CBC"];
     bool isProfileSelected = currentIdx == profileTabIdx;
     Color bgColor = isProfileSelected ? theme.primaryColor : Colors.transparent;
     Color fgColor =

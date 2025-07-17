@@ -5,8 +5,8 @@ const String appInstanceLOCAL = "APP_LOCAL";
 
 const String appInstanceDef =
 //
-    appInstanceLIVE;
-// appInstanceLOCAL;
+    // appInstanceLIVE;
+    appInstanceLOCAL;
 
 String getAppDomainUrl() {
   switch (appInstanceDef) {
@@ -80,3 +80,8 @@ String get endPointGetAvgClassPerformance =>
     "$baseURL/exam/get-class-performance-aggregate";
 String get endPointGetAvgStudentPerformance =>
     "$baseURL/exam/get-student-performance-aggregate";
+
+// TEACHER DOCUMENTS =================================================
+String get endPointGetUploadDoc => "$baseURL/rag/upload-teacher-document";
+String get endPointGetDocs => "$baseURL/rag/get-teacher-documents";
+String get endPointGetDeletedDoc => "$baseURL/rag/delete-teacher-document";

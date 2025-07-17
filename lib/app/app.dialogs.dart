@@ -17,6 +17,7 @@ import '../ui/dialogs/info_alert/info_alert_dialog.dart';
 import '../ui/dialogs/join_class/join_class_dialog.dart';
 import '../ui/dialogs/role_signup/role_signup_dialog.dart';
 import '../ui/dialogs/start_exam/start_exam_dialog.dart';
+import '../ui/dialogs/upload_tr_doc/upload_tr_doc_dialog.dart';
 
 enum DialogType {
   infoAlert,
@@ -29,6 +30,7 @@ enum DialogType {
   startExam,
   editAnswerScore,
   examQuestionPerf,
+  uploadTrDoc,
 }
 
 void setupDialogUi() {
@@ -55,6 +57,8 @@ void setupDialogUi() {
         EditAnswerScoreDialog(request: request, completer: completer),
     DialogType.examQuestionPerf: (context, request, completer) =>
         ExamQuestionPerfDialog(request: request, completer: completer),
+    DialogType.uploadTrDoc: (context, request, completer) =>
+        UploadTrDocDialog(request: request, completer: completer),
   };
 
   dialogService.registerCustomDialogBuilders(builders);

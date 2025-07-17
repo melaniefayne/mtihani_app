@@ -58,3 +58,5 @@ const List<String> allBloomSkills = [
   "Evaluating",
   "Creating",
 ];
+
+const claudeSonnet4 = "claude-sonnet-4-20250514";
