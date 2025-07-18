@@ -5,8 +5,8 @@ const String appInstanceLOCAL = "APP_LOCAL";
 
 const String appInstanceDef =
 //
-    // appInstanceLIVE;
-    appInstanceLOCAL;
+    appInstanceLIVE;
+// appInstanceLOCAL;
 
 String getAppDomainUrl() {
   switch (appInstanceDef) {
